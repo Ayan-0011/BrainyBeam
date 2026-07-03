@@ -24,8 +24,8 @@ const Navbar = () => {
       </button>
 
       {
-        openNav ? <HiMenuAlt3 onClick={() => setOpenNav(false)} className='h-7 w-7 ms-4 md:hidden' /> : <HiMenuAlt1
-          onClick={() => setOpenNav(true)} className='h-7 w-7 ms-4 md:hidden' />
+        openNav ? <HiMenuAlt3 onClick={() => setOpenNav(false)} className='h-7 w-7 ms-4 md:hidden text-white' /> : <HiMenuAlt1
+          onClick={() => setOpenNav(true)} className='h-7 w-7 ms-4 md:hidden text-white' />
       }
 
       <ResposiveMenu openNav={openNav} setOpenNav={setOpenNav} />
