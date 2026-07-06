@@ -6,14 +6,14 @@ const cartItems = [
     title: "Nike Air Max",
     price: 3999,
     qty: 1,
-    image: "https://picsum.photos/150?random=10",
+    image: "https://th.bing.com/th/id/OIP.gOEeKHGX7wA08--042bygwHaFM?w=230&h=150&c=6&o=7&dpr=1.3&pid=1.7&rm=3",
   },
   {
     id: 2,
     title: "Apple Watch",
     price: 25999,
     qty: 1,
-    image: "https://picsum.photos/150?random=11",
+    image: "https://th.bing.com/th/id/OIP.kS2MtH1CEapq8MHmvtFA0gHaHa?w=167&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
   },
 ];
 
@@ -34,14 +34,8 @@ const Cart = () => {
           <div className="lg:col-span-2 space-y-6">
 
             {cartItems.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white rounded-xl shadow p-5 flex flex-col md:flex-row gap-5 items-center"
-              >
-                <img
-                  src={item.image}
-                  className="w-32 h-32 rounded-lg object-cover"
-                />
+              <div key={item.id} className="bg-white hover:scale-101 transition-all rounded-xl shadow p-5 flex flex-col md:flex-row gap-5 items-center" >
+                <img  src={item.image} className="w-32 h-32 rounded-lg object-cover" />
 
                 <div className="flex-1">
 

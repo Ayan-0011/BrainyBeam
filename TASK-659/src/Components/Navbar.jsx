@@ -5,10 +5,7 @@ import { ShoppingCart, Menu, X } from "lucide-react";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
-  const navClass = ({ isActive }) =>
-    isActive
-      ? "text-red-600 font-semibold"
-      : "text-gray-700 hover:text-red-600";
+  const navClass = ({ isActive }) => isActive ? "text-red-600 font-semibold" : "text-gray-700 hover:text-red-600";
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow">

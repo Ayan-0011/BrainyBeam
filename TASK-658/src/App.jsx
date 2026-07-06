@@ -1,6 +1,9 @@
 import React from 'react'
-import Home from './Pages/Home'
 import { Bounce, ToastContainer, Zoom } from 'react-toastify'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from './Pages/Homepage';
+import Login from './Pages/Login';
+import ForgotPassword from './Pages/ForgetPassword';
 
 const App = () => {
   return (
@@ -22,9 +25,17 @@ const App = () => {
         />
 
 
-        <Home />
 
-        
+
+        <BrowserRouter>
+          <Routes>
+            <Route path='/login' element={<Login />} />
+            <Route path='/' element={<Homepage />} />
+            <Route path='/forget' element={<ForgotPassword />} />
+          </Routes>
+        </BrowserRouter>
+
+
       </div>
     </>
   )

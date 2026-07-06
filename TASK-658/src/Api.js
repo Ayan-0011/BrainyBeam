@@ -17,7 +17,7 @@ export async function fetchGif(query,limit=50) {
     const res = await axios.get("https://api.giphy.com/v1/gifs/search", {
             params: { api_key: GIPHY_KEY, q: query, limit: limit }
         });
-    r   eturn res.data
+    return res.data
 }
 
 

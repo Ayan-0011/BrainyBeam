@@ -51,7 +51,7 @@ const Products = () => {
 
       {/* Banner */}
 
-      <div className="bg-red-600 py-12 text-center text-white">
+      <div className="bg-gradient-to-r from-red-600 via-red-500 to-orange-500  py-12 text-center text-white">
         <h1 className="text-4xl font-bold">Our Products</h1>
         <p className="mt-2">Find your favorite products at the best price.</p>
       </div>
@@ -129,16 +129,11 @@ const Products = () => {
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
 
               {products.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden"
-                >
+                <div key={item.id}
+                  className="bg-white hover:scale-102 rounded-xl shadow hover:shadow-xl transition overflow-hidden" >
                   <div className="relative">
 
-                    <img
-                      src={item.image}
-                      className="h-64 w-full object-cover"
-                    />
+                    <img  src={item.image} className="h-64 w-full object-cover" />
 
                     <button className="absolute top-4 right-4 bg-white p-2 rounded-full shadow">
                       <Heart size={18} />

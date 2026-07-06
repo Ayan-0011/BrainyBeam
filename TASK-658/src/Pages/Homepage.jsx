@@ -3,7 +3,7 @@ import Serchbar from "../Components/Serchbar";
 import Navbar from "../Components/Navbar";
 import { fetchGif, fetchPhotos } from "../Api";
 
-const Home = () => {
+const Homepage = () => {
 
     const [photos, setPhotos] = useState([]);
     const [gifs, setGifs] = useState([]);
@@ -112,4 +112,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Homepage;
