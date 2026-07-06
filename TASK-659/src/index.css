@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/* Custom utilities for premium look */
+:root{
+	--glass-bg: rgba(255,255,255,0.6);
+}
+
+.shadow-soft{box-shadow:0 8px 30px rgba(16,24,40,0.06);} 
+
+/* subtle glass edges */
+.glass-border{border:1px solid rgba(255,255,255,0.5);} 
+
+/* shimmer */
+@keyframes shimmer{0%{background-position:-450px 0}100%{background-position:450px 0}}
+.shimmer{background:linear-gradient(90deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.25) 100%); background-size:900px 100%; animation:shimmer 1.6s linear infinite}
+
+/* gradient buttons focus */
+.btn-focus:focus{box-shadow:0 8px 30px rgba(99,102,241,0.12)}
+
+/* rounded grid spacing helpers (8px system used by Tailwind spacing scale by default) */
+
+/* simple fade-in utility */
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.animate-fadeIn{animation:fadeIn 420ms ease both}
+
