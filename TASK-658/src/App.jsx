@@ -4,6 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from './Pages/Homepage';
 import Login from './Pages/Login';
 import ForgotPassword from './Pages/ForgetPassword';
+import Register from './Pages/Ragister';
+import BeforeLogin from './Protected/BeforeLogin';
+import AfterLogin from './Protected/AfterLogin';
 
 const App = () => {
   return (
@@ -29,14 +32,25 @@ const App = () => {
 
         <BrowserRouter>
           <Routes>
-            <Route path='/login' element={<Login />} />
-            <Route path='/' element={<Homepage />} />
-            <Route path='/forget' element={<ForgotPassword />} />
+
+            <Route element={<BeforeLogin />}>
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/forget' element={<ForgotPassword />} />
+            </Route>
+
+            <Route element={<AfterLogin />}>
+              <Route path='/' element={<Homepage />} />
+            </Route>
+
+
+
+
           </Routes>
         </BrowserRouter>
 
 
-      </div>
+      </div >
     </>
   )
 }

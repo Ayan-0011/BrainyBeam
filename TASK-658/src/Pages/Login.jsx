@@ -13,31 +13,53 @@ const Login = () => {
         password: "",
     });
 
+    const [error, seterror] = useState({
+        email: "",
+        password: "",
+    });
+
+
+
     const changeHandel = (e) => {
+
         setData({ ...obj_cate, [e.target.name]: e.target.value });
-        console.log(obj_cate);
+
+        
+        seterror({ ...error,
+         [e.target.value]:"" 
+        });
+
+
+        //console.log(obj_cate);
     }
 
     const submitHandel = async (e) => {
         e.preventDefault();
 
-        if (obj_cate.email.trim() === "") {
-            toast.error("Enter Email");
-            return
+        let newError = {};
+
+        if (!obj_cate.email.trim()) {
+            newError.email = "Please Enter Email";
         }
 
-
-        if (obj_cate.password.trim() === "") {
-            toast.error("Enter Password");
-            return
+        if (!obj_cate.password.trim()) {
+            newError.password = "Please Enter Password";
+        } else if (obj_cate.password.length > 4) {
+            newError.password = "Password Must be at lest 4 charcters"
         }
+
+        seterror(newError);
+
+        if(Object.keys(newError).length > 0){
+            return;
+        }
+
 
 
         const obj = await axios.get(`http://localhost:3000/user?email=${obj_cate.email}`);
         //console.log(obj.data);
         if (obj.data.length > 0) {
             if (obj.data[0].password == obj_cate.password) {
-                //session created
                 sessionStorage.setItem('s_aid', obj.data[0].id);
                 sessionStorage.setItem('s_email', obj.data[0].email);
 
@@ -79,6 +101,11 @@ const Login = () => {
 
                         <input type="email" name="email" value={obj_cate.email} onChange={changeHandel} placeholder="Enter your email"
                             className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition" />
+                        {
+                            error.email && (
+                                <p className='text-red-500 text-sm mt-1'>{error.email}</p>
+                            )
+                        }
                     </div>
 
 
@@ -89,8 +116,12 @@ const Login = () => {
 
                         <input type="password" name="password" value={obj_cate.password} onChange={changeHandel} placeholder="Enter your password"
                             className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition" />
+                        {
+                            error.password && (
+                                <p className='text-red-500 text-sm mt-1'>{error.password}</p>
+                            )
+                        }
                     </div>
-
                     <div className="flex justify-between items-center text-sm">
 
                         <label className="flex items-center gap-2 text-gray-600">
@@ -113,9 +144,8 @@ const Login = () => {
                 </form>
 
                 <div className="mt-6 text-center text-gray-600">
-                    Don't have an account?{" "}
-                    <Link to="/register"
-                        className="text-indigo-600 font-semibold hover:underline" >
+                    Don't have an account?
+                    <Link to="/register" className="text-indigo-600 ps-2 font-semibold hover:underline" >
                         Register
                     </Link>
                 </div>
