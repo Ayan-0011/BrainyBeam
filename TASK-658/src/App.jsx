@@ -7,6 +7,7 @@ import ForgotPassword from './Pages/ForgetPassword';
 import Register from './Pages/Ragister';
 import BeforeLogin from './Protected/BeforeLogin';
 import AfterLogin from './Protected/AfterLogin';
+import Verification_opt from './Pages/Verification_opt';
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path='/forget' element={<ForgotPassword />} />
+              <Route path='/verify' element={<Verification_opt />} />
             </Route>
 
             <Route element={<AfterLogin />}>

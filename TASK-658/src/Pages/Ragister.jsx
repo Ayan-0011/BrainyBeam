@@ -114,7 +114,7 @@ const Register = () => {
               Password
             </label>
 
-            <input type="password"  name="password"value={user.password}  onChange={changeHandel}  placeholder="Enter your password"
+            <input type="password"  name="password" value={user.password}  onChange={changeHandel}  placeholder="Enter your password"
               className={`w-full border rounded-lg px-4 py-3 outline-none transition
                ${ errors.password ? "border-red-500"  : "border-gray-300 focus:border-indigo-500" }`} />
 
