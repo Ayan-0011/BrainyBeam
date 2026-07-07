@@ -9,6 +9,11 @@
       "email": "ayan@gmail.com",
       "password": "1234",
       "id": "tXYZxeEWIeQ"
+    },
+    {
+      "email": "awesome.ayan01@gmail.com",
+      "password": "1234",
+      "id": "_kZAGRgX57g"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
