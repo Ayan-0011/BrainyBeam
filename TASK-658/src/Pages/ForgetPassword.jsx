@@ -12,7 +12,7 @@ const ForgotPassword = () => {
         </h2>
 
         <p className="text-center text-gray-500 mt-3">
-          Enter your registered email address and we'll send you a password reset link.
+          Enter your registered email address and we'll send you a password reset OPT.
         </p>
 
         <form className="mt-8 space-y-5">
@@ -28,7 +28,7 @@ const ForgotPassword = () => {
 
           <button type="submit"
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition" >
-            Send Reset Link
+            Send Reset OPT
           </button>
 
         </form>
