@@ -9,7 +9,7 @@ app.use(express.json());
 
 const otpStore = {};
 
-const sendMail = require("./Utils/sendMail");
+const sendMail = require("./Utils/SendMail");
 
 app.post("/forgot-password", async (req, res) => {
   try {
