@@ -55,12 +55,6 @@ const Timer = () => {
           <h2 className="text-6xl font-bold text-green-600">
             {timeLeft}
           </h2>
-
-          {timeLeft === 0 && !isRunning && (
-            <p className="text-green-600 mt-4 text-lg font-semibold">
-              🎉 Time's Up!
-            </p>
-          )}
         </div>
       </div>
     </div>
