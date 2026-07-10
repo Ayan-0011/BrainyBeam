@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const noteSchema = new mongoose.noteSchema({
+const noteSchema = new mongoose.Schema({
 
     title:"string",
     discription:"string",
