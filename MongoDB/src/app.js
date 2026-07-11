@@ -40,7 +40,6 @@ app.delete("/notes/:id", async(req, res)=>{
     res.status(200).json({
         message:"dataa delete successfully..."
     })
-
 })
 
 
@@ -52,10 +51,7 @@ app.patch('/notes/:id', async (req, res)=>{
     res.status(200).json({
         massgae:"note updated successfully..."
     })
-
 })
-
-
 
 
 
