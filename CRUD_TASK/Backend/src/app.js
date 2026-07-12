@@ -1,14 +1,16 @@
 const express = require('express');
 const connectDb = require('./db/db');
 const usermodel = require('./model/modl')
+const cors = require('cors');
 
 const app = express();
 connectDb()
 
 app.use(express.json());
+app.use(cors());
 
 
-app.post('/', async (req, res) => {
+app.post('/user/', async (req, res) => {
     const data = req.body
     await usermodel.create({
         name: data.name,
@@ -21,7 +23,7 @@ app.post('/', async (req, res) => {
 })
 
 
-app.get('/', async(req, res)=>{
+app.get('/user/', async(req, res)=>{
    const user = await  usermodel.find();
     res.status(200).json({
         messgae:"user fech ssuccesssfully....",
@@ -30,7 +32,7 @@ app.get('/', async(req, res)=>{
 })
 
 
-app.delete('/:id', async(req, res)=>{
+app.delete('/user/:id', async(req, res)=>{
     const id = req.params.id
     await usermodel.findOneAndDelete({_id:id})
 
@@ -40,7 +42,7 @@ app.delete('/:id', async(req, res)=>{
 })
 
 
-app.patch('/:id', async(req, res)=>{
+app.patch('/user/:id', async(req, res)=>{
     const id = req.params.id
     const {name, age, add} = req.body
     await usermodel.findOneAndUpdate({_id:id}, {name:name, age:age, add:add})
