@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const App = () => {
 
-  const [Fetchdata, setFetchdata] = useState(null);
+  const [Fetchdata, setFetchdata] = useState("null");
 
   const [name, setName] = useState("");
 
@@ -19,7 +19,7 @@ const App = () => {
   }, []);
 
   const submitdata = async (e) => {
-    e.preventDefault;
+    e.preventDefault();
     const notes = await axios.post("http://localhost:3000/", { name: name });
     setName(notes.data)
   }
@@ -27,7 +27,7 @@ const App = () => {
   return (
     <div>
 
-      
+
        {Fetchdata?.data?.map((item, index) => (
         <h2 key={index}>{item.name}</h2>
       ))}
