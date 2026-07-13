@@ -11,16 +11,28 @@ const UserForm = () => {
         add: ""
     })
 
-    const navigate = useNavigate()
 
     const submithandler = async (e) => {
         e.preventDefault();
+
+        if(!user.name.trim()){
+            toast.warn("Please Enter Name");
+            return
+        }
+        if(!user.age){
+            toast.warn("Please Enter age")
+            return
+        }
+        if(!user.add.trim()){
+            toast.warn("Please Enter address")
+            return
+        }
 
         const response = await axios.post("http://localhost:3000/user", user)
         setuser({ name: "", age: "", add: "" })
         console.log(response.data);
         toast.success("User Created successfully")
-        // navigate('/userlist')
+
 
     }
 

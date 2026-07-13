@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 
-const Usercard = ({user, deletehandler}) => {
+const Usercard = ({user, deletehandler, editHandler}) => {
 
  
 
@@ -52,7 +52,7 @@ const Usercard = ({user, deletehandler}) => {
 
             {/* Buttons */}
             <div className="flex gap-3 mt-6">
-                <button className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold transition">
+                <button onClick={()=> editHandler(user) } className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold transition">
                     Edit
                 </button>
 
