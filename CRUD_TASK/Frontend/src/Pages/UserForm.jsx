@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
+import { toast } from "react-toastify";
+import{ useNavigate} from 'react-router-dom'
 
 const UserForm = () => {
 
@@ -9,17 +11,18 @@ const UserForm = () => {
         add: ""
     })
 
+    const navigate = useNavigate()
 
     const submithandler = async (e) => {
         e.preventDefault();
 
-
         const response = await axios.post("http://localhost:3000/user", user)
         setuser({ name: "", age: "", add: "" })
         console.log(response.data);
+        toast.success("User Created successfully")
+        // navigate('/userlist')
 
     }
-
 
 
 
@@ -31,7 +34,7 @@ const UserForm = () => {
 
 
     return (
-        <div className="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+        <div className="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-lg border mt-5 border-gray-200">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
                 Add New User
             </h2>
