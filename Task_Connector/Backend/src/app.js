@@ -3,11 +3,13 @@ const connectDB = require('./db/db');
 const multer = require('multer');
 const uploadfile = require('./service/storage.service')
 const postModel = require('./model/post.modal')
+const cors = require('cors');
 
 
 const app = express();
 connectDB();
 app.use(express.json());
+app.use(cors());
 
 
 const upload = multer({storage: multer.memoryStorage()})
@@ -37,7 +39,7 @@ app.get('/post', async(req, res)=>{
     const post = await postModel.find()
     res.status(200).json({
         message:"post fetch successfully...",
-        post:post
+        post
     })
 })
 
