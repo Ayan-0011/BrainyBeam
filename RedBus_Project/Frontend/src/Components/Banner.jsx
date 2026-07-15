@@ -34,11 +34,11 @@ const Banner = () => {
                         </h3>
 
                         <div className="flex gap-4">
-                            <div className="w-38 h-15 pt-1 text-center border-1  border-b-red-500 border-blue-500 rounded-xl ">
+                            <div className="w-38 h-15 pt-1 text-center border-1  border-b-red-500 border-s-red-500 border-blue-500 rounded-xl ">
                                 <h1 className="font-semibold">Aug</h1>
-                                <p className="text-sm font-medium text-red-500">Independence Day </p>
+                                <p className="text-sm font-medium text-orange-500">Independence Day </p>
                             </div>
-                            <div className="w-38 h-15 pt-1 text-center border-1 border-blue-500 border-t-red-500 rounded-xl ">
+                            <div className="w-38 h-15 pt-1 text-center border-1 border-blue-500 border-t-red-500 border-e-red-500 rounded-xl ">
                                 <h1 className="font-semibold">Sep</h1>
                                 <p className="text-sm text-blue-600 font-medium">Janmashtami </p>
                             </div>  

@@ -2,11 +2,12 @@ const express = require('express');
 const connectDB = require('./db/db');
 const busModel = require('./Model/budModel');
 const trainModel = require('./Model/TrainModel');
+const cors = require('cors');
 
 
 const app = express()
 connectDB()
-app.use(express.json())
+app.use(express.json(),cors())
 
 
 app.post('/create-bus', async (req, res) => {

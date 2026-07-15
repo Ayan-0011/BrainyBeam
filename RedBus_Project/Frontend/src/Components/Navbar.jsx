@@ -4,14 +4,15 @@ import bus from "../assets/img/bus_logo.svg";
 import train from "../assets/img/train_logo.svg";
 import hotel from "../assets/img/hotel_logo.svg";
 import {CircleQuestionMarkIcon, CircleUser, Menu, User} from 'lucide-react'
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <header className="w-full">
+    <div className="w-full">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
         <div className="flex items-center gap-10">
-          <img src={logo} alt="Logo" className="w-16" />
+          <Link to ="/"> <img src={logo} alt="Logo" className="w-16" /></Link>
           <div className="flex items-center gap-2">
             <div className=" rounded-xl px-5 py-2 flex flex-col items-center cursor-pointer hover:bg-gray-100 transition">
               <img src={bus} alt="Bus" className="w-8 h-8 mb-1" />
@@ -46,7 +47,7 @@ const Navbar = () => {
         </div>
 
       </div>
-    </header>
+    </div>
   );
 };
 
