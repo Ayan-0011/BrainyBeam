@@ -10,14 +10,31 @@ connectDB()
 app.use(express.json(),cors())
 
 
-app.post('/create-bus', async (req, res) => {
-    const data = req.body
+app.post("/create-bus", async (req, res) => {
 
-    const bus = await busModel.create(data)
+    const data = req.body;
+
+    const seats = [];
+
+    for (let i = 1; i <= data.totalSeats; i++) {
+
+        seats.push({
+            seatNumber: `S${i}`,
+            status: "available"
+        });
+
+    }
+
+    data.seatLayout = seats;
+
+    const bus = await busModel.create(data);
+
     res.status(201).json({
+        message: "Bus Created",
         bus
-    })
-})
+    });
+
+});
 
 app.get("/bus", async(req, res)=>{
 

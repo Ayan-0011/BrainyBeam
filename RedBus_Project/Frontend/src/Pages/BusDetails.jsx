@@ -7,6 +7,7 @@ const BusDetails = () => {
     const { id } = useParams();
 
     const [bus, setBus] = useState(null);
+    const [selectedSeats, setSelectedSeats] = useState([]);
 
     useEffect(() => {
         getBus();
@@ -20,6 +21,24 @@ const BusDetails = () => {
     if (!bus) {
         return <h1>Loading...</h1>;
     }
+
+    const handleSeat = (seatNumber, status) => {
+
+        if (status === "booked") return;
+
+        if (selectedSeats.includes(seatNumber)) {
+
+            setSelectedSeats(
+                selectedSeats.filter(s => s !== seatNumber)
+            );
+
+        } else {
+
+            setSelectedSeats([...selectedSeats, seatNumber]);
+
+        }
+
+    };
 
     return (
         <div className="max-w-7xl mx-auto p-6">
@@ -65,7 +84,32 @@ const BusDetails = () => {
                     </div>
 
                     {/* Seat Layout yahan aayega */}
+                    <div className="grid grid-cols-4 gap-4 mt-8">
 
+                        {bus.seatLayout.map((seat) => (
+
+                            <button
+                                key={seat.seatNumber}
+                                onClick={() =>
+                                    handleSeat(seat.seatNumber, seat.status)
+                                }
+                                className={`h-14 rounded-lg text-white font-semibold
+
+            ${seat.status === "booked"
+                                        ? "bg-gray-400"
+                                        : selectedSeats.includes(seat.seatNumber)
+                                            ? "bg-yellow-500"
+                                            : "bg-green-500"
+                                    }
+
+            `}
+                            >
+                                {seat.seatNumber}
+                            </button>
+
+                        ))}
+
+                    </div>
                 </div>
 
                 {/* RIGHT */}
@@ -80,7 +124,7 @@ const BusDetails = () => {
                         {bus.busType}
                     </p>
 
-                    <hr className="my-5"/>
+                    <hr className="my-5" />
 
                     <div className="space-y-3">
 

@@ -15,7 +15,18 @@ const busSchema = new mongoose.Schema({
     busType:[String],
     amenities: [String],
     image:[String],
-    rating: Number
+    rating: Number,
+
+     seatLayout: [
+        {
+            seatNumber: String,
+            status: {
+                type: String,
+                enum: ["available", "booked"],
+                default: "available"
+            }
+        }
+    ]
 });
 
 
