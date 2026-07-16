@@ -28,6 +28,42 @@ app.get("/bus", async(req, res)=>{
      })
 })
 
+app.get("/bus/:id", async (req, res) => {
+    const bus = await busModel.findById(req.params.id);
+
+    res.json({
+        success: true,
+        bus,
+    });
+});
+
+
+app.get("/search-bus", async (req, res) => {
+
+    try {
+
+        const { source, destination } = req.query;
+
+        const buses = await busModel.find({
+            from: { $regex: source, $options: "i" },
+            to: { $regex: destination, $options: "i" }
+        });
+
+        res.status(200).json({
+            buses
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            message: err.message
+        });
+
+    }
+
+});
+
+
 app.post('/create-train', async(req, res)=>{
      const data = req.body
 
