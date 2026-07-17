@@ -25,7 +25,7 @@ const BusInformation = () => {
 
             const res = await axios.get(url);
 
-            // Handle both APIs
+
             setBuses(res.data.bus || res.data.buses);
 
         } catch (err) {
@@ -38,7 +38,7 @@ const BusInformation = () => {
             <div className="flex justify-center items-center h-[60vh]">
                 <div className="text-center">
                     <h1 className="text-3xl font-bold text-gray-700">
-                        No Buses Found 
+                        No Buses Found
                     </h1>
                     <p className="text-gray-500 mt-2">
                         Try another route.
@@ -59,24 +59,14 @@ const BusInformation = () => {
 
                 {buses.map((bus) => (
 
-                    <div
-                        key={bus._id}
-                        className="bg-white rounded-xl shadow hover:shadow-lg transition p-5 flex flex-col lg:flex-row gap-5"
-                    >
+                    <div className="bg-white rounded-xl shadow hover:shadow-lg transition p-5 flex flex-col lg:flex-row gap-5" >
 
-                        {/* Image */}
 
                         <div className="lg:w-60">
 
-                            <img
-                                src={bus.image[0]}
-                                alt={bus.busName}
-                                className="rounded-xl w-full h-40 object-cover"
-                            />
+                            <img src={bus.image[0]} alt={bus.busName} className="rounded-xl w-full h-40 object-cover" />
 
                         </div>
-
-                        {/* Bus Details */}
 
                         <div className="flex-1">
 
@@ -91,7 +81,6 @@ const BusInformation = () => {
                             <div className="flex items-center gap-8 mt-6">
 
                                 <div>
-
                                     <h3 className="text-xl font-semibold">
                                         {bus.departureTime}
                                     </h3>
@@ -99,17 +88,13 @@ const BusInformation = () => {
                                     <p className="text-gray-500">
                                         {bus.source}
                                     </p>
-
                                 </div>
 
                                 <div className="text-center">
-
                                     <p className="text-sm text-gray-500">
                                         {bus.duration}
                                     </p>
-
                                     <div className="w-24 border-t-2 border-dashed mt-2"></div>
-
                                 </div>
 
                                 <div>
@@ -121,30 +106,24 @@ const BusInformation = () => {
                                     <p className="text-gray-500">
                                         {bus.destination}
                                     </p>
-
                                 </div>
 
                             </div>
 
                             <div className="flex gap-4 mt-6 text-sm">
-
                                 <span className="bg-gray-100 px-3 py-1 rounded-full">
                                     AC
                                 </span>
-
                                 <span className="bg-gray-100 px-3 py-1 rounded-full">
                                     Sleeper
                                 </span>
-
                                 <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full">
                                     {bus.availableSeats} Seats Left
                                 </span>
-
                             </div>
-
                         </div>
 
-                        {/* Price */}
+
 
                         <div className="flex flex-col justify-center items-end">
 
@@ -156,21 +135,14 @@ const BusInformation = () => {
                                 Per Seat
                             </p>
 
-                            <button
-                                onClick={() => navigate(`/bus/${bus._id}`)}
-                                className="mt-5 bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold"
-                            >
+                            <button onClick={() => navigate(`/bus/${bus._id}`)}
+                                className="mt-5 bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold" >
                                 View Seats
                             </button>
-
                         </div>
-
                     </div>
-
                 ))}
-
             </div>
-
         </div>
     );
 };
