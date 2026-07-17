@@ -23,7 +23,6 @@ const busSchema = new mongoose.Schema({
             status: {
                 type: String,
                 enum: ["available", "booked"],
-                default: "available"
             }
         }
     ]

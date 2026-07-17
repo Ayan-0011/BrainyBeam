@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { FaBackspace, FaBackward } from "react-icons/fa";
+import { Backpack, ChevronLeft } from "lucide-react";
 
 const BusInformation = () => {
     const [buses, setBuses] = useState([]);
@@ -17,6 +19,7 @@ const BusInformation = () => {
 
     const fetchBuses = async () => {
         try {
+
             let url = "http://localhost:3000/bus";
 
             if (source && destination) {
@@ -24,10 +27,9 @@ const BusInformation = () => {
             }
 
             const res = await axios.get(url);
+            console.log(res.data);
 
-
-            setBuses(res.data.bus || res.data.buses);
-
+            setBuses(res.data.buses || res.data.bus);
         } catch (err) {
             console.log(err);
         }
@@ -49,100 +51,123 @@ const BusInformation = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto p-6">
+        <div className="max-w-6xl mx-auto px-4 py-6">
 
-            <h1 className="text-3xl font-bold mb-8">
-                Available Buses
-            </h1>
+            <div className="flex items-center gap-3 mb-6">
 
-            <div className="space-y-6">
+                <button onClick={() => navigate(-1)}
+                 className="border border-gray-900 px-3 flex py-2 rounded-lg hover:bg-gray-100 hover:bg-gray-800 hover:text-white cursor-pointer transition" >
+                    <ChevronLeft />Back
+                </button>
+
+                <h1 className="text-2xl font-bold text-gray-800">
+                    Available Buses
+                </h1>
+
+            </div>
+
+
+            <div className="space-y-4">
 
                 {buses.map((bus) => (
 
-                    <div className="bg-white rounded-xl shadow hover:shadow-lg transition p-5 flex flex-col lg:flex-row gap-5" >
+                    <div className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-lg transition" >
 
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
 
-                        <div className="lg:w-60">
-
-                            <img src={bus.image[0]} alt={bus.busName} className="rounded-xl w-full h-40 object-cover" />
-
-                        </div>
-
-                        <div className="flex-1">
-
-                            <h2 className="text-2xl font-bold">
-                                {bus.busName}
-                            </h2>
-
-                            <p className="text-gray-500">
-                                {bus.busType}
-                            </p>
-
-                            <div className="flex items-center gap-8 mt-6">
-
-                                <div>
-                                    <h3 className="text-xl font-semibold">
-                                        {bus.departureTime}
-                                    </h3>
-
-                                    <p className="text-gray-500">
-                                        {bus.source}
-                                    </p>
+                            <div className="lg:col-span-10">
+                                <div className="flex flex-wrap items-center gap-3">
+                                    <h2 className="text-xl font-bold text-gray-800">
+                                        {bus.busName}
+                                    </h2>
+                                    <span className="text-sm text-gray-500">
+                                        {bus.operator}
+                                    </span>
                                 </div>
 
-                                <div className="text-center">
-                                    <p className="text-sm text-gray-500">
-                                        {bus.duration}
-                                    </p>
-                                    <div className="w-24 border-t-2 border-dashed mt-2"></div>
+                                <p className="text-sm text-gray-500 mt-1">
+                                    {bus.busType.join(" • ")}
+                                </p>
+
+                                <div className="flex items-center justify-between mt-6">
+                                    <div>
+                                        <h3 className="text-xl font-semibold">
+                                            {bus.departureTime}
+                                        </h3>
+                                        <p className="text-sm text-gray-500">
+                                            {bus.from}
+                                        </p>
+                                    </div>
+
+                                    <div className="flex-1 mx-5 text-center">
+                                        <p className="text-xs text-gray-500">
+                                            {bus.duration}
+                                        </p>
+                                        <div className="relative mt-2">
+                                            <div className="border-t border-dashed border-gray-400"></div>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="text-right">
+                                        <h3 className="text-xl font-semibold">
+                                            {bus.arrivalTime}
+                                        </h3>
+                                        <p className="text-sm text-gray-500">
+                                            {bus.to}
+                                        </p>
+                                    </div>
                                 </div>
 
-                                <div>
 
-                                    <h3 className="text-xl font-semibold">
-                                        {bus.arrivalTime}
-                                    </h3>
 
-                                    <p className="text-gray-500">
-                                        {bus.destination}
-                                    </p>
+                                <div className="flex flex-wrap gap-2 mt-5">
+                                    {bus.amenities.slice(0, 4).map((item, index) => (
+                                        <span
+                                            key={index}
+                                            className="text-xs bg-gray-100 px-3 py-1 rounded-full text-gray-600" >
+                                            {item}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="lg:col-span-2">
+                                <div className="flex lg:flex-col justify-between lg:items-end items-center gap-4">
+                                        <div className="bg-green-600 text-white px-3 py-2 rounded-lg font-semibold text-sm">
+                                            ⭐ {bus.rating}
+                                        </div>
+
+                                    <div>
+
+                                        <h2 className="text-2xl font-bold text-red-500">
+                                            ₹{bus.price}
+                                        </h2>
+
+                                        <p className="text-green-600 text-sm font-medium">
+                                            {bus.availableSeats} Seats Left
+                                        </p>
+
+                                    </div>
+
+                                    <button
+                                        onClick={() => navigate(`/bus/${bus._id}`)}
+                                         className="border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-2 rounded-lg cursor-pointer font-medium transition active:scale-95" >
+                                        View Seats
+                                    </button>
+
                                 </div>
 
                             </div>
 
-                            <div className="flex gap-4 mt-6 text-sm">
-                                <span className="bg-gray-100 px-3 py-1 rounded-full">
-                                    AC
-                                </span>
-                                <span className="bg-gray-100 px-3 py-1 rounded-full">
-                                    Sleeper
-                                </span>
-                                <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full">
-                                    {bus.availableSeats} Seats Left
-                                </span>
-                            </div>
                         </div>
 
-
-
-                        <div className="flex flex-col justify-center items-end">
-
-                            <h2 className="text-3xl font-bold text-red-500">
-                                ₹{bus.price}
-                            </h2>
-
-                            <p className="text-sm text-gray-500">
-                                Per Seat
-                            </p>
-
-                            <button onClick={() => navigate(`/bus/${bus._id}`)}
-                                className="mt-5 bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold" >
-                                View Seats
-                            </button>
-                        </div>
                     </div>
+
                 ))}
+
             </div>
+
         </div>
     );
 };

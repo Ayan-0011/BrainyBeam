@@ -7,25 +7,16 @@ const cors = require('cors');
 
 const app = express()
 connectDB()
-app.use(express.json(), cors())
+app.use(express.json(),cors())
 
 
 app.post("/create-bus", async (req, res) => {
 
     const data = req.body;
-    const seats = [];
-
-    for (let i = 1; i <= data.totalSeats; i++) {
-        seats.push({ seatNumber: `S${i}`, status: "available" });
-
-    }
-
-    data.seatLayout = seats;
-
     const bus = await busModel.create(data);
 
     res.status(201).json({
-        message: "Bus Created",
+        message: "Bus Created successfully..",
         bus
     });
 
@@ -82,13 +73,6 @@ app.post('/create-train', async (req, res) => {
         train
     })
 })
-
-
-
-
-
-
-
 
 
 
