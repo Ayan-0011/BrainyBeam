@@ -16,7 +16,7 @@ const HeroSection = () => {
                     bus ticket booking site
                 </h1>
             </div>
-            <div className="absolute left-1/2 -bottom-16 -translate-x-1/2 w-full max-w-7xl px-4 z-20">
+            <div className="absolute left-1/2 -bottom-23 -translate-x-1/2 w-full max-w-7xl px-4 z-20">
                 <SearchInput />
                 
             </div>

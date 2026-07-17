@@ -20,12 +20,34 @@ const SearchInput = () => {
     };
 
     const swapLocation = () => {
-        setSearch({...search, source: search.destination, destination: search.source });
+        setSearch({ ...search, source: search.destination, destination: search.source });
     };
 
     const handleSearch = () => {
 
-       navigate(`/bus-info?source=${search.source}&destination=${search.destination}&date=${search.date}` );
+        if (!search.source.trim()) {
+            toast.error("Please enter source city");
+            return;
+        }
+
+        if (!search.destination.trim()) {
+            toast.error("Please enter destination city");
+            return;
+        }
+
+        if (search.source.toLowerCase() === search.destination.toLowerCase()) {
+            toast.error("Source and Destination cannot be same");
+            return;
+        }
+
+        if (!search.date) {
+            toast.error("Please select journey date");
+            return;
+        }
+
+        navigate(
+            `/bus-info?source=${search.source}&destination=${search.destination}&date=${search.date}`
+        );
     };
 
     return (
@@ -42,11 +64,11 @@ const SearchInput = () => {
                         className="w-full border rounded-xl pl-12 p-4 outline-none focus:border-red-500" />
                 </div>
 
-                    <button onClick={swapLocation}
-                        className="absolute right-231 top-9 z-50 bg-gray-200 hover:bg-gray-300 p-2 rounded-full" >
-                        <ArrowLeftRight size={19} />
-                    </button>
-                    
+                <button onClick={swapLocation}
+                    className="absolute right-231 top-9 z-50 bg-white border shadow-md hover:bg-red-500 hover:text-white p-2 rounded-full transition">
+                    <ArrowLeftRight size={19} />
+                </button>
+
                 <div className="relative">
                     <MapPin className="absolute left-4 top-4 text-red-500" />
                     <input type="text" name="destination" placeholder="To" value={search.destination}
@@ -73,8 +95,14 @@ const SearchInput = () => {
                 </button>
 
             </div>
-            <button onClick={()=>navigate('/bus-info')}
-             className="bg-red-500 text-white px-4 py-1 font-medium text-lg rounded-md active:scale-95 absolute left-148 top-23">All Buses</button>
+            <div className="flex justify-center mt-5">
+
+                <button onClick={() => navigate("/bus-info")}
+                    className="border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-2 rounded-lg font-medium transition active:scale-95" >
+                    View All Buses
+                </button>
+
+            </div>
         </div>
     );
 };

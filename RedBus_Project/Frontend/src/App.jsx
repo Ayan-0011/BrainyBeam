@@ -9,8 +9,9 @@ import { ToastContainer, Zoom } from 'react-toastify'
 const App = () => {
   return (
     <div>
+      <BrowserRouter>
       <ToastContainer
-        position="top-right "
+        position="bottom-center "
         autoClose={3500}
         hideProgressBar={false}
         newestOnTop={false}
@@ -19,10 +20,9 @@ const App = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
         transition={Zoom}
       />
-      <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<><HomePage /></>} />
