@@ -1,3 +1,4 @@
+import "../Style/BusDetails.css"
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -45,164 +46,121 @@ const BusDetails = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto p-6">
+        <div className="bus-details-container">
+            <button onClick={() => navigate(-1)} className="details-back-btn">
+                <ChevronLeft /> Back
+            </button>
 
-            <button onClick={() => navigate(-1)}
-                 className="border border-gray-900 px-3 flex py-2 mb-3 rounded-lg hover:bg-gray-100 hover:bg-gray-800 hover:text-white cursor-pointer transition" >
-                    <ChevronLeft />Back
-                </button>
+            <div className="details-grid">
+                <div className="details-left">
+                    <div className="details-card">
 
-            <div className="grid lg:grid-cols-3 gap-8">
+                        <img src={bus.image[0]} className="bus-image" alt={bus.busName} />
 
-
-                <div className="lg:col-span-2 bg-white rounded-xl p-6 shadow">
-
-                    <div className="bg-white rounded-2xl shadow p-5 flex gap-5 items-center">
-
-                        <img src={bus.image[0]}
-                            className="w-44 h-28 rounded-xl object-cover" />
-
-                        <div className="flex-1">
-                            <div className="flex justify-between">
+                        <div className="details-content">
+                            <div className="details-header">
                                 <div>
-                                    <h1 className="text-2xl font-bold">
-                                        {bus.busName}
-                                    </h1>
-                                    <p className="text-gray-500">
-                                        {bus.operator}
-                                    </p>
+                                    <h1>{bus.busName}</h1>
+                                    <p>{bus.operator}</p>
                                 </div>
 
-                                <div className="bg-green-500 text-white px-4 py-2 rounded-lg h-fit">
-
-                                    <p className="flex gap-1 items-center"><FaStar size={18} className="text-yellow-300" />{bus.rating}</p>
+                                <div className="rating-box">
+                                    <p>
+                                        <FaStar className="star-icon" />
+                                        {bus.rating}
+                                    </p>
                                 </div>
 
                             </div>
 
-                            <div className="flex justify-between mt-6">
+                            <div className="time-row">
                                 <div>
-                                    <h2 className="text-2xl font-bold">
-                                        {bus.departureTime}
-                                    </h2>
+                                    <h2>{bus.departureTime}</h2>
                                     <p>{bus.from}</p>
                                 </div>
 
-                                <div className="text-center">
+                                <div className="time-center">
                                     <p>{bus.duration}</p>
-                                    <div className="w-40 border-t-2 border-dashed mt-2"></div>
+                                    <div className="time-line"></div>
                                 </div>
 
                                 <div>
-                                    <h2 className="text-2xl font-bold">
-                                        {bus.arrivalTime}
-                                    </h2>
+                                    <h2>{bus.arrivalTime}</h2>
                                     <p>{bus.to}</p>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
+                    <div className="seat-section">
 
-                    <div className="bg-white rounded-xl shadow p-6 mt-8">
-                        <div className="flex justify-end mb-6">
-
+                        <div className="seat-grid">
+                            {bus.seatLayout.map((seat) => (
+                                <Seat key={seat.seatNumber} seat={seat} selectedSeats={selectedSeats} handleSeat={handleSeat} price={bus.price} />
+                            ))}
                         </div>
 
-                        <div className="grid grid-cols-4 gap-2">
-                            {
-                                bus.seatLayout.map((seat) => (
-
-                                    <Seat key={seat.seatNumber}
-                                        seat={seat}
-                                        selectedSeats={selectedSeats}
-                                        handleSeat={handleSeat}
-                                        price={bus.price} />
-                                ))
-                            }
-
-                        </div>
-
-                        <div className="flex gap-8 mt-8">
-                            <div className="flex items-center gap-2">
-                                <div className="w-5 h-5 bg-green-200 border-2 border-green-600 rounded"></div>
+                        <div className="seat-status">
+                            <div className="status-item">
+                                <div className="status-box available"></div>
                                 Available
                             </div>
 
-                            <div className="flex items-center gap-2">
-                                <div className="w-5 h-5 bg-yellow-400 border-2 border-yellow-500 rounded"></div>
+                            <div className="status-item">
+                                <div className="status-box selected"></div>
                                 Selected
                             </div>
 
-                            <div className="flex items-center gap-2">
-                                <div className="w-5 h-5 bg-gray-300 border-2 border-gray-500 rounded"></div>
+                            <div className="status-item">
+                                <div className="status-box booked"></div>
                                 Booked
                             </div>
                         </div>
-
-
-                    </div>
-                </div>
-
-
-                <div className="bg-white rounded-xl p-6 shadow sticky top-5 h-fit">
-                    <h2 className="text-2xl font-bold">
-                        Booking Summary
-                    </h2>
-
-                    <hr className="my-5" />
-                    <div className="space-y-4">
-                        <div className="flex justify-between">
-                            <span>Bus</span>
-                            <span>{bus.busName}</span>
-                        </div>
-
-                        <div className="flex justify-between">
-                            <span>Route</span>
-                            <span>{bus.from} → {bus.to}</span>
-                        </div>
-                        <div>
-
-                            <h3 className="font-semibold">
-                                Selected Seats
-                            </h3>
-
-                            <div className="flex gap-2 mt-3 flex-wrap">
-
-                                {
-                                    selectedSeats.length === 0 ?
-                                        <span>No Seat</span>
-                                        :
-                                        selectedSeats.map((seat) => (
-                                            <span key={seat}
-                                                className="bg-red-500 text-white px-3 py-1 rounded" >
-                                                {seat}
-                                            </span>
-                                        ))
-                                }
-
-                            </div>
-
-                        </div>
-
-                        <hr />
-
-                        <div className="flex justify-between text-xl font-bold">
-                            <span>Total</span>
-                            <span>
-                                ₹{selectedSeats.length * bus.price}
-
-                            </span>
-                        </div>
-
-                        <button className="w-full mt-6 bg-red-500 text-white py-3 rounded-xl">
-                            Proceed
-                        </button>
-
                     </div>
 
                 </div>
 
+                <div className="summary-card">
+                    <h2>Booking Summary</h2>
+
+                    <hr />
+                    <div className="summary-row">
+                        <span>Bus</span>
+                        <span>{bus.busName}</span>
+                    </div>
+
+                    <div className="summary-row">
+                        <span>Route</span>
+                        <span>{bus.from} - {bus.to}</span>
+                    </div>
+                    <div>
+
+                        <h3>Selected Seats</h3>
+                        <div className="selected-seat-list">
+                            {selectedSeats.length === 0 ? (
+                                <span>No Seat</span>
+                            ) : (
+                                selectedSeats.map((seat) => (
+                                    <span key={seat} className="seat-chip">
+                                        {seat}
+                                    </span>
+                                ))
+                            )}
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div className="total-row">
+                        <span>Total</span>
+                        <span>₹{selectedSeats.length * bus.price}</span>
+                    </div>
+                    <button className="proceed-btn">
+                        Proceed
+                    </button>
+                </div>
             </div>
 
         </div>

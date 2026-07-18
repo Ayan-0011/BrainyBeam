@@ -1,0 +1,59 @@
+.seat-btn {
+    width: 56px;
+    height: 56px;
+    border: 2px solid;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.seat-number {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.seat-text {
+    font-size: 10px;
+}
+
+.seat-available {
+    background: #dcfce7;
+    border-color: #16a34a;
+}
+
+.seat-available:hover {
+    background: #bbf7d0;
+}
+
+.seat-selected {
+    background: #facc15;
+    border-color: #eab308;
+}
+
+.seat-booked {
+    background: #e5e7eb;
+    border-color: #9ca3af;
+    cursor: not-allowed;
+    color: #6b7280;
+}
+
+@media (max-width: 768px) {
+
+    .seat-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .seat-number {
+        font-size: 11px;
+    }
+
+    .seat-text {
+        font-size: 9px;
+    }
+
+}

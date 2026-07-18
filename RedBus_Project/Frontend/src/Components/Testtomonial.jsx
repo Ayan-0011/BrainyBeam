@@ -25,44 +25,46 @@ const testimonials = [
   },
 ];
 
-const Testomonials =()=> {
+const Testomonials = () => {
   return (
-    <section className="bg-gray-50 py-16">
-      <div className="max-w-7xl mx-auto px-5">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800">
-            What Our Travelers Say
-          </h2>
-          <p className="text-gray-500 mt-3">
-            Trusted by thousands of passengers across India.
-          </p>
+    <section className="testimonial-section">
+      <div className="testimonial-container">
+
+        <div className="testimonial-header">
+          <h2>What Our Travelers Say</h2>
+          <p>Trusted by thousands of passengers across India.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="testimonial-grid">
           {testimonials.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6" >
-              <div className="flex items-center gap-4 mb-5">
+            <div key={item.id} className="testimonial-card">
+
+              <div className="testimonial-user">
+
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-16 h-16 rounded-full object-cover" />
+                  className="testimonial-image"
+                />
+
                 <div>
-                  <h3 className="font-semibold text-lg">{item.name}</h3>
-                  <p className="text-gray-500 text-sm">{item.city}</p>
+                  <h3>{item.name}</h3>
+                  <p>{item.city}</p>
                 </div>
+
               </div>
-              <p className="text-gray-600 leading-7">
+
+              <p className="testimonial-review">
                 "{item.review}"
               </p>
+
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
-}
+};
 
-
-export default Testomonials
+export default Testomonials;

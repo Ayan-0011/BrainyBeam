@@ -14,13 +14,15 @@ const SearchInput = () => {
     });
 
     const handleChange = (e) => {
-        const formattedDate = new Date(search.date).toLocaleDateString("en-GB");
-        //console.log(formattedDate);
         setSearch({ ...search, [e.target.name]: e.target.value });
     };
 
     const swapLocation = () => {
-        setSearch({ ...search, source: search.destination, destination: search.source });
+        setSearch({
+            ...search,
+            source: search.destination,
+            destination: search.source
+        });
     };
 
     const handleSearch = () => {
@@ -51,58 +53,82 @@ const SearchInput = () => {
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-xl p-6">
+        <div className="search-box">
 
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4">
+            <div className="search-grid">
 
-                <div className="relative">
+                <div className="input-box">
 
-                    <MapPin className="absolute left-4 top-4 text-red-500" />
+                    <MapPin className="input-icon" />
 
-                    <input type="text" name="source" placeholder="From" value={search.source}
+                    <input
+                        type="text"
+                        name="source"
+                        placeholder="From"
+                        value={search.source}
                         onChange={handleChange}
-                        className="w-full border rounded-xl pl-12 p-4 outline-none focus:border-red-500" />
+                        className="search-input"
+                    />
+
                 </div>
 
-                <button onClick={swapLocation}
-                    className="absolute right-231 top-9 z-50 bg-white border shadow-md hover:bg-red-500 hover:text-white p-2 rounded-full transition">
-                    <ArrowLeftRight size={19} />
+                <button
+                    className="swap-btn"
+                    onClick={swapLocation}
+                >
+                    <ArrowLeftRight size={18} />
                 </button>
 
-                <div className="relative">
-                    <MapPin className="absolute left-4 top-4 text-red-500" />
-                    <input type="text" name="destination" placeholder="To" value={search.destination}
-                        onChange={handleChange}
-                        className="w-full border rounded-xl pl-12 p-4 outline-none focus:border-red-500" />
+                <div className="input-box">
 
+                    <MapPin className="input-icon" />
+
+                    <input
+                        type="text"
+                        name="destination"
+                        placeholder="To"
+                        value={search.destination}
+                        onChange={handleChange}
+                        className="search-input"
+                    />
 
                 </div>
 
-                <div className="relative">
+                <div className="input-box">
 
-                    <CalendarDays className="absolute left-4 top-4 text-red-500" />
+                    <CalendarDays className="input-icon" />
 
-                    <input type="date" name="date" value={search.date}
+                    <input
+                        type="date"
+                        name="date"
+                        value={search.date}
                         onChange={handleChange}
-                        className="w-full border rounded-xl pl-12 p-4 outline-none focus:border-red-500" />
+                        className="search-input"
+                    />
 
                 </div>
 
-                <button onClick={handleSearch}
-                    className="bg-red-500 hover:bg-red-600 rounded-xl text-white flex items-center justify-center gap-2 font-semibold" >
+                <button
+                    className="search-btn"
+                    onClick={handleSearch}
+                >
                     <Search size={20} />
                     Search Buses
                 </button>
 
             </div>
-            <div className="flex justify-center mt-5">
 
-                <button onClick={() => navigate("/bus-info")}
-                    className="border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-2 rounded-lg font-medium transition active:scale-95" >
+            <div className="view-all">
+
+                <button
+                    className="view-btn"
+                    onClick={() => navigate("/bus-info")}
+                >
                     View All Buses
                 </button>
 
             </div>
+
         </div>
     );
 };
