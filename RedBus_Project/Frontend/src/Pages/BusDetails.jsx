@@ -5,6 +5,7 @@ import axios from "axios";
 import Seat from "../Components/seat";
 import { ChevronLeft, Star } from "lucide-react";
 import { FaStar } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const BusDetails = () => {
 
@@ -43,6 +44,18 @@ const BusDetails = () => {
 
         }
 
+    };
+
+    const handleProceed = () => {
+
+        if (selectedSeats.length === 0) {
+            toast.warn("please Select Seat First");
+            return
+        }
+
+        navigate("/passenger-info", {
+            state: { bus, selectedSeats }
+        });
     };
 
     return (
@@ -157,7 +170,7 @@ const BusDetails = () => {
                         <span>Total</span>
                         <span>₹{selectedSeats.length * bus.price}</span>
                     </div>
-                    <button className="proceed-btn">
+                    <button onClick={handleProceed} className="proceed-btn">
                         Proceed
                     </button>
                 </div>

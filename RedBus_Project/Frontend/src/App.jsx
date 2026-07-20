@@ -7,6 +7,9 @@ import BusDetails from './Pages/BusDetails'
 import { ToastContainer, Zoom } from 'react-toastify'
 import Train from './Pages/Train'
 import Hotel from './Pages/Hotel'
+import Login from './Pages/Login'
+import Register from './Pages/Register'
+import PassengerInfo from './Pages/PassengerInfo'
 
 const App = () => {
   return (
@@ -34,6 +37,9 @@ const App = () => {
           <Route path="/bus/:id" element={<><BusDetails /></>} />
           <Route path='/train' element={<><Train /></>} />
           <Route path='/hotel' element={<><Hotel /></>} />
+          <Route path='/login' element={<><Login /></>} />
+          <Route path='/register' element={<><Register /></>} />
+          <Route path='/passenger-info' element={<><PassengerInfo /></>} />
         </Routes>
       </BrowserRouter>
 

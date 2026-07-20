@@ -28,7 +28,7 @@ const BusInformation = () => {
             }
 
             const res = await axios.get(url);
-            console.log(res.data);
+           // console.log(res.data);
 
             setBuses(res.data.buses || res.data.bus);
         } catch (err) {
