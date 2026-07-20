@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../Style/ReviewBooking.css";
+import axios from 'axios'
 
 const ReviewBooking = () => {
 
@@ -14,15 +15,16 @@ const ReviewBooking = () => {
     }
 
     const { bus, passengers, selectedSeats, contact } = state;
-
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
     const totalAmount = selectedSeats.length * bus.price;
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    
+    //console.log(bus);
+    
+    
+    const confirmBooking = async() => {
+        
+    
 
-    const confirmBooking = () => {
-
-        const bookings =
-            JSON.parse(localStorage.getItem("bookings")) || [];
 
         const booking = {
 
@@ -32,11 +34,11 @@ const ReviewBooking = () => {
             userName: currentUser.name,
             userEmail: currentUser.email,
 
-            bus,
+            bus:bus,
 
             passengers,
 
-            selectedSeats,
+            seats:selectedSeats,
 
             contact,
 
@@ -48,16 +50,16 @@ const ReviewBooking = () => {
 
         };
 
-        bookings.push(booking);
+       // console.log(booking);
+        
 
-        localStorage.setItem(
-            "bookings",
-            JSON.stringify(bookings)
-        );
+        
+        await axios.post("http://localhost:3000/booking",booking);
+
 
         toast.success("Booking Confirmed ");
 
-        navigate("/my-bookings");
+        navigate("/my-booking");
     };
 
     return (

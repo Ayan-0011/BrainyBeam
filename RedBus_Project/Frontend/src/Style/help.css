@@ -1,0 +1,51 @@
+.help-container {
+  width: 50%;
+  background: #d84e55;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  margin-block: 70px;
+}
+
+.help-banner {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.help-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.help-overlay {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  color: #fff;
+}
+
+.help-overlay h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .help-image {
+    height: 220px;
+  }
+
+  .help-overlay {
+    top: 20px;
+    left: 20px;
+  }
+
+  .help-overlay h1 {
+    font-size: 28px;
+  }
+}

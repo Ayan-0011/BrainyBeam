@@ -3,7 +3,7 @@ import logo from "../assets/img/Logo.png";
 import bus from "../assets/img/bus_logo.svg";
 import train from "../assets/img/train_logo.svg";
 import hotel from "../assets/img/hotel_logo.svg";
-import {CircleQuestionMarkIcon,CircleUser, Menu,} from "lucide-react";
+import { CircleQuestionMarkIcon, CircleUser, Menu, } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
@@ -39,39 +39,51 @@ const Navbar = () => {
 
         <div className="navbar-right">
 
-          <button className="menu-btn">
-            <Menu size={20} />
-            Booking
-          </button>
+          <NavLink to="/my-booking" className="acc">
+            <button className="menu-btn">
+              <Menu size={20} />
+              Booking
+            </button>
+          </NavLink>
 
-          <button className="menu-btn">
-            <CircleQuestionMarkIcon size={20} />
-            Help
-          </button>
+          <NavLink to="/help" className="acc">
+            <button className="menu-btn">
+              <CircleQuestionMarkIcon size={20} />
+              Help
+            </button>
+          </NavLink>
 
-          <button className="menu-btn">
-            <CircleUser size={20} />
-            Account
-          </button>
+          <NavLink to="/my-profile" className="acc">
+            <button className="menu-btn">
+              <CircleUser size={20} />
+              Account
+            </button>
+          </NavLink>
 
         </div>
 
         <div className="mobile-navbar">
 
-          <button className="menu-btn">
-            <Menu size={20} />
-            Booking
-          </button>
+          <NavLink to="/my-booking" className="acc">
+            <button className="menu-btn">
+              <Menu size={20} />
+              Booking
+            </button>
+          </NavLink>
 
-          <button className="menu-btn">
-            <CircleQuestionMarkIcon size={20} />
-            Help
-          </button>
+          <NavLink to="/help" className="acc">
+            <button className="menu-btn">
+              <CircleQuestionMarkIcon size={20} />
+              Help
+            </button>
+          </NavLink>
 
-          <button className="menu-btn">
-            <CircleUser size={20} />
-            Account
-          </button>
+          <NavLink to="/my-profile" className="acc">
+            <button className="menu-btn">
+              <CircleUser size={20} />
+              Account
+            </button>
+          </NavLink>
 
         </div>
 

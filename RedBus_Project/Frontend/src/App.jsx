@@ -11,6 +11,9 @@ import Login from './Pages/Login'
 import Register from './Pages/Register'
 import PassengerInfo from './Pages/PassengerInfo'
 import ReviewBooking from './Pages/ReviewBooking'
+import MyBooking from './Pages/MyBooking'
+import My_Profile from './Pages/My_Profile'
+import Help from './Pages/Help'
 
 const App = () => {
   return (
@@ -42,6 +45,9 @@ const App = () => {
           <Route path='/register' element={<><Register /></>} />
           <Route path='/passenger-info' element={<><PassengerInfo /></>} />
           <Route path='/review-booking' element={<><ReviewBooking /></>} />
+          <Route path='/my-booking' element={<><MyBooking /></>} />
+          <Route path='/my-profile' element={<><My_Profile /></>} />
+          <Route path='/help' element={<><Help /></>} />
         </Routes>
       </BrowserRouter>
 

@@ -105,14 +105,13 @@ const PassengerInfo = () => {
                             Passenger {index + 1} ({passenger.seat})
                         </h3>
 
-                        <input type="text" placeholder="Full Name"
-                            value={passenger.name}
+                        <input type="text" placeholder="Full Name" name="name" value={passenger.name} data-index={index}
                             onChange={ handlePassengerChange} />
 
-                        <input type="number" placeholder="Age" value={passenger.age}
+                        <input type="number" placeholder="Age" value={passenger.age} name="age" data-index={index}
                             onChange={ handlePassengerChange} />
 
-                        <select value={passenger.gender}
+                        <select value={passenger.gender} data-index={index} name="gender"
                             onChange={ handlePassengerChange} >
                             <option>Male</option>
                             <option>Female</option>

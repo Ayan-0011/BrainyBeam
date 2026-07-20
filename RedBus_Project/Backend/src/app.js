@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./db/db');
 const busModel = require('./Model/budModel');
 const trainModel = require('./Model/TrainModel');
+const bookingModel = require('./Model/bookingModel');
 const cors = require('cors');
 
 
@@ -62,6 +63,27 @@ app.get("/search-bus", async (req, res) => {
     }
 
 });
+
+app.post("/booking", async (req, res) => {
+    
+        const booking = await bookingModel.create(req.body);
+
+        res.status(201).json({
+            message: "Booking Created Successfully",
+            booking
+        });
+
+  
+});
+
+app.get('/my-booking', async(req, res)=>{
+
+    const booking = await bookingModel.find();
+    res.status(200).json({
+        message:"Booking data fetching sucessfully...",
+        booking
+    })
+})
 
 
 app.post('/create-train', async (req, res) => {
