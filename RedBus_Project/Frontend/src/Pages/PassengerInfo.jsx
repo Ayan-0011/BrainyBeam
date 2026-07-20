@@ -2,12 +2,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "../Style/PassengerInfo.css";
+import { ChevronLeft } from "lucide-react";
 
 const PassengerInfo = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
     //console.log(state);
-    
+
     if (!state) {
         return <h2>No Booking Found</h2>;
     }
@@ -35,7 +36,7 @@ const PassengerInfo = () => {
     }
 
     const [passengers, setPassengers] = useState(
-        
+
         selectedSeats.map((seat) => ({
             seat,
             name: "",
@@ -49,10 +50,16 @@ const PassengerInfo = () => {
         email: "",
     });
 
-    const handlePassengerChange = (index, field, value) => {
+    const handleContact = (e) => {
+        setContact({ ...contact, [e.target.name]: e.target.value });
+    }
+
+    const handlePassengerChange = (e) => {
+        const { name, value, dataset } = e.target;
         const updated = [...passengers];
-        updated[index][field] = value;
+        updated[dataset.index][name] = value;
         setPassengers(updated);
+
     };
 
     const handleContinue = () => {
@@ -84,7 +91,9 @@ const PassengerInfo = () => {
 
     return (
         <div className="passenger-container">
-
+            <button onClick={() => navigate(-1)} className="details-back-btn">
+                <ChevronLeft /> Back
+            </button>
             <div className="passenger-left">
 
                 <h2>Passenger Details</h2>
@@ -98,33 +107,13 @@ const PassengerInfo = () => {
 
                         <input type="text" placeholder="Full Name"
                             value={passenger.name}
-                            onChange={(e) =>
-                                handlePassengerChange( index,"name",  e.target.value ) }
-                        />
+                            onChange={ handlePassengerChange} />
 
-                        <input
-                            type="number"
-                            placeholder="Age"
-                            value={passenger.age}
-                            onChange={(e) =>
-                                handlePassengerChange(
-                                    index,
-                                    "age",
-                                    e.target.value
-                                )
-                            }
-                        />
+                        <input type="number" placeholder="Age" value={passenger.age}
+                            onChange={ handlePassengerChange} />
 
-                        <select
-                            value={passenger.gender}
-                            onChange={(e) =>
-                                handlePassengerChange(
-                                    index,
-                                    "gender",
-                                    e.target.value
-                                )
-                            }
-                        >
+                        <select value={passenger.gender}
+                            onChange={ handlePassengerChange} >
                             <option>Male</option>
                             <option>Female</option>
                             <option>Other</option>
@@ -136,43 +125,19 @@ const PassengerInfo = () => {
                 <div className="contact-card">
 
                     <h2>Contact Details</h2>
+                    <input type="text" name="phone" placeholder="Mobile Number" value={contact.phone} onChange={handleContact} />
 
-                    <input
-                        type="text"
-                        placeholder="Mobile Number"
-                        value={contact.phone}
-                        onChange={(e) =>
-                            setContact({
-                                ...contact,
-                                phone: e.target.value,
-                            })
-                        }
-                    />
-
-                    <input
-                        type="email"
-                        placeholder="Email Address"
-                        value={contact.email}
-                        onChange={(e) =>
-                            setContact({
-                                ...contact,
-                                email: e.target.value,
-                            })
-                        }
-                    />
+                    <input type="email" name="email" placeholder="Email Address" value={contact.email} onChange={handleContact} />
 
                 </div>
 
             </div>
 
-            {/* Right Section */}
+
 
             <div className="booking-summary">
-
                 <h2>Booking Summary</h2>
-
                 <hr />
-
                 <p>
                     <strong>Bus:</strong> {bus.busName}
                 </p>
@@ -180,7 +145,6 @@ const PassengerInfo = () => {
                 <p>
                     <strong>Route:</strong> {bus.from} > {bus.to}
                 </p>
-
                 <p>
                     <strong>Seats:</strong>
                 </p>
@@ -196,14 +160,10 @@ const PassengerInfo = () => {
                 <hr />
 
                 <h3>
-                    Total : ₹
-                    {selectedSeats.length * bus.price}
+                    Total : ₹ {selectedSeats.length * bus.price}
                 </h3>
 
-                <button
-                    className="continue-btn"
-                    onClick={handleContinue}
-                >
+                <button className="continue-btn" onClick={handleContinue}>
                     Continue
                 </button>
 

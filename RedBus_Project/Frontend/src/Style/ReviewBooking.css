@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.review-container {
+    width: 100%;
+    min-height: 100vh;
+    background: #f5f5f5;
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    align-items: flex-start;
+}
+
+.review-left {
+    flex: 2;
+}
+
+.review-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.review-card h2 {
+    color: #d84e55;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.review-card p {
+    margin: 12px 0;
+    color: #555;
+    font-size: 16px;
+}
+
+.passenger-item {
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background: #fafafa;
+}
+
+.passenger-item h4 {
+    color: #d84e55;
+    margin-bottom: 10px;
+}
+
+.passenger-item p {
+    margin: 8px 0;
+}
+
+.passenger-item hr {
+    margin-top: 15px;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+.review-summary {
+    flex: 1;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 20px;
+}
+
+.review-summary h2 {
+    color: #d84e55;
+    margin-bottom: 20px;
+}
+
+.review-summary p,
+.review-summary h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 18px 0;
+    color: #444;
+}
+
+.review-summary h3 {
+    font-size: 22px;
+    color: #222;
+}
+
+.review-summary hr {
+    margin: 18px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+.confirm-btn {
+    width: 100%;
+    height: 50px;
+    background: #d84e55;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.confirm-btn:hover {
+    background: #c63d45;
+}
+
+@media (max-width: 900px) {
+    .review-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .review-summary {
+        width: 100%;
+        position: static;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .review-container {
+        padding: 15px;
+    }
+
+    .review-card,
+    .review-summary {
+        padding: 18px;
+    }
+
+    .review-card h2,
+    .review-summary h2 {
+        font-size: 22px;
+    }
+
+    .review-summary h3 {
+        font-size: 20px;
+    }
+
+    .confirm-btn {
+        height: 46px;
+        font-size: 16px;
+    }
+}

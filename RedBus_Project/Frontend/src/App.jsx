@@ -10,6 +10,7 @@ import Hotel from './Pages/Hotel'
 import Login from './Pages/Login'
 import Register from './Pages/Register'
 import PassengerInfo from './Pages/PassengerInfo'
+import ReviewBooking from './Pages/ReviewBooking'
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
           <Route path='/login' element={<><Login /></>} />
           <Route path='/register' element={<><Register /></>} />
           <Route path='/passenger-info' element={<><PassengerInfo /></>} />
+          <Route path='/review-booking' element={<><ReviewBooking /></>} />
         </Routes>
       </BrowserRouter>
 
