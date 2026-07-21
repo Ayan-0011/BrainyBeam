@@ -1,14 +1,20 @@
 .bus-info-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 24px 16px;
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 16px;
 }
 
 .bus-header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.bus-title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #222;
 }
 
 .back-btn {
@@ -28,81 +34,90 @@
     color: #ffffff;
 }
 
-.bus-title {
-    font-size: 28px;
-    font-weight: 700;
-    color: #1f2937;
-}
-
 .bus-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 15px;
 }
 
 .bus-card {
-    padding: 20px;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    transition: .3s ease;
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    padding: 22px;
+    transition: .25s;
 }
 
 .bus-card:hover {
-    box-shadow: 0 8px 20px rgba(0,0,0,.12);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
 }
 
 .bus-grid {
     display: grid;
-    grid-template-columns: 5fr 1fr;
-    gap: 20px;
+    grid-template-columns: 4fr 1fr;
+    gap: 25px;
     align-items: center;
 }
 
 .bus-name-row {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .bus-name-row h2 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1f2937;
+    font-size: 20px;
+    font-weight: 600;
+    color: #222;
 }
 
-.bus-name-row span,
-.bus-type,
-.bus-time-row p {
-    color: #6b7280;
+.bus-name-row span {
+    color: #777;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .bus-type {
-    margin-top: 6px;
+    margin-top: 4px;
     font-size: 14px;
+    color: #777;
 }
 
 .bus-time-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 24px;
+    margin-top: 22px;
 }
 
 .bus-time-row h3 {
+    font-size: 14px;
+    font-weight: 100;
+    color: #777;
+    margin: 0;
+}
+
+.bus-time-row p {
     font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 4px;
 }
 
 .bus-duration {
     flex: 1;
-    margin: 0 20px;
+    margin: 0 30px;
     text-align: center;
 }
 
-.bus-line div {
+.bus-line {
     margin-top: 8px;
-    border-top: 1px dashed #9ca3af;
+    border-top: 1px dashed #d4d4d4;
+}
+
+.bus-duration p {
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #666;
 }
 
 .bus-arrival {
@@ -111,100 +126,215 @@
 
 .amenities {
     display: flex;
-    flex-wrap: wrap;
     gap: 8px;
-    margin-top: 20px;
+    flex-wrap: wrap;
+    margin-top: 18px;
 }
 
 .amenities span {
-    padding: 5px 12px;
-    background: #f3f4f6;
-    border-radius: 999px;
+    background: #f7f7f7;
+    color: #666;
+    padding: 6px 12px;
+    border-radius: 30px;
     font-size: 12px;
-    color: #4b5563;
+    font-weight: 400;
 }
 
 .bus-right {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 16px;
+    gap: 12px;
 }
 
 .rating {
-    padding: 8px 12px;
     background: #16a34a;
-    color: #ffffff;
-    border-radius: 8px;
-    font-weight: 600;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .price {
-    font-size: 30px;
-    font-weight: 700;
+    font-size: 28px;
     color: #d84e55;
+    font-weight: 600;
 }
 
 .seat-left {
+    font-size: 13px;
     color: #16a34a;
-    font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .seats-btn {
-    padding: 10px 20px;
-    border: 2px solid #d84e55;
-    background: transparent;
-    color: #d84e55;
+    background: #d84e55;
+    color: white;
+    border: none;
+    padding: 10px 22px;
     border-radius: 8px;
     cursor: pointer;
-    font-weight: 600;
-    transition: .3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    transition: .25s;
 }
 
 .seats-btn:hover {
-    background: #d84e55;
-    color: #ffffff;
+    background: #c53b43;
 }
 
-@media (max-width:992px){
+/* ---------- Tablet ---------- */
 
-    .bus-grid{
-        grid-template-columns:1fr;
+@media (max-width: 992px) {
+
+    .bus-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 
-    .bus-right{
-        flex-direction:row;
-        justify-content:space-between;
-        align-items:center;
+    .bus-right {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+    }
+
+    .price {
+        font-size: 26px;
     }
 
 }
 
-@media (max-width:768px){
+/* ---------- Mobile ---------- */
 
-    .bus-time-row{
-        flex-direction:column;
-        gap:20px;
-        align-items:flex-start;
+@media (max-width: 768px) {
+
+    .bus-info-container {
+        padding: 15px;
     }
 
-    .bus-duration{
-        margin:0;
-        width:100%;
+    .bus-card {
+        padding: 16px;
     }
 
-    .bus-arrival{
-        text-align:left;
+    .bus-header {
+        gap: 10px;
+        margin-bottom: 20px;
     }
 
-    .bus-right{
-        flex-direction:column;
-        align-items:flex-start;
+    .bus-title {
+        font-size: 22px;
     }
 
-    .seat-btn{
-        width:100%;
+    .bus-name-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .bus-name-row h2 {
+        font-size: 18px;
+    }
+
+    .bus-time-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-top: 18px;
+    }
+
+    .bus-time-row h3 {
+        font-size: 18px;
+    }
+
+    .bus-time-row p {
+        font-size: 12px;
+    }
+
+    .bus-duration {
+        margin: 0 10px;
+    }
+
+    .bus-duration p {
+        font-size: 12px;
+    }
+
+    .amenities {
+        gap: 6px;
+    }
+
+    .amenities span {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    .bus-right {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .rating {
+        align-self: flex-start;
+    }
+
+    .price {
+        font-size: 24px;
+    }
+
+    .seat-left {
+        font-size: 13px;
+    }
+
+    .seats-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+/* ---------- res ---------- */
+
+@media (max-width:480px) {
+
+    .bus-card {
+        padding: 14px;
+    }
+
+    .bus-title {
+        font-size: 20px;
+    }
+
+    .bus-time-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .bus-duration {
+        width: 100%;
+        margin: 0;
+        text-align: left;
+    }
+
+    .bus-arrival {
+        text-align: left;
+    }
+
+    .price {
+        font-size: 22px;
+    }
+
+    .bus-name-row h2 {
+        font-size: 17px;
+    }
+
+    .back-btn {
+        padding: 8px 12px;
+        font-size: 14px;
     }
 
 }

@@ -42,7 +42,7 @@ const Footer = () => {
                     +91 98765 43210
                 </p>
             </div>
-
+            
         </div>
 
         <hr className="footer-line" />

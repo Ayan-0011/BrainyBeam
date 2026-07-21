@@ -1,10 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
 const My_Profile = () => {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
- if (!currentUser) {
+    const navigate = useNavigate();
+    
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    const logout = () => {
+        localStorage.removeItem('currentUser');
+        navigate('/')
+    }
+
+
+    if (!currentUser) {
 
         return (
 
@@ -29,12 +38,15 @@ const My_Profile = () => {
 
     return (
         <>
-            <h1>Account</h1>
+            <div className='main'>
+                <h1>Account of {currentUser.name}</h1>
+                <button onClick={logout}>Logout</button>
+            </div>
 
         </>
 
     );
 
-  }
+}
 
 export default My_Profile

@@ -6,18 +6,19 @@ const busSchema = new mongoose.Schema({
     operator: String,
     from: String,
     to: String,
+    date:String,
     departureTime: String,
     arrivalTime: String,
     duration: String,
     totalSeats: Number,
     availableSeats: Number,
     price: Number,
-    busType:[String],
+    busType: [String],
     amenities: [String],
-    image:[String],
+    image: [String],
     rating: Number,
 
-     seatLayout: [
+    seatLayout: [
         {
             seatNumber: String,
             status: {
@@ -26,6 +27,7 @@ const busSchema = new mongoose.Schema({
             }
         }
     ]
+    
 });
 
 

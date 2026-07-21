@@ -6,7 +6,7 @@ const bookingSchema = new mongoose.Schema({
     userName: String,
     userEmail: String,
     bus: {
-       type:Object
+        type: Object
     },
     passengers: [
         {
@@ -21,12 +21,16 @@ const bookingSchema = new mongoose.Schema({
         email: String
     },
     seats: [String],
-    
+
     totalAmount: Number,
     bookingStatus: {
         type: String,
         default: "Confirmed"
-    }
+    },
+    bookingDate: {
+        type: Date,
+        default: Date.now
+    },
 });
 
 const bookingModel = mongoose.model('booking', bookingSchema);

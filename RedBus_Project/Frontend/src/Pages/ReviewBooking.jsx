@@ -2,13 +2,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../Style/ReviewBooking.css";
 import axios from 'axios'
+import { ChevronLeft } from "lucide-react";
 
 const ReviewBooking = () => {
 
     const navigate = useNavigate();
     const { state } = useLocation();
     //console.log(state);
-    
+
 
     if (!state) {
         return <h2>No Booking Found</h2>;
@@ -17,13 +18,13 @@ const ReviewBooking = () => {
     const { bus, passengers, selectedSeats, contact } = state;
     const totalAmount = selectedSeats.length * bus.price;
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    
+
     //console.log(bus);
-    
-    
-    const confirmBooking = async() => {
-        
-    
+
+
+    const confirmBooking = async () => {
+
+
 
 
         const booking = {
@@ -34,11 +35,11 @@ const ReviewBooking = () => {
             userName: currentUser.name,
             userEmail: currentUser.email,
 
-            bus:bus,
+            bus: bus,
 
             passengers,
 
-            seats:selectedSeats,
+            seats: selectedSeats,
 
             contact,
 
@@ -46,15 +47,13 @@ const ReviewBooking = () => {
 
             bookingStatus: "Confirmed",
 
-            bookingDate: new Date().toLocaleString()
-
         };
 
-       // console.log(booking);
-        
+         console.log(booking);
 
-        
-        await axios.post("http://localhost:3000/booking",booking);
+
+
+        await axios.post("http://localhost:3000/booking", booking);
 
 
         toast.success("Booking Confirmed ");
@@ -65,6 +64,9 @@ const ReviewBooking = () => {
     return (
 
         <div className="review-container">
+            <button onClick={() => navigate(-1)} className="details-back-btn">
+                <ChevronLeft /> Back
+            </button>
 
             {/* Left */}
 

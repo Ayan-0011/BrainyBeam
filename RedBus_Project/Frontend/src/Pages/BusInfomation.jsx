@@ -28,7 +28,7 @@ const BusInformation = () => {
             }
 
             const res = await axios.get(url);
-           // console.log(res.data);
+            // console.log(res.data);
 
             setBuses(res.data.buses || res.data.bus);
         } catch (err) {
@@ -54,97 +54,97 @@ const BusInformation = () => {
     return (
         <div className="bus-info-container">
 
-    <div className="bus-header">
+            <div className="bus-header">
 
-        <button
-            onClick={() => navigate(-1)}
-            className="back-btn" >
-            <ChevronLeft />
-            Back
-        </button>
+                <button
+                    onClick={() => navigate(-1)}
+                    className="back-btn" >
+                    <ChevronLeft />
+                    Back
+                </button>
 
-        <h1 className="bus-title">
-            Available Buses
-        </h1>
+                <h1 className="bus-title">
+                    Available Buses
+                </h1>
 
-    </div>
-
-    <div className="bus-list">
-
-        {buses.map((bus) => (
-
-            <div key={bus._id} className="bus-card">
-
-                <div className="bus-grid">
-                    <div className="bus-left">
-                        <div className="bus-name-row">
-                            <h2>{bus.busName}</h2>
-                            <span>{bus.operator}</span>
-                        </div>
-
-                        <p className="bus-type">
-                            {bus.busType.join(" • ")}
-                        </p>
-
-                        <div className="bus-time-row">
-                            <div>
-                                <h3>{bus.departureTime}</h3>
-                                <p>{bus.from}</p>
-                            </div>
-
-                            <div className="bus-duration">
-                                <p>{bus.duration}</p>
-                                <div className="bus-line">
-                                    <div></div>
-                                </div>
-                            </div>
-
-                            <div className="bus-arrival">
-                                <h3>{bus.arrivalTime}</h3>
-                                <p>{bus.to}</p>
-                            </div>
-
-                        </div>
-
-                        <div className="amenities">
-                            {bus.amenities.slice(0, 4).map((item, index) => (
-                                <span key={index}>
-                                    {item}
-                                </span>
-                            ))}
-                        </div>
-
-                    </div>
-
-                    <div className="bus-right">
-                        <div className="rating">
-                            <FaStar/> {bus.rating}
-                        </div>
-
-                        <div>
-                            <h2 className="price">
-                                ₹{bus.price}
-                            </h2>
-                            <p className="seat-left">
-                                {bus.availableSeats} Seats Left
-                            </p>
-                        </div>
-
-                        <button
-                            onClick={() => navigate(`/bus/${bus._id}`)}
-                            className="seats-btn">
-                            View Seats
-                        </button>
-                    </div>
-
-                </div>
             </div>
 
-        ))}
+            <div className="bus-list">
 
-    </div>
+                {buses.map((bus) => (
 
-</div>
+                    <div key={bus._id} className="bus-card">
+
+                        <div className="bus-grid">
+                            <div className="bus-left">
+                                <div className="bus-name-row">
+                                    <h2>{bus.busName}</h2>
+                                    <span>{bus.operator}</span>
+                                </div>
+
+                                <p className="bus-type">
+                                    {bus.busType.join(" • ")}
+                                </p>
+
+                                <div className="bus-time-row">
+                                    <div>
+                                        <p>{bus.from}</p>
+                                        <h3>{bus.departureTime}</h3>
+                                    </div>
+
+                                    <div className="bus-duration">
+                                        <p>{bus.duration}</p>
+                                        <div className="bus-line">
+                                            <div></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="bus-arrival">
+                                        <p>{bus.to}</p>
+                                        <h3>{bus.arrivalTime}</h3>
+                                    </div>
+
+                                </div>
+
+                                <div className="amenities">
+                                    {bus.amenities.slice(0, 4).map((item, index) => (
+                                        <span key={index}>
+                                            {item}
+                                        </span>
+                                    ))}
+                                </div>
+
+                            </div>
+
+                            <div className="bus-right">
+                                <div className="rating">
+                                    <FaStar size={14} /> {bus.rating}
+                                </div>
+
+                                <div>
+                                    <h2 className="price">
+                                        ₹{bus.price}
+                                    </h2>
+                                    <p className="seat-left">
+                                        {bus.availableSeats} Seats Left
+                                    </p>
+                                </div>
+
+                                <button
+                                    onClick={() => navigate(`/bus/${bus._id}`)}
+                                    className="seats-btn">
+                                    View Seats
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                ))}
+
+            </div>
+
+        </div>
     );
 };
 

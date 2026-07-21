@@ -72,8 +72,6 @@ app.post("/booking", async (req, res) => {
             message: "Booking Created Successfully",
             booking
         });
-
-  
 });
 
 app.get('/my-booking', async(req, res)=>{
@@ -86,15 +84,15 @@ app.get('/my-booking', async(req, res)=>{
 })
 
 
-app.post('/create-train', async (req, res) => {
-    const data = req.body
+// app.post('/create-train', async (req, res) => {
+//     const data = req.body
 
-    const train = await trainModel.create(data)
-    res.status(201).json({
-        messgae: "Train create successfully...",
-        train
-    })
-})
+//     const train = await trainModel.create(data)
+//     res.status(201).json({
+//         messgae: "Train create successfully...",
+//         train
+//     })
+// })
 
 
 
