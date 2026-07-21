@@ -7,6 +7,12 @@ import { CircleQuestionMarkIcon, CircleUser, Menu, } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
+
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const name = currentUser.name;
+  //console.log(name);
+  
+
   return (
     <div className="navbar">
       <div className="navbar-container">
@@ -56,7 +62,7 @@ const Navbar = () => {
           <NavLink to="/my-profile" className="acc">
             <button className="menu-btn">
               <CircleUser size={20} />
-              Account
+                {currentUser ? name : "Account" }
             </button>
           </NavLink>
 
@@ -81,7 +87,7 @@ const Navbar = () => {
           <NavLink to="/my-profile" className="acc">
             <button className="menu-btn">
               <CircleUser size={20} />
-              Account
+                {currentUser ? name : "Account" }
             </button>
           </NavLink>
 

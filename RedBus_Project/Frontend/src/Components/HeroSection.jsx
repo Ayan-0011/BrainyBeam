@@ -14,7 +14,7 @@ const HeroSection = () => {
                 </h1>
             </div>
             <div className="hero-search">
-                <SearchInput />
+                <SearchInput name="Bus" />
             </div>
         </div>
     );

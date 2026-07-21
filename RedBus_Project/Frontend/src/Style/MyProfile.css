@@ -55,3 +55,31 @@
     background:#b93b42;
     color: white;
 }
+
+.profile-image{
+    position:relative;
+    width:140px;
+    margin:auto;
+}
+
+.profile-img{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #fff;
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+}
+
+.change-photo{
+    position:absolute;
+    bottom:5px;
+    right:5px;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    border:none;
+    cursor:pointer;
+    background:#ff4d4f;
+    color:#fff;
+}

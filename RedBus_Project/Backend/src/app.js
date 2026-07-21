@@ -8,7 +8,7 @@ const cors = require('cors');
 
 const app = express()
 connectDB()
-app.use(express.json(),cors())
+app.use(express.json(), cors())
 
 
 app.post("/create-bus", async (req, res) => {
@@ -65,34 +65,53 @@ app.get("/search-bus", async (req, res) => {
 });
 
 app.post("/booking", async (req, res) => {
-    
-        const booking = await bookingModel.create(req.body);
 
-        res.status(201).json({
-            message: "Booking Created Successfully",
-            booking
-        });
+    const booking = await bookingModel.create(req.body);
+
+    res.status(201).json({
+        message: "Booking Created Successfully",
+        booking
+    });
 });
 
-app.get('/my-booking', async(req, res)=>{
+app.get('/my-booking', async (req, res) => {
 
     const booking = await bookingModel.find();
     res.status(200).json({
-        message:"Booking data fetching sucessfully...",
+        message: "Booking data fetching sucessfully...",
         booking
     })
 })
 
 
-// app.post('/create-train', async (req, res) => {
-//     const data = req.body
+app.post('/create-train', async (req, res) => {
+    const data = req.body
 
-//     const train = await trainModel.create(data)
-//     res.status(201).json({
-//         messgae: "Train create successfully...",
-//         train
-//     })
-// })
+    const train = await trainModel.create(data)
+    res.status(201).json({
+        messgae: "Train create successfully...",
+        train
+    })
+})
+
+app.get("/train", async (req, res) => {
+
+    const train = await trainModel.find();
+    res.status(200).json({
+        message: "train data fetching successfully...",
+        train
+    })
+})
+
+app.get("/train/:id", async (req, res) => {
+    const train = await trainModel.findById(req.params.id);
+
+    res.status(200).json({
+        message: "single train data fetching success",
+        train,
+    });
+});
+
 
 
 

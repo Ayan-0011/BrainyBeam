@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.offers-container {
+    width: 80%;
+    margin: 50px auto;
+    margin-top: 150px;
+}
+
+.offers-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.offers-header h2 {
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.arrow-btn {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .3s;
+}
+
+.arrow-btn:hover {
+    transform: scale(1.08);
+}
+
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.offer-card {
+    position: relative;
+    border-radius: 22px;
+    padding: 20px;
+    overflow: hidden;
+    min-height:120px;
+    transition: .35s;
+    cursor: pointer;
+}
+
+.offer-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, .15);
+}
+
+.offer-badge {
+    background: #4d4d4d;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.offer-card h3 {
+    margin-top: 18px;
+    width: 65%;
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.offer-card p {
+    margin-top: 10px;
+    color: #555;
+    font-size: 15px;
+}
+
+.coupon {
+    position: absolute;
+    bottom: 3px;
+    left: 5px;
+    margin: 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .08);
+}
+
+.offer-image {
+    position: absolute;
+    right: 18px;
+    bottom: 15px;
+    width: 95px;
+    object-fit: contain;
+}
+
+/* Tablet */
+
+@media (max-width:992px) {
+    .offers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+
+@media (max-width:600px) {
+    .offers-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .offer-card h3 {
+        width: 80%;
+        font-size: 20px;
+    }
+
+    .offer-image {
+        width: 80px;
+    }
+
+    .offers-header h2 {
+        font-size: 28px;
+    }
+}

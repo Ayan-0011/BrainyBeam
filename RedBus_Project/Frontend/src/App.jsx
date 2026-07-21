@@ -14,6 +14,8 @@ import ReviewBooking from './Pages/ReviewBooking'
 import MyBooking from './Pages/MyBooking'
 import My_Profile from './Pages/My_Profile'
 import Help from './Pages/Help'
+import TrainInfo from './Pages/Train/TrainInfo'
+import TrainDetail from './Pages/Train/TrainDetail'
 
 const App = () => {
   return (
@@ -48,6 +50,10 @@ const App = () => {
           <Route path='/my-booking' element={<><MyBooking /></>} />
           <Route path='/my-profile' element={<><My_Profile /></>} />
           <Route path='/help' element={<><Help /></>} />
+
+
+          <Route path='/Train-info' element={<><TrainInfo/></>}  />
+          <Route path='/Train/:id' element={<><TrainDetail/></>}  />
         </Routes>
       </BrowserRouter>
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Style/MyProfile.css"
+import { toast } from "react-toastify";
 
 const My_Profile = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const My_Profile = () => {
 
   const logout = () => {
     localStorage.removeItem("currentUser");
+    toast.success("Logout Successfully")
     navigate("/");
   };
 
