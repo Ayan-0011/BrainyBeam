@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Seat from "../Components/seat";
-import { ChevronLeft, Star } from "lucide-react";
+import { ArrowBigRight, ArrowDownRightIcon, ArrowRightIcon, ChevronLeft, Star } from "lucide-react";
 import { FaStar } from "react-icons/fa";
 import { toast } from "react-toastify";
 
@@ -145,7 +145,7 @@ const BusDetails = () => {
 
                     <div className="summary-row">
                         <span>Route</span>
-                        <span>{bus.from} - {bus.to}</span>
+                        <span>{bus.from} <ArrowRightIcon size={15}/> {bus.to}</span>
                     </div>
                     <div>
 

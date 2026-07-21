@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../Style/MyBookings.css";
-import { ChevronLeft } from "lucide-react";
+import { ArrowBigLeft, ArrowBigRight, ChevronLeft } from "lucide-react";
 
 const MyBookings = () => {
 
@@ -81,7 +81,7 @@ const MyBookings = () => {
                 <h3>{booking.bus.from}</h3>
               </div>
 
-              <div className="arrow">→</div>
+              <div className="arrow"><ArrowBigRight /></div>
 
               <div>
                 <p>To</p>

@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "../Style/PassengerInfo.css";
-import { ChevronLeft } from "lucide-react";
+import { ArrowRightIcon, ChevronLeft } from "lucide-react";
 
 const PassengerInfo = () => {
     const navigate = useNavigate();
@@ -142,7 +142,7 @@ const PassengerInfo = () => {
                 </p>
 
                 <p>
-                    <strong>Route:</strong> {bus.from} > {bus.to}
+                    <strong>Route:</strong> {bus.from} <ArrowRightIcon size={15} /> {bus.to}
                 </p>
                 <p>
                     <strong>Seats:</strong>
