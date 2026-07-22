@@ -352,7 +352,8 @@
 /* Card */
 
 .coach-card{
-    width:180px;
+    width:160px;
+    height: 140px;
     border-radius:12px;
     overflow:hidden;
     cursor:pointer;

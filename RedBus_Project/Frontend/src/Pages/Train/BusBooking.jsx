@@ -45,7 +45,7 @@ const BusBookingCard = ({ booking }) => {
                 </div>
 
                 <div>
-                    <span>Total Fare</span>
+                    <span>Total Price</span>
                     <p>₹{booking.totalAmount}</p>
                 </div>
             </div>

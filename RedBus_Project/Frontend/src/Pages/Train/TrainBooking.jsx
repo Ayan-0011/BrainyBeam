@@ -40,7 +40,7 @@ const TrainBookingCard = ({ booking }) => {
 
                 <div>
                     <span>Coach</span>
-                    <p>{booking.coach?._id}</p>
+                    <p>{booking.train?.coaches[0].coachName}</p>
                 </div>
 
                 <div>

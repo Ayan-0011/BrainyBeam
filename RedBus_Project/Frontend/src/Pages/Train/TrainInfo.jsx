@@ -24,7 +24,7 @@ const TrainInfo = () => {
             let url = "http://localhost:3000/train";
 
             if (source && destination) {
-                url = `http://localhost:3000/search-bus?source=${source}&destination=${destination}`;
+                url = `http://localhost:3000/search-train?source=${source}&destination=${destination}`;
             }
 
             const res = await axios.get(url);
@@ -71,7 +71,7 @@ const TrainInfo = () => {
 
             <div className="bus-list">
 
-                {trains.map((train) => (
+                {trains?.map((train) => (
 
                     <div key={train._id} className="bus-card">
 

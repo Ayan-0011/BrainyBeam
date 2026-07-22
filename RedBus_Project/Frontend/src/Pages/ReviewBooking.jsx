@@ -124,7 +124,7 @@ const ReviewBooking = () => {
                 <h2>Fare Summary</h2>
 
                 <div className="fare-row">
-                    <span>Seat Fare</span>
+                    <span>Seat Price</span>
                     <>₹{totalAmount}</>
                 </div>
 

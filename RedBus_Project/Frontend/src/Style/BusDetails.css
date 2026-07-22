@@ -10,7 +10,7 @@
     gap: 6px;
     padding: 10px 16px;
     margin-bottom: 20px;
-    background: #ffffff;
+    background: #fff;
     border: 1px solid #111827;
     border-radius: 8px;
     cursor: pointer;
@@ -19,7 +19,7 @@
 
 .details-back-btn:hover {
     background: #111827;
-    color: #ffffff;
+    color: #fff;
 }
 
 .details-grid {
@@ -31,7 +31,7 @@
 .details-card,
 .seat-section,
 .summary-card {
-    background: #ffffff;
+    background: #fff;
     border-radius: 14px;
     padding: 24px;
     box-shadow: 0 4px 15px rgba(0,0,0,.12);
@@ -48,6 +48,7 @@
     height: 120px;
     object-fit: cover;
     border-radius: 12px;
+    flex-shrink: 0;
 }
 
 .details-content {
@@ -58,6 +59,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 20px;
 }
 
 .details-header h1 {
@@ -72,8 +74,9 @@
 .rating-box {
     padding: 8px 14px;
     background: #16a34a;
-    color: #ffffff;
+    color: #fff;
     border-radius: 8px;
+    white-space: nowrap;
 }
 
 .rating-box p {
@@ -86,10 +89,13 @@
 .star-icon {
     color: #fde047;
 }
+
 .time-row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top: 30px;
+    gap: 20px;
 }
 
 .time-row h2 {
@@ -112,13 +118,14 @@
 
 .seat-grid {
     display: grid;
-    grid-template-columns: repeat(5,1fr);
-    gap: 8px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
 }
 
 .seat-status {
     display: flex;
-    gap: 30px;
+    flex-wrap: wrap;
+    gap: 25px;
     margin-top: 30px;
 }
 
@@ -164,6 +171,7 @@
 .total-row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 18px 0;
 }
 
@@ -177,7 +185,7 @@
 .seat-chip {
     padding: 6px 12px;
     background: #d84e55;
-    color: #ffffff;
+    color: #fff;
     border-radius: 6px;
 }
 
@@ -191,7 +199,7 @@
     margin-top: 24px;
     padding: 14px;
     background: #d84e55;
-    color: #ffffff;
+    color: #fff;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -203,7 +211,31 @@
     background: #c73d45;
 }
 
+/* ==========================
+      Laptop
+========================== */
+
+@media (max-width: 1200px) {
+
+    .details-grid {
+        gap: 24px;
+    }
+
+    .details-header h1 {
+        font-size: 28px;
+    }
+
+    .time-row h2 {
+        font-size: 24px;
+    }
+}
+
+/* ==========================
+      Tablet
+========================== */
+
 @media (max-width: 992px) {
+
     .details-grid {
         grid-template-columns: 1fr;
     }
@@ -211,19 +243,49 @@
     .summary-card {
         position: static;
     }
+
+    .seat-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }
 
+/* ==========================
+      Large Mobile
+========================== */
+
 @media (max-width: 768px) {
+
+    .bus-details-container {
+        padding: 18px;
+    }
 
     .details-card {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .details-header,
+    .bus-image {
+        width: 100%;
+        height: 220px;
+    }
+
+    .details-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .details-header h1 {
+        font-size: 24px;
+    }
+
     .time-row {
         flex-direction: column;
-        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .time-center {
+        width: 100%;
+        text-align: left;
     }
 
     .time-line {
@@ -231,11 +293,88 @@
     }
 
     .seat-grid {
-        grid-template-columns: repeat(4,1fr);
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .summary-card h2 {
+        font-size: 24px;
+    }
+
+    .total-row {
+        font-size: 20px;
+    }
+}
+
+/* ==========================
+      Small Mobile
+========================== */
+
+@media (max-width: 576px) {
+
+    .bus-details-container {
+        padding: 14px;
+    }
+
+    .details-card,
+    .seat-section,
+    .summary-card {
+        padding: 16px;
+    }
+
+    .details-back-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .details-header h1 {
+        font-size: 22px;
+    }
+
+    .time-row h2 {
+        font-size: 22px;
+    }
+
+    .seat-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
     }
 
     .seat-status {
-        flex-direction: column;
-        gap: 15px;
+        gap: 12px;
+    }
+
+    .summary-row,
+    .total-row {
+        font-size: 15px;
+    }
+
+    .proceed-btn {
+        padding: 13px;
+    }
+}
+
+/* ==========================
+      Very Small Devices
+========================== */
+
+@media (max-width: 400px) {
+
+    .details-header h1 {
+        font-size: 20px;
+    }
+
+    .seat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .seat-chip {
+        font-size: 13px;
+        padding: 5px 10px;
+    }
+
+    .rating-box {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 }

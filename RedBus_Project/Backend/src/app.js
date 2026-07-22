@@ -62,6 +62,28 @@ app.get("/search-bus", async (req, res) => {
         });
     }
 
+
+});
+app.get("/search-train", async (req, res) => {
+
+    try {
+        const { source, destination } = req.query;
+        const train = await trainModel.find({
+            from: { $regex: source, $options: "i" },
+            to: { $regex: destination, $options: "i" }
+        });
+
+        res.status(200).json({
+            train
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            message: err.message
+        });
+    }
+
 });
 
 app.post("/booking", async (req, res) => {
