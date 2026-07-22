@@ -1,4 +1,4 @@
-import { Search, MapPin, CalendarDays, ArrowLeftRight } from "lucide-react";
+import { Search, MapPin, CalendarDays, ArrowLeftRight, Bus, BusFront } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -59,7 +59,7 @@ const SearchInput = (props) => {
 
                 <div className="input-box">
 
-                    <MapPin className="input-icon" />
+                    <BusFront className="input-icon" />
 
                     <input type="text" name="source" placeholder="From" value={search.source} onChange={handleChange} className="search-input"  />
 
@@ -81,7 +81,7 @@ const SearchInput = (props) => {
 
                     <CalendarDays className="input-icon" />
 
-                    <input  type="date" name="date" value={search.date} onChange={handleChange}
+                    <input type="date" name="date" value={search.date} onChange={handleChange}
                         className="search-input" />
 
                 </div>

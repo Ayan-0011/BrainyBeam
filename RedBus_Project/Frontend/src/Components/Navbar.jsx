@@ -8,8 +8,8 @@ import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
 
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const name = currentUser.name;
+  const currentUser = JSON.parse(localStorage.getItem("currentUser")) ;
+  const name = currentUser?.name;
   //console.log(name);
   
 
@@ -87,7 +87,7 @@ const Navbar = () => {
           <NavLink to="/my-profile" className="acc">
             <button className="menu-btn">
               <CircleUser size={20} />
-                {currentUser ? name : "Account" }
+                { currentUser ? name : "Account" }
             </button>
           </NavLink>
 
