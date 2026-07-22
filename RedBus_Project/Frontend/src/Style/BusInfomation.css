@@ -336,5 +336,85 @@
         padding: 8px 12px;
         font-size: 14px;
     }
+}
 
+
+/* train choes card design*/
+/* Coach List */
+
+.coach-list{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-top:22px;
+}
+
+/* Card */
+
+.coach-card{
+    width:180px;
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:.25s;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.coach-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 10px 25px rgba(0,0,0,.18);
+}
+
+/* Dark Top */
+
+.coach-top{
+    background:#429e5f;
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 16px;
+}
+
+.coach-top h3{
+    font-size:20px;
+    margin:0;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.coach-top h4{
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+}
+
+/* Light Bottom */
+
+.coach-body{
+    background:#edf9ee;
+    padding:18px 16px;
+}
+
+.coach-body p{
+    color:#555;
+    font-size:14px;
+    margin-bottom:14px;
+}
+
+.coach-body h2{
+    font-size:20px;
+    color:#1c8a3b;
+    margin-bottom:18px;
+}
+
+
+/* Hover Effect */
+
+.coach-card:hover .coach-top{
+    background:#24663a;
+}
+
+.coach-card:hover .coach-body{
+    background:#e3f7e6;
 }

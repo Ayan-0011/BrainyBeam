@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../Style/MyBookings.css";
 import { ArrowBigLeft, ArrowBigRight, ChevronLeft } from "lucide-react";
+import BusBookingCard from "./Train/BusBooking";
+import TrainBookingCard from "./Train/TrainBooking";
 
 const MyBookings = () => {
 
@@ -20,13 +22,14 @@ const MyBookings = () => {
 
     const userBookings = response.data.booking.filter(
       (booking) => booking.userId === currentUser.id);
-    // console.log(userBookings);
+     console.log(userBookings);
     setBookings(userBookings);
   };
 
   useEffect(() => {
     if (!currentUser) return;
     fetchBookings();
+    
   }, []);
 
 
@@ -62,76 +65,19 @@ const MyBookings = () => {
         <ChevronLeft /> Back
       </button>
 
+
       {bookings.length === 0 ? (
         <div className="empty-booking">
           <h2>No Bookings Found</h2>
         </div>
       ) : (
-        bookings.map((booking) => (
-          <div className="booking-card" key={booking._id}>
-
-            <div className="bus-name">
-              <h2>{booking.bus.busName}</h2>
-              <span>{booking.bus.busType}</span>
-            </div>
-
-            <div className="route">
-              <div>
-                <p>From</p>
-                <h3>{booking.bus.from}</h3>
-              </div>
-
-              <div className="arrow"><ArrowBigRight /></div>
-
-              <div>
-                <p>To</p>
-                <h3>{booking.bus.to}</h3>
-              </div>
-            </div>
-
-            <div className="details">
-
-              <div>
-                <span>Journey Date</span>
-                <p>{booking.bus.date}</p>
-
-              </div>
-
-              <div>
-                <span>Booked On</span>
-                <p>{new Date(booking.bookingDate).toLocaleDateString("en-IN", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                })}</p>
-              </div>
-
-              <div>
-                <span>Seats</span>
-                <p>{booking.seats.join(", ")}</p>
-              </div>
-
-              <div>
-                <span>Total Fare</span>
-                <p>₹{booking.totalAmount}</p>
-              </div>
-
-            </div>
-
-            <div className="passenger-box">
-              <h4>Passengers</h4>
-
-              {booking.passengers.map((passenger, index) => (
-                <div className="passenger" key={index}>
-                  <span>{passenger.name}</span>
-                  <span>{passenger.age}Y</span>
-                  <span>{passenger.gender}</span>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        ))
+        bookings.map((booking) =>
+          booking.type === "bus" ? (
+            <BusBookingCard key={booking._id} booking={booking} />
+          ) : (
+            <TrainBookingCard  key={booking._id} booking={booking} />
+          )
+        )
       )}
     </div>
   );

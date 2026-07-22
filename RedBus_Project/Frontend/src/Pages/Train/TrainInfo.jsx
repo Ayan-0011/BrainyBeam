@@ -6,7 +6,7 @@ import { FaBackspace, FaBackward, FaStar } from "react-icons/fa";
 import { Backpack, ChevronLeft } from "lucide-react";
 
 const TrainInfo = () => {
-    const [buses, setBuses] = useState([]);
+    const [trains, setTrains] = useState([]);
 
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -30,13 +30,13 @@ const TrainInfo = () => {
             const res = await axios.get(url);
             console.log(res.data.train);
 
-            setBuses(res.data.train || res.data.train);
+            setTrains(res.data.train || res.data.train);
         } catch (err) {
             console.log(err);
         }
     };
 
-    if (buses.length === 0) {
+    if (trains.length === 0) {
         return (
             <div className="flex justify-center items-center h-[60vh]">
                 <div className="text-center">
@@ -71,68 +71,71 @@ const TrainInfo = () => {
 
             <div className="bus-list">
 
-                {buses.map((bus) => (
+                {trains.map((train) => (
 
-                    <div key={bus._id} className="bus-card">
+                    <div key={train._id} className="bus-card">
 
                         <div className="bus-grid">
                             <div className="bus-left">
                                 <div className="bus-name-row">
-                                    <h2>{bus.trainName}</h2>
-                                    <span>{bus.trainNumber}</span>
+                                    <h2>{train.trainName}</h2>
+                                    <span>{train.trainNumber}</span>
                                 </div>
 
                                 <p className="bus-type">
-                                   
+
                                 </p>
 
                                 <div className="bus-time-row">
                                     <div>
-                                        <p>{bus.from}</p>
-                                        <h3>{bus.departureTime}</h3>
+                                        <p>{train.from}</p>
+                                        <h3>{train.departureTime}</h3>
                                     </div>
 
                                     <div className="bus-duration">
-                                        <p>{bus.duration}</p>
+                                        <p>{train.duration}</p>
                                         <div className="bus-line">
                                             <div></div>
                                         </div>
                                     </div>
 
                                     <div className="bus-arrival">
-                                        <p>{bus.to}</p>
-                                        <h3>{bus.arrivalTime}</h3>
+                                        <p>{train.to}</p>
+                                        <h3>{train.arrivalTime}</h3>
                                     </div>
 
                                 </div>
 
-                                <div className="amenities">
-                                    {bus.amenities.slice(0, 4).map((item, index) => (
-                                        <span key={index}>
-                                            {item}
-                                        </span>
+                                <div className="coach-list">
+                                    {train.coaches.map((coach, index) => (
+                                        <div  key={index}
+                                            className="coach-card"
+                                            onClick={() =>
+                                                navigate("/passenger-info", {
+                                                    state: {
+                                                        type: "train",
+                                                        train,
+                                                        coach
+                                                    }
+                                                })
+                                            }>
+                                            <div className="coach-top">
+                                                <h3>{coach.coachName}</h3>
+                                                <h4>₹{coach.price}</h4>
+                                            </div>
+
+                                            <div className="coach-body">
+                                                <p>{coach.coachType}</p>
+
+                                                <h2>Available {coach.availableSeats}</h2>
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
 
                             </div>
 
-                            <div className="bus-right">
-                                <div className="rating">
-                                    <FaStar size={14} /> {bus.rating}
-                                </div>
 
-                                <div>
-                                    <h2 className="price">
-                                        ₹{bus.price}
-                                    </h2>
-                                </div>
-
-                                <button
-                                    onClick={() => navigate(`/Train/${bus._id}`)}
-                                    className="seats-btn">
-                                    View Seats
-                                </button>
-                            </div>
 
                         </div>
                     </div>

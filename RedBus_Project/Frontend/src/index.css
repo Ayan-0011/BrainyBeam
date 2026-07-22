@@ -759,7 +759,7 @@ input[type="date"] {
 .faq-title {
     margin-bottom: 40px;
     text-align: center;
-    font-size: 38px;
+    font-size: 26px;
     font-weight: 700;
     color: #111827;
 }
@@ -817,7 +817,7 @@ input[type="date"] {
 
     .faq-title {
         margin-bottom: 30px;
-        font-size: 30px;
+        font-size: 22px;
     }
 
     .faq-btn {

@@ -8,6 +8,12 @@ const bookingSchema = new mongoose.Schema({
     bus: {
         type: Object
     },
+    
+    train:{
+        type:Object
+    },
+    coach: [String],
+
     passengers: [
         {
             seat: String,

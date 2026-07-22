@@ -8,15 +8,17 @@ const ReviewBooking = () => {
 
     const navigate = useNavigate();
     const { state } = useLocation();
-    //console.log(state);
+    console.log(state);
 
 
     if (!state) {
         return <h2>No Booking Found</h2>;
     }
 
-    const { bus, passengers, selectedSeats, contact } = state;
-    const totalAmount = selectedSeats.length * bus.price;
+    const { bus, passengers, selectedSeats, contact, type, train, coach } = state;
+
+
+    const totalAmount = type === "bus" ? selectedSeats.length * bus.price : coach.price;
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
     //console.log(bus);
@@ -25,31 +27,35 @@ const ReviewBooking = () => {
     const confirmBooking = async () => {
 
 
-
-
         const booking = {
-
             id: Date.now(),
+
+            type,
 
             userId: currentUser.id,
             userName: currentUser.name,
             userEmail: currentUser.email,
 
-            bus: bus,
+            bus: type === "bus" ? bus : null,
+
+            train: type === "train" ? train : null,
+
 
             passengers,
 
-            seats: selectedSeats,
+            seats: type === "bus" ? selectedSeats : [],
+
+            coach: type === "train" ? coach : null,
+
 
             contact,
 
             totalAmount,
 
             bookingStatus: "Confirmed",
-
         };
 
-         console.log(booking);
+        console.log(booking);
 
 
 
@@ -64,182 +70,81 @@ const ReviewBooking = () => {
     return (
 
         <div className="review-container">
-            <button onClick={() => navigate(-1)} className="details-back-btn">
-                <ChevronLeft /> Back
-            </button>
-
-            {/* Left */}
 
             <div className="review-left">
 
-                <div className="review-card">
-
-                    <h2>Bus Details</h2>
-
-                    <p><strong>Bus :</strong> {bus.busName}</p>
-
-                    <p><strong>Operator :</strong> {bus.operator}</p>
-
-                    <p>
-                        <strong>Route :</strong>
-                        {bus.from} → {bus.to}
-                    </p>
-
-                    <p>
-                        <strong>Departure :</strong>
-                        {bus.departureTime}
-                    </p>
-
-                    <p>
-                        <strong>Arrival :</strong>
-                        {bus.arrivalTime}
-                    </p>
-
-                    <p>
-                        <strong>Seats :</strong>
-
-                        {
-                            selectedSeats.join(", ")
-                        }
-
-                    </p>
-
-                </div>
+                <button
+                    onClick={() => navigate(-1)}
+                    className="back-btn"
+                >
+                    <ChevronLeft size={20} />
+                    Back
+                </button>
 
                 <div className="review-card">
 
-                    <h2>Passenger Details</h2>
+                    <div className="card-header">
+                        <h2>
+                            {type === "bus" ? " Bus Details" : " Train Details"}
+                        </h2>
+                    </div>
 
-                    {
+                    {type === "bus" ? (
+                        <div className="details-grid">
 
-                        passengers.map((passenger, index) => (
+                            <div><span>Bus</span><strong>{bus.busName}</strong></div>
+                            <div><span>Operator</span><strong>{bus.operator}</strong></div>
+                            <div><span>Route</span><strong>{bus.from} → {bus.to}</strong></div>
+                            <div><span>Departure</span><strong>{bus.departureTime}</strong></div>
+                            <div><span>Arrival</span><strong>{bus.arrivalTime}</strong></div>
+                            <div><span>Seats</span><strong>{selectedSeats.join(", ")}</strong></div>
 
-                            <div
-                                key={index}
-                                className="passenger-item"
-                            >
+                        </div>
+                    ) : (
 
-                                <h4>
+                        <div className="details-grid">
 
-                                    Passenger {index + 1}
+                            <div><span>Train</span><strong>{train.trainName}</strong></div>
+                            <div><span>Train No</span><strong>{train.trainNumber}</strong></div>
+                            <div><span>Route</span><strong>{train.from} → {train.to}</strong></div>
+                            <div><span>Departure</span><strong>{train.departureTime}</strong></div>
+                            <div><span>Arrival</span><strong>{train.arrivalTime}</strong></div>
+                            <div><span>Coach</span><strong>{coach.coachName}</strong></div>
+                            <div><span>Class</span><strong>{coach.coachType}</strong></div>
 
-                                </h4>
-
-                                <p>
-
-                                    Name :
-                                    {passenger.name}
-
-                                </p>
-
-                                <p>
-
-                                    Age :
-                                    {passenger.age}
-
-                                </p>
-
-                                <p>
-
-                                    Gender :
-                                    {passenger.gender}
-
-                                </p>
-
-                                <p>
-
-                                    Seat :
-                                    {passenger.seat}
-
-                                </p>
-
-                                <hr />
-
-                            </div>
-
-                        ))
-
-                    }
-
-                </div>
-
-                <div className="review-card">
-
-                    <h2>Contact Details</h2>
-
-                    <p>
-
-                        <strong>Phone :</strong>
-
-                        {contact.phone}
-
-                    </p>
-
-                    <p>
-
-                        <strong>Email :</strong>
-
-                        {contact.email}
-
-                    </p>
+                        </div>
+                    )}
 
                 </div>
 
             </div>
 
-            {/* Right */}
-
             <div className="review-summary">
 
                 <h2>Fare Summary</h2>
 
-                <hr />
+                <div className="fare-row">
+                    <span>Seat Fare</span>
+                    <>₹{totalAmount}</>
+                </div>
 
-                <p>
-
-                    Seat Fare
-
-                    <span>
-
-                        ₹{totalAmount}
-
-                    </span>
-
-                </p>
-
-                <p>
-
-                    Convenience Fee
-
-                    <span>
-
-                        ₹0
-
-                    </span>
-
-                </p>
+                <div className="fare-row">
+                    <span>Convenience Fee</span>
+                    <>₹0</>
+                </div>
 
                 <hr />
 
-                <h3>
-
-                    Total
-
-                    <span>
-
-                        ₹{totalAmount}
-
-                    </span>
-
-                </h3>
+                <div className="fare-total">
+                    <span>Total Amount</span>
+                    <>₹{totalAmount}</>
+                </div>
 
                 <button
                     className="confirm-btn"
                     onClick={confirmBooking}
                 >
-
                     Confirm Booking
-
                 </button>
 
             </div>

@@ -54,7 +54,11 @@ const BusDetails = () => {
         }
 
         navigate("/passenger-info", {
-            state: { bus, selectedSeats }
+            state: {
+                type:"bus",
+                bus,
+                selectedSeats
+            }
         });
     };
 
@@ -145,7 +149,7 @@ const BusDetails = () => {
 
                     <div className="summary-row">
                         <span>Route</span>
-                        <span>{bus.from} <ArrowRightIcon size={15}/> {bus.to}</span>
+                        <span>{bus.from} <ArrowRightIcon size={15} /> {bus.to}</span>
                     </div>
                     <div>
 

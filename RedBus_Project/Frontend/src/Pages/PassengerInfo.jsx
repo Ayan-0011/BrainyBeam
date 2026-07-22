@@ -7,13 +7,13 @@ import { ArrowRightIcon, ChevronLeft } from "lucide-react";
 const PassengerInfo = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
-    //console.log(state);
+    console.log(state);
 
     if (!state) {
         return <h2>No Booking Found</h2>;
     }
 
-    const { bus, selectedSeats } = state;
+    const { type, bus, train, selectedSeats, coach } = state;
 
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
@@ -37,12 +37,21 @@ const PassengerInfo = () => {
 
     const [passengers, setPassengers] = useState(
 
-        selectedSeats.map((seat) => ({
-            seat,
-            name: "",
-            age: "",
-            gender: "Male",
-        }))
+        type === "bus"
+            ? selectedSeats.map((seat) => ({
+                seat,
+                name: "",
+                age: "",
+                gender: "Male"
+            }))
+            : [
+                {
+                    seat: coach.coachName,
+                    name: "",
+                    age: "",
+                    gender: "Male"
+                }
+            ]
     );
 
     const [contact, setContact] = useState({
@@ -80,12 +89,11 @@ const PassengerInfo = () => {
         }
 
         navigate("/review-booking", {
-            state: {
-                bus,
-                selectedSeats,
-                passengers,
-                contact,
-            },
+            state: { type:"bus", bus, selectedSeats,  passengers, contact, }
+        });
+
+        navigate("/review-booking", {
+            state: { type:"train", train, coach, passengers, contact, }
         });
     };
 
@@ -106,13 +114,13 @@ const PassengerInfo = () => {
                         </h3>
 
                         <input type="text" placeholder="Full Name" name="name" value={passenger.name} data-index={index}
-                            onChange={ handlePassengerChange} />
+                            onChange={handlePassengerChange} />
 
                         <input type="number" placeholder="Age" value={passenger.age} name="age" data-index={index}
-                            onChange={ handlePassengerChange} />
+                            onChange={handlePassengerChange} />
 
                         <select value={passenger.gender} data-index={index} name="gender"
-                            onChange={ handlePassengerChange} >
+                            onChange={handlePassengerChange} >
                             <option>Male</option>
                             <option>Female</option>
                             <option>Other</option>
@@ -137,30 +145,39 @@ const PassengerInfo = () => {
             <div className="booking-summary">
                 <h2>Booking Summary</h2>
                 <hr />
-                <p>
-                    <strong>Bus:</strong> {bus.busName}
-                </p>
+                {type === "bus" && (
+                    <>
+                        <p><strong>Bus:</strong> {bus.busName}</p>
 
-                <p>
-                    <strong>Route:</strong> {bus.from} <ArrowRightIcon size={15} /> {bus.to}
-                </p>
-                <p>
-                    <strong>Seats:</strong>
-                </p>
+                        <p>
+                            {bus.from} → {bus.to}
+                        </p>
 
-                <div className="seat-list">
-                    {selectedSeats.map((seat) => (
-                        <span key={seat} className="seat-chip">
-                            {seat}
-                        </span>
-                    ))}
-                </div>
+                        <p>Seats: {selectedSeats.join(", ")}</p>
 
-                <hr />
+                        <h3>₹ {selectedSeats.length * bus.price}</h3>
+                    </>
+                )}
 
-                <h3>
-                    Total : ₹ {selectedSeats.length * bus.price}
-                </h3>
+                {type === "train" && (
+                    <>
+                        <p><strong>Train:</strong> {train.trainName}</p>
+
+                        <p>
+                            {train.from} → {train.to}
+                        </p>
+
+                        <p>
+                            Coach : {coach.coachName}
+                        </p>
+
+                        <p>
+                            Class : {coach.coachType}
+                        </p>
+
+                        <h3>₹ {coach.price}</h3>
+                    </>
+                )}
 
                 <button className="continue-btn" onClick={handleContinue}>
                     Continue

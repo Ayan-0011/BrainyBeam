@@ -1,154 +1,133 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+body{
+    background:#f3f4f6;
 }
 
-.review-container {
-    width: 100%;
-    min-height: 100vh;
-    background: #f5f5f5;
-    display: flex;
-    gap: 30px;
-    padding: 30px;
-    align-items: flex-start;
+.review-container{
+    max-width:1200px;
+    margin:40px auto;
+    display:flex;
+    gap:25px;
+    align-items:flex-start;
+    padding:0 20px;
 }
 
-.review-left {
-    flex: 2;
+.review-left{
+    flex:3;
 }
 
-.review-card {
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+.review-summary{
+    flex:1;
+    margin-top: 60px;
 }
 
-.review-card h2 {
-    color: #d84e55;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+.back-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    margin-bottom:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-.review-card p {
-    margin: 12px 0;
-    color: #555;
-    font-size: 16px;
+.review-card,
+.review-summary{
+    background:white;
+    border-radius:16px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
-.passenger-item {
-    padding: 15px;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    background: #fafafa;
+.card-header{
+    border-bottom:1px solid #eee;
+    padding-bottom:15px;
+    margin-bottom:20px;
 }
 
-.passenger-item h4 {
-    color: #d84e55;
-    margin-bottom: 10px;
+.card-header h2{
+    color:#d84e55;
 }
 
-.passenger-item p {
-    margin: 8px 0;
+.details-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
 }
 
-.passenger-item hr {
-    margin-top: 15px;
-    border: none;
-    border-top: 1px solid #ddd;
+.details-grid div{
+    background:#fafafa;
+    padding:15px;
+    border-radius:10px;
 }
 
-.review-summary {
-    flex: 1;
-    background: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    position: sticky;
-    top: 20px;
+.details-grid span{
+    display:block;
+    color:#888;
+    font-size:13px;
+    margin-bottom:6px;
 }
 
-.review-summary h2 {
-    color: #d84e55;
-    margin-bottom: 20px;
+.details-grid strong{
+    color:#222;
+    font-size:16px;
 }
 
-.review-summary p,
-.review-summary h3 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 18px 0;
-    color: #444;
+.review-summary{
+    position:sticky;
+    top:20px;
 }
 
-.review-summary h3 {
-    font-size: 22px;
-    color: #222;
+.review-summary h2{
+    color:#d84e55;
+    margin-bottom:20px;
 }
 
-.review-summary hr {
-    margin: 18px 0;
-    border: none;
-    border-top: 1px solid #ddd;
+.fare-row,
+.fare-total{
+    display:flex;
+    justify-content:space-between;
+    margin:18px 0;
 }
 
-.confirm-btn {
-    width: 100%;
-    height: 50px;
-    background: #d84e55;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 17px;
-    font-weight: 600;
-    margin-top: 20px;
-    transition: 0.3s;
+.fare-total{
+    font-size:22px;
+    font-weight:bold;
 }
 
-.confirm-btn:hover {
-    background: #c63d45;
+.confirm-btn{
+    width:100%;
+    margin-top:25px;
+    height:52px;
+    border:none;
+    border-radius:10px;
+    background:#d84e55;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:.3s;
 }
 
-@media (max-width: 900px) {
-    .review-container {
-        flex-direction: column;
-        padding: 20px;
+.confirm-btn:hover{
+    background:#bf3d45;
+}
+
+@media(max-width:900px){
+
+    .review-container{
+        flex-direction:column;
     }
 
-    .review-summary {
-        width: 100%;
-        position: static;
-    }
-}
-
-@media (max-width: 600px) {
-
-    .review-container {
-        padding: 15px;
+    .review-summary{
+        width:100%;
+        position:static;
     }
 
-    .review-card,
-    .review-summary {
-        padding: 18px;
+    .details-grid{
+        grid-template-columns:1fr;
     }
 
-    .review-card h2,
-    .review-summary h2 {
-        font-size: 22px;
-    }
-
-    .review-summary h3 {
-        font-size: 20px;
-    }
-
-    .confirm-btn {
-        height: 46px;
-        font-size: 16px;
-    }
 }
