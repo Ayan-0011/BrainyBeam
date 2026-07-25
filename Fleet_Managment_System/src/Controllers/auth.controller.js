@@ -74,8 +74,21 @@ const loginUser = async (req, res) => {
 
     res.status(200).json({
         message: "Login Successfull",
-        userdata
+        userdata,
+        token
     })
 
 }
-module.exports = { registerUser, loginUser }
+
+const logoutUser = async(req, res)=>{
+    res.cookie('token', "", {
+        httpOnly:true,
+        expries: new Date(0)
+    });
+
+    res.status(200).json({
+        message:"Logout Successfull"
+    });
+
+}
+module.exports = { registerUser, loginUser, logoutUser }
