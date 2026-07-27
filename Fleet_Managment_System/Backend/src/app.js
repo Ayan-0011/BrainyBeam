@@ -22,6 +22,4 @@ app.use('/api/vehicles', vehicleRoutes);
 
 
 
-
-
 module.exports = app

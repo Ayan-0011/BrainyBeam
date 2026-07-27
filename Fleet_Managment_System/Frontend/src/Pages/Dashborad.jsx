@@ -16,9 +16,9 @@ const Dashboard=()=>{
         fetchUser();
     },[]);
 
-    const fetchUser=async()=>{
+    const fetchUser = async()=>{
         try{
-            const res=await axios.get( "http://localhost:3000/api/auth/me",
+            const res = await axios.get( "http://localhost:3000/api/auth/me",
                 {
                     withCredentials:true
                 }

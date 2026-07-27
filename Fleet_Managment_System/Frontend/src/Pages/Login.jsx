@@ -6,32 +6,61 @@ import logo from '../assets/img/logo.jpg'
 import { toast } from 'react-toastify';
 
 const Login = () => {
+    
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
 
-    const navigate = useNavigate();
+    const [error, seterror] = useState({
+        email: "",
+        password: "",
+    });
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
 
+        seterror({ ...error, [e.target.value]: "" })
     }
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        let newError = {}
+
+        if (!formData.email.trim()) {
+            newError.email = "Please Enter Email";
+        }
+
+        if (!formData.password.trim()) {
+            newError.password = "Please Enter Password";
+        } else if (formData.password.length < 6) {
+            newError.password = "Password Must be at lest 6 charcters"
+        }
+
+        seterror(newError);
+
+        if (Object.keys(newError).length > 0) {
+            return;
+        }
+
+
         try {
-            await axios.post("http://localhost:3000/api/auth/login", formData,
+            const response = await axios.post("http://localhost:3000/api/auth/login", formData,
                 {
                     withCredentials: true
                 }
             );
-            toast.success("Login Successfull")
+            toast.success(response?.data?.message)
             navigate("/dashboard");
+            //console.log(response?.data?.message);
 
         }
         catch (err) {
-            console.log(err);
+            // console.log(err.message);
+            // console.log(err.response.data);
+            toast.error(err.response?.data?.message);  
         }
     }
 
@@ -51,14 +80,22 @@ const Login = () => {
 
                     <div className="form-group">
                         <label>Email</label>
-
                         <input type="email" name="email" placeholder="Enter your email" value={formData.email} onChange={handleChange} />
+                        {
+                            error.email && (
+                                <p className='error'>{error.email}</p>
+                            )
+                        }
                     </div>
 
                     <div className="form-group">
                         <label>Password</label>
-
                         <input type="password" name="password" placeholder="Enter your password" value={formData.password} onChange={handleChange} />
+                        {
+                            error.password && (
+                                <p className='error'>{error.password}</p>
+                            )
+                        }
                     </div>
 
 

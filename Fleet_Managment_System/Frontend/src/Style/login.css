@@ -129,19 +129,6 @@
     display:block;
 }
 
-.login-btn:disabled{
-
-    background:#94a3b8;
-
-    cursor:not-allowed;
-
-    transform:none;
-
-    box-shadow:none;
-
-    opacity:.8;
-
-}
 
 .form-group input.error-input{
 
