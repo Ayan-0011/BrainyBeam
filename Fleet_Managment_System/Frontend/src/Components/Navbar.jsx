@@ -4,6 +4,7 @@ import axios from "axios";
 import "../Style/Navbar.css";
 import logo from '../assets/img/logo.jpg'
 import {User} from "lucide-react"
+import { toast } from "react-toastify";
 
 const Navbar = ({ user }) => {
 
@@ -12,13 +13,14 @@ const Navbar = ({ user }) => {
     const handleLogout = async () => {
 
         try {
-            await axios.post("http://localhost:3000/api/auth/logout",
+           const response = await axios.post("http://localhost:3000/api/auth/logout",
                 {},
                 {
                     withCredentials: true
                 }
             );
             navigate("/");
+            toast.success(response?.data?.message)
 
         } catch (error) {
             console.log(error);

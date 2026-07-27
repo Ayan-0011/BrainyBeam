@@ -13,7 +13,9 @@ const Dashboard=()=>{
     const [user,setUser]=useState(null);
 
     useEffect(()=>{
+
         fetchUser();
+        
     },[]);
 
     const fetchUser = async()=>{

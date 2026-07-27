@@ -3,6 +3,7 @@ import Login from './Pages/Login'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Dashborad from './Pages/dashborad'
 import{ Bounce, ToastContainer } from 'react-toastify'
+import Protect from './Protected/Protect'
 
 const App = () => {
   return (
@@ -22,7 +23,7 @@ const App = () => {
       />
       <Routes>
         <Route path='/' element={<><Login /></>} />
-        <Route path='/dashboard/*' element={<><Dashborad /></>} />
+        <Route path='/dashboard/*' element={<><Protect><Dashborad /></Protect></>} />
       </Routes>
     </BrowserRouter>
   )
