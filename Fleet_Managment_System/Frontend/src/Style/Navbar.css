@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    width: 100%;
+    min-height: 75px;
+    background: #0f172a;
+    border-bottom: 1px solid #1e293b;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 40px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* ---------- Logo ---------- */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.logo h2 {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+/* ---------- Right ---------- */
+
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-info {
+    text-align: right;
+}
+
+.user-info h4 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.user-info h4 svg {
+    color: #0b9fdf;
+}
+
+.user-info span {
+    color: #94a3b8;
+    font-size: 13px;
+    text-transform: capitalize;
+}
+
+.logout-btn {
+    padding: 10px 22px;
+    border: 1px solid #d84e55;
+    border-radius: 10px;
+    background: white;
+    color: #d84e55;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.logout-btn:hover {
+     background: #d84e55;
+    color: #ffffff;
+}
+
+/* ===========================
+        Tablet
+=========================== */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    .logo h2 {
+        font-size: 22px;
+    }
+
+    .logo img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .right-section {
+        gap: 15px;
+    }
+
+    .logout-btn {
+        padding: 9px 18px;
+    }
+
+}
+
+/* ===========================
+        Mobile
+=========================== */
+
+@media (max-width: 576px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 18px;
+    }
+
+    .logo {
+        justify-content: center;
+    }
+
+    .logo h2 {
+        font-size: 20px;
+    }
+
+    .right-section {
+        width: 100%;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .user-info {
+        text-align: center;
+    }
+
+    .user-info h4 {
+        justify-content: center;
+    }
+
+    .logout-btn {
+        width: 100%;
+        max-width: 220px;
+    }
+
+}

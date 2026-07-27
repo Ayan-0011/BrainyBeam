@@ -1,0 +1,150 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.login-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    padding:20px;
+}
+
+.login-card{
+    width:100%;
+    max-width:430px;
+    background:#ffffff;
+    border-radius:18px;
+    padding:40px 35px;
+    box-shadow:0 20px 45px rgba(0,0,0,.25);
+}
+
+.login-header{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.login-logo{
+    width:85px;
+    height:85px;
+    object-fit:contain;
+    margin-bottom:18px;
+}
+
+.login-header h1{
+    font-size:30px;
+    color:#0f172a;
+    margin-bottom:10px;
+}
+
+.login-header p{
+    color:#64748b;
+    font-size:15px;
+    line-height:1.5;
+}
+
+.login-form{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    font-size:15px;
+    font-weight:600;
+    color:#334155;
+    margin-bottom:8px;
+}
+
+.form-group input{
+    height:50px;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    padding:0 16px;
+    font-size:15px;
+    transition:.3s;
+}
+
+.form-group input:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+}
+
+.login-btn{
+    margin-top:10px;
+    height:52px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:#fff;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+.login-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(37,99,235,.3);
+
+}
+
+/* ---------- Responsive ---------- */
+
+@media(max-width:480px){
+
+.login-card{
+    padding:30px 22px;
+}
+
+.login-header h1{
+    font-size:24px;
+}
+
+.login-logo{
+    width:70px;
+    height:70px;
+}
+
+.login-btn{
+    font-size:16px;
+}
+}
+.error{
+    color:#ef4444;
+    font-size:13px;
+    margin-top:6px;
+    display:block;
+}
+
+.login-btn:disabled{
+
+    background:#94a3b8;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:none;
+
+    opacity:.8;
+
+}
+
+.form-group input.error-input{
+
+    border:1px solid #ef4444;
+
+}

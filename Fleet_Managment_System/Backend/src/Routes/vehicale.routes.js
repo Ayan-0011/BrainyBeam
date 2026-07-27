@@ -6,7 +6,6 @@ const Vehicle  = require('../Controllers/Vehicle.controller');
 const router = express.Router();
 
 
-
 router.post('/created', protect, authorize("admin"), Vehicle.createVehicle);
 
 router.get('/', protect, authorize("admin","fleet_manager", "dispatcher"), Vehicle.getVehicle);
@@ -14,7 +13,6 @@ router.get('/', protect, authorize("admin","fleet_manager", "dispatcher"), Vehic
 router.put('/:id', protect, authorize("admin"), Vehicle.updateVehicle);
 
 router.delete('/:id', protect, authorize("admin"), Vehicle.deleteVehicle);
-
 
 
 
