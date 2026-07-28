@@ -9,6 +9,7 @@ const authorize = (...roles) => {
                 message: "Access Denied"
             })
         }
+        
         next();
     }
 }
