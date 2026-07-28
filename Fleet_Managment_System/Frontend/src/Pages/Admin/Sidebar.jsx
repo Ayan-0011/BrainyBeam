@@ -16,7 +16,7 @@ const Sidebar = () => {
                 Dashboard
             </NavLink>
 
-            <NavLink to="/vehicles" className="menu-item">
+            <NavLink to="vehicles" className="menu-item">
                 <Truck size={20} />
                 Vehicles
             </NavLink>

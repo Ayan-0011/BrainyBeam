@@ -4,9 +4,12 @@ import axios from 'axios';
 import '../Style/Login.css';
 import logo from '../assets/img/logo.jpg'
 import { toast } from 'react-toastify';
+import { useAuth } from '../Context/AuthContext';
 
 const Login = () => {
-    
+
+    const { login } = useAuth();
+
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -35,7 +38,7 @@ const Login = () => {
 
         if (!formData.password.trim()) {
             newError.password = "Please Enter Password";
-        } else if (formData.password.length < 6) {
+        } else if (formData.password.length < 4) {
             newError.password = "Password Must be at lest 6 charcters"
         }
 
@@ -46,22 +49,13 @@ const Login = () => {
         }
 
 
-        try {
-            const response = await axios.post("http://localhost:3000/api/auth/login", formData,
-                {
-                    withCredentials: true
-                }
-            );
-            toast.success(response?.data?.message)
+        const result = await login(formData);
+        if (result.success) {
+            toast.success(result.message);
             navigate("/dashboard");
-            //console.log(response?.data?.message);
-
-        }
-        catch (err) {
-            // console.log(err.message);
-            // console.log(err.response.data);
-            toast.error(err.response?.data?.message);  
-        }
+        } else {
+            toast.error(result.message);
+        } 
     }
 
     return (

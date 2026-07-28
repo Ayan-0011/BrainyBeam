@@ -1,68 +1,37 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Navbar from "../Components/Navbar";
-import Admin_dash from "./Admin/Admin_dash";
-import Driver_dash from "./Driver/Driver_dash";
-import Fleet_dash from "./Fleet_Manager/Fleet_dash";
-import Dispatcher_dash from "./Dispatcher/Dispatcher_dash";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 
+const Dashboard = () => {
 
+    const { user, loading } = useAuth();
+    const navigate = useNavigate();
 
-const Dashboard=()=>{
+    useEffect(() => {
 
-    const [user,setUser]=useState(null);
+        if (loading) return;
 
-    useEffect(()=>{
-
-        fetchUser();
-        
-    },[]);
-
-    const fetchUser = async()=>{
-        try{
-            const res = await axios.get( "http://localhost:3000/api/auth/me",
-                {
-                    withCredentials:true
-                }
-            );
-            setUser(res.data.user);
-            //console.log(setUser)
+        if (!user) {
+            navigate("/");
+            return;
         }
-        catch(err){
-            console.log(err.message);
+
+        if (user.role === "admin") {
+            navigate("/admin");
+
+        } else if (user.role === "driver") {
+            navigate("/driver");
+
+        } else if (user.role === "dispatcher") {
+            navigate("/dispatcher");
+            
+        } else if (user.role === "fleet_manager") {
+            navigate("/fleet");
         }
-    }
 
-    if(!user){
-        return <h2>Loading...</h2>
-    }
+    }, [user, loading, navigate]);
 
-    return(
-        <>
-        <Navbar user={user}/>
-
-        {
-            user.role==="admin" && <Admin_dash />
-        }
-        {
-
-            user.role==="fleet_manager" && <Fleet_dash/>
-
-        }
-        {
-
-            user.role==="dispatcher" && <Dispatcher_dash />
-
-        }
-        {
-
-            user.role==="driver" &&  <Driver_dash/>
-
-        }
-        </>
-
-    )
-
-}
+    return <h2>Loading...</h2>;
+};
 
 export default Dashboard;

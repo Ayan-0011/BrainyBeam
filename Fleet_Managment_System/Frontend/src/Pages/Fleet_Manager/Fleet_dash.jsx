@@ -3,7 +3,7 @@ import React from 'react'
 const Fleet_dash = () => {
   return (
     <div>
-      Fleet_dash
+      fleet 
     </div>
   )
 }
