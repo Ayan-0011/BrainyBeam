@@ -21,7 +21,7 @@ const App = () => {
         <Route path='/dashboard/' element={<><Protect> <Dashborad /> </Protect></>} />
 
         <Route path="/admin" element={ <Protect><Admin_dash /></Protect> } >
-          <Route index element={<DashboardHome />} />
+          <Route path="" element={<DashboardHome />} />
           <Route path="vehicles" element={<Vehicles /> } />
         </Route>
 

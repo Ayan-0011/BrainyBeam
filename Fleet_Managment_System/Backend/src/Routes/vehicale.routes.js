@@ -5,10 +5,9 @@ const Vehicle  = require('../Controllers/Vehicle.controller');
 
 const router = express.Router();
 
+router.get('/', protect, authorize("admin","fleet_manager", "dispatcher"), Vehicle.getVehicle);
 
 router.post('/created', protect, authorize("admin"), Vehicle.createVehicle);
-
-router.get('/', protect, authorize("admin","fleet_manager", "dispatcher"), Vehicle.getVehicle);
 
 router.put('/:id', protect, authorize("admin"), Vehicle.updateVehicle);
 
