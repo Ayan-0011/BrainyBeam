@@ -247,7 +247,7 @@ body {
 @media (max-width: 768px) {
     .login-screen {
         grid-template-columns: 1fr;
-        background: linear-gradient(rgba(22,41,63,0.65), rgba(22, 41, 63, 0.65)), url("../assets/img/bg.jpg");
+        background: linear-gradient(rgba(22,41,63,0.65), rgba(22, 41, 63y, 0.65)), url("../assets/img/bg.jpg");
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;

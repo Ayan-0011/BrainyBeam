@@ -4,162 +4,144 @@
     box-sizing: border-box;
 }
 
+/* =======================
+        Navbar
+======================= */
+
 .navbar {
-    width: 100%;
-    min-height: 75px;
-    background: #0f172a;
-    border-bottom: 1px solid #1e293b;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-
+     /* Sidebar width */
+    right: 0;
+    height: 75px;
+    background: #1F3A5F;
+    border-bottom: 1px solid rgba(255,255,255,.08);
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-
-    padding: 12px 40px;
-    flex-wrap: wrap;
-    gap: 15px;
+    padding: 0 35px;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0,0,0,.15);
 }
 
-/* ---------- Logo ---------- */
+/* =======================
+        Logo
+======================= */
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-.logo img {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    background: #fff;
-    border-radius: 10px;
-    padding: 5px;
+.logo img{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#fff;
+    padding:5px;
+    object-fit:cover;
 }
 
-.logo h2 {
-    color: #fff;
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: .5px;
+.logo h2{
+    color:#fff;
+    font-size:25px;
+    font-weight:700;
+    letter-spacing:1px;
 }
 
-/* ---------- Right ---------- */
+/* =======================
+        Profile
+======================= */
 
-.right-section {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.profile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding-right: 40px;
 }
 
-.user-info {
-    text-align: right;
+.profile-icon{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:#e0000020;
+    border:2px solid rgba(255,255,255,.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    transition:.3s;
+    cursor:pointer;
 }
 
-.user-info h4 {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-    color: white;
-    font-size: 20px;
-    font-weight: 500;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
 
-.user-info h4 svg {
-    color: #0b9fdf;
-}
-
-.user-info span {
-    color: #94a3b8;
-    font-size: 13px;
+.profile-info{
+    display:flex;
+    flex-direction:column;
     text-transform: capitalize;
 }
 
-.logout-btn {
-    padding: 10px 22px;
-    border: 1px solid #d84e55;
-    border-radius: 10px;
-    background: white;
-    color: #d84e55;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s ease;
+.profile-info h4{
+    color:#fff;
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:3px;
 }
 
-.logout-btn:hover {
-     background: #d84e55;
-    color: #ffffff;
+.profile-info span{
+    color:#b8c7d9;
+    font-size:13px;
+    text-transform:capitalize;
 }
 
-/* ===========================
-        Tablet
-=========================== */
+/* =======================
+      Tablet
+======================= */
 
-@media (max-width: 768px) {
+@media(max-width:768px){
 
-    .navbar {
-        padding: 15px 20px;
+    .navbar{
+        left:0;
+        padding:0 20px;
     }
 
-    .logo h2 {
-        font-size: 22px;
+    .logo h2{
+        font-size:22px;
     }
 
-    .logo img {
-        width: 45px;
-        height: 45px;
+    .profile-icon{
+        width:46px;
+        height:46px;
     }
 
-    .right-section {
-        gap: 15px;
+    .profile-info h4{
+        font-size:16px;
     }
-
-    .logout-btn {
-        padding: 9px 18px;
-    }
-
 }
 
-/* ===========================
-        Mobile
-=========================== */
+/* =======================
+      Mobile
+======================= */
 
-@media (max-width: 576px) {
+@media(max-width:576px){
 
-    .navbar {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 18px;
+    .navbar{
+        height:70px;
+        padding:0 15px;
     }
 
-    .logo {
-        justify-content: center;
+    .logo h2{
+        display:none;
     }
 
-    .logo h2 {
-        font-size: 20px;
+    .profile{
+        gap:10px;
     }
 
-    .right-section {
-        width: 100%;
-        flex-direction: column;
-        gap: 12px;
+    .profile-info h4{
+        font-size:15px;
     }
 
-    .user-info {
-        text-align: center;
+    .profile-info span{
+        font-size:12px;
     }
-
-    .user-info h4 {
-        justify-content: center;
-    }
-
-    .logout-btn {
-        width: 100%;
-        max-width: 220px;
-    }
-
 }
