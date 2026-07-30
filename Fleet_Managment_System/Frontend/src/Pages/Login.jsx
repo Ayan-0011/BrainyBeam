@@ -1,136 +1,176 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import '../Style/Login.css';
-import logo from '../assets/img/logo.jpg'
-import Bg from "../assets/img/bg.jpg"
-import { toast } from 'react-toastify';
-import { useAuth } from '../Context/AuthContext';
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../Style/Login.css";
+import { toast } from "react-toastify";
+import { useAuth } from "../Context/AuthContext";
+import Logo from "../Components/Logo";
+import { AlertCircle, LogIn } from "lucide-react";
 
 const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-    const { login } = useAuth();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-    const navigate = useNavigate();
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+    general: "",
+  });
 
-    const [formData, setFormData] = useState({
-        email: "",
-        password: ""
-    });
+  const [loading, setLoading] = useState(false);
 
-    const [error, seterror] = useState({
-        email: "",
-        password: "",
-    });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-    const [loading, setLoading] = useState(false);
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
+    setError((prev) => ({
+      ...prev,
+      [name]: "",
+      general: "",
+    }));
+  };
 
-        seterror({ ...error, [e.target.name]: "" })
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    let newError = {
+      email: "",
+      password: "",
+      general: "",
+    };
+
+    if (!formData.email.trim()) {
+      newError.email = "Please enter your email.";
     }
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-
-        let newError = {}
-
-        if (!formData.email.trim()) {
-            newError.email = "Please Enter Email";
-        }
-
-        if (!formData.password.trim()) {
-            newError.password = "Please Enter Password";
-        } else if (formData.password.length < 4) {
-            newError.password = "Password Must be at lest 6 charcters"
-        }
-
-        seterror(newError);
-
-        if (Object.keys(newError).length > 0) {
-            return;
-        }
-
-        setLoading(true);
-        const result = await login(formData);
-        setLoading(false);
-
-        if (result.success) {
-            toast.success(result.message);
-            navigate("/dashboard");
-        } else {
-            toast.error(result.message);
-        }
+    if (!formData.password.trim()) {
+      newError.password = "Please enter your password.";
+    } else if (formData.password.length < 6) {
+      newError.password = "Password must be at least 6 characters.";
     }
 
-    return (
-        <div className="login-screen">
+    if (newError.email || newError.password) {
+      setError(newError);
+      return;
+    }
 
-            <div className="login-brand">
-                <div className="login-brand__photo"
-                    style={{ backgroundImage: `url(${Bg})` }} />
-                <div className="login-brand__overlay" />
+    try {
+      setLoading(true);
 
-                <div className="login-brand__top">
-                    <img src={logo} alt="Fleet Management logo" />
-                    <span className='fm'>Fleet Management System</span>
+      const result = await login(formData);
 
-                </div>
-                <div className="login-brand__mid">
-                    <h1>Every vehicle, every driver, one clear view.</h1>
-                    <p>
-                        Sign in to track routes, assign trips, and keep your fleet
-                        moving — whichever role you manage it from.
-                    </p>
-                </div>
+      if (result.success) {
+        toast.success(result.message);
 
-                <div className="login-brand__foot">
-                    <div><strong>128</strong>vehicles tracked</div>
-                    <div><strong>99.2%</strong>on-time rate</div>
-                    <div><strong>24/7</strong>live dispatch</div>
-                </div>
-            </div>
+        // Role-based redirect baad me bhi add kar sakte ho
+        navigate("/dashboard");
+      } else {
+        setError((prev) => ({
+          ...prev,
+          general: result.message,
+        }));
 
-   
-            <div className="login-form-side">
+        toast.error(result.message);
+      }
+    } catch (err) {
+      setError((prev) => ({
+        ...prev,
+        general: "Something went wrong. Please try again.",
+      }));
 
-                <div className="login-mobile-brand">
-                    <img src={logo} alt="Fleet Management logo" />
-                    <span>Fleet Management System</span>
-                </div>
+      toast.error("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                <div className="login-card">
-                    <form onSubmit={handleLogin} className="login-form">
+  return (
+    <div className="fm-login fm-root">
+      <section className="fm-login-hero">
+        <Logo onDark />
 
-                        <h2>Welcome back</h2>
-                        <p>Sign in to access your dashboard.</p>
+        <div>
+          <h2>Keep every vehicle, driver and trip in one place.</h2>
 
-                        <div className="field">
-                            <label>Email</label>
-                            <input type="email" name="email" placeholder="Enter your email" value={formData.email} onChange={handleChange}
-                                className={error.email ? "input-error" : ""} />
-                            {error.email && <p className="error">{error.email}</p>}
-                        </div>
-
-                        <div className="field">
-                            <label>Password</label>
-                            <input type="password" name="password" placeholder="Enter your password" value={formData.password} onChange={handleChange}
-                                className={error.password ? "input-error" : ""} />
-                            {error.password && <p className="error">{error.password}</p>}
-                        </div>
-
-                        <button type="submit" className="login-btn">
-                          Login
-                        </button>
-
-                    </form>
-                </div>
-            </div>
+          <p>
+            Real-time fleet visibility, dispatch control and maintenance
+            tracking for teams that move fast.
+          </p>
         </div>
 
-    );
+        <div className="fm-hero-stats">
+          <div>
+            <span className="n">24/7</span>
+            <span className="l">Live tracking</span>
+          </div>
+
+          <div>
+            <span className="n">4</span>
+            <span className="l">Role workspaces</span>
+          </div>
+
+          <div>
+            <span className="n">99.9%</span>
+            <span className="l">Uptime target</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="fm-login-panel">
+        <div className="fm-login-card">
+          <Logo />
+
+          <h1>Sign in to your workspace</h1>
+
+          <p className="sub">
+            Use your company credentials to continue.
+          </p>
+
+          <form onSubmit={handleLogin}>
+            <div className="fm-field">
+              <label htmlFor="email">Email address</label>
+
+              <input id="email" name="email" type="email" className="fm-input" placeholder="you@company.com"
+                value={formData.email} onChange={handleChange} />
+
+              {error.email && (
+                <small className="error-text">{error.email}</small>
+              )}
+            </div>
+
+            <div className="fm-field">
+              <label htmlFor="password">Password</label>
+
+              <div className="fm-input-wrap">
+                <input  id="password" name="password" type="password" className="fm-input has-action" placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleChange}
+                  autoComplete="current-password"
+                />
+              </div>
+
+              {error.password && (
+                <small className="error-text">{error.password}</small>
+              )}
+            </div>
+
+            <button className="fm-btn"  type="submit" >
+              <LogIn size={18} />
+              Sign In
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+  );
 };
 
 export default Login;
