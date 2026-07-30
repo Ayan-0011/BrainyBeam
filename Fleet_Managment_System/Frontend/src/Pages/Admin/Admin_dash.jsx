@@ -6,13 +6,15 @@ import "../../Style/Admin.css";
 const Admin_dash = () => {
     return (
         <>
-            <Navbar />
-
             <div className="admin-container">
                 <Sidebar />
 
-                <div className="admin-content">
-                    <Outlet />
+                <div className="main">
+                    <Navbar />
+
+                    <div className="admin-content">
+                        <Outlet />
+                    </div>
                 </div>
             </div>
         </>

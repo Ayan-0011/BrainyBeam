@@ -53,7 +53,7 @@ const Login = () => {
 
     if (!formData.password.trim()) {
       newError.password = "Please enter your password.";
-    } else if (formData.password.length < 6) {
+    } else if (formData.password.length < 4) {
       newError.password = "Password must be at least 6 characters.";
     }
 
@@ -69,23 +69,9 @@ const Login = () => {
 
       if (result.success) {
         toast.success(result.message);
-
-        // Role-based redirect baad me bhi add kar sakte ho
         navigate("/dashboard");
-      } else {
-        setError((prev) => ({
-          ...prev,
-          general: result.message,
-        }));
-
-        toast.error(result.message);
       }
     } catch (err) {
-      setError((prev) => ({
-        ...prev,
-        general: "Something went wrong. Please try again.",
-      }));
-
       toast.error("Something went wrong.");
     } finally {
       setLoading(false);
@@ -150,7 +136,7 @@ const Login = () => {
               <label htmlFor="password">Password</label>
 
               <div className="fm-input-wrap">
-                <input  id="password" name="password" type="password" className="fm-input has-action" placeholder="••••••••"
+                <input  id="password" name="password" type="password" className="fm-input has-action" placeholder="*******"
                   value={formData.password}
                   onChange={handleChange}
                   autoComplete="current-password"
