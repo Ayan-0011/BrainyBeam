@@ -1,5 +1,5 @@
 import { Truck, Users, Route, Wrench } from "lucide-react";
-import "../../Style/Admin.css";
+
 
 const DashboardHome = () => {
     return (

@@ -37,7 +37,9 @@ export const AuthProvider = ({ children }) => {
     }
 };
 
-    const getUser = async () => {
+    const 
+    
+    getUser = async () => {
 
         try {
             const res = await axios.get("http://localhost:3000/api/auth/me", { withCredentials: true, });
