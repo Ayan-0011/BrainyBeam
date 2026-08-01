@@ -62,20 +62,19 @@ const Login = () => {
       return;
     }
 
-    try {
-      setLoading(true);
 
-      const result = await login(formData);
+    setLoading(true);
 
-      if (result.success) {
-        toast.success(result.message);
-        navigate("/dashboard");
-      }
-    } catch (err) {
-      toast.error("Something went wrong.");
-    } finally {
-      setLoading(false);
+    const result = await login(formData);
+
+    //console.log(result)
+    if (result.success) {
+      toast.success(result.message);
+      navigate("/dashboard");
+    } else {
+      toast.error(result.message);
     }
+
   };
 
   return (
@@ -136,7 +135,7 @@ const Login = () => {
               <label htmlFor="password">Password</label>
 
               <div className="fm-input-wrap">
-                <input  id="password" name="password" type="password" className="fm-input has-action" placeholder="*******"
+                <input id="password" name="password" type="password" className="fm-input has-action" placeholder="*******"
                   value={formData.password}
                   onChange={handleChange}
                   autoComplete="current-password"
@@ -148,7 +147,7 @@ const Login = () => {
               )}
             </div>
 
-            <button className="fm-btn"  type="submit" >
+            <button className="fm-btn" type="submit" >
               <LogIn size={18} />
               Sign In
             </button>

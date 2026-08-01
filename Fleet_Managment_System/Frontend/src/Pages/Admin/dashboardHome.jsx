@@ -7,7 +7,7 @@ const DashboardHome = () => {
 
             {/* Welcome */}
             <div className="dashboard-header">
-                <h1>Welcome Admin</h1>
+                <h1> Admin Dashbord</h1>
                 <p>Manage your fleet efficiently from one place.</p>
             </div>
 

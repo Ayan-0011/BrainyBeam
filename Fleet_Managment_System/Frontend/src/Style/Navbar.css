@@ -240,5 +240,8 @@
   display: none;
 }
 .lg{
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    font-size:25px;
+    text-transform: capitalize;
+    font-weight: 600;  
 }

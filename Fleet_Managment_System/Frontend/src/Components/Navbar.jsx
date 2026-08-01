@@ -15,6 +15,8 @@ const Navbar = () => {
   const initials = user?.name
     ? user.name.split(" ").map((word) => word[0]).join("").toUpperCase() : "U";
 
+  const role = user.role;
+
   const onLogout = async () => {
     const result = await logout();
 
@@ -37,7 +39,7 @@ const Navbar = () => {
       </div> */}
 
       <div className="lg">
-        <Logo/>
+        Welcome {role} 
       </div>
 
       <div className="fm-nav-right">
