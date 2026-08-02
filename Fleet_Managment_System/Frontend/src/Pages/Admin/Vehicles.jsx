@@ -1,10 +1,30 @@
 import { useEffect, useState } from "react";
 import { deleteVehicle, getVehicles } from "../../Service/VehicleService";
 import { toast } from "react-toastify";
+import Modal from '../../Components/Modal/Modal';
+import VehicleForm from "../../Components/Form/VehicleForm";
+
 
 const Vehicles = () => {
 
   const [vehicles, setVehicles] = useState([]);
+
+  const [openModal, setOpenModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [selectedVehicle, setselectedVehicle] = useState(null);
+
+
+  const handleAdd = () => {
+    setEditModal(false);
+    setselectedVehicle(null);
+    setOpenModal(true)
+  }
+
+  const handleEdit = (vehicle) => {
+    setEditModal(true);
+    setselectedVehicle(vehicle);
+    setOpenModal(true);
+  }
 
   const loadVehicles = async () => {
     try {
@@ -38,7 +58,7 @@ const Vehicles = () => {
             <p>Total Vehicles : {vehicles.length}</p>
           </div>
 
-          <button className="add-btn">
+          <button onClick={handleAdd} className="add-btn">
             + Add Vehicle
           </button>
         </div>
@@ -76,7 +96,7 @@ const Vehicles = () => {
 
                   <td>
 
-                    <button className="edit-btn">
+                    <button onClick={() => handleEdit(vehicle)} className="edit-btn">
                       Edit
                     </button>
 
@@ -95,6 +115,17 @@ const Vehicles = () => {
             </tbody>
 
           </table>
+
+          <Modal isOpen={openModal} onClose={() => setOpenModal(false)} title={editModal ? "Edit vehicle" : "Add Vehicle"} >
+            <VehicleForm
+              editMode={editModal}
+              vehicle={selectedVehicle}
+              onSuccess={() => {
+                loadVehicles();
+                setOpenModal(false);
+              }}
+            />
+          </Modal>
 
         </div>
 
