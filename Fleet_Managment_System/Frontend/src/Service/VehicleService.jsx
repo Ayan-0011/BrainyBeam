@@ -9,7 +9,7 @@ export const getVehicles = async () => {
 };
 
 export const createVehicle = async (data) => {
-    const res = await axios.post(`http://localhost:3000/api/vehicles`, data, {
+    const res = await axios.post(`http://localhost:3000/api/vehicles/created`, data, {
         withCredentials: true,
     });
 

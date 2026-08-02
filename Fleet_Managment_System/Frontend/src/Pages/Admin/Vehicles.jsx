@@ -3,6 +3,7 @@ import { deleteVehicle, getVehicles } from "../../Service/VehicleService";
 import { toast } from "react-toastify";
 import Modal from '../../Components/Modal/Modal';
 import VehicleForm from "../../Components/Form/VehicleForm";
+import Swal from 'sweetalert2'
 
 
 const Vehicles = () => {
@@ -30,16 +31,54 @@ const Vehicles = () => {
     try {
       const res = await getVehicles();
       setVehicles(res.vehicle);
-      console.log(res)
+      //console.log(res)
     } catch (error) {
       console.log(error);
     }
   };
 
   const delet = async (id) => {
-    const res = await deleteVehicle(id);
-    toast.success(res.message);
-    loadVehicles();
+
+    console.log("deleted")
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "my-confirm-btn",
+        cancelButton: "my-cancel-btn"
+      },
+      buttonsStyling: false
+    });
+
+    const result = await swalWithBootstrapButtons.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true
+    })
+
+    if (result.isConfirmed) {
+
+      try {
+        await deleteVehicle(id);
+        loadVehicles();
+
+        swalWithBootstrapButtons.fire({
+          title: "Deleted!",
+          text: "Vehicle has been deleted successfully.",
+          icon: "success",
+        })
+
+      } catch (error) {
+        swalWithBootstrapButtons.fire({
+          title: "Error!",
+          text: "Failed to delete vehicle.",
+          icon: "error",
+        })
+      }
+    }
+
   }
 
   useEffect(() => {
