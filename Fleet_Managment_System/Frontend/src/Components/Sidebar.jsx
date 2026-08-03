@@ -7,7 +7,9 @@ import {
     Route,
     FileText,
     LogOut,
-    Fuel
+    Fuel,
+    User,
+    AlertTriangle
 } from "lucide-react";
 
 import { NavLink, useNavigate } from "react-router-dom";
@@ -30,37 +32,37 @@ const Sidebar = () => {
             {
                 title: "Dashboard",
                 path: "/admin",
-                icon: <LayoutDashboard size={20}/>
+                icon: <LayoutDashboard size={20} />
             },
 
             {
                 title: "Vehicles",
                 path: "/admin/vehicles",
-                icon: <Truck size={20}/>
+                icon: <Truck size={20} />
             },
 
             {
                 title: "Drivers",
                 path: "/admin/drivers",
-                icon: <Users size={20}/>
+                icon: <Users size={20} />
             },
 
             {
                 title: "Fleet Managers",
                 path: "/admin/fleet-managers",
-                icon: <UserRound size={20}/>
+                icon: <UserRound size={20} />
             },
 
             {
                 title: "Dispatchers",
                 path: "/admin/dispatchers",
-                icon: <UserCog size={20}/>
+                icon: <UserCog size={20} />
             },
 
             {
                 title: "Reports",
                 path: "/admin/reports",
-                icon: <FileText size={20}/>
+                icon: <FileText size={20} />
             }
 
         ],
@@ -70,35 +72,35 @@ const Sidebar = () => {
             {
                 title: "Dashboard",
                 path: "/fleet",
-                icon: <LayoutDashboard size={20}/>
+                icon: <LayoutDashboard size={20} />
             },
 
             {
                 title: "Vehicles",
                 path: "/fleet-manager/vehicles",
-                icon: <Truck size={20}/>
+                icon: <Truck size={20} />
             },
 
             {
                 title: "Drivers",
                 path: "/fleet-manager/drivers",
-                icon: <Users size={20}/>
+                icon: <Users size={20} />
             },
 
             {
                 title: "Trips",
                 path: "/fleet-manager/trips",
-                icon: <Route size={20}/>
+                icon: <Route size={20} />
             },
             {
                 title: "fule",
                 path: "/fleet-manager/fule",
-                icon: <Fuel size={20}/>
+                icon: <Fuel size={20} />
             },
             {
                 title: "report",
                 path: "/fleet-manager/report",
-                icon: <FileText size={20}/>
+                icon: <FileText size={20} />
             }
 
         ],
@@ -108,13 +110,13 @@ const Sidebar = () => {
             {
                 title: "Dashboard",
                 path: "/dispatcher",
-                icon: <LayoutDashboard size={20}/>
+                icon: <LayoutDashboard size={20} />
             },
 
             {
                 title: "Assign Trips",
                 path: "/dispatcher/trips",
-                icon: <Route size={20}/>
+                icon: <Route size={20} />
             }
 
         ],
@@ -124,13 +126,28 @@ const Sidebar = () => {
             {
                 title: "Dashboard",
                 path: "/driver",
-                icon: <LayoutDashboard size={20}/>
+                icon: <LayoutDashboard size={20} />
             },
-
             {
                 title: "My Trips",
                 path: "/driver/trips",
-                icon: <Route size={20}/>
+                icon: <Route size={20} />
+            },
+            {
+                title: "Assigned Vehicle",
+                path: "/driver/assigned-vehicle",
+                icon: <Truck size={20} />
+            },
+            {
+                title: "Report Issue",
+                path: "/driver/report-issue",
+                icon: <AlertTriangle size={20} />
+            },
+
+            {
+                title: "Profile",
+                path: "/driver/profile",
+                icon: <User size={20} />
             }
 
         ]
@@ -149,7 +166,7 @@ const Sidebar = () => {
         <aside className="sidebar">
 
             <h2 className="sidebar-title">
-            <Logo/>
+                <Logo />
 
 
             </h2>
@@ -170,7 +187,7 @@ const Sidebar = () => {
             </nav>
 
             <button className="sidebar-logout" onClick={handleLogout} >
-                <LogOut size={18}/>
+                <LogOut size={18} />
                 Logout
 
             </button>

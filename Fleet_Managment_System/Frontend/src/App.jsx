@@ -10,6 +10,7 @@ import Dispatcher_dash from './Pages/Dispatcher/Dispatcher_dash'
 import Driver_dash from './Pages/Driver/Driver_dash'
 import Navbar from './Components/Navbar'
 import DashboardLayout from './Layout/DashboardLayout'
+import Drivers from './Pages/Admin/Drivers'
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/admin" element={<Protect><DashboardLayout /></Protect>} >
           <Route index element={<DashboardHome />} />
           <Route path="vehicles" element={<Vehicles />} />
+          <Route path="drivers" element={<Drivers />} />
         </Route>
 
 
