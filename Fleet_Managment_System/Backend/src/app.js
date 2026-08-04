@@ -6,7 +6,6 @@ const driverRouter = require('./Routes/Driver.routes');
 const cors = require('cors');
 
 
-
 const app = express();
 
 app.use(cors({ origin:true, credentials: true } ));
@@ -19,7 +18,6 @@ app.use(cookieParser());
 app.use('/api/auth', routes);
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/api/driver', driverRouter)
-
 
 
 

@@ -171,7 +171,7 @@ const updateDriver = async (req, res) => {
             });
         }
 
-   
+
         const user = await User.findById(driver.user);
 
         if (!user) {
@@ -250,6 +250,42 @@ const updateDriver = async (req, res) => {
     }
 };
 
+const updateAvailability = async (req, res) => {
+    try {
+        const { availability } = req.body;
+
+        const driver = await Driver.findOne({
+            user: req.user._id, 
+            isDeleted: false
+        });
+
+        if (!driver) {
+            return res.status(404).json({
+                success: false,
+                message: "Driver not found."
+            });
+        }
+
+        driver.availability = availability;
+
+        await driver.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Availability updated successfully.",
+            driver
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error."
+        });
+    }
+};
+
 const deleteDriver = async (req, res) => {
     try {
 
@@ -288,4 +324,4 @@ const deleteDriver = async (req, res) => {
     }
 };
 
-module.exports = { createDriver, getDriver, getSingleDriver, updateDriver, deleteDriver };
+module.exports = { createDriver, getDriver, getSingleDriver, updateDriver, deleteDriver, updateAvailability };

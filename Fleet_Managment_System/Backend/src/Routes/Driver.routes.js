@@ -13,7 +13,9 @@ Router.get('/', protect, authorize("admin", "fleet"), Driver.getDriver);
 
 Router.get('/:id', protect, authorize("admin", "fleet"), Driver.getSingleDriver);
 
-Router.patch('/:id', protect, authorize("admin", "fleet"), Driver.updateDriver);
+Router.put('/:id', protect, authorize("admin", "fleet"), Driver.updateDriver);
+
+Router.patch('/update-availability', protect, authorize("driver"), Driver.updateAvailability);
 
 Router.delete('/:id', protect, authorize("admin", "fleet"), Driver.deleteDriver);
 

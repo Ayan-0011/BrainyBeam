@@ -1,7 +1,30 @@
 import { Truck, Users, Route, Wrench } from "lucide-react";
+import { getVehicles } from "../../Service/VehicleService";
+import { useEffect } from "react";
+import { useState } from "react";
+import { getDriver } from "../../Service/DriverService";
 
 
 const DashboardHome = () => {
+
+    const [Vehicle, setVehicle] = useState([]);
+    const [driver, setDriver] = useState([]);
+
+    const loadvehicle = async () => {
+        const data = await getVehicles();
+        setVehicle(data.vehicle);
+    }
+
+    const loadDriver = async () => {
+        const data = await getDriver();
+        setDriver(data.drivers);
+    }
+
+    useEffect(() => {
+        loadvehicle();
+        loadDriver()
+    }, [])
+
     return (
         <div className="dashboard-home">
 
@@ -17,7 +40,7 @@ const DashboardHome = () => {
                 <div className="dashboard-card">
                     <Truck size={35} color="#2563eb" />
                     <div>
-                        <h2>24</h2>
+                        <h2>{Vehicle.length}</h2>
                         <span>Total Vehicles</span>
                     </div>
                 </div>
@@ -25,7 +48,7 @@ const DashboardHome = () => {
                 <div className="dashboard-card">
                     <Users size={35} color="#16a34a" />
                     <div>
-                        <h2>15</h2>
+                        <h2>{driver.length}</h2>
                         <span>Total Drivers</span>
                     </div>
                 </div>
