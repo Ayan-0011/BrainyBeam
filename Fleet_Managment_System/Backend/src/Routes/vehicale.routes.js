@@ -7,11 +7,11 @@ const router = express.Router();
 
 router.get('/', protect, authorize("admin","fleet_manager", "dispatcher"), Vehicle.getVehicle);
 
-router.post('/created', protect, authorize("admin"), Vehicle.createVehicle);
+router.post('/created', protect, authorize("admin", "fleet_manager"), Vehicle.createVehicle);
 
-router.put('/:id', protect, authorize("admin"), Vehicle.updateVehicle);
+router.put('/:id', protect, authorize("admin","fleet_manager"), Vehicle.updateVehicle);
 
-router.delete('/:id', protect, authorize("admin"), Vehicle.deleteVehicle);
+router.delete('/:id', protect, authorize("admin","fleet_manager"), Vehicle.deleteVehicle);
 
 
 

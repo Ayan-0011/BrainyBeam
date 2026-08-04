@@ -8,7 +8,6 @@ import Vehicles from './Pages/Admin/Vehicles'
 import Fleet_dash from './Pages/Fleet_Manager/Fleet_dash'
 import Dispatcher_dash from './Pages/Dispatcher/Dispatcher_dash'
 import Driver_dash from './Pages/Driver/Driver_dash'
-import Navbar from './Components/Navbar'
 import DashboardLayout from './Layout/DashboardLayout'
 import Drivers from './Pages/Admin/Drivers'
 
@@ -29,7 +28,9 @@ const App = () => {
 
 
         <Route path="/fleet" element={<Protect><DashboardLayout /></Protect>} >
-          <Route index element={<Protect><Fleet_dash /></Protect>} ></Route>
+          <Route index element={<Fleet_dash />} ></Route>
+          <Route path="vehicles" element={<Vehicles />} />
+          <Route path="drivers" element={<Drivers />} />
         </Route>
 
 

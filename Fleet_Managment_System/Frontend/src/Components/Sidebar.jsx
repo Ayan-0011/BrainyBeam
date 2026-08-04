@@ -77,29 +77,29 @@ const Sidebar = () => {
 
             {
                 title: "Vehicles",
-                path: "/fleet-manager/vehicles",
+                path: "/fleet/vehicles",
                 icon: <Truck size={20} />
             },
 
             {
                 title: "Drivers",
-                path: "/fleet-manager/drivers",
+                path: "/fleet/drivers",
                 icon: <Users size={20} />
             },
 
             {
                 title: "Trips",
-                path: "/fleet-manager/trips",
+                path: "fleet/trips",
                 icon: <Route size={20} />
             },
             {
                 title: "fule",
-                path: "/fleet-manager/fule",
+                path: "fleet/fule",
                 icon: <Fuel size={20} />
             },
             {
                 title: "report",
-                path: "/fleet-manager/report",
+                path: "fleet/report",
                 icon: <FileText size={20} />
             }
 
