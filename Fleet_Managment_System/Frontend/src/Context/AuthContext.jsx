@@ -52,14 +52,11 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post(
-        "http://localhost:3000/api/auth/logout",
-        {},
+      await axios.post("http://localhost:3000/api/auth/logout",{},
         {
           withCredentials: true,
         }
       );
-
       setUser(null);
     } catch (error) {
       console.log(error);
