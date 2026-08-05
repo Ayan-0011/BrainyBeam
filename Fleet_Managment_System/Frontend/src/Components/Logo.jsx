@@ -1,5 +1,5 @@
 import { Truck } from "lucide-react";
-import "../Style/Login.css"
+import "../Style/login.css"
 
 export default function Logo({ onDark = false, subtitle = "Fleet Management" }) {
   return (

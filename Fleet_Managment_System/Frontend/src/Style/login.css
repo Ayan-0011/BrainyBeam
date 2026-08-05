@@ -27,7 +27,7 @@
 }
 
 .fm-root {
-  font-family: var(--fm-font);
+  font-family:;
   color: var(--fm-text);
   background: var(--fm-bg);
   min-height: 100vh;

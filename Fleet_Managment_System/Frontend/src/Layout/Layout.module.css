@@ -1,0 +1,25 @@
+.shell {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.main {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  padding: 28px;
+}
+
+@media (max-width: 900px) {
+  .main {
+    margin-left: 0;
+  }
+  .content {
+    padding: 18px;
+  }
+}

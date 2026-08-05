@@ -1,3 +1,25 @@
+:root {
+  /* Layout copy component ke liye required tokens
+     (pehle kahin bhi define nahi the isliye layout tuta hua tha) */
+  --sidebar-width: 260px;
+  --navbar-height: 64px;
+
+  --color-bg: #f1f5f9;
+  --color-card: #ffffff;
+  --color-primary: #0f172a;
+  --color-accent: #2563eb;
+  --color-danger: #ef4444;
+
+  --color-border: #e2e8f0;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-text-inverse: #f8fafc;
+
+  --radius-sm: 8px;
+  --shadow-lg: 0 10px 30px rgba(15, 23, 42, 0.15);
+  --transition: 0.25s ease;
+}
+
 /* .loader-container {
     width: 100%;
     min-height: 80vh;

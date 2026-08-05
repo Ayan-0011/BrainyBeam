@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Style/Login.css";
+import "../Style/login.css";
 import { toast } from "react-toastify";
 import { useAuth } from "../Context/AuthContext";
 import Logo from "../Components/Logo";

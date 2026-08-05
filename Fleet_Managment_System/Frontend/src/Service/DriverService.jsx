@@ -8,6 +8,7 @@ export const getDriver = async () => {
     return res.data;
 };
 
+
 export const createDriver = async (data) => {
     const res = await axios.post(`http://localhost:3000/api/driver/created`, data, {
         withCredentials: true,

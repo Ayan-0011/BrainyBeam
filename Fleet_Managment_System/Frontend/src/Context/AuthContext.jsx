@@ -4,83 +4,77 @@ import axios from "axios";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const getUser = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/api/auth/me",
+        {
+          withCredentials: true,
+        }
+      );
 
-    const login = async (formData) => {
+      setUser(res.data.user);
+    } catch (error) {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  const login = async (formData) => {
     setLoading(true);
 
     try {
-        const res = await axios.post(
-            "http://localhost:3000/api/auth/login",
-            formData,
-            {
-                withCredentials: true,
-            }
-        );
+      const res = await axios.post( "http://localhost:3000/api/auth/login",
+        formData,
+        {
+          withCredentials: true,
+        }
+      );
 
-        await getUser();
+      await getUser();
 
-        return {
-            success: true,
-            message: res.data.message,
-        };
+      return {
+        success: true,
+        message: res.data.message,
+      };
     } catch (error) {
-        return {
-            success: false,
-            message: error.response?.data?.message || "Login Failed",
-        };
-    } finally {
-        setLoading(false);
+      setLoading(false);
+
+      return {
+        success: false,
+        message: error.response?.data?.message || "Login Failed",
+      };
     }
+  };
+
+  const logout = async () => {
+    try {
+      await axios.post(
+        "http://localhost:3000/api/auth/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      setUser(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ user, role: user?.role, loading, login, logout,  getUser, setUser, }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-    const 
-    
-    getUser = async () => {
-
-        try {
-            const res = await axios.get("http://localhost:3000/api/auth/me", { withCredentials: true, });
-            setUser(res.data.user);
-        } catch (error) {
-            setUser(null);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const logout = async () => {
-        try {
-            await axios.post( "http://localhost:3000/api/auth/logout",
-                {},
-                {
-                    withCredentials: true,
-                }
-            );
-
-            setUser(null);
-
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    useEffect(() => {
-        getUser();
-    }, []);
-
-    return (
-
-        <AuthContext.Provider
-            value={{ user, setUser, loading, getUser, logout, login }}>
-
-            {children}
-
-        </AuthContext.Provider>
-
-    );
-};
-
-export const useAuth = () =>  useContext(AuthContext) ;
+export const useAuth = () => useContext(AuthContext);

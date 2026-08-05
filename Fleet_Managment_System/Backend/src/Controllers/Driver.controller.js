@@ -286,6 +286,7 @@ const updateAvailability = async (req, res) => {
     }
 };
 
+
 const deleteDriver = async (req, res) => {
     try {
 

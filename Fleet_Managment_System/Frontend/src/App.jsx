@@ -1,15 +1,18 @@
 import React from 'react'
 import Login from './Pages/Login'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Dashborad from './Pages/dashborad'
+import Dashborad from './Pages/Dashborad'
 import Protect from './Protected/Protect'
-import DashboardHome from './Pages/Admin/dashboardHome'
-import Vehicles from './Pages/Admin/Vehicles'
+import DashboardHome from './Pages/Admin/DashboardHome'
 import Fleet_dash from './Pages/Fleet_Manager/Fleet_dash'
 import Dispatcher_dash from './Pages/Dispatcher/Dispatcher_dash'
 import Driver_dash from './Pages/Driver/Driver_dash'
-import DashboardLayout from './Layout/DashboardLayout'
-import Drivers from './Pages/Admin/Drivers'
+import Layout from './Layout/Layout'
+import DriverProfile from './Pages/Driver/DriverProfile'
+import Admin_Vehicles from './Pages/Admin/Admin_Vehicles'
+import Admin_Driver from './Pages/Admin/Admin_Driver'
+import Fleet_Vehicle from './Pages/Fleet_Manager/Fleet_Vehicle'
+import Fleet_Driver from './Pages/Fleet_Manager/Fleet_Driver'
 
 const App = () => {
   return (
@@ -20,27 +23,28 @@ const App = () => {
         <Route path='/' element={<><Login /></>} />
         <Route path='/dashboard/' element={<><Protect> <Dashborad /> </Protect></>} />
 
-        <Route path="/admin" element={<Protect><DashboardLayout /></Protect>} >
+        <Route path="/admin" element={<Protect><Layout /></Protect>} >
           <Route index element={<DashboardHome />} />
-          <Route path="vehicles" element={<Vehicles />} />
-          <Route path="drivers" element={<Drivers />} />
+          <Route path="vehicles" element={<Admin_Vehicles />} />
+          <Route path="drivers" element={<Admin_Driver />} />
         </Route>
 
 
-        <Route path="/fleet" element={<Protect><DashboardLayout /></Protect>} >
+        <Route path="/fleet" element={<Protect><Layout /></Protect>} >
           <Route index element={<Fleet_dash />} ></Route>
-          <Route path="vehicles" element={<Vehicles />} />
-          <Route path="drivers" element={<Drivers />} />
+          <Route path="vehicles" element={<Fleet_Vehicle />} />
+          <Route path="drivers" element={<Fleet_Driver />} />
         </Route>
 
 
-        <Route path="/dispatcher" element={<Protect><DashboardLayout /></Protect>} >
+        <Route path="/dispatcher" element={<Protect><Layout /></Protect>} >
           <Route index element={<Protect><Dispatcher_dash /> </Protect>} ></Route>
         </Route>
 
 
-        <Route path="/driver" element={<Protect><DashboardLayout /></Protect>} >
+        <Route path="/driver" element={<Protect><Layout /></Protect>} >
           <Route index element={<Protect><Driver_dash /> </Protect>} ></Route>
+          <Route path="profile" element={<Protect><DriverProfile /> </Protect>} ></Route>
         </Route>
 
       </Routes>

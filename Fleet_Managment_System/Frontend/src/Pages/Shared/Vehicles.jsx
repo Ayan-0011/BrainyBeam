@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import Modal from '../../Components/Modal/Modal';
 import VehicleForm from "../../Components/Form/VehicleForm";
 import Swal from 'sweetalert2'
+import { Pencil, Plus, Trash2 } from "lucide-react";
+import './Vehicle.css'
 
 
 const Vehicles = () => {
@@ -81,94 +83,108 @@ const Vehicles = () => {
 
   }
 
+  
+
   useEffect(() => {
     loadVehicles();
   }, []);
 
   return (
 
-    <div className="vehicle-page">
+    <div className="wrapper">
 
-      <div className="vehicle-card">
-
-        <div className="vehicle-header">
-          <div>
-            <h2>Vehicle Management</h2>
-            <p>Total Vehicles : {vehicles.length}</p>
-          </div>
-
-          <button onClick={handleAdd} className="add-btn">
-            + Add Vehicle
-          </button>
+      <div className="header">
+        <div>
+          <h2 className="title">Vehicle Management</h2>
+          <p className="subtitle">Total Vehicles : {vehicles.length}</p>
         </div>
 
-        <div className="table-responsive">
-          <table className="vehicle-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Vehicle No</th>
-                <th>Brand</th>
-                <th>Type</th>
-                <th>Fuel</th>
-                <th>Capacity</th>
-                <th>Status</th>
-                <th align="center">Action</th>
-              </tr>
-            </thead>
+        <button onClick={handleAdd} className="addBtn">
+          <span className="addBtnIcon">+</span>
+          Add Vehicle
+        </button>
+      </div>
 
-            <tbody>
+      <div className="tableCard">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Vehicle No</th>
+              <th>Brand</th>
+              <th>Type</th>
+              <th>Fuel</th>
+              <th>Capacity</th>
+              <th>Service Due</th>
+              <th>Status</th>
+              <th className="actionsHeader">Action</th>
+            </tr>
+          </thead>
 
-              {vehicles.map((vehicle, index) => (
+          <tbody>
+            {vehicles.length > 0 ? (
+              vehicles.map((vehicle, index) => (
                 <tr key={vehicle._id}>
                   <td>{index + 1}</td>
-                  <td>{vehicle.registrationNumber}</td>
+                  <td className="regNo">
+                    {vehicle.registrationNumber}
+                  </td>
                   <td>{vehicle.brand}</td>
                   <td>{vehicle.type}</td>
                   <td>{vehicle.fuelType}</td>
                   <td>{vehicle.capacity} Ton</td>
                   <td>
-                    <span className={`status ${vehicle.status.toLowerCase()}`}>
+                    <span
+                      className={`statusBadge ${vehicle.status === "available"
+                        ? "statusAvailable"
+                        : vehicle.status === "maintenance"
+                          ? "statusMaintenance"
+                          : "statusOnTrip"
+                        }`} >
                       {vehicle.status}
                     </span>
                   </td>
+                  <td>{new Date(vehicle.serviceDueDate).toLocaleDateString()} </td>
 
-                  <td>
-
-                    <button onClick={() => handleEdit(vehicle)} className="edit-btn">
-                      Edit
+                  <td className="actionsCell">
+                    <button
+                      className="iconBtn"
+                      onClick={() => handleEdit(vehicle)}>
+                      <Pencil size={18} />
                     </button>
 
                     <button
-                      className="delete-btn"
+                      className="iconBtn iconBtnDanger"
                       onClick={() => delet(vehicle._id)} >
-                      Delete
+                      <Trash2 size={18} />
                     </button>
-
                   </td>
-
                 </tr>
-
-              ))}
-
-            </tbody>
-
-          </table>
-
-          <Modal isOpen={openModal} onClose={() => setOpenModal(false)} title={editModal ? "Edit vehicle" : "Add Vehicle"} >
-            <VehicleForm
-              editMode={editModal}
-              vehicle={selectedVehicle}
-              onSuccess={() => {
-                loadVehicles();
-                setOpenModal(false);
-              }}
-            />
-          </Modal>
-
-        </div>
-
+              ))
+            ) : (
+              <tr>
+                <td colSpan="8" className="emptyState">
+                  No vehicles found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
+
+      <Modal
+        isOpen={openModal}
+        onClose={() => setOpenModal(false)}
+        title={editModal ? "Edit Vehicle" : "Add Vehicle"} >
+        <VehicleForm
+          editMode={editModal}
+          vehicle={selectedVehicle}
+          onSuccess={() => {
+            loadVehicles();
+            setOpenModal(false);
+          }}
+        />
+      </Modal>
 
     </div>
   );
