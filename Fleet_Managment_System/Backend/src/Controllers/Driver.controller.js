@@ -255,7 +255,7 @@ const updateAvailability = async (req, res) => {
         const { availability } = req.body;
 
         const driver = await Driver.findOne({
-            user: req.user._id, 
+            user: req.user._id,
             isDeleted: false
         });
 
@@ -285,7 +285,6 @@ const updateAvailability = async (req, res) => {
         });
     }
 };
-
 
 const deleteDriver = async (req, res) => {
     try {
@@ -325,4 +324,129 @@ const deleteDriver = async (req, res) => {
     }
 };
 
-module.exports = { createDriver, getDriver, getSingleDriver, updateDriver, deleteDriver, updateAvailability };
+
+
+const getProfile = async (req, res) => {
+    try {
+        console.log(req.user)
+        const userId = req.user._id;
+        console.log(userId);
+
+
+        const driver = await Driver.findOne({
+            user: userId,
+            isDeleted: false,
+        }).populate("assignedVehicle");
+
+        if (!driver) {
+            return res.status(404).json({
+                success: false,
+                message: "Driver profile not found.",
+            });
+        }
+
+        const user = await User.findById(userId).select(
+            "name email phone role"
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile fetched successfully.",
+            data: {
+                _id: driver._id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                role: user.role,
+                licenseNumber: driver.licenseNumber,
+                licenseExpiry: driver.licenseExpiry,
+                availability: driver.availability,
+                assignedVehicle: driver.assignedVehicle,
+            },
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+const updateprofile = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const { name, email, phone, licenseNumber, licenseExpiry } = req.body
+
+        const user = await User.findById(userId);
+
+        const driver = await Driver.findOne({ user: userId, isDeleted: false });
+
+        if (!user || !driver) {
+            return res.status(404).json({
+                success: false,
+                message: "Driver Profile Not Found"
+            });
+        }
+
+        if (email && email !== user.email) {
+            const existingEmail = await UserModel.findOne({ email });
+
+            if (existingEmail) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Email already exists.",
+                });
+            }
+        }
+
+        if (phone && phone !== user.phone) {
+            const existingPhone = await UserModel.findOne({ phone });
+
+            if (existingPhone) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Phone already exists.",
+                });
+            }
+        }
+
+        if (licenseNumber && licenseNumber !== driver.licenseNumber) {
+            const existingLicense = await DriverModel.findOne({
+                licenseNumber,
+            });
+
+            if (existingLicense) {
+                return res.status(400).json({
+                    success: false,
+                    message: "License number already exists.",
+                });
+            }
+        }
+
+        user.name = name || user.name;
+        user.email = email || user.email;
+        user.phone = phone || user.phone;
+
+        driver.licenseNumber = licenseNumber || driver.licenseNumber;
+
+        driver.licenseExpiry = licenseExpiry || driver.licenseExpiry;
+
+        await user.save();
+        await driver.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile Upadte Successfully"
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+}
+
+
+module.exports = { createDriver, getDriver, getSingleDriver, updateDriver, deleteDriver, updateAvailability, getProfile, updateprofile };

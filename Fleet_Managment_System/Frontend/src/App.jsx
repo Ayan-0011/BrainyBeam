@@ -13,6 +13,7 @@ import Admin_Vehicles from './Pages/Admin/Admin_Vehicles'
 import Admin_Driver from './Pages/Admin/Admin_Driver'
 import Fleet_Vehicle from './Pages/Fleet_Manager/Fleet_Vehicle'
 import Fleet_Driver from './Pages/Fleet_Manager/Fleet_Driver'
+import NotFound from './Pages/NotFounf'
 
 const App = () => {
   return (
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="profile" element={<Protect><DriverProfile /> </Protect>} ></Route>
         </Route>
 
+        <Route path='*' element={<NotFound/>} ></Route>
       </Routes>
     </BrowserRouter>
   )

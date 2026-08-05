@@ -1,0 +1,250 @@
+.driver-profile-container {
+    padding: 30px;
+    background: #f4f7fb;
+    min-height: 100vh;
+}
+
+/* Header */
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.profile-header h2 {
+    color: #16293F;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.profile-header p {
+    color: #666;
+    font-size: 15px;
+}
+
+.edit-profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background:#2563eb;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.edit-profile-btn:hover {
+    background: #2863eb;
+    transform: translateY(-2px);
+}
+
+/* Grid */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+/* Card */
+
+.profile-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    transition: .3s;
+}
+
+.profile-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 35px rgba(0,0,0,.12);
+}
+
+/* Card Heading */
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #353c4c;
+    font-weight: 400;
+    border-bottom: 1px solid #ececec;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+}
+
+.card-title h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+/* Details */
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px dashed #ececec;
+}
+
+.profile-row:last-child {
+    border-bottom: none;
+}
+
+.profile-row span {
+    color: #666;
+    font-size: 15px;
+}
+
+.profile-row strong {
+    color: #16293F;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* Vehicle */
+
+.no-vehicle {
+    text-align: center;
+    padding: 40px 0;
+    color: #999;
+    font-weight: 600;
+}
+
+/* Availability */
+
+.current-status {
+    margin-bottom: 20px;
+}
+
+.current-status span {
+    display: block;
+    margin-bottom: 10px;
+    color: #555;
+    font-weight: 600;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 30px;
+    text-transform: capitalize;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-badge.available {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.status-badge.on-trip {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.status-badge.off-duty {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* Status Form */
+/* Availability */
+
+.availability-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.availability-box label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #555;
+}
+
+.availability-control {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.availability-control select {
+    flex: 1;
+    height: 45px;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    padding: 0 14px;
+    font-size: 15px;
+    background: #fff;
+    outline: none;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.availability-control select:focus {
+    border-color: #16293F;
+    box-shadow: 0 0 0 3px rgba(22, 41, 63, .15);
+}
+
+.status-btn {
+    height: 45px;
+    padding: 0 22px;
+    border: none;
+    border-radius: 10px;
+    background: #16a34a;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.status-btn:hover {
+    background: #15803d;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+
+@media (max-width: 992px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .driver-profile-container {
+        padding: 20px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .edit-profile-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .profile-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}

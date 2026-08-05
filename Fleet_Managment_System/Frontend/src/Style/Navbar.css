@@ -7,7 +7,7 @@
   --fm-text: #0f172a;
   --fm-radius: 12px;
   --fm-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.06);
-  --fm-font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --fm-font:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .fm-root,

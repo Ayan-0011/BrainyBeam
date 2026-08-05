@@ -159,13 +159,13 @@ const Drivers = () => {
                     <button
                       className="iconBtn"
                       onClick={() => handleEdit(driver)} >
-                      <Pencil size={18} />
+                      <Pencil size={18} color="green" />
                     </button>
 
                     <button
                       className="iconBtn iconBtnDanger"
                       onClick={() => delet(driver._id)} >
-                      <Trash2 size={18} />
+                      <Trash2 size={18}  color="red"/>
                     </button>
                   </td>
                 </tr>

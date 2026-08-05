@@ -150,13 +150,13 @@ const Vehicles = () => {
                     <button
                       className="iconBtn"
                       onClick={() => handleEdit(vehicle)}>
-                      <Pencil size={18} />
+                      <Pencil size={18} color="green" />
                     </button>
 
                     <button
                       className="iconBtn iconBtnDanger"
                       onClick={() => delet(vehicle._id)} >
-                      <Trash2 size={18} />
+                      <Trash2 size={18} color="red" />
                     </button>
                   </td>
                 </tr>
