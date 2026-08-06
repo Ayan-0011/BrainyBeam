@@ -90,8 +90,8 @@ export default function Sidebar({
         icon: <LayoutDashboard size={18} />,
       },
       {
-        title: "Assign Trips",
-        path: "/dispatcher/trips",
+        title: "Trips",
+        path: "/dispatcher/trip",
         icon: <Route size={18} />,
       },
     ],

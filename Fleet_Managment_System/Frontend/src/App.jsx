@@ -14,11 +14,11 @@ import Admin_Driver from './Pages/Admin/Admin_Driver'
 import Fleet_Vehicle from './Pages/Fleet_Manager/Fleet_Vehicle'
 import Fleet_Driver from './Pages/Fleet_Manager/Fleet_Driver'
 import NotFound from './Pages/NotFounf'
+import Assign_Trip from './Pages/Dispatcher/Assign_Trip'
 
 const App = () => {
   return (
     <BrowserRouter>
-
       <Routes>
 
         <Route path='/' element={<><Login /></>} />
@@ -40,6 +40,7 @@ const App = () => {
 
         <Route path="/dispatcher" element={<Protect><Layout /></Protect>} >
           <Route index element={<Protect><Dispatcher_dash /> </Protect>} ></Route>
+          <Route path="trip" element={<Protect><Assign_Trip /> </Protect>} ></Route>
         </Route>
 
 
