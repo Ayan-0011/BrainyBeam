@@ -13,7 +13,7 @@ const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
         capacity: "",
         status: "Available",
         insuranceExpiry: "",
-        pollutionCertificateExpiry: "",
+        PermitExpiry: "",
         serviceDueDate: "",
     };
 
@@ -31,7 +31,7 @@ const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
                 capacity: vehicle.capacity || "",
                 status: vehicle.status || "Available",
                 insuranceExpiry: vehicle.insuranceExpiry?.split("T")[0] || "",
-                pollutionCertificateExpiry: vehicle.pollutionCertificateExpiry?.split("T")[0] || "",
+                pollutionCertificateExpiry: vehicle.PermitExpiry?.split("T")[0] || "",
                 serviceDueDate: vehicle.serviceDueDate?.split("T")[0] || "",
             });
 
@@ -160,11 +160,11 @@ const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
                 </div>
 
                 <div className="form-group">
-                    <label>Pollution Certificate Expiry</label>
+                    <label>Permit Expiry</label>
                     <input
                         type="date"
-                        name="pollutionCertificateExpiry"
-                        value={formData.pollutionCertificateExpiry}
+                        name="PermitExpiry"
+                        value={formData.PermitExpiry}
                         onChange={handleChange}
                     />
                 </div>

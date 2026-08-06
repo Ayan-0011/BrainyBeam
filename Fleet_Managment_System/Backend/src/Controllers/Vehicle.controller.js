@@ -10,7 +10,7 @@ const createVehicle = async (req, res) => {
             capacity,
             status,
             insuranceExpiry,
-            pollutionCertificateExpiry,
+            PermitExpiry,
             serviceDueDate
         } = req.body
 
@@ -30,7 +30,7 @@ const createVehicle = async (req, res) => {
             capacity,
             status,
             insuranceExpiry,
-            pollutionCertificateExpiry,
+            PermitExpiry,
             serviceDueDate
         });
 

@@ -389,7 +389,7 @@ const updateprofile = async (req, res) => {
         }
 
         if (email && email !== user.email) {
-            const existingEmail = await UserModel.findOne({ email });
+            const existingEmail = await User.findOne({ email });
 
             if (existingEmail) {
                 return res.status(400).json({
@@ -400,7 +400,7 @@ const updateprofile = async (req, res) => {
         }
 
         if (phone && phone !== user.phone) {
-            const existingPhone = await UserModel.findOne({ phone });
+            const existingPhone = await User.findOne({ phone });
 
             if (existingPhone) {
                 return res.status(400).json({
@@ -411,7 +411,7 @@ const updateprofile = async (req, res) => {
         }
 
         if (licenseNumber && licenseNumber !== driver.licenseNumber) {
-            const existingLicense = await DriverModel.findOne({
+            const existingLicense = await Driver.findOne({
                 licenseNumber,
             });
 

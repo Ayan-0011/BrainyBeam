@@ -42,9 +42,9 @@ const vehicleSchema = new mongoose.Schema(
       required: [true, "Insurance expiry date is required"],
     },
 
-    pollutionCertificateExpiry: {
+    PermitExpiry: {
       type: Date,
-      required: [true, "Pollution certificate expiry date is required"],
+      required: [true, "PermitExpiry expiry date is required"],
     },
 
     serviceDueDate: {
