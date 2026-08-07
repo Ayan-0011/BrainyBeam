@@ -239,7 +239,54 @@ const updateTripStatus = async (req, res) => {
             });
         }
 
-        const driver = await DriverModel.findById(id)
+        const driver = await DriverModel.findOne({ user: req.user._id });
+        if (!driver) {
+            return res.status(404).json({
+                success: false,
+                message: "Driver not found."
+            });
+        }
+
+        if (trip.assignedDriver.toString() !== driver._id.toString()) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not authorized to update this trip."
+            });
+        }
+
+        const validFlow = {
+            "scheduled": "in-transit",
+            "in-transit": "delivered",
+            "delivered": "closed"
+        };
+
+        if (validFlow[trip.tripStatus] !== tripStatus) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid status transition."
+            });
+        }
+
+        trip.tripStatus = tripStatus;
+
+        trip.statusHistory.push({
+            status: tripStatus
+        });
+
+        await trip.save();
+
+        driver.availability = "available";
+        await driver.save();
+
+        const vehicle = await VehicleModel.findById(trip.assignedVehicle);
+        vehicle.status ="Available";
+        await vehicle.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Trip status updated successfully.",
+            trip
+        });
 
     } catch (error) {
         res.status(400).json({
@@ -250,4 +297,4 @@ const updateTripStatus = async (req, res) => {
 }
 
 
-module.exports = { createTrip, getTrips, getSingleTrip, myTrips };
+module.exports = { createTrip, getTrips, getSingleTrip, myTrips, updateTripStatus };

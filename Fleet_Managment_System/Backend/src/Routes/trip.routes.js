@@ -12,6 +12,8 @@ Router.get('/', protect, authorize('admin',"dispatcher"), Trip.getTrips);
 
 Router.get('/my-trips', protect, authorize('driver'), Trip.myTrips);
 
+Router.patch('/:id/status', protect, authorize("driver"), Trip.updateTripStatus);
+
 
 Router.get('/:id', protect, authorize('admin',"dispatcher"), Trip.getSingleTrip);
 
