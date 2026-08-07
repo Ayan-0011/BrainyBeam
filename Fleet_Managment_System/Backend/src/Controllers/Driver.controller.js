@@ -288,13 +288,9 @@ const updateAvailability = async (req, res) => {
 
 const deleteDriver = async (req, res) => {
     try {
-
         const { id } = req.params;
 
-        const driver = await Driver.findOne({
-            _id: id,
-            isDeleted: false
-        });
+        const driver = await Driver.findById(id);
 
         if (!driver) {
             return res.status(404).json({
@@ -303,9 +299,9 @@ const deleteDriver = async (req, res) => {
             });
         }
 
-        driver.isDeleted = true;
 
-        await driver.save();
+        await User.findByIdAndDelete(driver.user);
+        await Driver.findByIdAndDelete(id);
 
         return res.status(200).json({
             success: true,
@@ -313,17 +309,14 @@ const deleteDriver = async (req, res) => {
         });
 
     } catch (error) {
-
-        console.log(error);
+        console.error(error);
 
         return res.status(500).json({
             success: false,
-            message: "Internal Server Error."
+            message: error.message
         });
-
     }
 };
-
 
 
 const getProfile = async (req, res) => {

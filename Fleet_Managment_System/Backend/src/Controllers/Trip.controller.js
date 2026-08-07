@@ -209,14 +209,14 @@ const myTrips = async (req, res) => {
     try {
 
         const driver = await DriverModel.findOne({ user: req.user._id });
-        console.log("Driver ID:", driver._id);
+        //console.log("Driver ID:", driver._id);
         const trips = await TripModel.find({
             assignedDriver: driver._id
         }).populate({
             path: "assignedVehicle",
             select: "registrationNumber"
         });
-        console.log("Trips:", trips);
+        // console.log("Trips:", trips);
     } catch (error) {
         res.status(400).json({
             succes: false,
