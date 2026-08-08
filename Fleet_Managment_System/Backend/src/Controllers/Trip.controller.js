@@ -2,6 +2,7 @@ const TripModel = require('../Model/TripModel');
 const DriverModel = require('../Model/DriverModel');
 const VehicleModel = require('../Model/VehicleModel');
 const { ConnectionStates } = require('mongoose');
+const FuelModel = require('../Model/FuelModel');
 
 
 const createTrip = async (req, res) => {
@@ -267,6 +268,19 @@ const updateTripStatus = async (req, res) => {
             });
         }
 
+        if (tripStatus == "closed") {
+            const fuellog = await FuelModel.findOne({
+                trip: trip._id
+            });
+
+            if (!fuellog) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please add fuel details before closing the trip."
+                });
+            }
+        }
+
         trip.tripStatus = tripStatus;
 
         trip.statusHistory.push({
@@ -279,7 +293,7 @@ const updateTripStatus = async (req, res) => {
         await driver.save();
 
         const vehicle = await VehicleModel.findById(trip.assignedVehicle);
-        vehicle.status ="Available";
+        vehicle.status = "Available";
         await vehicle.save();
 
         return res.status(200).json({
