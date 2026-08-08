@@ -51,7 +51,12 @@ const vehicleSchema = new mongoose.Schema(
       type: Date,
       required: [true, "Service due date is required"],
     },
-  }
+    vehicleImage: {
+      type: String,
+      default: "https://cdn-icons-png.flaticon.com/512/3097/3097144.png",
+    },
+  },
+  { timestamps: true }
 );
 
 const VehicleModel = mongoose.model("Vehicle", vehicleSchema);

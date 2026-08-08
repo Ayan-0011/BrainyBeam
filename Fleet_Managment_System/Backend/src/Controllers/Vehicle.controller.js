@@ -11,7 +11,8 @@ const createVehicle = async (req, res) => {
             status,
             insuranceExpiry,
             PermitExpiry,
-            serviceDueDate
+            serviceDueDate,
+            vehicleImage
         } = req.body
 
         const existingvehicle = await VehicleModel.findOne({ registrationNumber });
@@ -31,7 +32,8 @@ const createVehicle = async (req, res) => {
             status,
             insuranceExpiry,
             PermitExpiry,
-            serviceDueDate
+            serviceDueDate,
+            vehicleImage
         });
 
         res.status(201).json({

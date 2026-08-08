@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { createVehicle, updateVehicle } from "../../Service/VehicleService";
 import { toast } from "react-toastify";
+import { ImageOff } from "lucide-react";
 import "./Form.css";
 
 const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
 
     const initialState = {
         registrationNumber: "",
+        vehicleImage: "",
         brand: "",
         type: "",
         fuelType: "",
@@ -18,6 +20,7 @@ const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
     };
 
     const [formData, setFormData] = useState(initialState);
+    const [imageError, setImageError] = useState(false);
 
     useEffect(() => {
 
@@ -25,6 +28,7 @@ const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
 
             setFormData({
                 registrationNumber: vehicle.registrationNumber || "",
+                vehicleImage: vehicle.vehicleImage || "",
                 brand: vehicle.brand || "",
                 type: vehicle.type || "",
                 fuelType: vehicle.fuelType || "",
@@ -50,18 +54,25 @@ const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
             [e.target.name]: e.target.value
         });
 
+        if (e.target.name === "vehicleImage") {
+            setImageError(false);
+        }
+
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("submit")
         try {
+            const payload = { ...formData };
+            if (!payload.vehicleImage?.trim()) {
+                delete payload.vehicleImage;
+            }
+
             if (editMode) {
-                const res = await updateVehicle(vehicle._id, formData);
+                const res = await updateVehicle(vehicle._id, payload);
                 toast.success(res.message);
-                console.log(res.message)
             } else {
-                const res = await createVehicle(formData);
+                const res = await createVehicle(payload);
                 toast.success(res.message);
             }
             onSuccess();
@@ -76,33 +87,49 @@ const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
 
             <div className="form-grid">
 
+                <div className="form-group image-field-group">
+                    <label>Vehicle Image URL</label>
+
+                    <div className="image-field-row">
+                        <input type="text" name="vehicleImage"
+                            placeholder="https://example.com/image.jpg (optional)"
+                            value={formData.vehicleImage}
+                            onChange={handleChange} />
+
+                        <div className="image-preview-box">
+                            {formData.vehicleImage && !imageError ? (
+                                <img
+                                    src={formData.vehicleImage}
+                                    alt="Vehicle preview"
+                                    className="image-preview"
+                                    onError={() => setImageError(true)}
+                                />
+                            ) : (
+                                <div className="image-preview-placeholder">
+                                    <ImageOff size={18} />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <span className="field-hint">Leave empty to use the default vehicle image.</span>
+                </div>
+
                 <div className="form-group">
                     <label>Registration Number</label>
-                    <input
-                        type="text"
-                        name="registrationNumber"
+                    <input  type="text"  name="registrationNumber"
                         value={formData.registrationNumber}
-                        onChange={handleChange}
-                    />
+                        onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Brand</label>
-                    <input
-                        type="text"
-                        name="brand"
-                        value={formData.brand}
-                        onChange={handleChange}
-                    />
+                    <input type="text" name="brand" value={formData.brand}
+                     onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Vehicle Type</label>
-                    <select
-                        name="type"
-                        value={formData.type}
-                        onChange={handleChange}
-                    >
+                    <select name="type" value={formData.type}  onChange={handleChange} >
                         <option value="">Select</option>
                         <option>Truck</option>
                         <option>Van</option>
@@ -113,11 +140,9 @@ const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
 
                 <div className="form-group">
                     <label>Fuel Type</label>
-                    <select
-                        name="fuelType"
+                    <select name="fuelType"
                         value={formData.fuelType}
-                        onChange={handleChange}
-                    >
+                        onChange={handleChange} >
                         <option value="">Select</option>
                         <option>Diesel</option>
                         <option>Petrol</option>
@@ -128,67 +153,49 @@ const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
 
                 <div className="form-group">
                     <label>Capacity (Ton)</label>
-                    <input
-                        type="number"
-                        name="capacity"
+                    <input type="number" name="capacity"
                         value={formData.capacity}
-                        onChange={handleChange}
-                    />
+                        onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Status</label>
-                    <select
-                        name="status"
+                    <select name="status"
                         value={formData.status}
-                        onChange={handleChange}
-                    >
+                        onChange={handleChange} >
                         <option>Available</option>
-                        <option>On Trip</option>
+                        <option>in-use</option>
                         <option>Maintenance</option>
                     </select>
                 </div>
 
                 <div className="form-group">
                     <label>Insurance Expiry</label>
-                    <input
-                        type="date"
-                        name="insuranceExpiry"
+                    <input type="date" name="insuranceExpiry"
                         value={formData.insuranceExpiry}
-                        onChange={handleChange}
-                    />
+                        onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Permit Expiry</label>
-                    <input
-                        type="date"
-                        name="PermitExpiry"
+                    <input  type="date"  name="PermitExpiry"
                         value={formData.PermitExpiry}
-                        onChange={handleChange}
-                    />
+                        onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Service Due Date</label>
-                    <input
-                        type="date"
-                        name="serviceDueDate"
+                    <input  type="date"  name="serviceDueDate"
                         value={formData.serviceDueDate}
-                        onChange={handleChange}
-                    />
+                        onChange={handleChange}  />
                 </div>
-
             </div>
 
             <div className="form-actions">
-
-                <button type="submit" className="save-btn" onClick={handleSubmit}>
+                <button type="submit" className="save-btn">
                     {editMode ? "Update Vehicle" : "Add Vehicle"}
                 </button>
-
             </div>
-
         </form>
 
     );

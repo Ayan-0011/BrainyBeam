@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 
 const registerUser = async (req, res) => {
 
-    const { name, email, password, phone, role } = req.body;
+    const { name, email, password, phone, role, profileImage } = req.body;
 
     const existingUser = await usermodel.findOne({ email });
 
@@ -22,7 +22,8 @@ const registerUser = async (req, res) => {
         email,
         password: HasedPass,
         phone,
-        role
+        role,
+        profileImage
     })
 
     const token = jwt.sign({

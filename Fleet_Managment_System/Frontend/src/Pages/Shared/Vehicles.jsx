@@ -4,13 +4,14 @@ import { toast } from "react-toastify";
 import Modal from '../../Components/Modal/Modal';
 import VehicleForm from "../../Components/Form/VehicleForm";
 import Swal from 'sweetalert2'
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus, Trash2, Search } from "lucide-react";
 import './Vehicle.css'
 
 
 const Vehicles = () => {
 
   const [vehicles, setVehicles] = useState([]);
+  const [search, setSearch] = useState("");
 
   const [openModal, setOpenModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
@@ -33,15 +34,12 @@ const Vehicles = () => {
     try {
       const res = await getVehicles();
       setVehicles(res.vehicle);
-      //console.log(res)
     } catch (error) {
       console.log(error);
     }
   };
 
   const delet = async (id) => {
-
-    console.log("deleted")
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "my-confirm-btn",
@@ -61,7 +59,6 @@ const Vehicles = () => {
     })
 
     if (result.isConfirmed) {
-
       try {
         await deleteVehicle(id);
         loadVehicles();
@@ -71,7 +68,6 @@ const Vehicles = () => {
           text: "Vehicle has been deleted successfully.",
           icon: "success",
         })
-
       } catch (error) {
         swalWithBootstrapButtons.fire({
           title: "Error!",
@@ -80,82 +76,105 @@ const Vehicles = () => {
         })
       }
     }
-
   }
-
-  
 
   useEffect(() => {
     loadVehicles();
   }, []);
 
-  return (
+  const filteredVehicles = vehicles.filter((v) =>
+    v.registrationNumber?.toLowerCase().includes(search.toLowerCase()) ||
+    v.brand?.toLowerCase().includes(search.toLowerCase()) ||
+    v.type?.toLowerCase().includes(search.toLowerCase())
+  );
 
+  return (
     <div className="wrapper">
 
       <div className="header">
         <div>
-          <h2 className="title">Vehicle Management</h2>
-          <p className="subtitle">Total Vehicles : {vehicles.length}</p>
+          <h2 className="title">Vehicles</h2>
+          <p className="subtitle">Every vehicle registered in the fleet.</p>
         </div>
 
         <button onClick={handleAdd} className="addBtn">
-          <span className="addBtnIcon">+</span>
+          <Plus size={16} />
           Add Vehicle
         </button>
+      </div>
+
+      <div className="toolbar">
+        <div className="searchWrap">
+          <span className="searchIcon">
+            <Search size={16} />
+          </span>
+          <input
+            type="text"
+            className="searchInput"
+            placeholder="Search vehicles..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="tableCard">
         <table className="table">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Vehicle No</th>
+              <th>Image</th>
+              <th>Registration #</th>
               <th>Brand</th>
               <th>Type</th>
               <th>Fuel</th>
               <th>Capacity</th>
-              <th>Service Due</th>
               <th>Status</th>
-              <th className="actionsHeader">Action</th>
+              <th>Service Due</th>
+              <th className="actionsHeader">Actions</th>
             </tr>
           </thead>
 
           <tbody>
-            {vehicles.length > 0 ? (
-              vehicles.map((vehicle, index) => (
+            {filteredVehicles.length > 0 ? (
+              filteredVehicles.map((vehicle) => (
                 <tr key={vehicle._id}>
-                  <td>{index + 1}</td>
-                  <td className="regNo">
-                    {vehicle.registrationNumber}
+                  <td>
+                    <img
+                      src={vehicle.vehicleImage}
+                      alt={vehicle.registrationNumber}
+                      className="vehicleImage"
+                    />
                   </td>
+
+                  <td className="regNo">{vehicle.registrationNumber}</td>
                   <td>{vehicle.brand}</td>
                   <td>{vehicle.type}</td>
                   <td>{vehicle.fuelType}</td>
-                  <td>{vehicle.capacity} Ton</td>
+                  <td>{vehicle.capacity}</td>
+
                   <td>
                     <span
-                      className={`statusBadge ${vehicle.status === "available"
+                      className={`statusBadge ${vehicle.status === "Available"
                         ? "statusAvailable"
-                        : vehicle.status === "maintenance"
+                        : vehicle.status === "Maintenance"
                           ? "statusMaintenance"
                           : "statusOnTrip"
-                        }`} >
-                      {vehicle.status}
+                        }`}
+                    >
+                      {vehicle.status?.toUpperCase()}
                     </span>
                   </td>
-                  <td>{new Date(vehicle.serviceDueDate).toLocaleDateString()} </td>
 
-                  <td className="actionsCell">
-                    <button
-                      className="iconBtn"
-                      onClick={() => handleEdit(vehicle)}>
+                  <td>
+                    {new Date(vehicle.serviceDueDate).toLocaleDateString()}
+                  </td>
+
+                  <td>
+                    <button className="iconBtn" onClick={() => handleEdit(vehicle)}>
                       <Pencil size={18} color="green" />
                     </button>
 
-                    <button
-                      className="iconBtn iconBtnDanger"
-                      onClick={() => delet(vehicle._id)} >
+                    <button className="iconBtn iconBtnDanger" onClick={() => delet(vehicle._id)}>
                       <Trash2 size={18} color="red" />
                     </button>
                   </td>
@@ -163,7 +182,7 @@ const Vehicles = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="8" className="emptyState">
+                <td colSpan="9" className="emptyState">
                   No vehicles found.
                 </td>
               </tr>

@@ -217,7 +217,7 @@ const myTrips = async (req, res) => {
             path: "assignedVehicle",
             select: "registrationNumber"
         });
-        // console.log("Trips:", trips);
+        //console.log("Trips:", trips);
     } catch (error) {
         res.status(400).json({
             succes: false,
