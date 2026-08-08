@@ -189,10 +189,13 @@
   height: 32px;
   border: none;
   background: transparent;
-  color: #6b7280;
+  color: green;
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
+}
+.iconBtnDanger{
+  color: red;
 }
 
 .iconBtn svg {

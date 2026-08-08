@@ -18,7 +18,8 @@ export default function Navbar({ user, role, onMenuClick, onLogout }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const initials = (user?.name || "?").split(" ").map((part) => part[0]).slice(0, 2).join("").toUpperCase();
+
+
   
   return (
     <header className={styles.navbar}>
@@ -39,7 +40,7 @@ export default function Navbar({ user, role, onMenuClick, onLogout }) {
         <button
           className={styles.profileBtn}
           onClick={() => setDropdownOpen((o) => !o)} >
-          <span className={styles.avatar}>{initials}</span>
+          <span className={styles.avatar}><img src={user.profileImage} alt="user img" /></span>
           <span className={styles.profileText}>
             <span className={styles.name}>{user?.name || "User"}</span>
             <span className={styles.roleBadge}>{user?.role}</span>

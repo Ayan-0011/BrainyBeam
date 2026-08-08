@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { Pencil, Trash2, Plus } from "lucide-react";
+import { Pencil, Trash2, Plus, Search } from "lucide-react";
 
 import Modal from "../../Components/Modal/Modal";
 import DriverForm from "../../Components/Form/DriverForm";
@@ -8,6 +8,7 @@ import { deleteDriver, getDriver } from "../../Service/DriverService";
 
 const Drivers = () => {
   const [drivers, setDrivers] = useState([]);
+  const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [selectedDriver, setSelectedDriver] = useState(null);
@@ -90,27 +91,42 @@ const Drivers = () => {
     }
   };
 
+  const filteredDrivers = drivers.filter((d) =>
+    d.user?.name?.toLowerCase().includes(search.toLowerCase()) ||
+    d.user?.email?.toLowerCase().includes(search.toLowerCase()) ||
+    d.licenseNumber?.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="wrapper">
       <div className="header">
         <div>
-          <h2 className="title">Driver Management</h2>
-          <p className="subtitle">
-            Total Drivers : {drivers.length}
-          </p>
+          <h2 className="title">Drivers</h2>
+          <p className="subtitle">Every driver registered in the fleet.</p>
         </div>
 
         <button onClick={handleAdd} className="addBtn">
-          <Plus size={18} />
+          <Plus size={16} />
           Add Driver
         </button>
+      </div>
+
+      <div className="toolbar">
+        <div className="searchWrap">
+          <span className="searchIcon">
+            <Search size={16} />
+          </span>
+          <input type="text"  className="searchInput"  placeholder="Search drivers..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)} />
+        </div>
       </div>
 
       <div className="tableCard">
         <table className="table">
           <thead>
             <tr>
-              <th>#</th>
+              <th>Image</th>
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
@@ -118,25 +134,28 @@ const Drivers = () => {
               <th>License Expiry</th>
               <th>Availability</th>
               <th>Assigned Vehicle</th>
-              <th className="actionsHeader">Action</th>
+              <th className="actionsHeader">Actions</th>
             </tr>
           </thead>
 
           <tbody>
-            {drivers.length > 0 ? (
-              drivers.map((driver, index) => (
+            {filteredDrivers.length > 0 ? (
+              filteredDrivers.map((driver) => (
                 <tr key={driver._id}>
-                  <td>{index + 1}</td>
-                  <td className="regNo">
-                    {driver.user?.name || "-"}
+                  <td>
+                    <img
+                      src={driver.user.profileImage}
+                      alt={driver.user?.name || "Driver"}
+                      className="vehicleImage"
+                    />
                   </td>
+
+                  <td className="regNo">{driver.user?.name || "-"}</td>
                   <td>{driver.user?.email || "-"}</td>
                   <td>{driver.user?.phone || "-"}</td>
                   <td>{driver.licenseNumber}</td>
                   <td>
-                    {new Date(
-                      driver.licenseExpiry
-                    ).toLocaleDateString()}
+                    {new Date(driver.licenseExpiry).toLocaleDateString()}
                   </td>
 
                   <td>
@@ -145,7 +164,7 @@ const Drivers = () => {
                         driver.availability
                       )}`}
                     >
-                      {driver.availability}
+                      {driver.availability?.toUpperCase()}
                     </span>
                   </td>
 
@@ -156,15 +175,11 @@ const Drivers = () => {
                   </td>
 
                   <td className="actionsCell">
-                    <button
-                      className="iconBtn"
-                      onClick={() => handleEdit(driver)} >
+                    <button className="iconBtn" onClick={() => handleEdit(driver)}>
                       <Pencil size={18} />
                     </button>
 
-                    <button
-                      className="iconBtn iconBtnDanger"
-                      onClick={() => delet(driver._id)} >
+                    <button className="iconBtn iconBtnDanger" onClick={() => delet(driver._id)}>
                       <Trash2 size={18} />
                     </button>
                   </td>

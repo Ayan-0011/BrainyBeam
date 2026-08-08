@@ -97,7 +97,7 @@ const createDriver = async (req, res) => {
 const getDriver = async (req, res) => {
     try {
 
-        const drivers = await Driver.find({ isDeleted: false }).populate("user", "name email phone").populate("assignedVehicle", "registrationNumber");
+        const drivers = await Driver.find({ isDeleted: false }).populate("user", "name email phone profileImage").populate("assignedVehicle", "registrationNumber");
         return res.status(200).json({
             success: true,
             drivers
@@ -122,7 +122,7 @@ const getSingleDriver = async (req, res) => {
             _id: id,
             isDeleted: false
         })
-            .populate("user", "name email phone")
+            .populate("user", "name email phone profileImage")
             .populate("assignedVehicle", "registrationNumber");
 
         if (!driver) {
@@ -156,7 +156,8 @@ const updateDriver = async (req, res) => {
             email,
             phone,
             licenseNumber,
-            licenseExpiry
+            licenseExpiry,
+            profileImage
         } = req.body;
 
         const driver = await Driver.findOne({
@@ -219,6 +220,7 @@ const updateDriver = async (req, res) => {
         user.name = name || user.name;
         user.email = email || user.email;
         user.phone = phone || user.phone;
+        user.profileImage = profileImage || user.profileImage
 
         await user.save();
 
@@ -229,7 +231,7 @@ const updateDriver = async (req, res) => {
         await driver.save();
 
         const updatedDriver = await Driver.findById(driver._id)
-            .populate("user", "name email phone")
+            .populate("user", "name email phone profileImage")
             .populate("assignedVehicle", "registrationNumber");
 
         return res.status(200).json({
@@ -351,6 +353,7 @@ const getProfile = async (req, res) => {
                 email: user.email,
                 phone: user.phone,
                 role: user.role,
+                profileImage: user.profileImage,
                 licenseNumber: driver.licenseNumber,
                 licenseExpiry: driver.licenseExpiry,
                 availability: driver.availability,

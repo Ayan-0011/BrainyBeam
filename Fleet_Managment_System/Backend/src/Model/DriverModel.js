@@ -37,7 +37,10 @@ const driverSchema = new mongoose.Schema(
             type: Boolean,
             default: false
         }
-    });
+    },
+    { timestamps:true, }
+    
+);
 
 const DriverModel = mongoose.model("Driver", driverSchema);
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createDriver, updateDriver } from "../../Service/DriverService";
 import { getVehicles } from "../../Service/VehicleService";
 import { toast } from "react-toastify";
+import { ImageOff } from "lucide-react";
 
 const DriverForm = ({ editMode, driver, onSuccess }) => {
     const initialState = {
@@ -10,13 +11,15 @@ const DriverForm = ({ editMode, driver, onSuccess }) => {
         phone: "",
         password: "",
         user: "",
+        profileImage:"",
         licenseNumber: "",
         licenseExpiry: "",
         assignedVehicle: "",
-        availability: "available",
+        availability: "available"
     };
 
     const [formData, setFormData] = useState(initialState);
+    const [imageError, setImageError] = useState(false);
 
     const [vehicles, setVehicles] = useState([]);
 
@@ -31,6 +34,7 @@ const DriverForm = ({ editMode, driver, onSuccess }) => {
                 email: driver.user?.email || "",
                 phone: driver.user?.phone || "",
                 password: "",
+                profileImage: driver.user?.profileImage || "", 
                 user: driver.user?._id || "",
                 licenseNumber: driver.licenseNumber || "",
                 licenseExpiry: driver.licenseExpiry?.split("T")[0] || "",
@@ -38,17 +42,7 @@ const DriverForm = ({ editMode, driver, onSuccess }) => {
                 availability: driver.availability || "available",
             });
         } else {
-            setFormData({
-                name: "",
-                email: "",
-                phone: "",
-                password: "",
-                user: "",
-                licenseNumber: "",
-                licenseExpiry: "",
-                assignedVehicle: "",
-                availability: "available",
-            });
+            setFormData(initialState);
         }
     }, [driver, editMode]);
 
@@ -65,18 +59,27 @@ const DriverForm = ({ editMode, driver, onSuccess }) => {
         setFormData({
             ...formData, [e.target.name]: e.target.value,
         });
+
+        if (e.target.name === "profileImage") {
+            setImageError(false);
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //console.log(driver);
 
         try {
+            const payload = { ...formData };
+
+            if (!payload.profileImage?.trim()) {
+                delete payload.profileImage;
+            }
+
             if (editMode) {
-                await updateDriver(driver._id, formData);
+                await updateDriver(driver._id, payload);
                 toast.success("Driver updated successfully");
             } else {
-                await createDriver(formData);
+                await createDriver(payload);
                 toast.success("Driver added successfully");
             }
 
@@ -90,6 +93,37 @@ const DriverForm = ({ editMode, driver, onSuccess }) => {
     return (
         <form className="common-form" onSubmit={handleSubmit}>
             <div className="form-grid">
+
+                <div className="form-group image-field-group">
+                    <label>Driver Image URL</label>
+
+                    <div className="image-field-row">
+                        <input
+                            type="text"
+                            name="profileImage"
+                            placeholder="https://example.com/image.jpg (optional)"
+                            value={formData.profileImage}
+                            onChange={handleChange}
+                        />
+
+                        <div className="image-preview-box">
+                            {formData.profileImage && !imageError ? (
+                                <img
+                                    src={formData.profileImage}
+                                    alt="Driver preview"
+                                    className="image-preview"
+                                    onError={() => setImageError(true)}
+                                />
+                            ) : (
+                                <div className="image-preview-placeholder">
+                                    <ImageOff size={18} />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    <span className="field-hint">Leave empty to use the default driver image.</span>
+                </div>
 
                 <div className="form-group">
                     <label>Name</label>
