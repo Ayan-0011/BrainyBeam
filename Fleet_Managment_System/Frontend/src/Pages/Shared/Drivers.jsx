@@ -6,7 +6,7 @@ import Modal from "../../Components/Modal/Modal";
 import DriverForm from "../../Components/Form/DriverForm";
 import { deleteDriver, getDriver } from "../../Service/DriverService";
 
-const Drivers = () => {
+const Drivers = ({readOnly = false }) => {
   const [drivers, setDrivers] = useState([]);
   const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
@@ -105,10 +105,11 @@ const Drivers = () => {
           <p className="subtitle">Every driver registered in the fleet.</p>
         </div>
 
+        {!readOnly && 
         <button onClick={handleAdd} className="addBtn">
           <Plus size={16} />
           Add Driver
-        </button>
+        </button>}
       </div>
 
       <div className="toolbar">
@@ -134,7 +135,7 @@ const Drivers = () => {
               <th>License Expiry</th>
               <th>Availability</th>
               <th>Assigned Vehicle</th>
-              <th className="actionsHeader">Actions</th>
+             {!readOnly && <th className="actionsHeader">Actions</th>}
             </tr>
           </thead>
 
@@ -174,7 +175,7 @@ const Drivers = () => {
                       : "Not Assigned"}
                   </td>
 
-                  <td className="actionsCell">
+                  {!readOnly && <td className="actionsCell">
                     <button className="iconBtn" onClick={() => handleEdit(driver)}>
                       <Pencil size={18} />
                     </button>
@@ -182,7 +183,7 @@ const Drivers = () => {
                     <button className="iconBtn iconBtnDanger" onClick={() => delet(driver._id)}>
                       <Trash2 size={18} />
                     </button>
-                  </td>
+                  </td>}
                 </tr>
               ))
             ) : (

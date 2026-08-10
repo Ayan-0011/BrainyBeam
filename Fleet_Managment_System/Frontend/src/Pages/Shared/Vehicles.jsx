@@ -8,7 +8,7 @@ import { Pencil, Plus, Trash2, Search } from "lucide-react";
 import './Vehicle.css'
 
 
-const Vehicles = () => {
+const Vehicles = ({ readOnly = false }) => {
 
   const [vehicles, setVehicles] = useState([]);
   const [search, setSearch] = useState("");
@@ -97,10 +97,10 @@ const Vehicles = () => {
           <p className="subtitle">Every vehicle registered in the fleet.</p>
         </div>
 
-        <button onClick={handleAdd} className="addBtn">
+        {!readOnly && <button onClick={handleAdd} className="addBtn">
           <Plus size={16} />
           Add Vehicle
-        </button>
+        </button>}
       </div>
 
       <div className="toolbar">
@@ -130,7 +130,7 @@ const Vehicles = () => {
               <th>Capacity</th>
               <th>Status</th>
               <th>Service Due</th>
-              <th className="actionsHeader">Actions</th>
+              {!readOnly && <th className="actionsHeader">Actions</th>}
             </tr>
           </thead>
 
@@ -169,15 +169,17 @@ const Vehicles = () => {
                     {new Date(vehicle.serviceDueDate).toLocaleDateString()}
                   </td>
 
-                  <td>
-                    <button className="iconBtn" onClick={() => handleEdit(vehicle)}>
-                      <Pencil size={18} color="green" />
-                    </button>
+                  {!readOnly &&
+                    <td>
+                      <button className="iconBtn" onClick={() => handleEdit(vehicle)}>
+                        <Pencil size={18} color="green" />
+                      </button>
 
-                    <button className="iconBtn iconBtnDanger" onClick={() => delet(vehicle._id)}>
-                      <Trash2 size={18} color="red" />
-                    </button>
-                  </td>
+                      <button className="iconBtn iconBtnDanger" onClick={() => delet(vehicle._id)}>
+                        <Trash2 size={18} color="red" />
+                      </button>
+                    </td>
+                  }
                 </tr>
               ))
             ) : (

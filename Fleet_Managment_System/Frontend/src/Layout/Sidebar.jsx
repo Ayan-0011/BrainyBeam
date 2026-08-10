@@ -1,4 +1,4 @@
-import { LayoutDashboard, Truck, Users, UserCog, UserRound, Route, FileText, LogOut, Fuel, User, AlertTriangle, X,} from "lucide-react";
+import { LayoutDashboard, Truck, Users, UserCog, UserRound, Route, FileText, LogOut, Fuel, User, AlertTriangle, X, } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import styles from "./Sidebar.module.css";
@@ -94,6 +94,16 @@ export default function Sidebar({
         path: "/dispatcher/trip",
         icon: <Route size={18} />,
       },
+      {
+        title: "Vehicles",
+        path: "/dispatcher/vehicles",
+        icon: <Truck size={18} />,
+      },
+      {
+        title: "Drivers",
+        path: "/dispatcher/drivers",
+        icon: <Users size={18} />,
+      },
     ],
 
     driver: [
@@ -132,12 +142,11 @@ export default function Sidebar({
       )}
 
       <aside
-        className={`${styles.sidebar} ${
-          isOpen ? styles.open : ""
-        }`} >
+        className={`${styles.sidebar} ${isOpen ? styles.open : ""
+          }`} >
 
         <div className={styles.brand}>
-        <Logo />
+          <Logo />
 
 
           <button

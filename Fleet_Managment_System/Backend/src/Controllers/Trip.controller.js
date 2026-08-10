@@ -192,7 +192,9 @@ const getSingleTrip = async (req, res) => {
             scheduledDeparture: trip.scheduledDeparture,
             tripStatus: trip.tripStatus,
             driverName: trip.assignedDriver?.user?.name,
-            vehicleNumber: trip.assignedVehicle?.registrationNumber
+            vehicleNumber: trip.assignedVehicle?.registrationNumber,
+            statusHistory: trip.statusHistory || []
+
         };
         res.status(200).json({
             success: true,

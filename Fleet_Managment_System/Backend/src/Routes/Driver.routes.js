@@ -15,7 +15,7 @@ Router.patch('/Profile-update', protect, authorize("driver"), Driver.updateprofi
 //admin ke liye
 Router.post('/created', protect, authorize("admin", "fleet_manager"), Driver.createDriver);
 
-Router.get('/', protect, authorize("admin", "fleet_manager"), Driver.getDriver);
+Router.get('/', protect, authorize("admin", "fleet_manager", "dispatcher"), Driver.getDriver);
 
 Router.get('/:id', protect, authorize("admin", "fleet_manager"), Driver.getSingleDriver);
 

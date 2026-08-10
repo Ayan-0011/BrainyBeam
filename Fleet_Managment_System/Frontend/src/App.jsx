@@ -14,7 +14,10 @@ import Admin_Driver from './Pages/Admin/Admin_Driver'
 import Fleet_Vehicle from './Pages/Fleet_Manager/Fleet_Vehicle'
 import Fleet_Driver from './Pages/Fleet_Manager/Fleet_Driver'
 import NotFound from './Pages/NotFounf'
-import Assign_Trip from './Pages/Dispatcher/Assign_Trip'
+import Vehicle from './Pages/Dispatcher/Vehicle'
+import Driver from './Pages/Dispatcher/Driver'
+import Trips from './Pages/Dispatcher/Trips'
+import TripDetail from './Pages/Dispatcher/TripDeatil'
 
 const App = () => {
   return (
@@ -40,7 +43,10 @@ const App = () => {
 
         <Route path="/dispatcher" element={<Protect><Layout /></Protect>} >
           <Route index element={<Protect><Dispatcher_dash /> </Protect>} ></Route>
-          <Route path="trip" element={<Protect><Assign_Trip /> </Protect>} ></Route>
+          <Route path="trip" element={<Protect><Trips /> </Protect>} ></Route>
+          <Route path="trips/:id" element={<Protect><TripDetail /> </Protect>} ></Route>
+          <Route path="vehicles" element={<Protect><Vehicle /> </Protect>} ></Route>
+          <Route path="drivers" element={<Protect><Driver /> </Protect>} ></Route>
         </Route>
 
 
