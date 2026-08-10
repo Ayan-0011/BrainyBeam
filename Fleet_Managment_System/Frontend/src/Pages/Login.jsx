@@ -53,9 +53,7 @@ const Login = () => {
 
     if (!formData.password.trim()) {
       newError.password = "Please enter your password.";
-    } else if (formData.password.length < 4) {
-      newError.password = "Password must be at least 6 characters.";
-    }
+    } 
 
     if (newError.email || newError.password) {
       setError(newError);

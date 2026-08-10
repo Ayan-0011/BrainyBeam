@@ -28,7 +28,7 @@ export default function Navbar({ user, role, onMenuClick, onLogout }) {
         aria-label="Toggle menu" >
         <Menu size={22} />
       </button>
-
+    
       <div className={styles.spacer} />
 
       <button className={styles.iconBtn} aria-label="Notifications">

@@ -75,7 +75,7 @@ const createDriver = async (req, res) => {
             licenseNumber,
             licenseExpiry
         });
-        console.log(driver)
+        //console.log(driver)
 
         return res.status(201).json({
             success: true,

@@ -37,8 +37,8 @@ const createTrip = async (req, res) => {
 
         const driver = await DriverModel.findById(assignedDriver);
 
-        console.log(driver)
-        console.log(assignedDriver)
+        //console.log(driver)
+        //console.log(assignedDriver)
         if (!driver) {
             return res.status(400).json({
                 success: false,
@@ -96,7 +96,8 @@ const createTrip = async (req, res) => {
         });
 
         driver.availability = "on-trip",
-            await driver.save();
+        driver.assignedVehicle = vehicle._id;
+        await driver.save();
 
         vehicle.status = "in-use"
         await vehicle.save();
@@ -109,6 +110,7 @@ const createTrip = async (req, res) => {
 
 
     } catch (error) {
+        //console.error("CREATE TRIP ERROR:", error);
         return res.status(500).json({
             success: false,
             message: "Internal Server Error."
@@ -290,6 +292,7 @@ const updateTripStatus = async (req, res) => {
         await trip.save();
 
         driver.availability = "available";
+        driver.assignedVehicle=null;
         await driver.save();
 
         const vehicle = await VehicleModel.findById(trip.assignedVehicle);
