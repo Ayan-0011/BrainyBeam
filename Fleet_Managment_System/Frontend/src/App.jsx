@@ -18,6 +18,8 @@ import Vehicle from './Pages/Dispatcher/Vehicle'
 import Driver from './Pages/Dispatcher/Driver'
 import Trips from './Pages/Dispatcher/Trips'
 import TripDetail from './Pages/Dispatcher/TripDeatil'
+import MyTrips from './Pages/Driver/MyTrips'
+import DriverTripDetail from './Pages/Driver/DriverTripDetail'
 
 const App = () => {
   return (
@@ -52,6 +54,8 @@ const App = () => {
 
         <Route path="/driver" element={<Protect><Layout /></Protect>} >
           <Route index element={<Protect><Driver_dash /> </Protect>} ></Route>
+          <Route path="trips" element={<Protect><MyTrips /> </Protect>} ></Route>
+          <Route path="trips/:id" element={<Protect><DriverTripDetail /> </Protect>} ></Route>
           <Route path="profile" element={<Protect><DriverProfile /> </Protect>} ></Route>
         </Route>
 

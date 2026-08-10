@@ -214,18 +214,21 @@ const myTrips = async (req, res) => {
     try {
 
         const driver = await DriverModel.findOne({ user: req.user._id });
-        //console.log("Driver ID:", driver._id);
         const trips = await TripModel.find({
             assignedDriver: driver._id
         }).populate({
             path: "assignedVehicle",
             select: "registrationNumber"
         });
-        //console.log("Trips:", trips);
+        res.status(200).json({
+            success:true,
+            message:"MyTrip data loaded sucessfully",
+            trips
+        })
     } catch (error) {
         res.status(400).json({
             succes: false,
-            message: error.message
+            message: error.message,
         })
     }
 }
