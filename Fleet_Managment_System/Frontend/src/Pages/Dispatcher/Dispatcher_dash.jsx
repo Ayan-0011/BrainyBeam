@@ -57,9 +57,8 @@ const Dispatcher_dash = () => {
                 getVehicles(),
             ]);
             setTrips(tripRes.trips || []);
-            console.log(tripRes);
-            
             setDrivers(driverRes.drivers || driverRes.driver || []);
+            //console.log(driverRes);
             setVehicles(vehicleRes.vehicle || []);
         } catch (error) {
             console.log(error);
@@ -141,7 +140,7 @@ const Dispatcher_dash = () => {
             {/* Today's trips + available drivers */}
             <div className="dashTwoCol">
 
-                <div className="dashCard">
+                <div className="dashCard dashauto">
                     <div className="dashCardHeader">
                         <h3><CalendarClock size={16} /> Today's Trips</h3>
                         <span className="dashCardCount">{todaysTrips.length}</span>
@@ -162,8 +161,7 @@ const Dispatcher_dash = () => {
                                     <tr
                                         key={trip._id}
                                         onClick={() => navigate(`/dispatcher/trips/${trip._id}`)}
-                                        style={{ cursor: "pointer" }}
-                                    >
+                                        style={{ cursor: "pointer" }} >
                                         <td>{trip.fromLocation} → {trip.toLocation}</td>
                                         <td>{trip.driverName || "-"}</td>
                                         <td>{trip.vehicleNumber || "-"}</td>
@@ -181,7 +179,7 @@ const Dispatcher_dash = () => {
                     )}
                 </div>
 
-                <div className="dashCard">
+                <div className="dashCard dashauto">
                     <div className="dashCardHeader">
                         <h3><Users size={16} /> Available Drivers</h3>
                         <span className="dashCardCount">{availableDrivers.length}</span>
@@ -190,11 +188,11 @@ const Dispatcher_dash = () => {
                     {availableDrivers.length > 0 ? (
                         <div className="driverList">
                             {availableDrivers.map((driver) => {
-                                const name = driver.user?.name || driver.name || "Unknown";
+                                const name = driver.user?.name || driver.name;
                                 return (
                                     <div className="driverItem" key={driver._id}>
                                         <div className="driverAvatar">
-                                            {name.charAt(0).toUpperCase()}
+                                            <img src={driver.user?.profileImage} alt='driver img' />
                                         </div>
                                         <div>
                                             <p className="driverName">{name}</p>
@@ -223,6 +221,7 @@ const Dispatcher_dash = () => {
                     <table className="miniTable">
                         <thead>
                             <tr>
+                                <th>Image</th>
                                 <th>Registration #</th>
                                 <th>Brand</th>
                                 <th>Reasons</th>
@@ -231,6 +230,7 @@ const Dispatcher_dash = () => {
                         <tbody>
                             {vehiclesNeedingAttention.map((v) => (
                                 <tr key={v._id}>
+                                    <td> <img src={v.vehicleImage} alt={v.registrationNumber} className="miniVehicleImage"  /> </td>
                                     <td>{v.registrationNumber}</td>
                                     <td>{v.brand}</td>
                                     <td>

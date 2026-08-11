@@ -60,7 +60,7 @@ const TripDetail = () => {
         <div className="wrapper">
 
             <div className="detailHeader">
-                <button className="backBtn" onClick={() => navigate("/dispatcher/trip")}>
+                <button className="backBtn" onClick={() => navigate(-1)}>
                     <ArrowLeft size={18} />
                 </button>
                 <div>

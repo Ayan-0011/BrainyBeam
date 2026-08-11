@@ -96,7 +96,7 @@ const createTrip = async (req, res) => {
         });
 
         driver.availability = "on-trip",
-        driver.assignedVehicle = vehicle._id;
+            driver.assignedVehicle = vehicle._id;
         await driver.save();
 
         vehicle.status = "in-use"
@@ -221,8 +221,8 @@ const myTrips = async (req, res) => {
             select: "registrationNumber"
         });
         res.status(200).json({
-            success:true,
-            message:"MyTrip data loaded sucessfully",
+            success: true,
+            message: "MyTrip data loaded sucessfully",
             trips
         })
     } catch (error) {
@@ -296,13 +296,15 @@ const updateTripStatus = async (req, res) => {
 
         await trip.save();
 
-        driver.availability = "available";
-        driver.assignedVehicle=null;
-        await driver.save();
 
-        const vehicle = await VehicleModel.findById(trip.assignedVehicle);
-        vehicle.status = "Available";
-        await vehicle.save();
+        if (tripStatus == "closed") {
+            driver.availability = "available";
+            driver.assignedVehicle = null;
+            await driver.save();
+            const vehicle = await VehicleModel.findById(trip.assignedVehicle);
+            vehicle.status = "Available";
+            await vehicle.save();
+        }
 
         return res.status(200).json({
             success: true,
