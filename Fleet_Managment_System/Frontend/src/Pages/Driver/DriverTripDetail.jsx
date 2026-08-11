@@ -6,21 +6,48 @@ import Modal from "../../Components/Modal/Modal";
 import FuelForm from "../../Components/Form/FuelForm";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { ArrowLeft, ArrowRight, Package, User, CalendarClock, Truck, Fuel, PlayCircle, CheckCircle2, Lock } from "lucide-react";
+import {
+    ArrowLeft,
+    ArrowRight,
+    Truck,
+    Fuel,
+    PlayCircle,
+    CheckCircle2,
+    Lock,
+    ClipboardCheck,
+    Navigation,
+} from "lucide-react";
 import "./Trip.css";
 
-const statusClassMap = {
-    scheduled: "statusScheduled",
-    "in-transit": "statusInTransit",
-    delivered: "statusDelivered",
-    closed: "statusClosed",
+const STEPS = ["scheduled", "in-transit", "delivered", "closed"];
+
+const STEP_LABELS = {
+    scheduled: "Scheduled",
+    "in-transit": "In Transit",
+    delivered: "Delivered",
+    closed: "Closed",
 };
 
 // what the driver's next action is, given the current status
 const nextActionMap = {
-    scheduled: { label: "Start Trip", next: "in-transit", icon: PlayCircle },
-    "in-transit": { label: "Mark Delivered", next: "delivered", icon: CheckCircle2 },
-    delivered: { label: "Close Trip", next: "closed", icon: Lock },
+    scheduled: {
+        label: "Start Trip",
+        next: "in-transit",
+        icon: PlayCircle,
+        note: "Once you're on the road, mark this trip as started.",
+    },
+    "in-transit": {
+        label: "Mark Delivered",
+        next: "delivered",
+        icon: CheckCircle2,
+        note: "Reached the destination? Confirm delivery to move ahead.",
+    },
+    delivered: {
+        label: "Close Trip",
+        next: "closed",
+        icon: Lock,
+        note: "Add fuel details, then close out this trip.",
+    },
 };
 
 const DriverTripDetail = () => {
@@ -36,19 +63,23 @@ const DriverTripDetail = () => {
     const [updating, setUpdating] = useState(false);
     const [fuelModalOpen, setFuelModalOpen] = useState(false);
 
-    // fallback for direct URL open / refresh, where state isn't available.
+    // fallback for direct URL open / refresh, where router state isn't available.
     // driver can't call getSingleTrip (admin/dispatcher only), so we reuse
     // getMyTrips and pick the matching trip out of the driver's own list.
-    const loadTripFallback = async () => {
+    // fallback for direct URL open / refresh, where router state isn't available.
+    // driver can't call getSingleTrip (admin/dispatcher only), so we reuse
+    // getMyTrips and pick the matching trip out of the driver's own list.
+    // NOTE: does not touch `loading` — that's reserved for the very first page load,
+    // so a status update only refreshes the trip data quietly (no full-page reload).
+    const fetchTripFromList = async () => {
         try {
-            setLoading(true);
             const res = await getMyTrips();
             const found = (res.trips || []).find((t) => t._id === id);
             setTrip(found || null);
+            return found;
         } catch (error) {
             console.log(error);
-        } finally {
-            setLoading(false);
+            return null;
         }
     };
 
@@ -62,10 +93,15 @@ const DriverTripDetail = () => {
     };
 
     useEffect(() => {
-        if (!location.state?.trip) {
-            loadTripFallback();
-        }
-        loadFuelLogs();
+        const init = async () => {
+            if (!location.state?.trip) {
+                setLoading(true);
+                await fetchTripFromList();
+                setLoading(false);
+            }
+            loadFuelLogs();
+        };
+        init();
     }, [id]);
 
     const handleStatusChange = async (nextStatus) => {
@@ -93,8 +129,8 @@ const DriverTripDetail = () => {
         try {
             const res = await updateTripStatus(id, nextStatus);
             toast.success(res.message);
-            // refresh from the driver's own trip list, same restriction as initial load
-            await loadTripFallback();
+            // quiet refresh — only the stepper/action area re-renders, no full page reload
+            await fetchTripFromList();
         } catch (error) {
             toast.error(error.response?.data?.message || "Something went wrong");
         } finally {
@@ -103,165 +139,207 @@ const DriverTripDetail = () => {
     };
 
     if (loading) {
-        return <div className="loadingState">Loading trip details...</div>;
+        return <div className="dtLoadingState">Loading trip details...</div>;
     }
 
     if (!trip) {
-        return <div className="loadingState">Trip not found.</div>;
+        return <div className="dtLoadingState">Trip not found.</div>;
     }
 
+    const currentStepIndex = STEPS.indexOf(trip.tripStatus);
     const action = nextActionMap[trip.tripStatus];
     const ActionIcon = action?.icon;
     // backend requires a fuel log before a "delivered" trip can be closed
     const needsFuelBeforeClose = trip.tripStatus === "delivered" && fuelLogs.length === 0;
+    const vehicleNumber = trip.assignedVehicle?.registrationNumber || trip.vehicleNumber || "-";
+    const totalFuelCost = fuelLogs.reduce((sum, l) => sum + (l.cost || 0), 0);
+    const totalLiters = fuelLogs.reduce((sum, l) => sum + (l.litersFilled || 0), 0);
 
     return (
-        <div className="wrapper">
+        <div className="dtWrapper">
 
-            <div className="detailHeader">
-                <button className="backBtn" onClick={() => navigate("/driver/trips")}>
+            <div className="dtHeader">
+                <button className="dtBackBtn" onClick={() => navigate("/driver/trips")}>
                     <ArrowLeft size={18} />
                 </button>
-                <div>
-                    <h2 className="title">Trip Details</h2>
-                    <span className={`statusBadge ${statusClassMap[trip.tripStatus] || ""}`}>
-                        {trip.tripStatus?.toUpperCase()}
-                    </span>
+                <div className="dtHeaderText">
+                    <h2>Your Trip</h2>
+                    <p>Keep it updated as you go</p>
                 </div>
             </div>
 
-            <div className="routeCardBig">
-                <div className="routePoint">
-                    <p className="routePointLabel">From</p>
-                    <p className="routePointValue">{trip.fromLocation}</p>
-                </div>
-                <div className="routeArrow">
-                    <ArrowRight size={22} />
-                </div>
-                <div className="routePoint routePointEnd">
-                    <p className="routePointLabel">To</p>
-                    <p className="routePointValue">{trip.toLocation}</p>
+            {/* Hero route card */}
+            <div className="dtHero">
+                <span className="dtHeroStatus">
+                    <span className="dtHeroStatusDot" />
+                    {STEP_LABELS[trip.tripStatus]}
+                </span>
+
+                <div className="dtRoute">
+                    <div className="dtRoutePoint">
+                        <p className="dtRouteLabel">From</p>
+                        <p className="dtRouteValue">{trip.fromLocation}</p>
+                    </div>
+                    <div className="dtRouteLine">
+                        <ArrowRight size={18} />
+                    </div>
+                    <div className="dtRoutePoint end">
+                        <p className="dtRouteLabel">To</p>
+                        <p className="dtRouteValue">{trip.toLocation}</p>
+                    </div>
                 </div>
             </div>
 
-            {/* Driver action area */}
-            {trip.tripStatus !== "closed" && (
-                <div className="detailCard">
-                    <h3><Truck size={15} /> Trip Action</h3>
+            {/* Desktop: left = vehicle + schedule, right = progress + action (both drive the trip forward). Mobile: stacks in this order automatically. */}
+            <div className="dtGrid">
 
-                    {needsFuelBeforeClose ? (
-                        <>
-                            <p className="fuelEmptyState" style={{ marginBottom: 12 }}>
-                                Add fuel details before closing this trip.
-                            </p>
-                            <button
-                                className="addBtn"
-                                onClick={() => setFuelModalOpen(true)}
-                            >
-                                <Fuel size={16} />
-                                Add Fuel Details
-                            </button>
-                        </>
-                    ) : (
-                        action && (
-                            <button
-                                className="addBtn"
-                                onClick={() => handleStatusChange(action.next)}
-                                disabled={updating}
-                            >
-                                <ActionIcon size={16} />
-                                {updating ? "Updating..." : action.label}
-                            </button>
-                        )
-                    )}
-                </div>
-            )}
+                <div className="dtColLeft">
 
-            <div className="detailGrid">
-
-                <div className="detailCard">
-                    <h3><Package size={15} /> Cargo</h3>
-                    <div className="detailRow">
-                        <span className="detailLabel">Description</span>
-                        <span className="detailValue">{trip.cargoDescription}</span>
+                    {/* Vehicle info — driver only needs to know what they're driving */}
+                    <div className="dtCard">
+                        <div className="dtCardTitle"><Truck size={13} /> Your Vehicle</div>
+                        <div className="dtVehicleRow">
+                            <div className="dtVehicleIcon">
+                                <Truck size={22} />
+                            </div>
+                            <div>
+                                <p className="dtVehicleNumber">{vehicleNumber}</p>
+                                <p className="dtVehicleSub">Assigned for this trip</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="detailRow">
-                        <span className="detailLabel">Weight</span>
-                        <span className="detailValue">{trip.cargoWeight} Ton</span>
+
+                    {/* Schedule info */}
+                    <div className="dtCard">
+                        <div className="dtCardTitle"><Navigation size={13} /> Schedule</div>
+                        <div className="dtScheduleRow">
+                            <div className="dtScheduleIcon">
+                                <Navigation size={18} />
+                            </div>
+                            <div>
+                                <p className="dtScheduleValue">
+                                    {trip.scheduledDeparture
+                                        ? new Date(trip.scheduledDeparture).toLocaleString(undefined, {
+                                            weekday: "short", day: "numeric", month: "short",
+                                            hour: "2-digit", minute: "2-digit",
+                                        })
+                                        : "-"}
+                                </p>
+                                <p className="dtVehicleSub">Scheduled departure</p>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
-                <div className="detailCard">
-                    <h3><User size={15} /> Assignment</h3>
-                    <div className="detailRow">
-                        <span className="detailLabel">Vehicle</span>
-                        <span className="detailValue">
-                            {trip.assignedVehicle?.registrationNumber || trip.vehicleNumber || "-"}
-                        </span>
-                    </div>
-                </div>
+                <div className="dtColRight">
 
-                <div className="detailCard">
-                    <h3><CalendarClock size={15} /> Schedule</h3>
-                    <div className="detailRow">
-                        <span className="detailLabel">Scheduled Departure</span>
-                        <span className="detailValue">
-                            {trip.scheduledDeparture
-                                ? new Date(trip.scheduledDeparture).toLocaleString() : "-"}
-                        </span>
-                    </div>
-                </div>
-
-            </div>
-
-            <div className="bottomGrid">
-
-                {trip.statusHistory?.length > 0 && (
-                    <div className="detailCard">
-                        <h3><Truck size={15} /> Status Timeline</h3>
-                        <div className="timeline">
-                            {trip.statusHistory.map((entry, idx) => (
-                                <div className="timelineItem" key={idx}>
-                                    <span
-                                        className={`timelineDot ${statusClassMap[entry.status] || ""}`}
-                                    />
-                                    <div>
-                                        <p className="timelineLabel">{entry.status}</p>
-                                        <p className="timelineDate">
-                                            {entry.timestamp
-                                                ? new Date(entry.timestamp).toLocaleString()
-                                                : "-"}
-                                        </p>
+                    {/* Progress stepper */}
+                    <div className="dtCard">
+                        <div className="dtCardTitle"><ClipboardCheck size={13} /> Trip Progress</div>
+                        <div className="dtStepper">
+                            {STEPS.map((step, idx) => (
+                                <div
+                                    className={`dtStep ${idx < currentStepIndex ? "done" : ""} ${idx === currentStepIndex ? "current" : ""}`}
+                                    key={step}
+                                >
+                                    <div className="dtStepLine" />
+                                    <div className="dtStepDot">
+                                        {idx + 1}
                                     </div>
+                                    <span className="dtStepLabel">{STEP_LABELS[step]}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
-                )}
 
-                {fuelLogs.length > 0 && (
-                    <div className="detailCard">
-                        <h3><Fuel size={15} /> Fuel Log</h3>
-                        {fuelLogs.map((log) => (
-                            <div key={log._id} className="fuelLogBlock">
-                                <div className="detailRow">
-                                    <span className="detailLabel">Liters Filled</span>
-                                    <span className="detailValue">{log.litersFilled} L</span>
-                                </div>
-                                <div className="detailRow">
-                                    <span className="detailLabel">Cost</span>
-                                    <span className="detailValue">₹{log.cost}</span>
-                                </div>
-                                <div className="detailRow">
-                                    <span className="detailLabel">Odometer Reading</span>
-                                    <span className="detailValue">{log.odometerReading} km</span>
-                                </div>
+                    {/* Primary action */}
+                    {trip.tripStatus !== "closed" ? (
+                        <div className="dtActionCard">
+                            <div className="dtCardTitle"><PlayCircle size={13} /> Next Step</div>
+
+                            {needsFuelBeforeClose ? (
+                                <>
+                                    <p className="dtActionNote">
+                                        Add fuel details before you can close this trip.
+                                    </p>
+                                    <button
+                                        className="dtActionBtn secondary"
+                                        onClick={() => setFuelModalOpen(true)}
+                                    >
+                                        <Fuel size={17} />
+                                        Add Fuel Details
+                                    </button>
+                                </>
+                            ) : (
+                                action && (
+                                    <>
+                                        <p className="dtActionNote">{action.note}</p>
+                                        <button
+                                            className="dtActionBtn"
+                                            onClick={() => handleStatusChange(action.next)}
+                                            disabled={updating}
+                                        >
+                                            <ActionIcon size={17} />
+                                            {updating ? "Updating..." : action.label}
+                                        </button>
+                                    </>
+                                )
+                            )}
+                        </div>
+                    ) : (
+                        <div className="dtCard">
+                            <div className="dtClosedNote">
+                                <ClipboardCheck size={18} color="#15803d" />
+                                This trip is complete. Great job!
                             </div>
-                        ))}
-                    </div>
-                )}
+                        </div>
+                    )}
+
+                </div>
 
             </div>
+
+            {/* Fuel summary — full width row of stats, reads better than a squeezed column */}
+            {fuelLogs.length > 0 && (
+                <div className="dtCard">
+                    <div className="dtCardTitle"><Fuel size={13} /> Fuel Filled</div>
+                    <div className="dtFuelGrid">
+                        <div className="dtFuelStat">
+                            <p className="dtFuelStatValue">{totalLiters} L</p>
+                            <p className="dtFuelStatLabel">Liters</p>
+                        </div>
+                        <div className="dtFuelStat">
+                            <p className="dtFuelStatValue">₹{totalFuelCost}</p>
+                            <p className="dtFuelStatLabel">Cost</p>
+                        </div>
+                        <div className="dtFuelStat">
+                            <p className="dtFuelStatValue">{fuelLogs[fuelLogs.length - 1]?.odometerReading}</p>
+                            <p className="dtFuelStatLabel">Odometer</p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Activity log — full width, reads better as a single wide timeline */}
+            {trip.statusHistory?.length > 0 && (
+                <div className="dtCard">
+                    <div className="dtCardTitle"><ClipboardCheck size={13} /> Activity</div>
+                    {trip.statusHistory.map((entry, idx) => (
+                        <div className="dtActivityItem" key={idx}>
+                            <span className="dtActivityDot" />
+                            <div>
+                                <p className="dtActivityLabel">{entry.status}</p>
+                                <p className="dtActivityDate">
+                                    {entry.timestamp
+                                        ? new Date(entry.timestamp).toLocaleString()
+                                        : "-"}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
 
             <Modal
                 isOpen={fuelModalOpen}

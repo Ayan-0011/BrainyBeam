@@ -27,6 +27,8 @@ export const createTrip = async (data) => {
 export const getMyTrips = async () => {
     const res = await axios.get('http://localhost:3000/api/trip/my-trips', {
         withCredentials: true,
+        headers: { "Cache-Control": "no-cache" },
+        params: { _t: Date.now() }, // cache-buster: avoids stale trip status after updates
     });
 
     return res.data;

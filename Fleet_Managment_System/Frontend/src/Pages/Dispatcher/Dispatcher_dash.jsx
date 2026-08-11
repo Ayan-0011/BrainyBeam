@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getMyTrips, getTrips } from "../../Service/TripService";
-import { Route, Users, AlertTriangle, Truck, PieChart, BarChart3, CalendarClock,} from "lucide-react";
+import { Route, Users, AlertTriangle, Truck, PieChart, BarChart3, CalendarClock, RouteIcon,} from "lucide-react";
 import TripStatusChart from "../../Components/Chart/Tripstatuschart";
 import Chart from "../../Components/Chart/Chart";
 import { getDriver } from "../../Service/DriverService";
@@ -108,11 +108,11 @@ const Dispatcher_dash = () => {
 
                 <div className="statCard">
                     <div className="statIconBox green">
-                        <Users size={20} />
+                        <RouteIcon size={20} />
                     </div>
                     <div>
-                        <p className="statValue">{availableDrivers.length}</p>
-                        <p className="statLabel">Available Drivers</p>
+                        <p className="statValue">{trips.length}</p>
+                        <p className="statLabel">Total Trip's</p>
                     </div>
                 </div>
 
