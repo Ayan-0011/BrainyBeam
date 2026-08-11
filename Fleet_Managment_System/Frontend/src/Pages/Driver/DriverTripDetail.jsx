@@ -63,17 +63,10 @@ const DriverTripDetail = () => {
     const [updating, setUpdating] = useState(false);
     const [fuelModalOpen, setFuelModalOpen] = useState(false);
 
-    // fallback for direct URL open / refresh, where router state isn't available.
-    // driver can't call getSingleTrip (admin/dispatcher only), so we reuse
-    // getMyTrips and pick the matching trip out of the driver's own list.
-    // fallback for direct URL open / refresh, where router state isn't available.
-    // driver can't call getSingleTrip (admin/dispatcher only), so we reuse
-    // getMyTrips and pick the matching trip out of the driver's own list.
-    // NOTE: does not touch `loading` — that's reserved for the very first page load,
-    // so a status update only refreshes the trip data quietly (no full-page reload).
     const fetchTripFromList = async () => {
         try {
             const res = await getMyTrips();
+            console.log(res)
             const found = (res.trips || []).find((t) => t._id === id);
             setTrip(found || null);
             return found;

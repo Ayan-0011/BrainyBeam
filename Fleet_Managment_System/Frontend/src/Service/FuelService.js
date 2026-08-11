@@ -6,7 +6,7 @@ export const getFuelByTrip = async (tripId) => {
         headers: { "Cache-Control": "no-cache" },
         params: { _t: Date.now() },
     });
-
+    
     return res.data;
 };
 

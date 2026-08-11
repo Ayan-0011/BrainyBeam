@@ -30,7 +30,7 @@ export const getMyTrips = async () => {
         headers: { "Cache-Control": "no-cache" },
         params: { _t: Date.now() }, // cache-buster: avoids stale trip status after updates
     });
-
+    //console.log(res);
     return res.data;
 };
 

@@ -108,10 +108,7 @@ const Vehicles = ({ readOnly = false }) => {
           <span className="searchIcon">
             <Search size={16} />
           </span>
-          <input
-            type="text"
-            className="searchInput"
-            placeholder="Search vehicles..."
+          <inpu type="text" className="searchInput" placeholder="Search vehicles..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -150,7 +147,7 @@ const Vehicles = ({ readOnly = false }) => {
                   <td>{vehicle.brand}</td>
                   <td>{vehicle.type}</td>
                   <td>{vehicle.fuelType}</td>
-                  <td>{vehicle.capacity}</td>
+                  <td>{vehicle.capacity} Ton</td>
 
                   <td>
                     <span
