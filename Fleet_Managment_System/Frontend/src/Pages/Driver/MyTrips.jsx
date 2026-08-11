@@ -55,13 +55,9 @@ const MyTrips = () => {
                     <span className="searchIcon">
                         <Search size={16} />
                     </span>
-                    <input
-                        type="text"
-                        className="searchInput"
-                        placeholder="Search by route..."
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
+                    <input type="text"  className="searchInput" placeholder="Search by route..."
+                     value={search}
+                     onChange={(e) => setSearch(e.target.value)} />
                 </div>
             </div>
 
@@ -86,11 +82,9 @@ const MyTrips = () => {
                                 </td>
                             </tr>
                         ) : filteredTrips.length > 0 ? (
-                            filteredTrips.map((trip) => (
-                                <tr
-                                    key={trip._id}
-                                    onClick={() => navigate(`/driver/trips/${trip._id}`, { state: { trip } })}
-                                >
+                            filteredTrips.reverse().map((trip) => (
+                                <tr key={trip._id}
+                                    onClick={() => navigate(`/driver/trips/${trip._id}`, { state: { trip } })} >
                                     <td className="routeCell">
                                         {trip.fromLocation} → {trip.toLocation}
                                     </td>

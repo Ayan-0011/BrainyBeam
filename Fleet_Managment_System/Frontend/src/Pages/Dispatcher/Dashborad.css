@@ -1,0 +1,257 @@
+.dashWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.dashHeader h2.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 4px;
+}
+
+.dashHeader p.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ---- Stat cards ---- */
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.statCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.statIconBox {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statIconBox.blue { background: #e0e7ff; color: #4338ca; }
+.statIconBox.green { background: #dcfce7; color: #15803d; }
+.statIconBox.amber { background: #fef3c7; color: #b45309; }
+.statIconBox.red { background: #fee2e2; color: #dc2626; }
+
+.statValue {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 2px 0 0;
+}
+
+/* ---- Section cards ---- */
+.dashCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.dashCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.dashCardHeader h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.dashCardHeader h3 svg {
+  color: #4f46e5;
+}
+
+.dashCardCount {
+  font-size: 12px;
+  font-weight: 700;
+  color: #4f46e5;
+  background: #eef2ff;
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+/* ---- Two column layout ---- */
+.dashTwoCol {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .dashTwoCol {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Mini table (today's trips) ---- */
+.miniTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.miniTable th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.miniTable td {
+  padding: 10px;
+  border-bottom: 1px solid #f1f2f4;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.miniTable tr:last-child td {
+  border-bottom: none;
+}
+
+.miniEmptyState {
+  text-align: center;
+  padding: 24px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+/* ---- Driver list ---- */
+.driverList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.driverItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #f9fafb;
+}
+
+.driverAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #4f46e5;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.driverName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.driverMeta {
+  font-size: 11px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.availableDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #15803d;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ---- Attention badges ---- */
+.reasonBadge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.reasonService { background: #fef3c7; color: #b45309; }
+.reasonInsurance { background: #fee2e2; color: #dc2626; }
+.reasonPermit { background: #fce7f3; color: #be185d; }
+.reasonMaintenance { background: #f3f4f6; color: #4b5563; }
+
+/* ---- Charts row ---- */
+.chartGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .chartGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chartBox {
+  position: relative;
+  height: 260px;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.statusScheduled { background: #e0e7ff; color: #4338ca; }
+.statusInTransit { background: #fef3c7; color: #b45309; }
+.statusDelivered { background: #dcfce7; color: #15803d; }
+.statusClosed { background: #f3f4f6; color: #4b5563; }
