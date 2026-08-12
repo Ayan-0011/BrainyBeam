@@ -15,6 +15,8 @@ const createTrip = async (req, res) => {
             cargoWeight,
             assignedDriver,
             assignedVehicle,
+            driverImage,
+            vehicleImage,
             scheduledDeparture
         } = req.body
 
