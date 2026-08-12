@@ -102,7 +102,7 @@ const Drivers = ({readOnly = false }) => {
       <div className="header">
         <div>
           <h2 className="title">Drivers</h2>
-          <p className="subtitle">Every driver registered in the fleet.</p>
+          <p className="subtitle">Every driver registered in the fleetops.</p>
         </div>
 
         {!readOnly && 

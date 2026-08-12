@@ -94,7 +94,7 @@ const Vehicles = ({ readOnly = false }) => {
       <div className="header">
         <div>
           <h2 className="title">Vehicles</h2>
-          <p className="subtitle">Every vehicle registered in the fleet.</p>
+          <p className="subtitle">Every vehicle registered in the fleetops.</p>
         </div>
 
         {!readOnly && <button onClick={handleAdd} className="addBtn">

@@ -13,6 +13,13 @@ const statusClassMap = {
     closed: "statusClosed",
 };
 
+
+
+const isSameDay = (d1, d2) =>
+    d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate();
+
 const Trips = () => {
 
     const navigate = useNavigate();
@@ -20,6 +27,7 @@ const Trips = () => {
     const [trips, setTrips] = useState([]);
     const [search, setSearch] = useState("");
     const [statusFilter, setStatusFilter] = useState("all");
+    const [dateFilter, setDateFilter] = useState("all");
     const [openModal, setOpenModal] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -27,8 +35,6 @@ const Trips = () => {
         try {
             setLoading(true);
             const res = await getTrips();
-            console.log(res);
-            
             setTrips(res.trips || []);
         } catch (error) {
             console.log(error);
@@ -41,6 +47,32 @@ const Trips = () => {
         loadTrips();
     }, []);
 
+    const matchesDateFilter = (trip) => {
+        if (dateFilter === "all") return true;
+        if (!trip.scheduledDeparture) return false;
+
+        const tripDate = new Date(trip.scheduledDeparture);
+        const today = new Date();
+
+        if (dateFilter === "today") {
+            return isSameDay(tripDate, today);
+        }
+
+        if (dateFilter === "yesterday") {
+            const yesterday = new Date(today);
+            yesterday.setDate(today.getDate() - 1);
+            return isSameDay(tripDate, yesterday);
+        }
+
+        if (dateFilter === "week") {
+            const weekAgo = new Date(today);
+            weekAgo.setDate(today.getDate() - 7);
+            return tripDate >= weekAgo && tripDate <= today;
+        }
+
+        return true;
+    };
+
     const filteredTrips = trips.filter((t) => {
         const matchesSearch =
             t.fromLocation?.toLowerCase().includes(search.toLowerCase()) ||
@@ -51,7 +83,7 @@ const Trips = () => {
         const matchesStatus =
             statusFilter === "all" || t.tripStatus === statusFilter;
 
-        return matchesSearch && matchesStatus;
+        return matchesSearch && matchesStatus && matchesDateFilter(t);
     });
 
     return (
@@ -60,7 +92,7 @@ const Trips = () => {
             <div className="header">
                 <div>
                     <h2 className="title">Trips</h2>
-                    <p className="subtitle">Manage and track every trip in the fleet.</p>
+                    <p className="subtitle">Manage and track every trip in the fleetops.</p>
                 </div>
 
                 <button onClick={() => setOpenModal(true)} className="addBtn">
@@ -74,24 +106,41 @@ const Trips = () => {
                     <span className="searchIcon">
                         <Search size={16} />
                     </span>
-                    <input  type="text" className="searchInput" placeholder="Search by route, driver, vehicle..."
+                    <input type="text" className="searchInput" placeholder="Search by route, driver, vehicle..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
                 </div>
 
-                <select
-                    className="filterSelect"
+                <select className="filterSelect"
                     value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                >
+                    onChange={(e) => setStatusFilter(e.target.value)}>
                     <option value="all">All Status</option>
                     <option value="scheduled">Scheduled</option>
                     <option value="in-transit">In Transit</option>
                     <option value="delivered">Delivered</option>
                     <option value="closed">Closed</option>
                 </select>
+
+                <select className="filterSelect"
+                    value={dateFilter}
+                    onChange={(e) => setDateFilter(e.target.value)}>
+                    <option value="all">All</option>
+                    <option value="today">Today</option>
+                    <option value="yesterday">Yesterday</option>
+                    <option value="week">Last 7 day's</option>
+                </select>
             </div>
+{/* 
+            <div className="dateFilterRow">
+                {dateFilters.map((f) => (
+                    <button key={f.value}
+                        className={`dateFilterBtn ${dateFilter === f.value ? "dateFilterBtnActive" : ""}`}
+                        onClick={() => setDateFilter(f.value)} >
+                        {f.label}
+                    </button>
+                ))}
+            </div> */}
 
             <div className="tableCard">
                 <table className="table">
