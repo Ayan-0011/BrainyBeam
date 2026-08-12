@@ -311,6 +311,9 @@
   color: #111827;
   font-weight: 500;
   text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 7px;
 }
 
 .routeCardBig {

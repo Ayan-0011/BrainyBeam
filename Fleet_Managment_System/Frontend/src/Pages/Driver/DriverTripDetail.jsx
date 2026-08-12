@@ -66,7 +66,6 @@ const DriverTripDetail = () => {
     const fetchTripFromList = async () => {
         try {
             const res = await getMyTrips();
-            console.log(res)
             const found = (res.trips || []).find((t) => t._id === id);
             setTrip(found || null);
             return found;
@@ -75,7 +74,7 @@ const DriverTripDetail = () => {
             return null;
         }
     };
-
+    
     const loadFuelLogs = async () => {
         try {
             const res = await getFuelByTrip(id);
@@ -95,6 +94,7 @@ const DriverTripDetail = () => {
             loadFuelLogs();
         };
         init();
+        console.log(trip)
     }, [id]);
 
     const handleStatusChange = async (nextStatus) => {
@@ -145,6 +145,7 @@ const DriverTripDetail = () => {
     // backend requires a fuel log before a "delivered" trip can be closed
     const needsFuelBeforeClose = trip.tripStatus === "delivered" && fuelLogs.length === 0;
     const vehicleNumber = trip.assignedVehicle?.registrationNumber || trip.vehicleNumber || "-";
+    const vehicleImage = trip.assignedVehicle?.vehicleImage;
     const totalFuelCost = fuelLogs.reduce((sum, l) => sum + (l.cost || 0), 0);
     const totalLiters = fuelLogs.reduce((sum, l) => sum + (l.litersFilled || 0), 0);
 
@@ -193,7 +194,7 @@ const DriverTripDetail = () => {
                         <div className="dtCardTitle"><Truck size={13} /> Your Vehicle</div>
                         <div className="dtVehicleRow">
                             <div className="dtVehicleIcon">
-                                <Truck size={22} />
+                             <img src={vehicleImage} alt="vehicle img" className="" />
                             </div>
                             <div>
                                 <p className="dtVehicleNumber">{vehicleNumber}</p>

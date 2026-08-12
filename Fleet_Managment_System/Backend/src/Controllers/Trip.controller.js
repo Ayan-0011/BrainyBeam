@@ -83,6 +83,8 @@ const createTrip = async (req, res) => {
             cargoDescription,
             cargoWeight,
             assignedDriver,
+            driverImage,
+            vehicleImage,
             assignedVehicle,
             scheduledDeparture,
 
@@ -126,11 +128,11 @@ const getTrips = async (req, res) => {
             path: "assignedDriver",
             populate: {
                 path: "user",
-                select: "name"
+                select: "name profileImage"
             }
         }).populate({
             path: "assignedVehicle",
-            select: "registrationNumber"
+            select: "registrationNumber vehicleImage"
         }).sort({ createdAt: -1 });
 
 
@@ -143,7 +145,9 @@ const getTrips = async (req, res) => {
             scheduledDeparture: trip.scheduledDeparture,
             tripStatus: trip.tripStatus,
             driverName: trip.assignedDriver?.user?.name,
-            vehicleNumber: trip.assignedVehicle?.registrationNumber
+            vehicleNumber: trip.assignedVehicle?.registrationNumber,
+            driverImage: trip.assignedDriver?.user?.profileImage,
+            vehicleImage: trip.assignedVehicle.vehicleImage
         }));
 
 
@@ -169,11 +173,11 @@ const getSingleTrip = async (req, res) => {
             path: "assignedDriver",
             populate: {
                 path: "user",
-                select: "name"
+                select: "name profileImage"
             }
         }).populate({
             path: "assignedVehicle",
-            select: "registrationNumber"
+            select: "registrationNumber vehicleImage"
         });
 
         if (!trip) {
@@ -193,6 +197,8 @@ const getSingleTrip = async (req, res) => {
             tripStatus: trip.tripStatus,
             driverName: trip.assignedDriver?.user?.name,
             vehicleNumber: trip.assignedVehicle?.registrationNumber,
+            driverImage: trip.assignedDriver?.user?.profileImage,
+            vehicleImage: trip.assignedVehicle.vehicleImage,
             statusHistory: trip.statusHistory || []
 
         };
@@ -218,7 +224,7 @@ const myTrips = async (req, res) => {
             assignedDriver: driver._id
         }).populate({
             path: "assignedVehicle",
-            select: "registrationNumber"
+            select: "registrationNumber vehicleImage"
         });
         res.status(200).json({
             success: true,

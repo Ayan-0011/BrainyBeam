@@ -108,7 +108,7 @@ const Vehicles = ({ readOnly = false }) => {
           <span className="searchIcon">
             <Search size={16} />
           </span>
-          <inpu type="text" className="searchInput" placeholder="Search vehicles..."
+          <input type="text" className="searchInput" placeholder="Search vehicles..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />

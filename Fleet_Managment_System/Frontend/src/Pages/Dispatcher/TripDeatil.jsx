@@ -25,6 +25,8 @@ const TripDetail = () => {
         try {
             setLoading(true);
             const res = await getSingleTrip(id);
+            console.log(res);
+            
             setTrip(res.Singaletrip);
         } catch (error) {
             console.log(error);
@@ -38,7 +40,6 @@ const TripDetail = () => {
             const res = await getFuelByTrip(id);
             setFuelLogs(res.fuelLogs || []);
         } catch (error) {
-            // 404 simply means fuel hasn't been logged yet for this trip
             setFuelLogs([]);
         }
     };
@@ -77,7 +78,7 @@ const TripDetail = () => {
                     <p className="routePointValue">{trip.fromLocation}</p>
                 </div>
                 <div className="routeArrow">
-                    <ArrowRight size={22} />
+                    <ArrowRight size={25} />
                 </div>
                 <div className="routePoint routePointEnd">
                     <p className="routePointLabel">To</p>
@@ -103,11 +104,11 @@ const TripDetail = () => {
                     <h3><User size={15} /> Assignment</h3>
                     <div className="detailRow">
                         <span className="detailLabel">Driver</span>
-                        <span className="detailValue">{trip.driverName || "-"}</span>
+                        <span className="detailValue">{trip.driverName || "-"} <img src={trip.driverImage} alt="" className="miniVehicleImage"/></span>
                     </div>
                     <div className="detailRow">
                         <span className="detailLabel">Vehicle</span>
-                        <span className="detailValue">{trip.vehicleNumber || "-"}</span>
+                        <span className="detailValue">{trip.vehicleNumber || "-"} <img src={trip.vehicleImage} alt="" className="miniVehicleImage"/></span>
                     </div>
                 </div>
 

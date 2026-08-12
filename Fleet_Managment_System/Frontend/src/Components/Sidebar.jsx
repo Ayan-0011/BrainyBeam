@@ -155,20 +155,15 @@ const Sidebar = () => {
     };
 
     const handleLogout = async () => {
-
         await logout();
-
         navigate("/");
     };
 
     return (
 
         <aside className="sidebar">
-
             <h2 className="sidebar-title">
                 <Logo />
-
-
             </h2>
 
             <nav className="sidebar-nav">
@@ -189,9 +184,7 @@ const Sidebar = () => {
             <button className="sidebar-logout" onClick={handleLogout} >
                 <LogOut size={18} />
                 Logout
-
             </button>
-
         </aside>
 
     );

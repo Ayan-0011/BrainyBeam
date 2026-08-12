@@ -24,6 +24,7 @@ const MyTrips = () => {
             setLoading(true);
             const res = await getMyTrips();
             setTrips(res.trips || []);
+            console.log(res)
         } catch (error) {
             console.log(error);
         } finally {
@@ -55,9 +56,9 @@ const MyTrips = () => {
                     <span className="searchIcon">
                         <Search size={16} />
                     </span>
-                    <input type="text"  className="searchInput" placeholder="Search by route..."
-                     value={search}
-                     onChange={(e) => setSearch(e.target.value)} />
+                    <input type="text" className="searchInput" placeholder="Search by route..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)} />
                 </div>
             </div>
 
@@ -90,7 +91,11 @@ const MyTrips = () => {
                                     </td>
                                     <td>{trip.cargoDescription}</td>
                                     <td>{trip.cargoWeight} Ton</td>
-                                    <td>{trip.assignedVehicle?.registrationNumber || "-"}</td>
+                                    <td className="im">
+                                        <div>
+                                            <img src={trip.assignedVehicle.vehicleImage} alt="" className="miniVehicleImage" />
+                                        </div>
+                                        {trip.assignedVehicle?.registrationNumber || "-"}</td>
                                     <td>
                                         {trip.scheduledDeparture
                                             ? new Date(trip.scheduledDeparture).toLocaleString()
