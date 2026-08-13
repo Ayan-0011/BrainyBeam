@@ -16,10 +16,12 @@ import Fleet_Driver from './Pages/Fleet_Manager/Fleet_Driver'
 import NotFound from './Pages/NotFounf'
 import Vehicle from './Pages/Dispatcher/Vehicle'
 import Driver from './Pages/Dispatcher/Driver'
-import Trips from './Pages/Dispatcher/Trips'
-import TripDetail from './Pages/Dispatcher/TripDeatil'
 import MyTrips from './Pages/Driver/MyTrips'
 import DriverTripDetail from './Pages/Driver/DriverTripDetail'
+import Admin_trip from './Pages/Admin/Admin_trip'
+import Admin_tripdetail from './Pages/Admin/Admin_tripdetail'
+import Trips from './Pages/Dispatcher/Trips'
+import TripsDetail from './Pages/Dispatcher/TripsDetail'
 
 const App = () => {
   return (
@@ -33,6 +35,8 @@ const App = () => {
           <Route index element={<DashboardHome />} />
           <Route path="vehicles" element={<Admin_Vehicles />} />
           <Route path="drivers" element={<Admin_Driver />} />
+          <Route path="trips" element={<Admin_trip />} />
+          <Route path="trips/:id" element={<Admin_tripdetail />} />
         </Route>
 
 
@@ -46,7 +50,7 @@ const App = () => {
         <Route path="/dispatcher" element={<Protect><Layout /></Protect>} >
           <Route index element={<Protect><Dispatcher_dash /> </Protect>} ></Route>
           <Route path="trip" element={<Protect><Trips /> </Protect>} ></Route>
-          <Route path="trips/:id" element={<Protect><TripDetail /> </Protect>} ></Route>
+          <Route path="trips/:id" element={<Protect><TripsDetail /> </Protect>} ></Route>
           <Route path="vehicles" element={<Protect><Vehicle /> </Protect>} ></Route>
           <Route path="drivers" element={<Protect><Driver /> </Protect>} ></Route>
         </Route>

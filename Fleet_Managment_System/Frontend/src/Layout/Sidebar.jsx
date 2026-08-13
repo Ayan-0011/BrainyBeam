@@ -44,6 +44,11 @@ export default function Sidebar({
         icon: <UserCog size={18} />,
       },
       {
+        title: "Trips",
+        path: "/admin/trips",
+        icon: <Route size={18} />
+      },
+      {
         title: "Reports",
         path: "/admin/reports",
         icon: <FileText size={18} />,

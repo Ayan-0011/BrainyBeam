@@ -208,7 +208,6 @@ const DriverTripDetail = () => {
                         <div className="dtCardTitle"><Navigation size={13} /> Schedule</div>
                         <div className="dtScheduleRow">
                             <div className="dtScheduleIcon">
-                                <Navigation size={18} />
                             </div>
                             <div>
                                 <p className="dtScheduleValue">
