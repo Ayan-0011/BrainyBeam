@@ -176,22 +176,6 @@ const DriverForm = ({ editMode, driver, onSuccess }) => {
                         value={formData.licenseExpiry}
                         onChange={handleChange} />
                 </div>
-
-                <div className="form-group">
-                    <label>Assigned Vehicle</label>
-
-                    <select name="assignedVehicle"
-                        value={formData.assignedVehicle}
-                        onChange={handleChange} >
-                        <option value="">Select Vehicle</option>
-
-                        {vehicles.map((vehicle) => (
-                            <option key={vehicle._id} value={vehicle._id}>
-                                {vehicle.registrationNumber}
-                            </option>
-                        ))}
-                    </select>
-                </div>
             </div>
 
             <div className="form-actions">

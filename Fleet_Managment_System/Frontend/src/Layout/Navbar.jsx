@@ -18,6 +18,8 @@ export default function Navbar({ user, role, onMenuClick, onLogout }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  
+
 
 
   

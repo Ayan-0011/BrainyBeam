@@ -341,7 +341,7 @@ const getProfile = async (req, res) => {
         }
 
         const user = await User.findById(userId).select(
-            "name email phone role"
+            "name email phone role profileImage"
         );
 
         return res.status(200).json({
@@ -371,7 +371,7 @@ const getProfile = async (req, res) => {
 const updateprofile = async (req, res) => {
     try {
         const userId = req.user._id;
-        const { name, email, phone, licenseNumber, licenseExpiry } = req.body
+        const { name, email, phone, licenseNumber, licenseExpiry, profileImage } = req.body
 
         const user = await User.findById(userId);
 
@@ -422,6 +422,7 @@ const updateprofile = async (req, res) => {
         user.name = name || user.name;
         user.email = email || user.email;
         user.phone = phone || user.phone;
+        user.profileImage = profileImage || user.profileImage
 
         driver.licenseNumber = licenseNumber || driver.licenseNumber;
 

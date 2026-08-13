@@ -1,184 +1,232 @@
 import React, { useEffect, useState } from "react";
 import "./DriverProfile.css";
-import { User, BadgeCheck, Truck, CircleCheck, Pencil } from "lucide-react";
-import { getProfile, UpdateAvailibilty } from "../../Service/DriverService";
+import { Mail, Phone, BadgeCheck, CalendarDays, LockKeyhole, CircleCheck, CircleOff, Pencil, } from "lucide-react";
+import { getProfile, UpdateAvailibilty, UpdateProfile } from "../../Service/DriverService";
 import { toast } from "react-toastify";
-import UpdateProfile from "../../Components/Form/Updateprofile";
 import Modal from "../../Components/Modal/Modal";
+import Updateprofile from "../../Components/Form/Updateprofile";
 
 const DriverProfile = () => {
   const [data, setData] = useState({});
   const [availability, setAvailability] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [updating, setUpdating] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
   const fetchProfile = async () => {
     try {
+      setLoading(true);
       const res = await getProfile();
-
-      setData(res.data);
-      setAvailability(res.data.availability);
+      const profile = res?.data;
+      setData(profile || {});
+      setAvailability(profile?.availability || "off-duty");
     } catch (error) {
-      console.log(error);
+      toast.error(error.message || "Failed to load profile");
+    } finally {
+      setLoading(false);
     }
   };
 
-
-  const updateAvibility = async () => {
-    const res = await UpdateAvailibilty(availability);
-    toast.success("availability Change");
-    console.log(availability)
-    fetchProfile();
+  const handledeit = () => {
+    setOpenModal(true)
   }
 
   useEffect(() => {
     fetchProfile();
   }, []);
 
+  const isOnTrip = availability === "on-trip";
+  const isAvailable = availability === "available";
+
+  const updateAvailability = async (value) => {
+    if (isOnTrip || value === availability || updating) return;
+
+    const previous = availability;
+    try {
+      setUpdating(true);
+      setAvailability(value); // optimistic update
+      await UpdateAvailibilty(value);
+      toast.success("Availability updated successfully");
+    } catch (error) {
+      setAvailability(previous); // rollback on failure
+      toast.error(error.message || "Failed to update availability");
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  const statusMeta = {
+    available: { label: "Available", className: "available" },
+    "off-duty": { label: "Off Duty", className: "off-duty" },
+    "on-trip": { label: "On Trip", className: "on-trip" },
+  };
+
+  const currentStatus = statusMeta[availability] || statusMeta["off-duty"];
+
   return (
-    <div className="driver-profile-container">
-      <div className="profile-header">
-        <div>
-          <h2>Driver Profile</h2>
-          <p>View and manage your profile information.</p>
-        </div>
-
-        <button onClick={()=>setOpenModal(true)} className="edit-profile-btn">
-          <Pencil size={18} />
-          Edit Profile
-        </button>
-
-      </div>
-
-      <div className="profile-grid">
-        <div className="profile-card">
-          <div className="card-title">
-            <User size={20} />
-            <h3>Personal Information</h3>
-          </div>
-
-          <div className="card-body">
-            <div className="profile-row">
-              <span>Name</span>
-              <strong>{data.name}</strong>
-            </div>
-
-            <div className="profile-row">
-              <span>Email</span>
-              <strong>{data.email}</strong>
-            </div>
-
-            <div className="profile-row">
-              <span>Phone</span>
-              <strong>{data.phone}</strong>
-            </div>
-
-            <div className="profile-row">
-              <span>Role</span>
-              <strong>{data.role}</strong>
-            </div>
+    <div className="driver-profile-page">
+      <div className="driver-profile-wrapper">
+        {/* Page Heading */}
+        <div className="profile-page-heading">
+          <div>
+            <h1>My Profile</h1>
+            <p>View and manage your driver profile</p>
           </div>
         </div>
 
-        {/* License */}
+        {/* Profile Card */}
+        <div className="driver-profile-card">
+          {/* Profile Header */}
+          <div className="profile-top">
+            <button onClick={handledeit}
+              type="button"
+              className="edit-profile-btn">
+              <Pencil size={14} />
+              <span>Edit</span>
+            </button>
 
-        <div className="profile-card">
-          <div className="card-title">
-            <BadgeCheck size={20} />
-            <h3>License Information</h3>
-          </div>
-          <div className="card-body">
-            <div className="profile-row">
-              <span>License Number</span>
-              <strong>{data.licenseNumber}</strong>
+            <div className="profile-avatar">
+              <img src={data.profileImage} alt={data?.name || "Driver"} />
             </div>
-            <div className="profile-row">
-              <span>Expiry Date</span>
-              <strong>
-                {data.licenseExpiry
-                  ? new Date(data.licenseExpiry).toLocaleDateString()
-                  : "-"}
-              </strong>
-            </div>
-          </div>
-        </div>
 
-        {/* Vehicle */}
-
-        <div className="profile-card">
-          <div className="card-title">
-            <Truck size={20} />
-            <h3>Assigned Vehicle</h3>
-          </div>
-          <div className="card-body">
-            {data.assignedVehicle ? (
-              <>
-                <div className="profile-row">
-                  <span>Registration</span>
-                  <strong>{data.assignedVehicle.registrationNumber}</strong>
-                </div>
-
-                <div className="profile-row">
-                  <span>Brand</span>
-                  <strong>{data.assignedVehicle.brand}</strong>
-                </div>
-
-                <div className="profile-row">
-                  <span>Type</span>
-                  <strong>{data.assignedVehicle.type}</strong>
-                </div>
-
-                <div className="profile-row">
-                  <span>Capacity</span>
-                  <strong>{data.assignedVehicle.capacity} KG</strong>
-                </div>
-              </>
-            ) : (
-              <div className="no-vehicle">
-                No Vehicle Assigned
+            <div className="profile-heading-content">
+              <h2>{loading ? "Loading..." : data?.name || "Driver Name"}</h2>
+              <div className={`availability-badge ${currentStatus.className}`}>
+                <span className="status-dot"></span>
+                {currentStatus.label}
               </div>
-            )}
-
-          </div>
-        </div>
-
-        {/* Availability */}
-
-        <div className="profile-card">
-          <div className="card-title">
-            <CircleCheck size={20} />
-            <h3>Availability</h3>
+            </div>
           </div>
 
-          <div className="availability-box">
-            <label>Status</label>
+          {/* Profile Information */}
+          <div className="profile-content">
+            <div className="section-title">
+              <span>Personal Information</span>
+            </div>
 
-            <div className="availability-control">
-              <select value={availability}
-                onChange={(e) => setAvailability(e.target.value)}>
-                <option value="available"> Available</option>
-                <option value="on-trip"> On Trip</option>
-                <option value="off-duty"> Off Duty</option>
-              </select>
+            <div className="info-list">
+              {/* Email */}
+              <div className="info-row">
+                <div className="info-label">
+                  <div className="info-icon">
+                    <Mail size={17} />
+                  </div>
+                  <span>Email</span>
+                </div>
+                <span className="info-value">
+                  {data?.email || "Not available"}
+                </span>
+              </div>
 
-              <button
-                className="status-btn"
-                onClick={updateAvibility}>
-                Save
-              </button>
+              {/* Phone */}
+              <div className="info-row">
+                <div className="info-label">
+                  <div className="info-icon">
+                    <Phone size={17} />
+                  </div>
+                  <span>Phone</span>
+                </div>
+                <span className="info-value">
+                  {data?.phone || "Not available"}
+                </span>
+              </div>
+
+              {/* License */}
+              <div className="info-row">
+                <div className="info-label">
+                  <div className="info-icon">
+                    <BadgeCheck size={17} />
+                  </div>
+                  <span>License No.</span>
+                </div>
+                <span className="info-value">
+                  {data?.licenseNumber || "Not available"}
+                </span>
+              </div>
+
+              {/* License Expiry */}
+              <div className="info-row">
+                <div className="info-label">
+                  <div className="info-icon">
+                    <CalendarDays size={17} />
+                  </div>
+                  <span>License Expiry</span>
+                </div>
+                <span className="info-value">
+                  {data?.licenseExpiry
+                    ? new Date(data.licenseExpiry).toLocaleDateString("en-GB")
+                    : "Not available"}
+                </span>
+              </div>
+            </div>
+
+            {/* Availability control */}
+            <div className="availability-section">
+              <div className="availability-heading">
+                <div>
+                  <h3>Availability</h3>
+                  <p>Let dispatch know when you're ready for rides</p>
+                </div>
+
+                {isOnTrip && (
+                  <div className="locked-label">
+                    <LockKeyhole size={12} />
+                    Locked
+                  </div>
+                )}
+              </div>
+
+              <div className="availability-control">
+                <button type="button"
+                  className={`availability-option available-option ${isAvailable ? "active" : ""}`}
+                  disabled={isOnTrip || updating}
+                  onClick={() => updateAvailability("available")} >
+                  <CircleCheck size={16} />
+                  Available
+                  {isAvailable && <span className="selected-dot"></span>}
+                </button>
+
+                <button type="button"
+                  className={`availability-option off-duty-option ${availability === "off-duty" ? "active" : ""}`}
+                  disabled={isOnTrip || updating}
+                  onClick={() => updateAvailability("off-duty")} >
+                  <CircleOff size={16} />
+                  Off Duty
+                  {availability === "off-duty" && (
+                    <span className="selected-dot"></span>
+                  )}
+                </button>
+              </div>
+
+              {isOnTrip && (
+                <div className="trip-lock-message">
+                  <LockKeyhole size={15} />
+                  <div>
+                    <strong>You're currently on a trip</strong>
+                    <p>
+                      Availability updates automatically once the trip ends.
+                      You can't change it manually right now.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
-        <Modal isOpen={openModal} onClose={() => setOpenModal(false)} title="Update Profile" >
-
-          <UpdateProfile  profile={data}
-            onSuccess={() => {
-              fetchProfile();
-              setOpenModal(false);
-            }}
-          />
-          
-        </Modal>
       </div>
+
+      <Modal isOpen={openModal} onClose={() => setOpenModal(false)} title="Update Profile" >
+              
+        <Updateprofile profile={data}
+          onSuccess={() => {
+            fetchProfile();
+            setOpenModal(false);
+          }}
+        />
+
+      </Modal>
+
+
 
     </div>
   );

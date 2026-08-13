@@ -1,250 +1,408 @@
-.driver-profile-container {
-    padding: 30px;
-    background: #f4f7fb;
-    min-height: 100vh;
+* {
+  box-sizing: border-box;
 }
 
-/* Header */
-
-.profile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
+.driver-profile-page {
+  min-height: 80vh;
+  width: 100%;
+  background: #f6f7f9;
 }
 
-.profile-header h2 {
-    color: #16293F;
-    font-size: 28px;
-    margin-bottom: 5px;
+.driver-profile-wrapper {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
-.profile-header p {
-    color: #666;
-    font-size: 15px;
+/* =========================
+   PAGE HEADING
+========================= */
+
+.profile-page-heading {
+  margin-bottom: 18px;
+  text-align: center;
 }
+
+.profile-page-heading h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #202938;
+}
+
+.profile-page-heading p {
+  margin: 5px 0 0;
+  color: #7c8594;
+  font-size: 13px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.driver-profile-card {
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border: 1px solid #e5e8ed;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(25, 35, 50, 0.06);
+}
+
+/* =========================
+   PROFILE TOP
+========================= */
+
+.profile-top {
+  position: relative;
+  min-height: 150px;
+  padding: 28px 22px 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%);
+  border-bottom: 1px solid #edf0f3;
+}
+
+.profile-avatar {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 3px 12px rgba(30, 40, 55, 0.1);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #202938;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.profile-heading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.profile-heading-content h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  color: #202938;
+}
+
+/* =========================
+   STATUS BADGE
+========================= */
+
+.availability-badge {
+  width: fit-content;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+
+.availability-badge.available {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.availability-badge.off-duty {
+  color: #697486;
+  background: #edf0f4;
+}
+
+.availability-badge.on-trip {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* =========================
+   EDIT BUTTON
+========================= */
 
 .edit-profile-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border: none;
-    background:#2563eb;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: .3s;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  height: 34px;
+  padding: 0 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid #d8dde5;
+  border-radius: 8px;
+  color: #3e4b60;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .edit-profile-btn:hover {
-    background: #2863eb;
-    transform: translateY(-2px);
+  background: #f6f8fa;
+  border-color: #bbc3cf;
 }
 
-/* Grid */
+/* =========================
+   CONTENT
+========================= */
 
-.profile-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
+.profile-content {
+  padding: 25px 24px 28px;
 }
 
-/* Card */
-
-.profile-card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 22px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.08);
-    transition: .3s;
+.section-title span {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2a3445;
 }
 
-.profile-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 35px rgba(0,0,0,.12);
+/* =========================
+   INFO
+========================= */
+
+.info-list {
+  margin-top: 5px;
 }
 
-/* Card Heading */
-
-.card-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #353c4c;
-    font-weight: 400;
-    border-bottom: 1px solid #ececec;
-    padding-bottom: 12px;
-    margin-bottom: 18px;
+.info-row {
+  min-height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #edf0f3;
 }
 
-.card-title h3 {
-    margin: 0;
-    font-size: 18px;
+.info-row:last-child {
+  border-bottom: none;
 }
 
-/* Details */
-
-.card-body {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.info-label {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #707a89;
+  font-size: 13px;
 }
 
-.profile-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px dashed #ececec;
+.info-icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f6f8;
+  color: #657084;
+  border-radius: 7px;
 }
 
-.profile-row:last-child {
-    border-bottom: none;
+.info-value {
+  color: #303a4a;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
 }
 
-.profile-row span {
-    color: #666;
-    font-size: 15px;
+/* =========================
+   AVAILABILITY SECTION
+========================= */
+
+.availability-section {
+  padding-top: 22px;
+  border-top: 1px solid #e9edf1;
 }
 
-.profile-row strong {
-    color: #16293F;
-    font-size: 15px;
-    font-weight: 600;
+.availability-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
 }
 
-/* Vehicle */
-
-.no-vehicle {
-    text-align: center;
-    padding: 40px 0;
-    color: #999;
-    font-weight: 600;
+.availability-heading h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #293345;
 }
 
-/* Availability */
-
-.current-status {
-    margin-bottom: 20px;
+.availability-heading p {
+  margin: 4px 0 0;
+  color: #89919e;
+  font-size: 12px;
 }
 
-.current-status span {
-    display: block;
-    margin-bottom: 10px;
-    color: #555;
-    font-weight: 600;
+/* =========================
+   LOCKED LABEL
+========================= */
+
+.locked-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  background: #f1f3f6;
+  color: #737d8b;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-.status-badge {
-    display: inline-block;
-    padding: 8px 18px;
-    border-radius: 30px;
-    text-transform: capitalize;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.status-badge.available {
-    background: #d1fae5;
-    color: #047857;
-}
-
-.status-badge.on-trip {
-    background: #dbeafe;
-    color: #1d4ed8;
-}
-
-.status-badge.off-duty {
-    background: #fee2e2;
-    color: #dc2626;
-}
-
-/* Status Form */
-/* Availability */
-
-.availability-box {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.availability-box label {
-    font-size: 15px;
-    font-weight: 600;
-    color: #555;
-}
+/* =========================
+   AVAILABILITY BUTTONS
+========================= */
 
 .availability-control {
-    display: flex;
-    gap: 12px;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
-.availability-control select {
-    flex: 1;
-    height: 45px;
-    border: 1px solid #d9d9d9;
-    border-radius: 10px;
-    padding: 0 14px;
-    font-size: 15px;
-    background: #fff;
-    outline: none;
-    transition: .3s;
-    cursor: pointer;
+.availability-option {
+  position: relative;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #dfe4ea;
+  border-radius: 9px;
+  color: #6c7686;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.availability-control select:focus {
-    border-color: #16293F;
-    box-shadow: 0 0 0 3px rgba(22, 41, 63, .15);
+.availability-option:hover:not(:disabled) {
+  background: #f8f9fa;
+  border-color: #bfc6d0;
 }
 
-.status-btn {
-    height: 45px;
-    padding: 0 22px;
-    border: none;
-    border-radius: 10px;
-    background: #16a34a;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .3s;
+.availability-option.active {
+  background: #f3f5f7;
+  border-color: #697588;
+  color: #344052;
 }
 
-.status-btn:hover {
-    background: #15803d;
-    transform: translateY(-2px);
+.availability-option:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
-/* Responsive */
-
-@media (max-width: 992px) {
-    .profile-grid {
-        grid-template-columns: 1fr;
-    }
+.availability-option.available-option.active {
+  border-color: #8fcdb7;
+  background: #dcfce7;
+  color: #15803d;
 }
 
-@media (max-width: 768px) {
+.availability-option.off-duty-option.active {
+  background: #f1f3f6;
+  border-color: #bfc5ce;
+  color: #596474;
+}
 
-    .driver-profile-container {
-        padding: 20px;
-    }
+.selected-dot {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
 
-    .profile-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
+/* =========================
+   TRIP LOCK MESSAGE
+========================= */
 
-    .edit-profile-btn {
-        width: 100%;
-        justify-content: center;
-    }
+.trip-lock-message {
+  margin-top: 10px;
+  padding: 11px 13px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fff8ec;
+  border: 1px solid #f5e2b8;
+  border-radius: 8px;
+  color: #a66b00;
+}
 
-    .profile-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-    }
+.trip-lock-message svg {
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+
+.trip-lock-message strong {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 12px;
+  color: #8a5900;
+}
+
+.trip-lock-message p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #a4772a;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 500px) {
+  .availability-control {
+    grid-template-columns: 1fr;
+  }
+
+  .info-row {
+    min-height: 52px;
+  }
+
+  .edit-profile-btn span {
+    display: none;
+  }
+
+  .edit-profile-btn {
+    padding: 0 10px;
+  }
 }
