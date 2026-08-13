@@ -118,11 +118,6 @@ export default function Sidebar({
         icon: <Route size={18} />,
       },
       {
-        title: "Assigned Vehicle",
-        path: "/driver/assigned-vehicle",
-        icon: <Truck size={18} />,
-      },
-      {
         title: "Report Issue",
         path: "/driver/report-issue",
         icon: <AlertTriangle size={18} />,
