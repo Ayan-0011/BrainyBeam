@@ -23,6 +23,11 @@ router.get('/admin', protect, authorize("admin"), (req, res)=>{
 })
 
 
+router.get('/users' , protect, authorize("admin"), authcontroller.getUser);
+
+router.patch('/users/:id' , protect, authorize("admin"), authcontroller.editUser);
+
+
 
 
 

@@ -79,15 +79,61 @@ const loginUser = async (req, res) => {
 
 }
 
-const logoutUser = async(req, res)=>{
+const logoutUser = async (req, res) => {
     res.cookie('token', "", {
-        httpOnly:true,
+        httpOnly: true,
         expries: new Date(0)
     });
 
     res.status(200).json({
-        message:"Logout Successfull"
+        message: "Logout Successfull"
     });
-
 }
-module.exports = { registerUser, loginUser, logoutUser }
+
+const getUser = async (req, res) => {
+
+    try {
+        const Alluser = await usermodel.find();
+        res.status(200).json({
+
+            message: "All user is here",
+            Alluser
+        })
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        })
+    }
+}
+
+const editUser = async (req, res) => {
+    try {
+
+        const { id } = req.params
+        const user = await usermodel.findByIdAndUpdate( id, req.body, { new: true, runValidators: true });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            messsage: "User updated successfull",
+            user
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+
+
+
+
+module.exports = { registerUser, loginUser, logoutUser, getUser, editUser }
