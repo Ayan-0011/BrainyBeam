@@ -1,6 +1,6 @@
 const usermodel = require("../Model/UserModel")
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
 
 
 const registerUser = async (req, res) => {
@@ -25,15 +25,6 @@ const registerUser = async (req, res) => {
         role,
         profileImage
     })
-
-    const token = jwt.sign({
-        id: user._id,
-        role: user.role,
-    }, process.env.JWT_SECRET)
-
-
-    res.cookie("token", token);
-
 
     res.status(201).json({
         message: "User Create successfull",
@@ -110,7 +101,7 @@ const editUser = async (req, res) => {
     try {
 
         const { id } = req.params
-        const user = await usermodel.findByIdAndUpdate( id, req.body, { new: true, runValidators: true });
+        const user = await usermodel.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
 
         if (!user) {
             return res.status(404).json({
@@ -132,8 +123,35 @@ const editUser = async (req, res) => {
     }
 }
 
+const deletUser = async (req, res) => {
+    try {
+
+        const { id } = req.params;
+
+        const user = await usermodel.findById(id);
+
+        if (!user) {
+            res.status(404).json({
+                message: "user not found"
+            });
+        }
+        
+        await usermodel.findByIdAndDelete(id);
+        res.status(200).json({
+            success: true,
+            message: "user deleted successfull"
+        })
+
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
 
 
 
 
-module.exports = { registerUser, loginUser, logoutUser, getUser, editUser }
+
+module.exports = { registerUser, loginUser, logoutUser, getUser, editUser, deletUser }

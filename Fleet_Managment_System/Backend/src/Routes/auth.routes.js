@@ -4,7 +4,7 @@ const authcontroller = require('../Controllers/auth.controller');
 const protect = require('../Middleware/auth.middleware');
 const authorize = require('../Middleware/role.middleware');
 
-router.post("/register", authcontroller.registerUser );
+router.post("/register",protect, authorize("admin"), authcontroller.registerUser );
 
 router.post("/login", authcontroller.loginUser );
 
@@ -26,6 +26,8 @@ router.get('/admin', protect, authorize("admin"), (req, res)=>{
 router.get('/users' , protect, authorize("admin"), authcontroller.getUser);
 
 router.patch('/users/:id' , protect, authorize("admin"), authcontroller.editUser);
+
+router.delete('/users/:id' , protect, authorize("admin"), authcontroller.deletUser);
 
 
 

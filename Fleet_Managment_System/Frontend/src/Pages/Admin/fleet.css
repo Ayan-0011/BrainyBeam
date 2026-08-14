@@ -1,0 +1,302 @@
+.fleet-page {
+    padding: 24px;
+    min-height: 100%;
+    background: #f8fafc;
+}
+
+/* =========================
+   Header
+========================= */
+
+.fleet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding: 4px 2px;
+}
+
+.fleet-header h1 {
+    margin: 0;
+    color: #111827;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+}
+
+.fleet-header p {
+    margin: 6px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Add Button */
+
+.add-fleet-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    border-radius: 9px;
+    padding: 11px 17px;
+    background: #4f46e5;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.add-fleet-btn:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+}
+
+.add-fleet-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================
+   Fleet Grid
+========================= */
+
+.fleet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,
+            minmax(330px, 1fr));
+    gap: 20px;
+}
+
+
+/* =========================
+   Fleet Card
+========================= */
+
+.fleet-card {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.fleet-card:hover {
+    transform: translateY(-2px);
+    border-color: #d8dce5;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================
+   Card Header
+========================= */
+
+.fleet-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.fleet-profile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+/* Profile Image */
+
+.fleet-profile img {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f1f5f9;
+    background: #f8fafc;
+}
+
+
+/* Name */
+
+.fleet-profile h2 {
+    margin: 0;
+    color: #111827;
+    font-size: 17px;
+    font-weight: 650;
+}
+
+/* Role */
+
+.fleet-role {
+    display: inline-block;
+    margin-top: 5px;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* =========================
+   Details
+========================= */
+
+.fleet-details {
+    margin-top: 10px;
+    padding-top: 16px;
+    border-top: 1px solid #eef0f3;
+}
+
+.fleet-detail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    color: #4b5563;
+    font-size: 14px;
+}
+
+.fleet-detail:last-child {
+    margin-bottom: 0;
+}
+
+.fleet-detail svg {
+    flex-shrink: 0;
+    color: #64748b;
+}
+
+.fleet-detail span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================
+   Actions
+========================= */
+
+.fleet-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #eef0f3;
+}
+
+.edit-btn,
+.delete-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+/* Edit */
+
+.edit-btn {
+    border: 1px solid #bbf7d0;
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.edit-btn:hover {
+    background: #dcfce7;
+    border-color: #86efac;
+}
+
+.edit-btn:active {
+    transform: scale(0.98);
+}
+
+
+/* Delete */
+
+.delete-btn {
+    border: 1px solid #fecaca;
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.delete-btn:hover {
+    background: #fee2e2;
+    border-color: #fca5a5;
+}
+
+.delete-btn:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================
+   Empty State
+========================= */
+
+.empty-fleet {
+    margin-top: 20px;
+    padding: 60px 20px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px dashed #d1d5db;
+    border-radius: 14px;
+}
+
+.empty-fleet h3 {
+    margin: 0;
+    color: #374151;
+    font-size: 17px;
+}
+
+.empty-fleet p {
+    margin-top: 7px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 650px) {
+
+    .fleet-page {
+        padding: 16px;
+    }
+
+    .fleet-header {
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .fleet-header h1 {
+        font-size: 22px;
+    }
+
+    .add-fleet-btn {
+        padding: 10px 13px;
+        font-size: 13px;
+    }
+
+    .fleet-grid {
+        grid-template-columns: 1fr;
+    }
+}
