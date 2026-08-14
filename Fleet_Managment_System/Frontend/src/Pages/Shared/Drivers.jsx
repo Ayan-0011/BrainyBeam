@@ -175,9 +175,9 @@ const Drivers = ({readOnly = false }) => {
                       : "Not Assigned"}
                   </td>
 
-                  {!readOnly && <td className="actionsCell">
+                  {!readOnly && <td className="">
                     <button className="iconBtn" onClick={() => handleEdit(driver)}>
-                      <Pencil size={18} />
+                      <Pencil size={18} color="green"/>
                     </button>
 
                     <button className="iconBtn iconBtnDanger" onClick={() => delet(driver._id)}>

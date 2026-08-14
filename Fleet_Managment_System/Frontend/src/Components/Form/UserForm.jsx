@@ -3,7 +3,7 @@ import { createUser, editUser } from '../../Service/UserService';
 import { ImageOff } from 'lucide-react';
 import { toast } from 'react-toastify';
 
-const UserForm = ({ edituser, user, onSuccess }) => {
+const UserForm = ({ edituser, user, onSuccess, title }) => {
 
     const initialState = {
         name: "",
@@ -11,7 +11,7 @@ const UserForm = ({ edituser, user, onSuccess }) => {
         phone: "",
         password: "",
         profileImage: "",
-        role: "fleet_manager"
+        role:title
     }
 
     const [formData, setFormData] = useState(initialState);
@@ -26,7 +26,7 @@ const UserForm = ({ edituser, user, onSuccess }) => {
                 phone: user.phone || "",
                 password: "",
                 profileImage: user.profileImage || "",
-                role: "fleet_manager"
+                role: title
             })
         } else {
             setFormData(initialState);
@@ -51,10 +51,10 @@ const UserForm = ({ edituser, user, onSuccess }) => {
 
             if (edituser) {
                 await editUser(user._id, payload);
-                toast.success("Fleet Manager updated successfully");
+                toast.success(`${title} updated successfully`);
             } else {
                 await createUser(payload);
-                toast.success("Fleet Manager added successfully");
+                toast.success(`${title} added successfully`);
             }
 
             onSuccess();
@@ -70,7 +70,7 @@ const UserForm = ({ edituser, user, onSuccess }) => {
             <div className="form-grid">
 
                 <div className="form-group image-field-group">
-                    <label>Driver Image URL</label>
+                    <label>Fleet Image URL</label>
 
                     <div className="image-field-row">
                         <input
@@ -137,7 +137,7 @@ const UserForm = ({ edituser, user, onSuccess }) => {
 
             <div className="form-actions">
                 <button type="submit" className="save-btn">
-                    {edituser ? "Update Fleet Manager" : "Add Fleet Manager"}
+                    {edituser ? `update ${title}` : `Add ${title}`}
                 </button>
             </div>
         </form>
