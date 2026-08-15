@@ -24,6 +24,9 @@ import Trips from './Pages/Dispatcher/Trips'
 import TripsDetail from './Pages/Dispatcher/TripsDetail'
 import Admin_Fleet from './Pages/Admin/Admin_Fleet'
 import Admin_dispatcher from './Pages/Admin/Admin_dispatcher'
+import Fleet_trips from './Pages/Fleet_Manager/Fleet_trips'
+import Fleet_tripdetail from './Pages/Fleet_Manager/Fleet_tripdetail'
+import Fleet_Fuel from './Pages/Fleet_Manager/Fleet_Fuel'
 
 const App = () => {
   return (
@@ -47,6 +50,10 @@ const App = () => {
         <Route path="/fleet" element={<Protect><Layout /></Protect>} >
           <Route index element={<Fleet_dash />} ></Route>
           <Route path="vehicles" element={<Fleet_Vehicle />} />
+          <Route path="trips" element={<Fleet_trips />} />
+          <Route path="trips/:id" element={<Fleet_tripdetail />} />
+          <Route path="trips/:id" element={<Fleet_tripdetail />} />
+          <Route path="fuel" element={<Fleet_Fuel />} />
           <Route path="drivers" element={<Fleet_Driver />} />
         </Route>
 

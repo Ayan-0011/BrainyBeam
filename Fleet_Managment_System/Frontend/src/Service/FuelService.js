@@ -1,12 +1,23 @@
 import axios from "axios";
 
+
+export const getAllFuelLogs = async () => {
+    const res = await axios.get(`http://localhost:3000/api/fuel/`, {
+        withCredentials: true,
+        headers: { "Cache-Control": "no-cache" },
+        params: { _t: Date.now() },
+    });
+
+    return res.data;
+};
+
 export const getFuelByTrip = async (tripId) => {
     const res = await axios.get(`http://localhost:3000/api/fuel/${tripId}`, {
         withCredentials: true,
         headers: { "Cache-Control": "no-cache" },
         params: { _t: Date.now() },
     });
-    
+
     return res.data;
 };
 

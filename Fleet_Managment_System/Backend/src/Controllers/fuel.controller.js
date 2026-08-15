@@ -94,11 +94,11 @@ const getFuellog = async (req, res) => {
             path: "driver",
             populate: {
                 path: "user",
-                select: "name"
+                select: "name profileImage"
             }
         }).populate({
             path: "vehicle",
-            select: "registrationNumber"
+            select: "registrationNumber vehicleImage"
         }).populate({
             path: "trip",
             select: "fromLocation toLocation"
