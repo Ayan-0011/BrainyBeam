@@ -65,16 +65,16 @@ const Admin_dispatcher = () => {
         if (result.isConfirmed) {
             try {
                 await deletUser(id);
-                loadFleet();
+                loaddispatcher();
                 swalWithBootstrapButtons.fire({
                     title: "Deleted!",
-                    text: "Fleet Manager has been deleted successfully.",
+                    text: "dispatcher has been deleted successfully.",
                     icon: "success",
                 });
             } catch (error) {
                 swalWithBootstrapButtons.fire({
                     title: "Error!",
-                    text: "Failed to delete driver.",
+                    text: "Failed to dispatcher driver.",
                     icon: "error",
                 });
             }

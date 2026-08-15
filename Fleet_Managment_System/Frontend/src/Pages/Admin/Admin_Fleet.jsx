@@ -74,7 +74,7 @@ const Admin_Fleet = () => {
             } catch (error) {
                 swalWithBootstrapButtons.fire({
                     title: "Error!",
-                    text: "Failed to delete driver.",
+                    text: "Failed to Fleet Manager driver.",
                     icon: "error",
                 });
             }

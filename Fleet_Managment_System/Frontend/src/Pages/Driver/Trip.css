@@ -1,452 +1,705 @@
-.dtWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  max-width: 520px;
-  margin: 0 auto;
+
+/* =========================================
+   DRIVER TRIP PAGE
+========================================= */
+
+.driver-trip-page {
+    min-height: 100vh;
+    padding: 28px;
+    background: #f7f8fa;
+    color: #1f2937;
 }
 
-@media (min-width: 760px) {
-  .dtWrapper {
-    max-width: 860px;
-  }
+
+/* =========================================
+   HEADER
+========================================= */
+
+.trip-header {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 22px;
 }
 
-/* ---- Two column layout (desktop) ---- */
-.dtGrid {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+.trip-back {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+    background: #fff;
+    color: #4b5563;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-.dtColLeft,
-.dtColRight {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+.trip-back:hover {
+    background: #f3f4f6;
 }
 
-@media (min-width: 760px) {
-  .dtGrid {
-    flex-direction: row;
-    align-items: flex-start;
-  }
+.trip-header h1 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
+}
 
-  .dtColLeft {
+.trip-header p {
+    margin: 3px 0 0;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+
+/* =========================================
+   CURRENT STATUS
+========================================= */
+
+.trip-status-section {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    padding: 18px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+}
+
+.status-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #9ca3af;
+}
+
+.big-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    padding: 7px 12px;
+    border-radius: 20px;
+}
+
+.big-status span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.big-status.scheduled {
+    color: #a16207;
+    background: #fff8e7;
+}
+
+.big-status.in-transit {
+    color: #1769aa;
+    background: #eef6ff;
+}
+
+.big-status.delivered {
+    color: #15803d;
+    background: #ecfdf3;
+}
+
+.big-status.closed {
+    color: #166534;
+    background: #f0fdf4;
+}
+
+
+/* =========================================
+   ROUTE
+========================================= */
+
+.trip-route-box {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    padding: 25px 30px;
+
+    display: grid;
+    grid-template-columns: 1fr 130px 1fr;
+
+    align-items: center;
+
+    margin-bottom: 14px;
+}
+
+.route-location span {
+    display: block;
+    margin-bottom: 5px;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+
+    color: #9ca3af;
+}
+
+.route-location h2 {
+    margin: 0;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    color: #1f2937;
+}
+
+.destination {
+    text-align: right;
+}
+
+.route-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    color: #9ca3af;
+}
+
+.route-arrow div {
     flex: 1;
-  }
-
-  .dtColRight {
-    flex: 1.15;
-  }
+    height: 1px;
+    border-top: 1px dashed #d1d5db;
 }
 
-/* ---- Header ---- */
-.dtHeader {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+
+/* =========================================
+   SCHEDULE
+========================================= */
+
+.trip-schedule {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    padding: 16px 20px;
+
+    display: flex;
+    gap: 60px;
+
+    margin-bottom: 14px;
 }
 
-.miniVehicleImage {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  border-radius: 50%;
-  display: block;
-  background: #f3f4f6;
-  display: flex;
+.trip-schedule div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.dtBackBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border: none;
-  background: #f3f4f6;
-  border-radius: 10px;
-  cursor: pointer;
-  color: #374151;
-  flex-shrink: 0;
-  transition: background 0.15s ease;
+.trip-schedule span {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    color: #9ca3af;
 }
 
-.dtBackBtn:hover {
-  background: #e5e7eb;
+.trip-schedule strong {
+    font-size: 12px;
+    color: #374151;
 }
 
-.dtHeaderText h2 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #111827;
-  margin: 0;
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.trip-progress-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    padding: 20px;
+
+    margin-bottom: 14px;
 }
 
-.dtHeaderText p {
-  font-size: 12px;
-  color: #9ca3af;
-  margin: 2px 0 0;
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 24px;
 }
 
-/* ---- Hero route card ---- */
-.dtHero {
-  background: radial-gradient(circle at top left, #6366f1, #3730a3 75%);
-  border-radius: 20px;
-  padding: 26px 22px;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
+.section-heading h3 {
+    margin: 0;
+    font-size: 14px;
 }
 
-.dtHeroStatus {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.16);
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
+.section-heading span {
+    font-size: 11px;
+    color: #9ca3af;
+    font-weight: 600;
 }
 
-.dtHeroStatusDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #4ade80;
+.progress-wrapper {
+    display: flex;
+    width: 100%;
 }
 
-.dtRoute {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.progress-item {
+    position: relative;
+    flex: 1;
+    text-align: center;
 }
 
-.dtRoutePoint {
-  flex: 1;
-  min-width: 0;
+.progress-circle {
+    width: 30px;
+    height: 30px;
+
+    margin: 0 auto;
+
+    border: 2px solid #e5e7eb;
+    border-radius: 50%;
+
+    background: #fff;
+    color: #c4c9d0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    z-index: 2;
 }
 
-.dtRoutePoint.end {
-  text-align: right;
+.progress-circle.current {
+    border-color: #374151;
+    background: #374151;
+    color: #fff;
 }
 
-.dtRouteLabel {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.65);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin: 0 0 4px;
-  font-weight: 600;
+.progress-circle.current span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
 }
 
-.dtRouteValue {
-  font-size: 19px;
-  font-weight: 700;
-  margin: 0;
-  overflow-wrap: anywhere;
+.progress-circle.completed {
+    border-color: #4caf7d;
+    background: #ecfdf3;
+    color: #15803d;
 }
 
-.dtRouteLine {
-  flex-shrink: 0;
-  width: 40px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.35);
-  position: relative;
+.progress-item p {
+    margin: 8px 0 0;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    color: #9ca3af;
 }
 
-.dtRouteLine svg {
-  position: absolute;
-  top: -9px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
+.progress-item:first-child p,
+.progress-item .current + p {
+    color: #374151;
 }
 
-/* ---- Progress stepper ---- */
-.dtStepper {
-  display: flex;
-  align-items: flex-start;
-  padding: 4px 4px 0;
+.progress-line {
+    position: absolute;
+
+    top: 14px;
+    right: 50%;
+
+    width: 100%;
+    height: 2px;
+
+    background: #e5e7eb;
 }
 
-.dtStep {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  position: relative;
+.progress-line.active {
+    background: #4caf7d;
 }
 
-.dtStepDot {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #e5e7eb;
-  color: #9ca3af;
-  font-size: 12px;
-  font-weight: 700;
-  z-index: 1;
-  transition: background 0.2s ease, color 0.2s ease;
+
+/* =========================================
+   NEXT ACTION
+========================================= */
+
+.next-action-card {
+    background: #fff;
+
+    border: 1px solid #dfe4e9;
+    border-radius: 12px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    margin-bottom: 14px;
 }
 
-.dtStep.done .dtStepDot {
-  background: #4f46e5;
-  color: #fff;
+.action-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #9ca3af;
 }
 
-.dtStep.current .dtStepDot {
-  background: #4f46e5;
-  color: #fff;
-  box-shadow: 0 0 0 4px #e0e7ff;
+.next-action-card h2 {
+    margin: 7px 0 4px;
+
+    font-size: 19px;
+    font-weight: 700;
 }
 
-.dtStepLine {
-  position: absolute;
-  top: 13px;
-  left: 50%;
-  width: 100%;
-  height: 2px;
-  background: #e5e7eb;
-  z-index: 0;
+.next-action-card p {
+    margin: 0 auto 18px;
+
+    font-size: 11px;
+    color: #8b95a1;
 }
 
-.dtStep:last-child .dtStepLine {
-  display: none;
+.main-action {
+    width: 100%;
+    max-width: 300px;
+    height: 43px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #1f2937;
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: auto;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
 }
 
-.dtStep.done .dtStepLine {
-  background: #4f46e5;
+.main-action:hover {
+    background: #111827;
 }
 
-.dtStepLabel {
-  font-size: 10px;
-  font-weight: 600;
-  color: #9ca3af;
-  margin-top: 8px;
-  text-transform: capitalize;
+.main-action:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-.dtStep.done .dtStepLabel,
-.dtStep.current .dtStepLabel {
-  color: #4338ca;
+.main-action.fuel-action {
+    background: #a16207;
 }
 
-/* ---- Generic card ---- */
-.dtCard {
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 18px 20px;
+.main-action.fuel-action:hover {
+    background: #854d0e;
 }
 
-.dtCardTitle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: #9ca3af;
-  margin: 0 0 12px;
+
+/* =========================================
+   COMPLETED
+========================================= */
+
+.trip-completed {
+    background: #ecfdf3;
+    border: 1px solid #ccebd9;
+
+    border-radius: 12px;
+
+    padding: 28px;
+
+    text-align: center;
+
+    margin-bottom: 14px;
 }
 
-.dtCardTitle svg {
-  color: #4f46e5;
+.completed-icon {
+    width: 48px;
+    height: 48px;
+
+    margin: 0 auto 10px;
+
+    border-radius: 50%;
+
+    background: #d7f5e3;
+    color: #15803d;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* ---- Vehicle card ---- */
-.dtVehicleRow {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.trip-completed h2 {
+    margin: 0;
+
+    font-size: 18px;
+    color: #166534;
 }
 
-.dtVehicleIcon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: #eef2ff;
-  color: #4f46e5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.dtVehicleIcon img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.trip-completed p {
+    margin: 5px 0 0;
+
+    font-size: 11px;
+    color: #4d7c5d;
 }
 
-.dtVehicleNumber {
-  font-size: 20px;
-  font-weight: 700;
-  color: #111827;
-  margin: 0;
-  letter-spacing: 0.02em;
+
+/* =========================================
+   VEHICLE
+========================================= */
+
+.vehicle-mini-card {
+    background: #fff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    padding: 12px 15px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.dtVehicleSub {
-  font-size: 12px;
-  color: #9ca3af;
-  margin: 2px 0 0;
+.vehicle-image {
+    width: 48px;
+    height: 42px;
+
+    border-radius: 8px;
+
+    background: #f3f4f6;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #9ca3af;
 }
 
-/* ---- Primary action ---- */
-.dtActionCard {
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 18px 20px;
+.vehicle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.dtActionNote {
-  font-size: 13px;
-  color: #6b7280;
-  margin: 0 0 14px;
-  line-height: 1.5;
+.vehicle-details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
-.dtActionBtn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: #4f46e5;
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 15px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.15s ease, transform 0.1s ease;
+.vehicle-details span {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    color: #9ca3af;
 }
 
-.dtActionBtn:hover {
-  background: #4338ca;
+.vehicle-details strong {
+    font-size: 13px;
+    color: #374151;
 }
 
-.dtActionBtn:active {
-  transform: scale(0.98);
+
+/* =========================================
+   LOADING
+========================================= */
+
+.trip-loading {
+    min-height: 70vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 10px;
+
+    color: #9ca3af;
 }
 
-.dtActionBtn:disabled {
-  background: #c7c9f5;
-  cursor: not-allowed;
+.trip-loading p {
+    margin: 0;
+    font-size: 12px;
 }
 
-.dtActionBtn.secondary {
-  background: #fff;
-  color: #4f46e5;
-  border: 1.5px solid #4f46e5;
+.trip-spinner {
+    width: 25px;
+    height: 25px;
+
+    border: 3px solid #e5e7eb;
+    border-top-color: #374151;
+
+    border-radius: 50%;
+
+    animation: spin 0.7s linear infinite;
 }
 
-.dtActionBtn.secondary:hover {
-  background: #eef2ff;
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-.dtClosedNote {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #4b5563;
-  font-size: 13px;
-  font-weight: 600;
+
+/* =========================================
+   NOT FOUND
+========================================= */
+
+.trip-not-found {
+    min-height: 70vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 15px;
 }
 
-/* ---- Fuel summary ---- */
-.dtFuelGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+.trip-not-found h3 {
+    margin: 0;
 }
 
-.dtFuelStat {
-  background: #f9fafb;
-  border-radius: 10px;
-  padding: 12px 10px;
-  text-align: center;
+.trip-not-found button {
+    border: none;
+    border-radius: 8px;
+
+    background: #1f2937;
+    color: #fff;
+
+    padding: 10px 15px;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    cursor: pointer;
 }
 
-.dtFuelStatValue {
-  font-size: 15px;
-  font-weight: 700;
-  color: #111827;
-  margin: 0;
+
+/* =========================================
+   SWEET ALERT
+========================================= */
+
+.trip-confirm-btn,
+.trip-cancel-btn {
+    min-width: 95px;
+    height: 37px;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    margin: 0 4px;
 }
 
-.dtFuelStatLabel {
-  font-size: 10px;
-  color: #9ca3af;
-  margin: 4px 0 0;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+.trip-confirm-btn {
+    border: none;
+    background: #1f2937;
+    color: #fff;
 }
 
-/* ---- Activity log ---- */
-.dtActivityItem {
-  display: flex;
-  gap: 10px;
-  position: relative;
-  padding-bottom: 16px;
+.trip-cancel-btn {
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    color: #4b5563;
 }
 
-.dtActivityItem:last-child {
-  padding-bottom: 0;
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .driver-trip-page {
+        padding: 18px;
+    }
+
+    .trip-route-box {
+        grid-template-columns: 1fr;
+        gap: 15px;
+
+        padding: 20px;
+    }
+
+    .destination {
+        text-align: left;
+    }
+
+    .route-arrow {
+        transform: rotate(90deg);
+
+        width: 35px;
+        margin: auto;
+    }
+
+    .trip-schedule {
+        gap: 35px;
+    }
+
 }
 
-.dtActivityDot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #4f46e5;
-  margin-top: 5px;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 1;
+
+@media (max-width: 480px) {
+
+    .driver-trip-page {
+        padding: 14px;
+    }
+
+    .trip-header h1 {
+        font-size: 19px;
+    }
+
+    .trip-status-section {
+        padding: 15px;
+    }
+
+    .route-location h2 {
+        font-size: 19px;
+    }
+
+    .trip-route-box {
+        padding: 18px;
+    }
+
+    .progress-wrapper {
+        overflow-x: auto;
+    }
+
+    .progress-item {
+        min-width: 80px;
+    }
+
+    .progress-item p {
+        font-size: 9px;
+    }
+
+    .next-action-card {
+        padding: 22px 16px;
+    }
+
 }
 
-.dtActivityItem:not(:last-child)::before {
-  content: "";
-  position: absolute;
-  left: 4px;
-  top: 14px;
-  bottom: 0;
-  width: 2px;
-  background: #f1f2f4;
-}
-
-.dtActivityLabel {
-  font-size: 13px;
-  font-weight: 600;
-  color: #111827;
-  text-transform: capitalize;
-  margin: 0;
-}
-
-.dtActivityDate {
-  font-size: 11px;
-  color: #9ca3af;
-  margin: 2px 0 0;
-}
-
-.dtLoadingState {
-  text-align: center;
-  padding: 60px 20px;
-  color: #9ca3af;
-  font-size: 14px;
-}
