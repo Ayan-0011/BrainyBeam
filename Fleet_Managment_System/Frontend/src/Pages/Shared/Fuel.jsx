@@ -143,7 +143,7 @@ const Fuel = () => {
                             <tbody>
                                 {fuelLogs.map((fuel) => (
                                     <tr key={fuel._id}
-                                        onClick={() => handleViewFuel(fuel._id)} >
+                                        onClick={() => handleViewFuel(fuel.trip._id)} >
                                         <td>
                                             {formatDate(fuel.createdAt || fuel.date)}
                                         </td>
