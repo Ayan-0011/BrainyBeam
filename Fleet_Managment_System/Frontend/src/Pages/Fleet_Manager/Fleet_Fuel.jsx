@@ -4,9 +4,9 @@ import { getAllFuelLogs, getFuelByTrip } from "../../Service/FuelService";
 import "./Fuel.css";
 
 const Fleet_Fuel = () => {
+
     const [fuelLogs, setFuelLogs] = useState([]);
     const [loading, setLoading] = useState(true);
-
     const [selectedFuel, setSelectedFuel] = useState(null);
     const [detailLoading, setDetailLoading] = useState(false);
 
@@ -17,13 +17,10 @@ const Fleet_Fuel = () => {
     const loadFuelLogs = async () => {
         try {
             setLoading(true);
-
             const response = await getAllFuelLogs();
-            console.log(response)
-            // Adjust this according to your API response
-            const data = response?.data?.data || response?.Fuellog || [];
-
-            setFuelLogs(Array.isArray(data) ? data : []);
+            //console.log(response)
+            const data = response?.Fuellog || [];
+            setFuelLogs(data);
         } catch (error) {
             console.error("Error loading fuel logs:", error);
         } finally {
@@ -31,13 +28,13 @@ const Fleet_Fuel = () => {
         }
     };
 
-    const handleViewFuel = async (id) => {
+    const handleViewFuel = async (tripId) => {
         try {
             setDetailLoading(true);
-            const response = await getFuelByTrip(id);
-            console.log(response)
-            const data = response?.data?.data || response?.Fuellog;
-            setSelectedFuel(data);
+            const response = await getFuelByTrip(tripId);
+            // console.log("Single Fuel:", response);
+            setSelectedFuel(response.fuelLogs[0]);
+
         } catch (error) {
             console.error("Error loading fuel detail:", error);
         } finally {
@@ -49,13 +46,11 @@ const Fleet_Fuel = () => {
         setSelectedFuel(null);
     };
 
-    const totalLiters = fuelLogs.reduce(
-        (total, fuel) => total + Number(fuel.litersFilled || 0),
+    const totalLiters = fuelLogs.reduce((total, fuel) => total + Number(fuel.litersFilled || 0),
         0
     );
 
-    const totalCost = fuelLogs.reduce(
-        (total, fuel) => total + Number(fuel.cost || 0),
+    const totalCost = fuelLogs.reduce((total, fuel) => total + Number(fuel.cost || 0),
         0
     );
 
@@ -72,7 +67,6 @@ const Fleet_Fuel = () => {
     return (
         <div className="fuel-page">
 
-            {/* Header */}
             <div className="fuel-header">
                 <div>
                     <h1>Fuel Management</h1>
@@ -80,14 +74,11 @@ const Fleet_Fuel = () => {
                 </div>
             </div>
 
-            {/* Summary */}
             <div className="fuel-summary">
-
                 <div className="fuel-summary-card">
                     <div className="fuel-icon blue">
                         <FuelIcon size={22} />
                     </div>
-
                     <div>
                         <span>Total Fuel</span>
                         <h2>{totalLiters.toFixed(1)} L</h2>
@@ -98,7 +89,6 @@ const Fleet_Fuel = () => {
                     <div className="fuel-icon green">
                         <IndianRupee size={22} />
                     </div>
-
                     <div>
                         <span>Total Cost</span>
                         <h2>₹{totalCost.toLocaleString("en-IN")}</h2>
@@ -109,7 +99,6 @@ const Fleet_Fuel = () => {
                     <div className="fuel-icon orange">
                         <Droplets size={22} />
                     </div>
-
                     <div>
                         <span>Total Logs</span>
                         <h2>{fuelLogs.length}</h2>
@@ -118,9 +107,8 @@ const Fleet_Fuel = () => {
 
             </div>
 
-            {/* Fuel Logs */}
-            <div className="fuel-section">
 
+            <div className="fuel-section">
                 <div className="fuel-section-header">
                     <div>
                         <h2>Fuel Logs</h2>
@@ -139,7 +127,6 @@ const Fleet_Fuel = () => {
                 ) : (
                     <div className="fuel-table-wrapper">
                         <table className="fuel-table">
-
                             <thead>
                                 <tr>
                                     <th>Date</th>
@@ -155,66 +142,29 @@ const Fleet_Fuel = () => {
 
                             <tbody>
                                 {fuelLogs.map((fuel) => (
-                                    <tr
-                                        key={fuel._id}
-                                        onClick={() => handleViewFuel(fuel._id)}
-                                    >
+                                    <tr key={fuel._id}
+                                        onClick={() => handleViewFuel(fuel.trip._id)} >
                                         <td>
-                                            {formatDate(
-                                                fuel.createdAt || fuel.date
-                                            )}
+                                            {formatDate(fuel.createdAt || fuel.date)}
                                         </td>
 
                                         <td>
                                             <div className="driver-cell">
-                                                {fuel.driver?.user?.profileImage ? (
-                                                    <img
-                                                        src={
-                                                            fuel.driver.user
-                                                                .profileImage
-                                                        }
-                                                        alt=""
-                                                    />
-                                                ) : (
-                                                    <div className="driver-avatar">
-                                                        {fuel.driver?.user?.name
-                                                            ?.charAt(0)
-                                                            ?.toUpperCase() || "D"}
-                                                    </div>
-                                                )}
-
+                                                    <img src={fuel.driver.user.profileImage} alt="" />
                                                 <span>
-                                                    {fuel.driver?.user?.name ||
-                                                        fuel.driver?.name ||
-                                                        "-"}
+                                                    {fuel.driver?.user?.name || fuel.driver?.name || "-"}
                                                 </span>
                                             </div>
                                         </td>
 
                                         <td><div className="driver-cell">
-                                            {fuel.vehicle.vehicleImage ? (
-                                                <img
-                                                    src={
-                                                        fuel.vehicle.vehicleImage
-                                                    }
-                                                    alt=""
-                                                />
-                                            ) : (
-                                                <div className="driver-avatar">
-                                                    {fuel.driver?.user?.name
-                                                        ?.charAt(0)
-                                                        ?.toUpperCase() || "D"}
-                                                </div>
-                                            )}
-
+                                                <img src={fuel.vehicle.vehicleImage} alt="" />                                       
                                             <span className="vehicle-number">
-                                                {fuel.vehicle
-                                                    ?.registrationNumber || "-"}
+                                                {fuel.vehicle?.registrationNumber || "-"}
                                             </span>
                                         </div>
 
                                         </td>
-
                                         <td>
                                             <span className="trip-route">
                                                 {fuel.trip?.fromLocation || "-"}
@@ -229,17 +179,11 @@ const Fleet_Fuel = () => {
                                             </strong>
                                         </td>
 
-                                        <td>
-                                            ₹
-                                            {Number(
-                                                fuel.cost || 0
-                                            ).toLocaleString("en-IN")}
+                                        <td> ₹{Number( fuel.cost || 0).toLocaleString("en-IN")}
                                         </td>
 
                                         <td>
-                                            {fuel.odometer
-                                                ? `${fuel.odometer} km`
-                                                : "-"}
+                                            {fuel.odometerReading ? `${fuel.odometerReading} km` : "-"}
                                         </td>
 
                                         <td>
@@ -247,7 +191,7 @@ const Fleet_Fuel = () => {
                                                 className="view-fuel-btn"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    handleViewFuel(fuel.trip._id);
+                                                    handleViewFuel(fuel.trip?._id);
                                                 }}
                                             >
                                                 <Eye size={16} />
@@ -263,16 +207,12 @@ const Fleet_Fuel = () => {
                 )}
             </div>
 
-            {/* Single Fuel Detail Modal */}
+            {/* Modal */}
             {selectedFuel && (
-                <div
-                    className="fuel-modal-overlay"
-                    onClick={closeModal}
-                >
-                    <div
-                        className="fuel-detail-modal"
-                        onClick={(e) => e.stopPropagation()}
-                    >
+                <div className="fuel-modal-overlay"
+                    onClick={closeModal} >
+                    <div className="fuel-detail-modal"
+                        onClick={(e) => e.stopPropagation()} >
 
                         <div className="fuel-modal-header">
                             <div>
@@ -280,10 +220,8 @@ const Fleet_Fuel = () => {
                                 <p>Fuel log information</p>
                             </div>
 
-                            <button
-                                className="close-fuel-btn"
-                                onClick={closeModal}
-                            >
+                            <button  className="close-fuel-btn"
+                                onClick={closeModal} >
                                 <X size={20} />
                             </button>
                         </div>
@@ -305,10 +243,7 @@ const Fleet_Fuel = () => {
                                     <div>
                                         <span>Total Cost</span>
                                         <strong>
-                                            ₹
-                                            {Number(
-                                                selectedFuel.cost || 0
-                                            ).toLocaleString("en-IN")}
+                                            ₹ {Number(selectedFuel.cost || 0 ).toLocaleString("en-IN")}
                                         </strong>
                                     </div>
                                 </div>
@@ -318,42 +253,35 @@ const Fleet_Fuel = () => {
                                     <div className="fuel-detail-item">
                                         <span>Driver</span>
                                         <strong>
-                                            {selectedFuel.driver?.user?.name ||
-                                                selectedFuel.driver?.name ||
-                                                "-"}
+                                            {selectedFuel.driver?.user?.name ||  selectedFuel.driver?.name || "-"}
                                         </strong>
                                     </div>
 
                                     <div className="fuel-detail-item">
                                         <span>Vehicle</span>
                                         <strong>
-                                            {selectedFuel.vehicle
-                                                ?.registrationNumber || "-"}
+                                            {selectedFuel.vehicle ?.registrationNumber || "-"}
                                         </strong>
                                     </div>
 
                                     <div className="fuel-detail-item">
                                         <span>From</span>
                                         <strong>
-                                            {selectedFuel.trip?.fromLocation ||
-                                                "-"}
+                                            {selectedFuel.trip?.fromLocation || "-"}
                                         </strong>
                                     </div>
 
                                     <div className="fuel-detail-item">
                                         <span>To</span>
                                         <strong>
-                                            {selectedFuel.trip?.toLocation ||
-                                                "-"}
+                                            {selectedFuel.trip?.toLocation || "-"}
                                         </strong>
                                     </div>
 
                                     <div className="fuel-detail-item">
                                         <span>Odometer</span>
                                         <strong>
-                                            {selectedFuel.odometer
-                                                ? `${selectedFuel.odometer} km`
-                                                : "-"}
+                                            {selectedFuel.odometerReading ? `${selectedFuel.odometerReading} km` : "-"}
                                         </strong>
                                     </div>
 
@@ -366,11 +294,9 @@ const Fleet_Fuel = () => {
                                             )}
                                         </strong>
                                     </div>
-
                                 </div>
                             </>
                         )}
-
                     </div>
                 </div>
             )}
