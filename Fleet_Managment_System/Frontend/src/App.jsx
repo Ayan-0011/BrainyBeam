@@ -27,6 +27,7 @@ import Admin_dispatcher from './Pages/Admin/Admin_dispatcher'
 import Fleet_trips from './Pages/Fleet_Manager/Fleet_trips'
 import Fleet_tripdetail from './Pages/Fleet_Manager/Fleet_tripdetail'
 import Fleet_Fuel from './Pages/Fleet_Manager/Fleet_Fuel'
+import Admin_Fuel from './Pages/Admin/Admin_Fuel'
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="dispatchers" element={<Admin_dispatcher />} />
           <Route path="trips" element={<Admin_trip />} />
           <Route path="trips/:id" element={<Admin_tripdetail />} />
+          <Route path="fuel" element={<Admin_Fuel />} />
         </Route>
 
 
@@ -74,7 +76,7 @@ const App = () => {
           <Route path="profile" element={<Protect><DriverProfile /> </Protect>} ></Route>
         </Route>
 
-        <Route path='*' element={<NotFound/>} ></Route>
+        <Route path='*' element={<NotFound />} ></Route>
       </Routes>
     </BrowserRouter>
   )

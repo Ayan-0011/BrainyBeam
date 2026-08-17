@@ -1,12 +1,13 @@
 import React from 'react'
 import Fuel from '../Shared/Fuel'
 
-const Fleet_Fuel = () => {
+const Admin_Fuel = () => {
     return (
         <>
             <Fuel />
         </>
+
     )
 }
 
-export default Fleet_Fuel
+export default Admin_Fuel

@@ -49,6 +49,11 @@ export default function Sidebar({
         icon: <Route size={18} />
       },
       {
+        title: "Fuel",
+        path: "/admin/fuel",
+        icon: <Fuel size={18} />,
+      },
+      {
         title: "Reports",
         path: "/admin/reports",
         icon: <FileText size={18} />,
