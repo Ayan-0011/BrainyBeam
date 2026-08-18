@@ -8,5 +8,6 @@ const Router = express.Router();
 
 Router.post('/create', protect, authorize("fleet_manager"), Maintenance.createMaintenance);
 
+Router.get('/', protect, authorize("admin", "fleet_manager"), Maintenance.getMaintenance);
 
 module.exports = Router

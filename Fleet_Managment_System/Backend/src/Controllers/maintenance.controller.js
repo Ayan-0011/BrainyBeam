@@ -41,6 +41,17 @@ const createMaintenance = async (req, res) => {
     }
 }
 
-module.exports = { createMaintenance };
+
+const getMaintenance = async (req, res) => {
+    try {
+        const maintenance = await MaintenanceModel.find();
+        res.status(200).json({ success: true, message: "Maintenance Data load successfull", maintenance })
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+
+module.exports = { createMaintenance, getMaintenance };
 
 
