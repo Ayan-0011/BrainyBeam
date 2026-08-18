@@ -86,11 +86,6 @@ export default function Sidebar({
         path: "/fleet/fuel",
         icon: <Fuel size={18} />,
       },
-      {
-        title: "Reports",
-        path: "/fleet/reports",
-        icon: <FileText size={18} />,
-      },
     ],
 
     dispatcher: [
@@ -126,11 +121,6 @@ export default function Sidebar({
         title: "My Trips",
         path: "/driver/trips",
         icon: <Route size={18} />,
-      },
-      {
-        title: "Report Issue",
-        path: "/driver/report-issue",
-        icon: <AlertTriangle size={18} />,
       },
       {
         title: "Profile",

@@ -165,7 +165,7 @@ const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
                         onChange={handleChange} >
                         <option>Available</option>
                         <option>in-use</option>
-                        <option>Maintenance</option>
+                        <option>Under-Maintenance</option>
                     </select>
                 </div>
 

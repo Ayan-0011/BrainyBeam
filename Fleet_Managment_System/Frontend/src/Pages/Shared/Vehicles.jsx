@@ -153,7 +153,7 @@ const Vehicles = ({ readOnly = false }) => {
                     <span
                       className={`statusBadge ${vehicle.status === "Available"
                         ? "statusAvailable"
-                        : vehicle.status === "Maintenance"
+                        : vehicle.status === "Under-Maintenance"
                           ? "statusMaintenance"
                           : "statusOnTrip"
                         }`}

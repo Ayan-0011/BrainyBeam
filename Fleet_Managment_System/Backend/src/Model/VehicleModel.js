@@ -33,7 +33,7 @@ const vehicleSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["Available", "in-use", "Maintenance"],
+      enum: ["Available", "in-use", "Under-Maintenance"],
       default: "Available",
     },
 
