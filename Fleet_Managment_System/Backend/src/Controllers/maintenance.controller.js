@@ -18,6 +18,8 @@ const createMaintenance = async (req, res) => {
             res.status(400).json({ message: "Vehicle is not found" });
         }
 
+        
+
         const Maintenance = await MaintenanceModel.create({
             vehicle,
             serviceDate,
@@ -29,7 +31,7 @@ const createMaintenance = async (req, res) => {
 
         vehicle.serviceDueDate = nextServiceDueDate ;
         Vehicle.status = "Available";
-        
+
         await Vehicle.save();
         console.log(Vehicle);
 
