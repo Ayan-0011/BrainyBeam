@@ -27,8 +27,11 @@ const createMaintenance = async (req, res) => {
             loggedBy: req.user._id
         });
 
-        Vehicle.status = "Under-Maintenance";
+        vehicle.serviceDueDate = nextServiceDueDate ;
+        Vehicle.status = "Available";
+        
         await Vehicle.save();
+        console.log(Vehicle);
 
         res.status(201).json({
             succces: true,

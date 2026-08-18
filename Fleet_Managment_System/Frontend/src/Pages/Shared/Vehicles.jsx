@@ -163,7 +163,7 @@ const Vehicles = ({ readOnly = false }) => {
                   </td>
 
                   <td>
-                    {new Date(vehicle.serviceDueDate).toLocaleDateString()}
+                    {new Date(vehicle.serviceDueDate).toLocaleDateString("en-IN")}
                   </td>
 
                   {!readOnly &&

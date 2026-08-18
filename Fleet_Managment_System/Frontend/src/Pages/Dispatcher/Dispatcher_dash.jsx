@@ -24,7 +24,7 @@ const getAttentionReasons = (vehicle) => {
     const soon = new Date(now.getTime() + ATTENTION_WINDOW_DAYS * 24 * 60 * 60 * 1000);
     const reasons = [];
 
-    if (vehicle.status === "Maintenance") {
+    if (vehicle.status === "Under-Maintenance") {
         reasons.push({ label: "In Maintenance", cls: "reasonMaintenance" });
     }
     if (vehicle.serviceDueDate && new Date(vehicle.serviceDueDate) <= soon) {
