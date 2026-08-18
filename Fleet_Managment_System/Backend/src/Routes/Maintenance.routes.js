@@ -10,4 +10,6 @@ Router.post('/create', protect, authorize("fleet_manager"), Maintenance.createMa
 
 Router.get('/', protect, authorize("admin", "fleet_manager"), Maintenance.getMaintenance);
 
+Router.get('/:id', protect, authorize("admin", "fleet_manager"), Maintenance.getSingleMaintenance)
+
 module.exports = Router

@@ -32,7 +32,7 @@ const createMaintenance = async (req, res) => {
 
         res.status(201).json({
             succces: true,
-            message: "Maintenance Logged Successfull...",
+            message: "Add Maintenance Record Successfull...",
             Maintenance
         });
 
@@ -45,13 +45,42 @@ const createMaintenance = async (req, res) => {
 const getMaintenance = async (req, res) => {
     try {
         const maintenance = await MaintenanceModel.find();
-        res.status(200).json({ success: true, message: "Maintenance Data load successfull", maintenance })
+
+        if (!maintenance) {
+            res.status(400).json({
+                success: false,
+                message: "Maintenance Record not Found"
+            })
+        }
+
+        res.status(200).json({ success: true, message: "Maintenance Record load successfull", maintenance })
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
 
+const getSingleMaintenance = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const maintenance = await MaintenanceModel.findById(id);
 
-module.exports = { createMaintenance, getMaintenance };
+        if (!maintenance) {
+            res.status(400).json({
+                success: false,
+                message: "Maintenance Record not availibale"
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Single Maintenace Record loaded successfull",
+            maintenance
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+module.exports = { createMaintenance, getMaintenance, getSingleMaintenance };
 
 
