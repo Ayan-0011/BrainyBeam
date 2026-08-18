@@ -7,7 +7,6 @@ const tripRouter  = require('./Routes/trip.routes');
 const cors = require('cors');
 const FuelRouter = require('./Routes/fuel.Routes');
 const MaintenanceRouter = require('./Routes/Maintenance.routes');
-const ReportIssueRouter = require('./Routes/ReportIssue.routes');
 
 
 const app = express();
@@ -25,6 +24,5 @@ app.use('/api/driver', driverRouter);
 app.use('/api/trip', tripRouter);
 app.use('/api/fuel', FuelRouter);
 app.use('/api/maintenance', MaintenanceRouter);
-app.use('/api/report', ReportIssueRouter);
 
 module.exports = app
