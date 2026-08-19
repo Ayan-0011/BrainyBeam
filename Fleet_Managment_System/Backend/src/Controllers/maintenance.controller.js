@@ -49,8 +49,14 @@ const createMaintenance = async (req, res) => {
 
 const getMaintenance = async (req, res) => {
     try {
-        const maintenance = await MaintenanceModel.find();
-
+        const maintenance = await MaintenanceModel.find().populate({
+            path:"vehicle",
+            select:"registrationNumber vehicleImage"
+        }).populate({
+            path:"loggedBy",
+            select:"name profileImage"
+        });
+        
         if (!maintenance) {
             res.status(400).json({
                 success: false,
@@ -67,7 +73,20 @@ const getMaintenance = async (req, res) => {
 const getSingleMaintenance = async (req, res) => {
     try {
         const { id } = req.params;
-        const maintenance = await MaintenanceModel.findById(id);
+        const maintenance = await MaintenanceModel.findById(id).populate({
+            path:"vehicle",
+            select:"registrationNumber vehicleImage"
+        }).populate({
+            path:"loggedBy",
+            select:"name profileImage"
+        });
+        
+        if (!maintenance) {
+            res.status(400).json({
+                success: false,
+                message: "Maintenance Record not Found"
+            })
+        }
 
         if (!maintenance) {
             res.status(400).json({

@@ -32,7 +32,7 @@ const maintenanceSchema = new mongoose.Schema(
 
         loggedBy: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
+            ref: "user",
             required: true
         }
     },
