@@ -28,6 +28,7 @@ import Fleet_trips from './Pages/Fleet_Manager/Fleet_trips'
 import Fleet_tripdetail from './Pages/Fleet_Manager/Fleet_tripdetail'
 import Fleet_Fuel from './Pages/Fleet_Manager/Fleet_Fuel'
 import Admin_Fuel from './Pages/Admin/Admin_Fuel'
+import Fleet_Maintenance from './Pages/Fleet_Manager/Fleet_Maintenance'
 
 const App = () => {
   return (
@@ -57,6 +58,7 @@ const App = () => {
           <Route path="trips/:id" element={<Fleet_tripdetail />} />
           <Route path="fuel" element={<Fleet_Fuel />} />
           <Route path="drivers" element={<Fleet_Driver />} />
+          <Route path="maintenance" element={<Fleet_Maintenance />} />
         </Route>
 
 

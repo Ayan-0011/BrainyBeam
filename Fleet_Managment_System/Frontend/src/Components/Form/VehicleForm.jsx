@@ -158,16 +158,6 @@ const VehicleForm = ({ editMode, vehicle, onSuccess }) => {
                         onChange={handleChange} />
                 </div>
 
-                <div className="form-group">
-                    <label>Status</label>
-                    <select name="status"
-                        value={formData.status}
-                        onChange={handleChange} >
-                        <option>Available</option>
-                        <option>in-use</option>
-                        <option>Under-Maintenance</option>
-                    </select>
-                </div>
 
                 <div className="form-group">
                     <label>Insurance Expiry</label>

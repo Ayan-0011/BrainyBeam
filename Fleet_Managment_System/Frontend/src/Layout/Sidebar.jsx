@@ -1,4 +1,4 @@
-import { LayoutDashboard, Truck, Users, UserCog, UserRound, Route, FileText, LogOut, Fuel, User, AlertTriangle, X, } from "lucide-react";
+import { LayoutDashboard, Truck, Users, UserCog, UserRound, Route, FileText, LogOut, Fuel, User, AlertTriangle, X, WrenchOff, } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import styles from "./Sidebar.module.css";
@@ -85,6 +85,10 @@ export default function Sidebar({
         title: "Fuel",
         path: "/fleet/fuel",
         icon: <Fuel size={18} />,
+      }, {
+        title: "Maintenance",
+        path: "/fleet/maintenance",
+        icon: <WrenchOff size={18} />
       },
     ],
 
