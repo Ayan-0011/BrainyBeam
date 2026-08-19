@@ -1,0 +1,363 @@
+.maintenance-page {
+    padding: 28px;
+    background: #f7f8fa;
+    min-height: 100vh;
+}
+
+/* Header */
+
+.maintenance-header {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.maintenance-header h1 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.maintenance-header p {
+    margin: 6px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Summary */
+
+.maintenance-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.maintenance-summary-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.maintenance-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.maintenance-icon.blue {
+    background: #eaf2ff;
+    color: #2563eb;
+}
+
+.maintenance-icon.green {
+    background: #eafaf0;
+    color: #16a34a;
+}
+
+.maintenance-icon.orange {
+    background: #fff4e6;
+    color: #ea580c;
+}
+
+.maintenance-summary-card span {
+    display: block;
+    color: #6b7280;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.maintenance-summary-card h2 {
+    margin: 0;
+    color: #111827;
+    font-size: 21px;
+}
+
+/* Section */
+
+.maintenance-section {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.maintenance-section-header {
+    padding: 20px 22px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.maintenance-section-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #1f2937;
+}
+
+.maintenance-section-header p {
+    margin: 5px 0 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+/* Table */
+
+.maintenance-table-wrapper {
+    overflow-x: auto;
+}
+
+.tb {
+    margin-top: 20px;
+}
+
+.maintenance-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.maintenance-table th {
+    background: #f9fafb;
+    padding: 13px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.maintenance-table td {
+    padding: 15px 16px;
+    border-bottom: 1px solid #f0f1f3;
+    color: #374151;
+    font-size: 13px;
+}
+
+.maintenance-table tbody tr {
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.maintenance-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.maintenance-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Driver */
+
+.driver-cell {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 140px;
+}
+
+.driver-cell img,
+.driver-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.driver-cell img {
+    object-fit: cover;
+}
+
+.driver-avatar {
+    background: #e5e7eb;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.vehicle-number {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.trip-route {
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+/* View Button */
+
+.view-maintenance-btn {
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #374151;
+    padding: 7px 11px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.view-maintenance-btn:hover {
+    background: #f3f4f6;
+}
+
+/* Empty / Loading */
+
+.maintenance-message {
+    padding: 50px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Modal */
+
+.maintenance-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.maintenance-detail-modal {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.maintenance-modal-header {
+    padding: 20px 22px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.maintenance-modal-header h2 {
+    margin: 0;
+    font-size: 19px;
+    color: #111827;
+}
+
+.maintenance-modal-header p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.close-maintenance-btn {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 7px;
+    background: #f3f4f6;
+    color: #4b5563;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-maintenance-btn:hover {
+    background: #e5e7eb;
+}
+
+/* Highlight */
+
+.maintenance-detail-highlight {
+    margin: 20px;
+    padding: 18px;
+    border-radius: 10px;
+    background: #f8fafc;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.maintenance-detail-highlight span {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 5px;
+}
+
+.maintenance-detail-highlight strong {
+    font-size: 20px;
+    color: #111827;
+}
+
+/* Detail Grid */
+
+.maintenance-detail-grid {
+    padding: 0 20px 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.maintenance-detail-item {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f1f3;
+}
+
+.maintenance-detail-item span {
+    display: block;
+    color: #6b7280;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.maintenance-detail-item strong {
+    color: #1f2937;
+    font-size: 14px;
+}
+
+.maintenance-modal-loading {
+    padding: 50px;
+    text-align: center;
+    color: #6b7280;
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+    .maintenance-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .maintenance-page {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 550px) {
+    .maintenance-detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .maintenance-header{
+        flex-direction: column;
+        gap: 15px;
+    }
+    .maintenance-detail-highlight {
+        grid-template-columns: 1fr;
+    }
+}
