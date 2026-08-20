@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { AddMaintenancerecord, getAllmaintenance, getSinglemaintenance } from '../../Service/Maintenance'
-import { Droplets, Eye, Fuel, IndianRupee, Plus, Search, X } from 'lucide-react';
+import { getAllmaintenance, getSinglemaintenance } from '../../Service/Maintenance'
+import { Droplets, Eye, Fuel, IndianRupee, Plus, Search } from 'lucide-react';
 import './Maintenance.css'
 import { getVehicles } from '../../Service/VehicleService';
 import { getMe } from '../../Service/UserService';
+import AddMaintenanceModal from './AddMaintenanceModal';
+import MaintenanceDetailModal from './MaintenanceDetailModal';
 
 const Fleet_Maintenance = () => {
     const [maintenance, setMaintenance] = useState([]);
@@ -12,31 +14,18 @@ const Fleet_Maintenance = () => {
     const [detailLoading, setDetailLoading] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
     const [vehicle, setVehicle] = useState([]);
-    const [me, setme] = useState([]);
-
-    const [formData, setFormData] = useState({
-        vehicleId: "",
-        serviceDate: "",
-        serviceType: "",
-        cost: "",
-        nextServiceDueDate: "",
-        loggedBy: me.name
-    });
-
-    const [submitting, setSubmitting] = useState(false);
+    const [me, setme] = useState(null);
 
     const loaddmaintenance = async () => {
         try {
             const data = await getAllmaintenance();
             setMaintenance(data.maintenance);
-            //console.log(data);
-            const vehicle = await getVehicles();
-            setVehicle(vehicle.vehicle);
-            //console.log(vehicle.vehicle);
 
-            const me = await getMe();
-            setme(me.user);
-            console.log(me.user)
+            const vehicleRes = await getVehicles();
+            setVehicle(vehicleRes.vehicle);
+
+            const meRes = await getMe();
+            setme(meRes.user);
         } catch (error) {
             console.log(error)
         } finally {
@@ -44,67 +33,33 @@ const Fleet_Maintenance = () => {
         }
     }
 
-
     const handleView = async (id) => {
-        const res = await getSinglemaintenance(id);
-        setSelectedMaintenance(res.maintenance);
-    }
-
-    const closemodel = () => {
-        setSelectedMaintenance(null);
+        try {
+            setDetailLoading(true);
+            setSelectedMaintenance({}); // open modal immediately, show loading state
+            const res = await getSinglemaintenance(id);
+            setSelectedMaintenance(res.maintenance);
+        } catch (error) {
+            console.log(error);
+            setSelectedMaintenance(null);
+        } finally {
+            setDetailLoading(false);
+        }
     }
 
     useEffect(() => {
         loaddmaintenance();
     }, [])
 
-    const formatDate = (date) => {
-        if (!date) return "-";
+    const totalSpend = maintenance.reduce((sum, record) => sum + (Number(record.cost) || 0), 0);
 
-        return new Date(date).toLocaleDateString("en-IN", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-        });
-    };
-
-    const handleFormChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value, });
-    };
-
-    const handleAddMaintenance = async (e) => {
-        e.preventDefault();
-
-        try {
-            setSubmitting(true);
-            const data = await AddMaintenancerecord(formData)
-            console.log("Maintenance added:", data);
-            setShowAddModal(false);
-            setFormData({
-                vehicleId: "",
-                serviceDate: "",
-                serviceType: "",
-                cost: "",
-                nextServiceDueDate: ""
-            });
-            // Refresh maintenance table
-            await loaddmaintenance();
-
-        } catch (error) {
-            console.log(
-                "Error adding maintenance:",
-                error.response?.data || error.message
-            );
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
-    const availibleVehicle = vehicle.filter((item) => item.status === "Available");
-    //console.log(availibleVehicle);
-
-
-
+    const dueSoonWindowDays = 30;
+    const dueSoonCount = maintenance.filter((record) => {
+        if (!record.nextServiceDueDate) return false;
+        const due = new Date(record.nextServiceDueDate);
+        const diffDays = (due - new Date()) / (1000 * 60 * 60 * 24);
+        return diffDays >= 0 && diffDays <= dueSoonWindowDays;
+    }).length;
 
     return (
         <div className="maintenance-page">
@@ -141,7 +96,7 @@ const Fleet_Maintenance = () => {
                     </div>
                     <div>
                         <span>Total spend</span>
-                        <h2>{ }</h2>
+                        <h2>₹{totalSpend.toLocaleString("en-IN")}</h2>
                     </div>
                 </div>
 
@@ -150,8 +105,8 @@ const Fleet_Maintenance = () => {
                         <Droplets size={22} />
                     </div>
                     <div>
-                        <span>Due within  days</span>
-                        <h2></h2>
+                        <span>Due within {dueSoonWindowDays} days</span>
+                        <h2>{dueSoonCount}</h2>
                     </div>
                 </div>
 
@@ -198,7 +153,7 @@ const Fleet_Maintenance = () => {
                 ) : (
                     <div className="maintenance-table-wrapper">
                         <table className="maintenance-table">
-                            < thead >
+                            <thead>
                                 <tr>
                                     <th>Image</th>
                                     <th>Registration</th>
@@ -209,7 +164,7 @@ const Fleet_Maintenance = () => {
                                     <th>Logged by</th>
                                     <th></th>
                                 </tr>
-                            </thead >
+                            </thead>
 
                             <tbody>
                                 {maintenance.length > 0 ? (
@@ -244,7 +199,7 @@ const Fleet_Maintenance = () => {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="6" className="emptyState">
+                                        <td colSpan="8" className="emptyState">
                                             No maintenance records found.
                                         </td>
                                     </tr>
@@ -254,253 +209,20 @@ const Fleet_Maintenance = () => {
                     </div>
                 )}
             </div>
-            {selectedMaintenance && (
-                <div className="maintenance-modal-overlay"
-                    onClick={closemodel} >
-                    <div className="maintenance-detail-modal"
-                        onClick={(e) => e.stopPropagation()} >
 
-                        <div className="maintenance-modal-header">
-                            <div>
-                                <h2>maintenance Details</h2>
-                                <p>maintenance log information</p>
-                            </div>
-
-                            <button className="close-maintenance-btn"
-                                onClick={closemodel} >
-                                <X size={20} />
-                            </button>
-                        </div>
-
-                        {detailLoading ? (
-                            <div className="maintenance-modal-loading">
-                                Loading details...
-                            </div>
-                        ) : (
-                            <>
-                                <div className="maintenance-detail-highlight">
-                                    <div>
-                                        <span>Vehicle</span>
-                                        <div className='im'>
-                                            <img src={selectedMaintenance.vehicle.vehicleImage} alt="" className='vehicleImage' />
-                                            <strong>{selectedMaintenance.vehicle.brand}</strong>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span>maintenance Cost</span>
-                                        <strong>
-                                            {selectedMaintenance.cost}
-                                        </strong>
-                                    </div>
-
-                                </div>
-
-                                <div className="maintenance-detail-grid">
-
-                                    <div className="maintenance-detail-item">
-                                        <span>serviceType</span>
-                                        <strong>
-                                            {selectedMaintenance.serviceType}
-                                        </strong>
-                                    </div>
-
-                                    <div className="maintenance-detail-item">
-                                        <span>Service date</span>
-                                        <strong>
-                                            {formatDate(
-                                                selectedMaintenance.serviceDate
-                                            )}
-                                        </strong>
-                                    </div>
-
-                                    <div className="maintenance-detail-item">
-                                        <span>LoggedBY</span>
-                                        <strong>
-                                            {selectedMaintenance?.loggedBy.name}
-                                        </strong>
-                                    </div>
-
-                                    <div className="maintenance-detail-item">
-                                        <span>nextServiceDueDate</span>
-                                        <strong>
-                                            {formatDate(selectedMaintenance.nextServiceDueDate)}
-                                        </strong>
-                                    </div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </div>
-            )}
-
+            <MaintenanceDetailModal
+                record={selectedMaintenance}
+                loading={detailLoading}
+                onClose={() => setSelectedMaintenance(null)}
+            />
 
             {showAddModal && (
-                <div
-                    className="maintenance-modal-overlay"
-                    onClick={() => setShowAddModal(false)}
-                >
-                    <div
-                        className="maintenance-detail-modal add-maintenance-modal"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-
-                        <div className="maintenance-modal-header">
-                            <div>
-                                <h2>Add Maintenance Record</h2>
-                                <p>Create a new service record for a vehicle</p>
-                            </div>
-
-                            <button
-                                className="close-maintenance-btn"
-                                onClick={() => setShowAddModal(false)}
-                            >
-                                <X size={20} />
-                            </button>
-                        </div>
-
-
-                        <form
-                            className="maintenance-form"
-                            onSubmit={handleAddMaintenance}
-                        >
-
-                            {/* Vehicle */}
-                            <div className="form-group">
-                                <label>Vehicle</label>
-
-                                <select
-                                    name="vehicleId"
-                                    value={formData.vehicleId}
-                                    onChange={handleFormChange}
-                                    required
-                                >
-                                    <option value="">
-                                        Select vehicle
-                                    </option>
-
-                                    {availibleVehicle.map((record) => (
-                                        <option key={record.id} value={record._id}>
-                                            {record.registrationNumber}
-                                        </option>
-
-                                    ))}
-                                </select>
-                            </div>
-
-
-                            {/* Service Date */}
-                            <div className="form-group">
-                                <label>Service Date</label>
-
-                                <input
-                                    type="date"
-                                    name="serviceDate"
-                                    value={formData.serviceDate}
-                                    onChange={handleFormChange}
-                                    required
-                                />
-                            </div>
-
-
-                            {/* Service Type */}
-                            <div className="form-group">
-                                <label>Service Type</label>
-
-                                <select
-                                    name="serviceType"
-                                    value={formData.serviceType}
-                                    onChange={handleFormChange}
-                                    required
-                                >
-                                    <option value="">
-                                        Select service type
-                                    </option>
-
-                                    <option value="oil-change">
-                                        Oil Change
-                                    </option>
-
-                                    <option value="normal-service">
-                                        Normal Service
-                                    </option>
-
-                                    <option value="brake-service">
-                                        Brake Service
-                                    </option>
-
-                                    <option value="tyre-service">
-                                        Tyre Service
-                                    </option>
-
-                                    <option value="engine-service">
-                                        Engine Service
-                                    </option>
-
-                                    <option value="other">
-                                        Other
-                                    </option>
-                                </select>
-                            </div>
-
-
-                            {/* Cost */}
-                            <div className="form-group">
-                                <label>Cost</label>
-
-                                <input
-                                    type="number"
-                                    name="cost"
-                                    placeholder="Enter service cost"
-                                    min="0"
-                                    value={formData.cost}
-                                    onChange={handleFormChange}
-                                    required
-                                />
-                            </div>
-
-
-                            {/* Next Service Due */}
-                            <div className="form-group">
-                                <label>Next Service Due Date</label>
-
-                                <input
-                                    type="date"
-                                    name="nextServiceDueDate"
-                                    value={formData.nextServiceDueDate}
-                                    onChange={handleFormChange}
-                                    required
-                                />
-                            </div>
-
-
-                            {/* Buttons */}
-                            <div className="maintenance-form-actions">
-
-                                <button
-                                    type="button"
-                                    className="cancel-btn"
-                                    onClick={() => setShowAddModal(false)}
-                                >
-                                    Cancel
-                                </button>
-
-                                <button
-                                    type="submit"
-                                    className="save-maintenance-btn"
-                                    disabled={submitting}
-                                >
-                                    {submitting
-                                        ? "Saving..."
-                                        : "Add Record"
-                                    }
-                                </button>
-
-                            </div>
-
-                        </form>
-
-                    </div>
-                </div>
+                <AddMaintenanceModal
+                    vehicles={vehicle}
+                    me={me}
+                    onClose={() => setShowAddModal(false)}
+                    onSaved={loaddmaintenance}
+                />
             )}
         </div>
     );
