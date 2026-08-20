@@ -5,5 +5,12 @@ export const getAllmaintenance = async () => {
         withCredentials: true
     });
     return res.data;
-} 
+}
 
+
+export const getSinglemaintenance = async (id) => {
+    const res = await axios.get(`http://localhost:3000/api/maintenance/${id}`, {
+        withCredentials: true
+    });
+    return res.data;
+}

@@ -51,7 +51,7 @@ const getMaintenance = async (req, res) => {
     try {
         const maintenance = await MaintenanceModel.find().populate({
             path:"vehicle",
-            select:"registrationNumber vehicleImage"
+            select:"registrationNumber vehicleImage brand"
         }).populate({
             path:"loggedBy",
             select:"name profileImage"
@@ -75,7 +75,7 @@ const getSingleMaintenance = async (req, res) => {
         const { id } = req.params;
         const maintenance = await MaintenanceModel.findById(id).populate({
             path:"vehicle",
-            select:"registrationNumber vehicleImage"
+            select:"registrationNumber vehicleImage brand"
         }).populate({
             path:"loggedBy",
             select:"name profileImage"

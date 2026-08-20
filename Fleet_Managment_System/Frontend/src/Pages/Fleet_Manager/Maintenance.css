@@ -335,6 +335,11 @@
     text-align: center;
     color: #6b7280;
 }
+.im{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
 /* Responsive */
 
