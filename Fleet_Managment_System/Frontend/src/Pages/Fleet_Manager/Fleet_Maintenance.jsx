@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getAllmaintenance, getSinglemaintenance } from '../../Service/Maintenance'
-import { Droplets, Eye, Fuel, IndianRupee, Plus, Search } from 'lucide-react';
+import { CalendarClock, ClipboardList, Droplets, Eye, Fuel, IndianRupee, Plus, Search } from 'lucide-react';
 import './Maintenance.css'
 import { getVehicles } from '../../Service/VehicleService';
 import { getMe } from '../../Service/UserService';
@@ -36,7 +36,7 @@ const Fleet_Maintenance = () => {
     const handleView = async (id) => {
         try {
             setDetailLoading(true);
-            setSelectedMaintenance({}); // open modal immediately, show loading state
+            setSelectedMaintenance({}); 
             const res = await getSinglemaintenance(id);
             setSelectedMaintenance(res.maintenance);
         } catch (error) {
@@ -53,7 +53,7 @@ const Fleet_Maintenance = () => {
 
     const totalSpend = maintenance.reduce((sum, record) => sum + (Number(record.cost) || 0), 0);
 
-    const dueSoonWindowDays = 30;
+    const dueSoonWindowDays = 15;
     const dueSoonCount = maintenance.filter((record) => {
         if (!record.nextServiceDueDate) return false;
         const due = new Date(record.nextServiceDueDate);
@@ -82,7 +82,7 @@ const Fleet_Maintenance = () => {
             <div className="maintenance-summary">
                 <div className="maintenance-summary-card">
                     <div className="maintenance-icon blue">
-                        <Fuel size={22} />
+                        <ClipboardList size={22} />
                     </div>
                     <div>
                         <span>Total records</span>
@@ -102,7 +102,7 @@ const Fleet_Maintenance = () => {
 
                 <div className="maintenance-summary-card">
                     <div className="maintenance-icon orange">
-                        <Droplets size={22} />
+                        <CalendarClock size={22} />
                     </div>
                     <div>
                         <span>Due within {dueSoonWindowDays} days</span>
