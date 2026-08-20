@@ -5,6 +5,11 @@ export const createUser = async (data) => {
     return res.data
 }
 
+export const getMe = async () => {
+     const res = await axios.get('http://localhost:3000/api/auth/me', { withCredentials: true });
+    return res.data
+}
+
 export const getUser = async () => {
     const res = await axios.get('http://localhost:3000/api/auth/users', { withCredentials: true });
     return res.data
@@ -16,6 +21,6 @@ export const editUser = async (id, data) => {
 }
 
 export const deletUser = async (id) => {
-    const res = await axios.delete(`http://localhost:3000/api/auth/users/${id}`,{ withCredentials: true });
+    const res = await axios.delete(`http://localhost:3000/api/auth/users/${id}`, { withCredentials: true });
     return res.data
 }

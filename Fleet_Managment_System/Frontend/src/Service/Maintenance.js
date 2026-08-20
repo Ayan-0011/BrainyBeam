@@ -7,10 +7,14 @@ export const getAllmaintenance = async () => {
     return res.data;
 }
 
-
 export const getSinglemaintenance = async (id) => {
     const res = await axios.get(`http://localhost:3000/api/maintenance/${id}`, {
         withCredentials: true
     });
     return res.data;
+}
+
+export const AddMaintenancerecord = async (data) => {
+    const res = await axios.post(`http://localhost:3000/api/maintenance/create`, data, { withCredentials: true });
+    return res.data
 }

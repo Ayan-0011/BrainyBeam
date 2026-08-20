@@ -1,25 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import { getAllmaintenance, getSinglemaintenance } from '../../Service/Maintenance'
+import { AddMaintenancerecord, getAllmaintenance, getSinglemaintenance } from '../../Service/Maintenance'
 import { Droplets, Eye, Fuel, IndianRupee, Plus, Search, X } from 'lucide-react';
 import './Maintenance.css'
+import { getVehicles } from '../../Service/VehicleService';
+import { getMe } from '../../Service/UserService';
 
 const Fleet_Maintenance = () => {
     const [maintenance, setMaintenance] = useState([]);
     const [loading, setloading] = useState(true);
     const [selectedMaintenance, setSelectedMaintenance] = useState(null);
     const [detailLoading, setDetailLoading] = useState(false);
+    const [showAddModal, setShowAddModal] = useState(false);
+    const [vehicle, setVehicle] = useState([]);
+    const [me, setme] = useState([]);
+
+    const [formData, setFormData] = useState({
+        vehicleId: "",
+        serviceDate: "",
+        serviceType: "",
+        cost: "",
+        nextServiceDueDate: "",
+        loggedBy: me.name
+    });
+
+    const [submitting, setSubmitting] = useState(false);
 
     const loaddmaintenance = async () => {
         try {
             const data = await getAllmaintenance();
             setMaintenance(data.maintenance);
-            console.log(data);
+            //console.log(data);
+            const vehicle = await getVehicles();
+            setVehicle(vehicle.vehicle);
+            //console.log(vehicle.vehicle);
+
+            const me = await getMe();
+            setme(me.user);
+            console.log(me.user)
         } catch (error) {
             console.log(error)
         } finally {
             setloading(false)
         }
     }
+
 
     const handleView = async (id) => {
         const res = await getSinglemaintenance(id);
@@ -34,7 +58,6 @@ const Fleet_Maintenance = () => {
         loaddmaintenance();
     }, [])
 
-
     const formatDate = (date) => {
         if (!date) return "-";
 
@@ -44,6 +67,42 @@ const Fleet_Maintenance = () => {
             year: "numeric",
         });
     };
+
+    const handleFormChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value, });
+    };
+
+    const handleAddMaintenance = async (e) => {
+        e.preventDefault();
+
+        try {
+            setSubmitting(true);
+            const data = await AddMaintenancerecord(formData)
+            console.log("Maintenance added:", data);
+            setShowAddModal(false);
+            setFormData({
+                vehicleId: "",
+                serviceDate: "",
+                serviceType: "",
+                cost: "",
+                nextServiceDueDate: ""
+            });
+            // Refresh maintenance table
+            await loaddmaintenance();
+
+        } catch (error) {
+            console.log(
+                "Error adding maintenance:",
+                error.response?.data || error.message
+            );
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    const availibleVehicle = vehicle.filter((item) => item.status === "Available");
+    //console.log(availibleVehicle);
+
 
 
 
@@ -56,7 +115,9 @@ const Fleet_Maintenance = () => {
                     <p className="subtitle">Service records for every vehicle in the fleet.</p>
                 </div>
                 <div>
-                    <button className="addBtn">
+                    <button
+                        className="addBtn"
+                        onClick={() => setShowAddModal(true)}>
                         <Plus size={16} />
                         Add Record
                     </button>
@@ -66,7 +127,7 @@ const Fleet_Maintenance = () => {
             <div className="maintenance-summary">
                 <div className="maintenance-summary-card">
                     <div className="maintenance-icon blue">
-                        <maintenance size={22} />
+                        <Fuel size={22} />
                     </div>
                     <div>
                         <span>Total records</span>
@@ -154,7 +215,7 @@ const Fleet_Maintenance = () => {
                                 {maintenance.length > 0 ? (
                                     maintenance.map((record) => (
                                         <tr key={record._id}
-                                        onClick={()=>{handleView(record._id)}}>
+                                            onClick={() => { handleView(record._id) }}>
                                             <td>
                                                 <img src={record.vehicle?.vehicleImage} alt={record.registrationNumber}
                                                     className="vehicleImage" />
@@ -232,7 +293,6 @@ const Fleet_Maintenance = () => {
                                         </strong>
                                     </div>
 
-
                                 </div>
 
                                 <div className="maintenance-detail-grid">
@@ -269,6 +329,176 @@ const Fleet_Maintenance = () => {
                                 </div>
                             </>
                         )}
+                    </div>
+                </div>
+            )}
+
+
+            {showAddModal && (
+                <div
+                    className="maintenance-modal-overlay"
+                    onClick={() => setShowAddModal(false)}
+                >
+                    <div
+                        className="maintenance-detail-modal add-maintenance-modal"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+
+                        <div className="maintenance-modal-header">
+                            <div>
+                                <h2>Add Maintenance Record</h2>
+                                <p>Create a new service record for a vehicle</p>
+                            </div>
+
+                            <button
+                                className="close-maintenance-btn"
+                                onClick={() => setShowAddModal(false)}
+                            >
+                                <X size={20} />
+                            </button>
+                        </div>
+
+
+                        <form
+                            className="maintenance-form"
+                            onSubmit={handleAddMaintenance}
+                        >
+
+                            {/* Vehicle */}
+                            <div className="form-group">
+                                <label>Vehicle</label>
+
+                                <select
+                                    name="vehicleId"
+                                    value={formData.vehicleId}
+                                    onChange={handleFormChange}
+                                    required
+                                >
+                                    <option value="">
+                                        Select vehicle
+                                    </option>
+
+                                    {availibleVehicle.map((record) => (
+                                        <option key={record.id} value={record._id}>
+                                            {record.registrationNumber}
+                                        </option>
+
+                                    ))}
+                                </select>
+                            </div>
+
+
+                            {/* Service Date */}
+                            <div className="form-group">
+                                <label>Service Date</label>
+
+                                <input
+                                    type="date"
+                                    name="serviceDate"
+                                    value={formData.serviceDate}
+                                    onChange={handleFormChange}
+                                    required
+                                />
+                            </div>
+
+
+                            {/* Service Type */}
+                            <div className="form-group">
+                                <label>Service Type</label>
+
+                                <select
+                                    name="serviceType"
+                                    value={formData.serviceType}
+                                    onChange={handleFormChange}
+                                    required
+                                >
+                                    <option value="">
+                                        Select service type
+                                    </option>
+
+                                    <option value="oil-change">
+                                        Oil Change
+                                    </option>
+
+                                    <option value="normal-service">
+                                        Normal Service
+                                    </option>
+
+                                    <option value="brake-service">
+                                        Brake Service
+                                    </option>
+
+                                    <option value="tyre-service">
+                                        Tyre Service
+                                    </option>
+
+                                    <option value="engine-service">
+                                        Engine Service
+                                    </option>
+
+                                    <option value="other">
+                                        Other
+                                    </option>
+                                </select>
+                            </div>
+
+
+                            {/* Cost */}
+                            <div className="form-group">
+                                <label>Cost</label>
+
+                                <input
+                                    type="number"
+                                    name="cost"
+                                    placeholder="Enter service cost"
+                                    min="0"
+                                    value={formData.cost}
+                                    onChange={handleFormChange}
+                                    required
+                                />
+                            </div>
+
+
+                            {/* Next Service Due */}
+                            <div className="form-group">
+                                <label>Next Service Due Date</label>
+
+                                <input
+                                    type="date"
+                                    name="nextServiceDueDate"
+                                    value={formData.nextServiceDueDate}
+                                    onChange={handleFormChange}
+                                    required
+                                />
+                            </div>
+
+
+                            {/* Buttons */}
+                            <div className="maintenance-form-actions">
+
+                                <button
+                                    type="button"
+                                    className="cancel-btn"
+                                    onClick={() => setShowAddModal(false)}
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    className="save-maintenance-btn"
+                                    disabled={submitting}
+                                >
+                                    {submitting
+                                        ? "Saving..."
+                                        : "Add Record"
+                                    }
+                                </button>
+
+                            </div>
+
+                        </form>
+
                     </div>
                 </div>
             )}
