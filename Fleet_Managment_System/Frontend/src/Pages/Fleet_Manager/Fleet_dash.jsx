@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getAllmaintenance } from "../../Service/Maintenance";
 import { getVehicles } from "../../Service/VehicleService";
 import { Wrench, AlertTriangle, Truck, IndianRupee, CalendarClock, ClipboardList,} from "lucide-react";
+import '../Shared/SharedDashboard.css'
 
 const ATTENTION_WINDOW_DAYS = 15;
 

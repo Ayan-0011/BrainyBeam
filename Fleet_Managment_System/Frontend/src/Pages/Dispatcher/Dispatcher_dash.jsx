@@ -6,7 +6,7 @@ import TripStatusChart from "../../Components/Chart/Tripstatuschart";
 import Chart from "../../Components/Chart/Chart";
 import { getDriver } from "../../Service/DriverService";
 import { getVehicles } from "../../Service/VehicleService";
-import './Dashborad.css'
+import '../Shared/SharedDashboard.css'
 
 
 // a vehicle is flagged if service/insurance/permit falls due within this window
