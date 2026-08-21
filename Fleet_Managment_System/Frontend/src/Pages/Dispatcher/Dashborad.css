@@ -126,6 +126,9 @@
   border-collapse: collapse;
   font-size: 13px;
 }
+.dashCard{
+  overflow: auto;
+}
 
 .miniTable th {
   text-align: left;

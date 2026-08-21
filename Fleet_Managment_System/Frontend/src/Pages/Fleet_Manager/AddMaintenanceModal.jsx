@@ -10,13 +10,7 @@ const emptyForm = {
     nextServiceDueDate: "",
 };
 
-/**
- * Props:
- * - vehicles: array of all vehicles (this component filters to "Available" itself)
- * - me: current logged-in user object (needs _id / id)
- * - onClose: called when the modal should close (cancel, backdrop click, X button)
- * - onSaved: called after a record is successfully saved, so the parent can refresh its table
- */
+
 const AddMaintenanceModal = ({ vehicles = [], me, onClose, onSaved }) => {
     const [formData, setFormData] = useState(emptyForm);
     const [submitting, setSubmitting] = useState(false);

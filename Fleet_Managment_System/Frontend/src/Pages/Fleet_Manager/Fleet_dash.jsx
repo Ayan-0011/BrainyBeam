@@ -2,18 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllmaintenance } from "../../Service/Maintenance";
 import { getVehicles } from "../../Service/VehicleService";
-import {
-  Wrench,
-  AlertTriangle,
-  Truck,
-  IndianRupee,
-  CalendarClock,
-  ClipboardList,
-} from "lucide-react";
+import { Wrench, AlertTriangle, Truck, IndianRupee, CalendarClock, ClipboardList,} from "lucide-react";
 
 const ATTENTION_WINDOW_DAYS = 15;
 
-// vehicle ka apna record hi nahi hai -> flag mat karo
+
 const getVehicleServiceFlag = (nextServiceDueDate) => {
   if (!nextServiceDueDate) return null;
 
@@ -53,7 +46,6 @@ const Fleet_dash = () => {
     loadData();
   }, []);
 
-  // har vehicle ka sabse latest maintenance record nikal ke uski next due date check karo
   const vehiclesWithFlag = vehicles.map((v) => {
     const vehicleRecords = maintenance
       .filter((m) => m.vehicle?._id === v._id)
