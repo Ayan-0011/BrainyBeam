@@ -33,18 +33,13 @@ export default function Navbar({ user, role, onMenuClick, onLogout }) {
     
       <div className={styles.spacer} />
 
-      <button className={styles.iconBtn} aria-label="Notifications">
-        <Bell size={20} />
-        <span className={styles.dot} />
-      </button>
-
       <div className={styles.profileWrap} ref={dropdownRef}>
         <button
           className={styles.profileBtn}
           onClick={() => setDropdownOpen((o) => !o)} >
           <span className={styles.avatar}><img src={user.profileImage} alt="user img" /></span>
           <span className={styles.profileText}>
-            <span className={styles.name}>{user?.name || "User"}</span>
+            <span className={styles.name}>Welcome,</span>
             <span className={styles.roleBadge}>{user?.role}</span>
           </span>
           <ChevronDown size={16} />
@@ -55,7 +50,7 @@ export default function Navbar({ user, role, onMenuClick, onLogout }) {
             <div className={styles.dropdownItem}>
               <Link className={styles.link}>
                 <User size={16} color="blue" />
-                <span>Profile</span>
+                <span>{user.name}</span>
               </Link>
             </div>
             <button className={styles.dropdownItem} onClick={onLogout}>
