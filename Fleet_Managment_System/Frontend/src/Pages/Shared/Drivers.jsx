@@ -6,12 +6,13 @@ import Modal from "../../Components/Modal/Modal";
 import DriverForm from "../../Components/Form/DriverForm";
 import { deleteDriver, getDriver } from "../../Service/DriverService";
 
-const Drivers = ({readOnly = false }) => {
+const Drivers = ({ readOnly = false }) => {
   const [drivers, setDrivers] = useState([]);
   const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [selectedDriver, setSelectedDriver] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const handleAdd = () => {
     setEditModal(false);
@@ -31,6 +32,9 @@ const Drivers = ({readOnly = false }) => {
       setDrivers(res.drivers || []);
     } catch (error) {
       console.log(error);
+    }
+    finally {
+      setLoading(false)
     }
   };
 
@@ -105,11 +109,11 @@ const Drivers = ({readOnly = false }) => {
           <p className="subtitle">Every driver registered in the fleetops.</p>
         </div>
 
-        {!readOnly && 
-        <button onClick={handleAdd} className="addBtn">
-          <Plus size={16} />
-          Add Driver
-        </button>}
+        {!readOnly &&
+          <button onClick={handleAdd} className="addBtn">
+            <Plus size={16} />
+            Add Driver
+          </button>}
       </div>
 
       <div className="toolbar">
@@ -117,7 +121,7 @@ const Drivers = ({readOnly = false }) => {
           <span className="searchIcon">
             <Search size={16} />
           </span>
-          <input type="text"  className="searchInput"  placeholder="Search drivers..."
+          <input type="text" className="searchInput" placeholder="Search drivers..."
             value={search}
             onChange={(e) => setSearch(e.target.value)} />
         </div>
@@ -135,64 +139,71 @@ const Drivers = ({readOnly = false }) => {
               <th>License Expiry</th>
               <th>Availability</th>
               <th>Assigned Vehicle</th>
-             {!readOnly && <th className="actionsHeader">Actions</th>}
+              {!readOnly && <th className="actionsHeader">Actions</th>}
             </tr>
           </thead>
 
           <tbody>
-            {filteredDrivers.length > 0 ? (
-              filteredDrivers.map((driver) => (
-                <tr key={driver._id}>
-                  <td>
-                    <img
-                      src={driver.user.profileImage}
-                      alt={driver.user?.name || "Driver"}
-                      className="vehicleImage"
-                    />
+            {
+              loading ? (
+                <tr>
+                  <td colSpan="10" className="emptyState">
+                    Loading Driver...
                   </td>
-
-                  <td className="regNo">{driver.user?.name || "-"}</td>
-                  <td>{driver.user?.email || "-"}</td>
-                  <td>{driver.user?.phone || "-"}</td>
-                  <td>{driver.licenseNumber}</td>
-                  <td>
-                    {new Date(driver.licenseExpiry).toLocaleDateString()}
-                  </td>
-
-                  <td>
-                    <span
-                      className={`statusBadge ${getAvailabilityClass(
-                        driver.availability
-                      )}`}
-                    >
-                      {driver.availability?.toUpperCase()}
-                    </span>
-                  </td>
-
-                  <td>
-                    {driver.assignedVehicle
-                      ? driver.assignedVehicle.registrationNumber
-                      : "Not Assigned"}
-                  </td>
-
-                  {!readOnly && <td className="">
-                    <button className="iconBtn" onClick={() => handleEdit(driver)}>
-                      <Pencil size={18} color="green"/>
-                    </button>
-
-                    <button className="iconBtn iconBtnDanger" onClick={() => delet(driver._id)}>
-                      <Trash2 size={18} />
-                    </button>
-                  </td>}
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="9" className="emptyState">
-                  No Drivers Found.
-                </td>
-              </tr>
-            )}
+              ) : filteredDrivers.length > 0 ? (
+                  filteredDrivers.map((driver) => (
+                    <tr key={driver._id}>
+                      <td>
+                        <img
+                          src={driver.user.profileImage}
+                          alt={driver.user?.name || "Driver"}
+                          className="vehicleImage"
+                        />
+                      </td>
+
+                      <td className="regNo">{driver.user?.name || "-"}</td>
+                      <td>{driver.user?.email || "-"}</td>
+                      <td>{driver.user?.phone || "-"}</td>
+                      <td>{driver.licenseNumber}</td>
+                      <td>
+                        {new Date(driver.licenseExpiry).toLocaleDateString()}
+                      </td>
+
+                      <td>
+                        <span
+                          className={`statusBadge ${getAvailabilityClass(
+                            driver.availability
+                          )}`}
+                        >
+                          {driver.availability?.toUpperCase()}
+                        </span>
+                      </td>
+
+                      <td>
+                        {driver.assignedVehicle
+                          ? driver.assignedVehicle.registrationNumber
+                          : "Not Assigned"}
+                      </td>
+
+                      {!readOnly && <td className="">
+                        <button className="iconBtn" onClick={() => handleEdit(driver)}>
+                          <Pencil size={18} color="green" />
+                        </button>
+
+                        <button className="iconBtn iconBtnDanger" onClick={() => delet(driver._id)}>
+                          <Trash2 size={18} />
+                        </button>
+                      </td>}
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="9" className="emptyState">
+                      No Drivers Found.
+                    </td>
+                  </tr>
+                )}
           </tbody>
         </table>
       </div>
