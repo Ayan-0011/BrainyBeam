@@ -16,6 +16,7 @@ const Vehicles = ({ readOnly = false }) => {
   const [openModal, setOpenModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [selectedVehicle, setselectedVehicle] = useState(null);
+  const [loading, setloading] = useState(true);
 
 
   const handleAdd = () => {
@@ -36,6 +37,8 @@ const Vehicles = ({ readOnly = false }) => {
       setVehicles(res.vehicle);
     } catch (error) {
       console.log(error);
+    } finally {
+      setloading(false)
     }
   };
 
@@ -132,7 +135,13 @@ const Vehicles = ({ readOnly = false }) => {
           </thead>
 
           <tbody>
-            {filteredVehicles.length > 0 ? (
+            {loading ? (
+              <tr>
+                <td colSpan="10" className="emptyState">
+                  Loading Vehicle...
+                </td>
+              </tr>
+            ) : filteredVehicles.length > 0 ? (
               filteredVehicles.map((vehicle) => (
                 <tr key={vehicle._id}>
                   <td>
