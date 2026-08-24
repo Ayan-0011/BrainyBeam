@@ -39,7 +39,7 @@ export default function Navbar({ user, role, onMenuClick, onLogout }) {
           onClick={() => setDropdownOpen((o) => !o)} >
           <span className={styles.avatar}><img src={user.profileImage} alt="user img" /></span>
           <span className={styles.profileText}>
-            <span className={styles.name}>Welcome,</span>
+            <span className={styles.name}>Welcome</span>
             <span className={styles.roleBadge}>{user?.role}</span>
           </span>
           <ChevronDown size={16} />

@@ -122,14 +122,14 @@ const Vehicles = ({ readOnly = false }) => {
         <table className="table">
           <thead>
             <tr>
-              <th>Image</th>
-              <th>Registration #</th>
+              <th>Vehicle</th>
               <th>Brand</th>
               <th>Type</th>
-              <th>Fuel</th>
               <th>Capacity</th>
               <th>Status</th>
-              <th>Service Due</th>
+              <th>insuranceExpiry</th>
+              <th>PermitExpiry</th>
+              <th>Service DueDate</th>
               {!readOnly && <th className="actionsHeader">Actions</th>}
             </tr>
           </thead>
@@ -144,18 +144,17 @@ const Vehicles = ({ readOnly = false }) => {
             ) : filteredVehicles.length > 0 ? (
               filteredVehicles.map((vehicle) => (
                 <tr key={vehicle._id}>
-                  <td>
+                  <td className="regNo ">
                     <img
                       src={vehicle.vehicleImage}
                       alt={vehicle.registrationNumber}
                       className="vehicleImage"
                     />
-                  </td>
 
-                  <td className="regNo">{vehicle.registrationNumber}</td>
+
+                    {vehicle.registrationNumber}</td>
                   <td>{vehicle.brand}</td>
                   <td>{vehicle.type}</td>
-                  <td>{vehicle.fuelType}</td>
                   <td>{vehicle.capacity} Ton</td>
 
                   <td>
@@ -171,6 +170,12 @@ const Vehicles = ({ readOnly = false }) => {
                     </span>
                   </td>
 
+                  <td>
+                    {new Date(vehicle.insuranceExpiry).toLocaleDateString("en-IN")}
+                  </td>
+                  <td>
+                    {new Date(vehicle.PermitExpiry).toLocaleDateString("en-IN")}
+                  </td>
                   <td>
                     {new Date(vehicle.serviceDueDate).toLocaleDateString("en-IN")}
                   </td>

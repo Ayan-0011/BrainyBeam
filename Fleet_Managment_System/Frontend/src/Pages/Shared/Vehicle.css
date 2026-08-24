@@ -144,6 +144,9 @@
 .regNo {
   color: #2563eb;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .statusBadge {
