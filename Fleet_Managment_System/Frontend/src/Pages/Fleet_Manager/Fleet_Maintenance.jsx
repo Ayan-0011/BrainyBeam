@@ -175,7 +175,7 @@ const Fleet_Maintenance = () => {
                                                 <img src={record.vehicle?.vehicleImage} alt={record.registrationNumber}
                                                     className="vehicleImage" />
                                             </td>
-                                            <td className="regNo">{record.vehicle?.registrationNumber}</td>
+                                            <td >{record.vehicle?.registrationNumber}</td>
 
                                             <td>
                                                 <span className="typePill">

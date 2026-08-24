@@ -29,6 +29,7 @@ import Fleet_tripdetail from './Pages/Fleet_Manager/Fleet_tripdetail'
 import Fleet_Fuel from './Pages/Fleet_Manager/Fleet_Fuel'
 import Admin_Fuel from './Pages/Admin/Admin_Fuel'
 import Fleet_Maintenance from './Pages/Fleet_Manager/Fleet_Maintenance'
+import Admin_Report from './Pages/Admin/Admin_Report'
 
 const App = () => {
   return (
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="trips" element={<Admin_trip />} />
           <Route path="trips/:id" element={<Admin_tripdetail />} />
           <Route path="fuel" element={<Admin_Fuel />} />
+          <Route path="reports" element={<Admin_Report />} />
         </Route>
 
 
