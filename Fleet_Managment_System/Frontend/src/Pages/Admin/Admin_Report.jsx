@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Truck, IndianRupee, Users, Wrench, BarChart3} from "lucide-react";
+import { Truck, IndianRupee, Users, Wrench, BarChart3 } from "lucide-react";
 import "./AdminReport.css";
 import { getTrips } from "../../Service/TripService";
 import { getVehicles } from "../../Service/VehicleService";
@@ -30,8 +30,9 @@ const Admin_Report = () => {
             setVehicles(vehicleRes.vehicle || []);
             setDrivers(driverRes.drivers || driverRes.driver || []);
             setMaintenance(maintRes.maintenance || []);
-            setFuel(fuelRes.fuel || []);
-            console.log(tripRes)
+            setFuel(fuelRes.Fuellog || []);
+            // console.log(fuelRes)
+            // console.log(tripRes)
         } catch (error) {
             console.log(error);
         } finally {
@@ -58,10 +59,12 @@ const Admin_Report = () => {
     // ---------- 2. COST PER TRIP (fuel + prorated maintenance) ----------
     // fuel cost per vehicle
     const fuelCostByVehicle = fuel.reduce((acc, f) => {
-        const vId = f.vehicle?._id || f.vehicle;
+        const vId =  f.vehicle;
         acc[vId] = (acc[vId] || 0) + (Number(f.cost) || 0);
         return acc;
     }, {});
+
+    //console.log(fuelCostByVehicle)
 
     // maintenance cost per vehicle
     const maintCostByVehicle = maintenance.reduce((acc, m) => {
@@ -72,15 +75,17 @@ const Admin_Report = () => {
 
     // trip count per vehicle (reuse)
     const tripCountByVehicle = trips.reduce((acc, t) => {
-        const vId = t.assignedVehicle?._id || t.assignedVehicle;
-        acc[vId] = (acc[vId] || 0) + 1;
+        const vehicleNumber = t.vehicleNumber;
+        if (vehicleNumber) {
+            acc[vehicleNumber] = (acc[vehicleNumber] || 0) + 1;
+        }
         return acc;
     }, {});
 
     const costPerTripData = vehicles.map((v) => {
-        const totalFuel = fuelCostByVehicle[v._id] || 0;
+        const totalFuel = fuelCostByVehicle[v.registrationNumber] || 0;
         const totalMaint = maintCostByVehicle[v._id] || 0;
-        const tripCount = tripCountByVehicle[v._id] || 0;
+        const tripCount = tripCountByVehicle[v.registrationNumber] || 0;
         const costPerTrip = tripCount > 0 ? (totalFuel + totalMaint) / tripCount : 0;
 
         return {
@@ -94,10 +99,11 @@ const Admin_Report = () => {
     });
 
     const totalFuelSpend = fuel.reduce((sum, f) => sum + (Number(f.cost) || 0), 0);
+    console.log(totalFuelSpend)
+    
     const totalMaintSpend = maintenance.reduce((sum, m) => sum + (Number(m.cost) || 0), 0);
     const avgCostPerTrip = trips.length > 0
-        ? ((totalFuelSpend + totalMaintSpend) / trips.length).toFixed(0)
-        : 0;
+        ? ((totalFuelSpend + totalMaintSpend) / trips.length).toFixed(0) : 0;
 
     // ---------- 3. DRIVER PERFORMANCE (trips completed only, on-time % pending) ----------
     const driverPerformance = drivers.map((d) => {
