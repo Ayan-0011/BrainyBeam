@@ -1,0 +1,136 @@
+
+.blood-request-container {
+  max-width: 480px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  background-color: #1a1a1a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  border: 1px solid #2e2e2e;
+  text-align: left;
+}
+
+.blood-request-container h2 {
+  text-align: center;
+  margin: 0 0 0.4rem;
+  font-size: 1.6rem;
+  color: #ffffff;
+}
+
+.blood-request-container .subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  margin-bottom: 1.8rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  font-size: 0.88rem;
+  color: #d4d4d4;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.7em 0.9em;
+  border-radius: 8px;
+  border: 1px solid #3a3a3a;
+  background-color: #242424;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group select option {
+  background-color: #242424;
+  color: #ffffff;
+}
+
+.form-group input::placeholder {
+  color: #777;
+}
+
+.form-group input:hover,
+.form-group select:hover {
+  border-color: #555;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #646cff;
+  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.25);
+}
+
+.error-text {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  margin-top: 0.35rem;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.75em 1.2em;
+  background-color: #646cff;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #535bf2;
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(100, 108, 255, 0.35);
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-color-scheme: light) {
+  .blood-request-container {
+    background-color: #ffffff;
+    border-color: #e5e5e5;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+  .blood-request-container h2 {
+    color: #1a1a1a;
+  }
+  .blood-request-container .subtitle {
+    color: #666;
+  }
+  .form-group label {
+    color: #333;
+  }
+  .form-group input,
+  .form-group select {
+    background-color: #fafafa;
+    color: #1a1a1a;
+    border-color: #ddd;
+  }
+  .form-group select option {
+    background-color: #fafafa;
+    color: #1a1a1a;
+  }
+  .form-group input::placeholder {
+    color: #999;
+  }
+}
+
+@media (max-width: 520px) {
+  .blood-request-container {
+    margin: 1rem;
+    padding: 1.8rem 1.4rem;
+  }
+}

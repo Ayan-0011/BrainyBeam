@@ -44,7 +44,6 @@ function DonorScheduling() {
     }
 
     setErrors({})
-    // TODO: replace with actual API call
     console.log('Donor schedule submitted:', formData)
 
   }
@@ -55,9 +54,9 @@ function DonorScheduling() {
       <form className="donor-form" onSubmit={handleSubmit} noValidate>
         <div className="form-group">
           <label htmlFor="name">Donor Name</label>
-          <input
-            type="text"
-            id="name"
+
+
+          <input type="name"
             name="name"
             value={formData.name}
             onChange={handleChange}
