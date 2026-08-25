@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f6f8;
+    font-family: Arial, sans-serif;
+}
+
+.password-container {
+    width: 380px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.password-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.password-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: #fff;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+.password-wrapper:focus-within {
+    border-color: #2563eb;
+}
+
+.password-wrapper input {
+    flex: 1;
+    width: 100%;
+    padding: 13px 14px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    color: #333;
+}
+
+.password-wrapper input::placeholder {
+    color: #9ca3af;
+}
+
+
+
+.show {
+    width: 48px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #6b7280;
+    transition: all 0.2s ease;
+}
+
+.show i:hover {
+    color: #2563eb;
+    background-color: #f3f4f6;
+}
+
+.show i {
+    font-size: 17px;
+}
