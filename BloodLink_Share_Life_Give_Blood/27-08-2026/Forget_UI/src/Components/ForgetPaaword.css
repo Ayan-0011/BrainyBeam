@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+
+.forgot-page {
+  min-height: 100vh;
+  background-color: #fff5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.forgot-card {
+  width: 100%;
+  max-width: 420px;
+  background-color: #ffffff;
+  padding: 40px 35px;
+  border-radius: 12px;
+  border: 1px solid #f1d5d5;
+  box-shadow: 0 8px 25px rgba(180, 0, 0, 0.12);
+  text-align: center;
+}
+
+
+.blood-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  background-color: #ffe5e5;
+  color: #d90429;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+.forgot-card h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #b30000;
+  font-weight: 700;
+}
+
+.forgot-description {
+  margin-top: 12px;
+  margin-bottom: 30px;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.input-group {
+  text-align: left;
+  margin-bottom: 22px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  outline: none;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #d90429;
+  box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.1);
+}
+
+.input-group input::placeholder {
+  color: #aaa;
+}
+
+.reset-btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 7px;
+  background-color: #d90429;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.reset-btn:hover {
+  background-color: #b30000;
+}
+
+
+.back-login {
+  margin-block: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.back-login a {
+  text-decoration: none;
+  color: #d90429;
+  font-size: 14px;
+  font-weight: 600;
+}
+.arw{
+    padding-top: -1px;
+}
+
+.back-login a:hover {
+  text-decoration: underline;
+}
+
+
+
+@media (max-width: 480px) {
+  .forgot-card {
+    padding: 30px 22px;
+  }
+
+  .forgot-card h2 {
+    font-size: 24px;
+  }
+}
