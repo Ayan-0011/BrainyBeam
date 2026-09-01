@@ -36,7 +36,7 @@ const isDueSoon = (vehicle) => {
 const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-const DashboardHome = () => {
+const Admin_Dashboard = () => {
   const [vehicles, setVehicles] = useState([]);
   const [drivers, setDrivers] = useState([]);
   const [trips, setTrips] = useState([]);
@@ -378,4 +378,4 @@ function timeAgo(date) {
   return date.toLocaleDateString();
 }
 
-export default DashboardHome;
+export default Admin_Dashboard;

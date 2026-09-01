@@ -3,7 +3,6 @@ import Login from './Pages/Login'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Dashborad from './Pages/Dashborad'
 import Protect from './Protected/Protect'
-import DashboardHome from './Pages/Admin/DashboardHome'
 import Fleet_dash from './Pages/Fleet_Manager/Fleet_dash'
 import Dispatcher_dash from './Pages/Dispatcher/Dispatcher_dash'
 import Driver_dash from './Pages/Driver/Driver_dash'
@@ -30,6 +29,7 @@ import Fleet_Fuel from './Pages/Fleet_Manager/Fleet_Fuel'
 import Admin_Fuel from './Pages/Admin/Admin_Fuel'
 import Fleet_Maintenance from './Pages/Fleet_Manager/Fleet_Maintenance'
 import Admin_Report from './Pages/Admin/Admin_Report'
+import Admin_Dashboard from './Pages/Admin/Admin_Dashboard'
 
 const App = () => {
   return (
@@ -40,7 +40,7 @@ const App = () => {
         <Route path='/dashboard/' element={<><Protect> <Dashborad /> </Protect></>} />
 
         <Route path="/admin" element={<Protect><Layout /></Protect>} >
-          <Route index element={<DashboardHome />} />
+          <Route index element={<Admin_Dashboard />} />
           <Route path="vehicles" element={<Admin_Vehicles />} />
           <Route path="drivers" element={<Admin_Driver />} />
           <Route path="fleet-managers" element={<Admin_Fleet />} />
