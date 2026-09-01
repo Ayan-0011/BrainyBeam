@@ -255,7 +255,7 @@ const Admin_Report = () => {
             </div>
 
             {/* Driver Performance */}
-            <div className="dashCard">
+            {/* <div className="dashCard">
                 <div className="dashCardHeader">
                     <h3><Users size={16} /> Driver Performance</h3>
                 </div>
@@ -282,7 +282,7 @@ const Admin_Report = () => {
                 ) : (
                     <p className="miniEmptyState">No driver data available.</p>
                 )}
-            </div>
+            </div> */}
 
             {/* Maintenance Cost per Vehicle */}
             <div className="dashCard">
