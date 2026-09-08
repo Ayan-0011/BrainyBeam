@@ -49,8 +49,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </Link>
           </div>
 
-          <Link href="/login" className="px-5 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
-            Login
+          <Link href="/profile" className="px-5 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+            profile
           </Link>
         </nav>
 
