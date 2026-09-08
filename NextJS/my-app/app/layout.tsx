@@ -24,13 +24,36 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full">
-        <nav className="flex gap-2.5 p-2 m-2">
-          <Link href="/"> <h1>Home</h1> </Link>
-          <Link href="/about"> <h1>About</h1> </Link>
-          <Link href="/contect"> <h1>Contect</h1></Link>
-          <Link href="/user"> <h1>User</h1></Link>
+      <body className="min-h-screen bg-gray-50">
+        <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-md border-b">
+
+          <Link href="/" className="text-2xl font-bold text-blue-600">
+            MyApp
+          </Link>
+
+          <div className="flex items-center gap-8">
+            <Link href="/" className="text-gray-700 font-medium hover:text-blue-600 transition-colors" >
+              Home
+            </Link>
+
+            <Link href="/about" className="text-gray-700 font-medium hover:text-blue-600 transition-colors" >
+              About
+            </Link>
+
+            <Link href="/contect" className="text-gray-700 font-medium hover:text-blue-600 transition-colors">
+              Contact
+            </Link>
+
+            <Link href="/user" className="text-gray-700 font-medium hover:text-blue-600 transition-colors"  >
+              User
+            </Link>
+          </div>
+
+          <Link href="/login" className="px-5 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+            Login
+          </Link>
         </nav>
+
         {children}
 
       </body>

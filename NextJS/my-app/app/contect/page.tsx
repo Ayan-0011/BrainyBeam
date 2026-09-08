@@ -1,12 +1,27 @@
-import Button from "@/Components/Button";
+import Button from "@/components/Button"
 
-export default function page() {
+const page = () => {
   return (
-    <div>
-      <div className="text-center bg-blue-800 text-text-white p-5 text-2xl">
-        <h1>Contect Page</h1>
+    <main className="min-h-[calc(100vh-80px)] bg-gray-50 px-6 py-12">
+
+      <div className="max-w-xl mx-auto">
+
+        <h1 className="text-4xl font-bold text-gray-900 text-center">
+          Contact Us
+        </h1>
+
+        <p className="text-gray-500 text-center mt-3 mb-8">
+          Have a question? Send us a message.
+        </p>
+
+        <div className="ms-60">
+          <Button />
+        </div>
+
       </div>
-      <Button />
-    </div>
+
+    </main>
   )
 }
+
+export default page
