@@ -1,18 +1,29 @@
-"use server"
-import { GoogleGenAI } from "@google/genai";
+"use server";
 
-const ai = new GoogleGenAI({
-    apiKey: process.env.GOOGLE_GEMINI_API_KEY,
+import Groq from "groq-sdk";
+
+const groq = new Groq({
+    apiKey: process.env.GROQ_API_KEY,
 });
 
-
 export async function getAIResponse(prompt: string): Promise<string> {
+    try {
+        const chatCompletion = await groq.chat.completions.create({
+            messages: [
+                {
+                    role: "user",
+                    content: prompt,
+                },
+            ],
+            model: "openai/gpt-oss-20b",
+        });
 
-    const interaction = await ai.interactions.create({
-        model: "gemini-3.8-flash",
-        input: prompt,
-    });
-
-    return interaction.output_text || "No output received from the AI model.";
+        return (
+            chatCompletion.choices[0]?.message?.content ||
+            "No output received from the AI model."
+        );
+    } catch (error) {
+        console.error("Groq API Error:", error);
+        return "Something went wrong while getting AI response.";
+    }
 }
-

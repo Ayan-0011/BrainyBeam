@@ -157,7 +157,7 @@ export default function Home() {
 
             <input type="text" value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-             onKeyDown={(e) => {
+              onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   hanldesubmit();
                 }
