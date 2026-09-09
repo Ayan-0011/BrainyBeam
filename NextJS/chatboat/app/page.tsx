@@ -52,110 +52,124 @@ export default function Home() {
         </div>
 
         {/* Chat Area */}
+
         <div className="flex-1 overflow-y-auto px-6 py-6">
+          {output.length === 0 ? (
+            <div className="flex h-full flex-col items-center justify-center">
+              <Image src="/logo2.jpg" alt="AI Assistant" width={100} height={100} className="rounded-full" />
 
-          <div className="space-y-6">
+              <h2 className="mt-5 text-xl font-semibold text-zinc-800">
+                How can I help you?
+              </h2>
 
-            {output.map((message, index) => {
-              const isUser = message.startsWith("USER:");
-              const content = message.replace(/^(USER:|AI:)/, "");
+              <p className="mt-2 text-sm text-zinc-500">
+                Ask me anything and I'll do my best to help.
+              </p>
 
-              return (
-                <div key={index}
-                  className={`flex ${isUser ? "justify-end" : "justify-start"}`} >
+            </div>
+          ) : (
 
-                  <div className={`max-w-[80%] rounded-2xl px-5 py-2 ${isUser ? "bg-black text-white" : "bg-zinc-100 text-zinc-900"}`} >
+            <div className="space-y-6">
+              {output.map((message, index) => {
+                const isUser = message.startsWith("USER:");
+                const content = message.replace(/^(USER:|AI:)/, "");
 
-                    {isUser ? (
-                      <p className="leading-7">
-                        {content}
-                      </p>
-                    ) : (
+                return (
+                  <div key={index}
+                    className={`flex ${isUser ? "justify-end" : "justify-start"}`} >
 
-                      /* AI Markdown response */
-                      <div className="">
-                        <ReactMarkdown
-                          components={{
-                            h1: ({ children }) => (
-                              <h1 className="mb-4 text-2xl font-bold">
-                                {children}
-                              </h1>
-                            ),
-
-                            h2: ({ children }) => (
-                              <h2 className="mb-3 mt-5 text-xl font-bold">
-                                {children}
-                              </h2>
-                            ),
-
-                            h3: ({ children }) => (
-                              <h3 className="mb-2 mt-4 text-lg font-semibold">
-                                {children}
-                              </h3>
-                            ),
-
-                            p: ({ children }) => (
-                              <p className="leading-7">
-                                {children}
-                              </p>
-                            ),
-
-                            ul: ({ children }) => (
-                              <ul className="mb-4 ml-5 list-disc space-y-1">
-                                {children}
-                              </ul>
-                            ),
-
-                            ol: ({ children }) => (
-                              <ol className="mb-4 ml-5 list-decimal space-y-1">
-                                {children}
-                              </ol>
-                            ),
-
-                            li: ({ children }) => (
-                              <li className="leading-7">
-                                {children}
-                              </li>
-                            ),
-
-                            strong: ({ children }) => (
-                              <strong className="font-semibold">
-                                {children}
-                              </strong>
-                            ),
-
-                            code: ({ children }) => (
-                              <code className="rounded bg-zinc-200 px-1.5 py-0.5 text-sm">
-                                {children}
-                              </code>
-                            ),
-                          }}
-                        >
+                    <div className={`max-w-[80%] rounded-2xl px-5 py-2 ${isUser ? "bg-black text-white" : "bg-zinc-100 text-zinc-900"}`} >
+                      {isUser ? (
+                        <p className="leading-7">
                           {content}
-                        </ReactMarkdown>
-                      </div>
-                    )}
+                        </p>
+                      ) : (
+                        <div>
+                          <ReactMarkdown
+                            components={{
+                              h1: ({ children }) => (
+                                <h1 className="mb-4 text-2xl font-bold">
+                                  {children}
+                                </h1>
+                              ),
 
+                              h2: ({ children }) => (
+                                <h2 className="mb-3 mt-5 text-xl font-bold">
+                                  {children}
+                                </h2>
+                              ),
+
+                              h3: ({ children }) => (
+                                <h3 className="mb-2 mt-4 text-lg font-semibold">
+                                  {children}
+                                </h3>
+                              ),
+
+                              p: ({ children }) => (
+                                <p className="leading-7">
+                                  {children}
+                                </p>
+                              ),
+
+                              ul: ({ children }) => (
+                                <ul className="mb-4 ml-5 list-disc space-y-1">
+                                  {children}
+                                </ul>
+                              ),
+
+                              ol: ({ children }) => (
+                                <ol className="mb-4 ml-5 list-decimal space-y-1">
+                                  {children}
+                                </ol>
+                              ),
+
+                              li: ({ children }) => (
+                                <li className="leading-7">
+                                  {children}
+                                </li>
+                              ),
+
+                              strong: ({ children }) => (
+                                <strong className="font-semibold">
+                                  {children}
+                                </strong>
+                              ),
+
+                              code: ({ children }) => (
+                                <code className="rounded bg-zinc-200 px-1.5 py-0.5 text-sm">
+                                  {children}
+                                </code>
+                              ),
+                            }}
+                          >
+                            {content}
+                          </ReactMarkdown>
+                        </div>
+                      )}
+
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Loading */}
+              {loading && (
+                <div className="flex justify-start">
+                  <div className="flex items-center gap-2 rounded-2xl bg-zinc-100 px-5 py-4">
+                    <div className="flex gap-1">
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-zinc-500" />
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-zinc-500 [animation-delay:150ms]" />
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-zinc-500 [animation-delay:300ms]" />
+                    </div>
                   </div>
                 </div>
-              );
-            })}
+              )}
 
-            {loading && (
-              <div className="flex justify-start">
-                <div className="flex items-center gap-2 rounded-2xl bg-zinc-100 px-5 py-4">
-                  <div className="flex gap-1">
-                    <span className="h-2 w-2 animate-bounce rounded-full bg-zinc-500" />
-                    <span className="h-2 w-2 animate-bounce rounded-full bg-zinc-500 [animation-delay:150ms]" />
-                    <span className="h-2 w-2 animate-bounce rounded-full bg-zinc-500 [animation-delay:300ms]" />
-                  </div>
-                </div>
-              </div>
-            )}
-
-          </div>
+            </div>
+          )}
 
         </div>
+
 
         <div className="border-t bg-white p-4">
           <div className="flex gap-3">
