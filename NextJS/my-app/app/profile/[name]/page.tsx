@@ -9,7 +9,7 @@ const page = async ({ params }: PageProps) => {
     const paramsname = await params;
     const name = paramsname.name;
 
-    const user = profiles.find((value: any) => value.name === name);
+    const user = profiles.find((value:any) => value.name === name);
 
     if (!user) {
         return (
