@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { getAIResponse } from "./actions/aiActions";
+import Image from 'next/image';
 
 export default function Home() {
   const [prompt, setPrompt] = useState("");
@@ -22,7 +23,7 @@ export default function Home() {
       setOutput((prev) => [...prev, `AI:${response}`]);
     } catch (error) {
       console.error("Error fetching AI response:", error);
-      setOutput((prev) => [ ...prev, "AI:Something went wrong. Please try again.", ]);
+      setOutput((prev) => [...prev, "AI:Something went wrong. Please try again.",]);
     } finally {
       setLoading(false);
     }
@@ -34,13 +35,20 @@ export default function Home() {
 
         {/* Header */}
         <div className="border-b px-6 py-4">
-          <h1 className="text-xl font-semibold text-blue-500 ">
-            AI Assistant
-          </h1>
+          <div className="flex items-center gap-3">
+            <Image src="/logo2.jpg" alt="AI Assistant" width={40} height={40} className="rounded-full" />
 
-          <p className="text-sm text-zinc-500">
-            Ask anything and get an AI response
-          </p>
+            <div>
+              <h1 className="text-xl font-semibold text-blue-500">
+                AI Assistant
+              </h1>
+
+              <p className="text-sm text-zinc-500">
+                Ask anything and get an AI response
+              </p>
+            </div>
+
+          </div>
         </div>
 
         {/* Chat Area */}
@@ -54,10 +62,10 @@ export default function Home() {
 
               return (
                 <div key={index}
-                  className={`flex ${ isUser ? "justify-end" : "justify-start" }`} >
-                    
-                  <div className={`max-w-[80%] rounded-2xl px-5 py-2 ${ isUser  ? "bg-black text-white"  : "bg-zinc-100 text-zinc-900"  }`} >
-              
+                  className={`flex ${isUser ? "justify-end" : "justify-start"}`} >
+
+                  <div className={`max-w-[80%] rounded-2xl px-5 py-2 ${isUser ? "bg-black text-white" : "bg-zinc-100 text-zinc-900"}`} >
+
                     {isUser ? (
                       <p className="leading-7">
                         {content}
@@ -136,9 +144,6 @@ export default function Home() {
             {loading && (
               <div className="flex justify-start">
                 <div className="flex items-center gap-2 rounded-2xl bg-zinc-100 px-5 py-4">
-                <span className="text-sm text-zinc-500">
-                    AI is thinking
-                  </span>
                   <div className="flex gap-1">
                     <span className="h-2 w-2 animate-bounce rounded-full bg-zinc-500" />
                     <span className="h-2 w-2 animate-bounce rounded-full bg-zinc-500 [animation-delay:150ms]" />
@@ -157,11 +162,6 @@ export default function Home() {
 
             <input type="text" value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  hanldesubmit();
-                }
-              }}
               disabled={loading}
               placeholder="Type your message..."
               className="flex-1 rounded-xl border text-gray-900 border-zinc-300 px-4 py-3 text-sm outline-none transition focus:border-zinc-500 focus:ring-1 focus:ring-zinc-400 disabled:bg-zinc-100" />
