@@ -1,36 +1,178 @@
-"use client"
+"use client";
+
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { getAIResponse } from "./actions/aiActions";
 
-
 export default function Home() {
-
-  const [prompt, setPrompt] = useState<String>("");
-  const [output, setOutput] = useState<String>("");
+  const [prompt, setPrompt] = useState("");
+  const [output, setOutput] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const hanldesubmit = async () => {
-    const response = await getAIResponse(prompt);
-    setOutput((prev)=>prev + "\n" + response);
+    if (!prompt.trim() || loading) return;
+
+    const userPrompt = prompt;
+    setOutput((prev) => [...prev, `USER:${userPrompt}`]);
     setPrompt("");
-  }
+    setLoading(true);
+
+    try {
+      const response = await getAIResponse(userPrompt);
+      setOutput((prev) => [...prev, `AI:${response}`]);
+    } catch (error) {
+      console.error("Error fetching AI response:", error);
+      setOutput((prev) => [ ...prev, "AI:Something went wrong. Please try again.", ]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="flex justify-center min-h-screen bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex justify-between flex-col item-center w-full h-screen max-w-3xl py-20 px-16 bg-white dark:bg-black">
-        {
-          output && (
-            <div>
-              <h1 className="text-4xl p-3">AI Response:</h1>
-              <h1 className="p-3">{output}</h1>
-            </div>
-          )
-        }
+    <div className="min-h-screen bg-zinc-100">
+      <main className="mx-auto flex h-screen max-w-3xl flex-col bg-white">
 
+        {/* Header */}
+        <div className="border-b px-6 py-4">
+          <h1 className="text-xl font-semibold text-blue-500 ">
+            AI Assistant
+          </h1>
 
-        <div>
-          <input type="text" onChange={(e) => setPrompt(e.target.value)} value={prompt}
-            className="w-4/6 rounded-md border border-zinc-200 bg-transparent px-3 py-2 my-4 text-sm placeholder:text-zinc-400 focus:outline-none focus:ring-1 focus:ring-zinc-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:text-zinc-100 dark:focus:ring-zinc-400 dark:focus:ring-offset-black" placeholder="Type your message here..." />
-          <button className="text-white py-2 px-4 rounded-lg bg-gray-600 mx-5" onClick={hanldesubmit}>submit</button>
+          <p className="text-sm text-zinc-500">
+            Ask anything and get an AI response
+          </p>
+        </div>
+
+        {/* Chat Area */}
+        <div className="flex-1 overflow-y-auto px-6 py-6">
+
+          <div className="space-y-6">
+
+            {output.map((message, index) => {
+              const isUser = message.startsWith("USER:");
+              const content = message.replace(/^(USER:|AI:)/, "");
+
+              return (
+                <div key={index}
+                  className={`flex ${ isUser ? "justify-end" : "justify-start" }`} >
+                    
+                  <div className={`max-w-[80%] rounded-2xl px-5 py-2 ${ isUser  ? "bg-black text-white"  : "bg-zinc-100 text-zinc-900"  }`} >
+              
+                    {isUser ? (
+                      <p className="leading-7">
+                        {content}
+                      </p>
+                    ) : (
+
+                      /* AI Markdown response */
+                      <div className="">
+                        <ReactMarkdown
+                          components={{
+                            h1: ({ children }) => (
+                              <h1 className="mb-4 text-2xl font-bold">
+                                {children}
+                              </h1>
+                            ),
+
+                            h2: ({ children }) => (
+                              <h2 className="mb-3 mt-5 text-xl font-bold">
+                                {children}
+                              </h2>
+                            ),
+
+                            h3: ({ children }) => (
+                              <h3 className="mb-2 mt-4 text-lg font-semibold">
+                                {children}
+                              </h3>
+                            ),
+
+                            p: ({ children }) => (
+                              <p className="leading-7">
+                                {children}
+                              </p>
+                            ),
+
+                            ul: ({ children }) => (
+                              <ul className="mb-4 ml-5 list-disc space-y-1">
+                                {children}
+                              </ul>
+                            ),
+
+                            ol: ({ children }) => (
+                              <ol className="mb-4 ml-5 list-decimal space-y-1">
+                                {children}
+                              </ol>
+                            ),
+
+                            li: ({ children }) => (
+                              <li className="leading-7">
+                                {children}
+                              </li>
+                            ),
+
+                            strong: ({ children }) => (
+                              <strong className="font-semibold">
+                                {children}
+                              </strong>
+                            ),
+
+                            code: ({ children }) => (
+                              <code className="rounded bg-zinc-200 px-1.5 py-0.5 text-sm">
+                                {children}
+                              </code>
+                            ),
+                          }}
+                        >
+                          {content}
+                        </ReactMarkdown>
+                      </div>
+                    )}
+
+                  </div>
+                </div>
+              );
+            })}
+
+            {loading && (
+              <div className="flex justify-start">
+                <div className="flex items-center gap-2 rounded-2xl bg-zinc-100 px-5 py-4">
+                <span className="text-sm text-zinc-500">
+                    AI is thinking
+                  </span>
+                  <div className="flex gap-1">
+                    <span className="h-2 w-2 animate-bounce rounded-full bg-zinc-500" />
+                    <span className="h-2 w-2 animate-bounce rounded-full bg-zinc-500 [animation-delay:150ms]" />
+                    <span className="h-2 w-2 animate-bounce rounded-full bg-zinc-500 [animation-delay:300ms]" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+          </div>
+
+        </div>
+
+        <div className="border-t bg-white p-4">
+          <div className="flex gap-3">
+
+            <input type="text" value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+             onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  hanldesubmit();
+                }
+              }}
+              disabled={loading}
+              placeholder="Type your message..."
+              className="flex-1 rounded-xl border text-gray-900 border-zinc-300 px-4 py-3 text-sm outline-none transition focus:border-zinc-500 focus:ring-1 focus:ring-zinc-400 disabled:bg-zinc-100" />
+
+            <button onClick={hanldesubmit}
+              disabled={loading || !prompt.trim()}
+              className="rounded-xl bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-50" >
+              {loading ? "Thinking..." : "Send"}
+            </button>
+
+          </div>
         </div>
 
       </main>
