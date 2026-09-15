@@ -2,7 +2,7 @@ function revers(arr) {
 
     let rev = [];
 
-    for (i = arr.length; i >= 0; i--) {
+    for (let i = arr.length - 1 ; i >= 0; i--) {
         rev.push(arr[i])
     }
     return rev
@@ -11,16 +11,16 @@ function revers(arr) {
 console.log(revers([1, 2, 3, 4, 5]));
 
 
-function revers(str) {
+// function revers(str) {
 
-    let rev = [];
+//     let rev = [];
 
-    for (i = str.length; i >= 0; i--) {
-        rev += str[i]
-    }
-    return rev
-}
+//     for (let i = str.length-1; i >= 0; i--) {
+//         rev += str[i]
+//     }
+//     return rev
+// }
 
-console.log(revers("hello"));
+// console.log(revers("hello"));
 
 
