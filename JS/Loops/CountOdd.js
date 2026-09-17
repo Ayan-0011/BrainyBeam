@@ -1,6 +1,6 @@
 function CountOdd(arr) {
     let count = 0;
-    for (i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         if (arr[i] % 2 != 0) {
             count++
         }
