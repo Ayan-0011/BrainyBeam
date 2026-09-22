@@ -25,27 +25,20 @@ function DonateNowExample() {
   };
 
   return (
-    <div style={{ padding: "40px", fontFamily: "Segoe UI, sans-serif" }}>
-      <h1 style={{ fontSize: "20px", marginBottom: "16px" }}>
-        Active Donation Request
-      </h1>
+    <div className="donation-page">
+      <header className="donation-header">
+        <div className="donation-header-content">
+          <h1 className="donation-title">Active Donation Request</h1>
 
-      <button
-        type="button"
-        onClick={() => setIsModalOpen(true)}
-        style={{
-          background: "#d32f3c",
-          color: "#fff",
-          border: "none",
-          padding: "12px 22px",
-          borderRadius: "8px",
-          fontSize: "14.5px",
-          fontWeight: 600,
-          cursor: "pointer",
-        }}
-      >
-        Donate Now
-      </button>
+          <button
+            type="button"
+            className="donation-now-btn"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Donate Now
+          </button>
+        </div>
+      </header>
 
       <DonationConfirmationModal
         isOpen={isModalOpen}

@@ -23,7 +23,6 @@
   box-sizing: border-box;
 }
 
-
 .bl-modal {
   background: #ffffff;
   width: 100%;
@@ -36,13 +35,21 @@
   flex-direction: column;
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: var(--bl-text-dark);
-} ---------------------------------------------------------------------- */
-
-
-.bl-fade-in { animation: bl-fade-in 0.2s ease forwards; }
-.bl-fade-out { animation: bl-fade-out 0.2s ease forwards; }
-.bl-slide-in { animation: bl-slide-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-.bl-slide-out { animation: bl-slide-out 0.2s ease forwards; }
+}
+----------------------------------------------------------------------
+  */
+  .bl-fade-in {
+  animation: bl-fade-in 0.2s ease forwards;
+}
+.bl-fade-out {
+  animation: bl-fade-out 0.2s ease forwards;
+}
+.bl-slide-in {
+  animation: bl-slide-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.bl-slide-out {
+  animation: bl-slide-out 0.2s ease forwards;
+}
 
 .bl-modal-header {
   display: flex;
@@ -98,7 +105,9 @@
   justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .bl-close-btn:hover:not(:disabled) {
@@ -171,7 +180,6 @@
   color: var(--bl-text-muted);
 }
 
-
 .bl-info-box {
   display: flex;
   align-items: flex-start;
@@ -195,7 +203,6 @@
   color: var(--bl-red);
   margin-top: 1px;
 }
-
 
 .bl-checkbox-row {
   display: flex;
@@ -237,7 +244,10 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: background 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
 }
 
 .bl-btn-secondary {
@@ -284,7 +294,9 @@
 }
 
 @keyframes bl-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .bl-success-state {
@@ -301,8 +313,14 @@
 }
 
 @keyframes bl-pop {
-  from { transform: scale(0.6); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .bl-success-title {
@@ -352,12 +370,60 @@
   .bl-modal-subtitle {
     max-width: 100%;
   }
+
+    .donation-header-content {
+    padding: 20px;
+  }
+
+  .donation-title {
+    font-size: 19px;
+  }
+
+  .donation-now-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  
 }
 
 @media (max-width: 380px) {
   .bl-details-grid {
     grid-template-columns: 1fr;
   }
+
+
 }
+.donation-header {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.donation-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.donation-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.3;
+}
+.donation-now-btn {
+  background: var(--bl-red);
+  color: #ffffff;
+  padding: 12px 10px;
+  border-radius: 8px;
+  border: none;
+}
+
 
 
