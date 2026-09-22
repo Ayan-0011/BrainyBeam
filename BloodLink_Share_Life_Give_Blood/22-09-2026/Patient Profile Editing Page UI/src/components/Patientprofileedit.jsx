@@ -337,11 +337,9 @@ export default function PatientProfileEditPage({
 
                             <div className="ppep-grid">
 
-                                <Field
-                                    label="First name"
+                                <Field  label="First name"
                                     required
-                                    error={errors.firstName}
-                                >
+                                    error={errors.firstName} >
 
                                     <input
                                         className={
@@ -353,19 +351,15 @@ export default function PatientProfileEditPage({
                                         name="firstName"
                                         value={form.firstName}
                                         onChange={handleChange}
-                                        placeholder="Enter first name"
-                                    />
+                                        placeholder="Enter first name"  />
 
                                 </Field>
 
-                                <Field
-                                    label="Last name"
+                                <Field label="Last name"
                                     required
-                                    error={errors.lastName}
-                                >
+                                    error={errors.lastName} >
 
-                                    <input
-                                        className={
+                                    <input  className={
                                             "ppep-input " +
                                             (errors.lastName
                                                 ? "ppep-input--error"
@@ -374,37 +368,23 @@ export default function PatientProfileEditPage({
                                         name="lastName"
                                         value={form.lastName}
                                         onChange={handleChange}
-                                        placeholder="Enter last name"
-                                    />
+                                        placeholder="Enter last name" />
 
                                 </Field>
-
-
-                                {/* DOB */}
 
                                 <Field label="Date of birth">
-
-                                    <input
-                                        type="date"
-                                        className="ppep-input"
-                                        name="dob"
+                                    <input type="date" className="ppep-input" name="dob"
                                         value={form.dob}
-                                        onChange={handleChange}
-                                    />
+                                        onChange={handleChange} />
 
                                 </Field>
 
-
-                                {/* Gender */}
 
                                 <Field label="Gender">
 
-                                    <select
-                                        className="ppep-input ppep-select"
-                                        name="gender"
+                                    <select className="ppep-input ppep-select" name="gender"
                                         value={form.gender}
-                                        onChange={handleChange}
-                                    >
+                                        onChange={handleChange}  >
 
                                         <option value="Female">
                                             Female
@@ -426,81 +406,54 @@ export default function PatientProfileEditPage({
 
                                 </Field>
 
-
-                                {/* Blood group */}
-
                                 <Field label="Blood type">
 
                                     <select
                                         className="ppep-input ppep-select"
                                         name="bloodType"
                                         value={form.bloodType}
-                                        onChange={handleChange}
-                                    >
-
+                                        onChange={handleChange}  >
                                         <option value="O+">O+</option>
                                         <option value="O-">O-</option>
-
                                         <option value="A+">A+</option>
                                         <option value="A-">A-</option>
-
                                         <option value="B+">B+</option>
                                         <option value="B-">B-</option>
-
                                         <option value="AB+">AB+</option>
                                         <option value="AB-">AB-</option>
-
                                         <option value="Unknown">
                                             Unknown
                                         </option>
-
                                     </select>
-
                                 </Field>
-
                             </div>
-
                         </section>
 
                     )}
 
 
-                    {/* ================= CONTACT ================= */}
-
                     {activeSection === "contact" && (
-
                         <section className="ppep-section">
-
                             <div className="ppep-section__header">
-
                                 <h2 className="ppep-section__title">
                                     Contact details
                                 </h2>
-
                                 <p className="ppep-section__desc">
                                     How the patient can be contacted.
                                 </p>
-
                             </div>
 
 
                             <div className="ppep-grid">
-
-                                {/* Phone */}
-
                                 <Field
                                     label="Phone number"
                                     required
-                                    error={errors.phone}
-                                >
+                                    error={errors.phone}  >
 
                                     <div className="ppep-input-icon-wrap">
-
                                         <Phone
                                             size={14}
-                                            className="ppep-input-icon"
-                                        />
-
+                                            className="ppep-input-icon" />
                                         <input
                                             className={
                                                 "ppep-input ppep-input--with-icon " +
@@ -511,29 +464,19 @@ export default function PatientProfileEditPage({
                                             name="phone"
                                             value={form.phone}
                                             onChange={handleChange}
-                                            placeholder="Phone number"
-                                        />
-
+                                            placeholder="Phone number" />
                                     </div>
-
                                 </Field>
-
-
-                                {/* Email */}
 
                                 <Field
                                     label="Email address"
                                     required
-                                    error={errors.email}
-                                >
+                                    error={errors.email}   >
 
                                     <div className="ppep-input-icon-wrap">
-
                                         <Mail
                                             size={14}
-                                            className="ppep-input-icon"
-                                        />
-
+                                            className="ppep-input-icon"  />
                                         <input
                                             type="email"
                                             className={
@@ -545,144 +488,82 @@ export default function PatientProfileEditPage({
                                             name="email"
                                             value={form.email}
                                             onChange={handleChange}
-                                            placeholder="Email address"
-                                        />
-
+                                            placeholder="Email address" />
                                     </div>
-
                                 </Field>
-
-
-                                {/* Address */}
 
                                 <Field label="Street address">
 
                                     <div className="ppep-input-icon-wrap">
 
-                                        <MapPin
-                                            size={14}
-                                            className="ppep-input-icon"
-                                        />
+                                        <MapPin size={14}
+                                            className="ppep-input-icon"   />
 
-                                        <input
-                                            className="ppep-input ppep-input--with-icon"
-                                            name="address"
+                                        <input  className="ppep-input ppep-input--with-icon" name="address"
                                             value={form.address}
                                             onChange={handleChange}
-                                            placeholder="Street address"
-                                        />
-
+                                            placeholder="Street address"  />
                                     </div>
-
                                 </Field>
-
-
-                                {/* City */}
-
                                 <Field label="City">
 
-                                    <input
-                                        className="ppep-input"
-                                        name="city"
+                                    <input className="ppep-input" name="city"
                                         value={form.city}
-                                        onChange={handleChange}
-                                    />
-
+                                        onChange={handleChange} />
                                 </Field>
-
-
-                                {/* State */}
-
                                 <Field label="State">
 
-                                    <input
-                                        className="ppep-input"
+                                    <input className="ppep-input"
                                         name="state"
                                         value={form.state}
-                                        onChange={handleChange}
-                                    />
+                                        onChange={handleChange} />
 
                                 </Field>
-
-
-                                {/* ZIP */}
-
                                 <Field label="ZIP code">
-
-                                    <input
-                                        className="ppep-input"
+                                    <input className="ppep-input"
                                         name="pincode"
                                         value={form.pincode}
-                                        onChange={handleChange}
-                                    />
-
+                                        onChange={handleChange} />
                                 </Field>
-
                             </div>
-
                         </section>
 
                     )}
 
 
-                    {/* ================= EMERGENCY ================= */}
-
                     {activeSection === "emergency" && (
-
                         <section className="ppep-section">
-
                             <div className="ppep-section__header">
-
                                 <h2 className="ppep-section__title">
                                     Emergency contact
                                 </h2>
-
                                 <p className="ppep-section__desc">
                                     Someone to contact in an emergency.
                                 </p>
-
                             </div>
 
 
                             <div className="ppep-grid">
-
-                                {/* Name */}
-
                                 <Field label="Full name">
-
-                                    <input
-                                        className="ppep-input"
+                                    <input  className="ppep-input"
                                         name="emergencyName"
                                         value={form.emergencyName}
                                         onChange={handleChange}
-                                        placeholder="Full name"
-                                    />
-
+                                        placeholder="Full name"  />
                                 </Field>
-
-
-                                {/* Relationship */}
-
                                 <Field label="Relationship">
-
                                     <input
                                         className="ppep-input"
                                         name="emergencyRelation"
                                         value={form.emergencyRelation}
                                         onChange={handleChange}
-                                        placeholder="e.g. Spouse"
-                                    />
+                                        placeholder="e.g. Spouse" />
 
                                 </Field>
-
-
-                                {/* Emergency phone */}
-
                                 <Field
                                     label="Phone number"
                                     required
-                                    error={errors.emergencyPhone}
-                                >
+                                    error={errors.emergencyPhone}  >
 
                                     <input
                                         className={
@@ -694,84 +575,51 @@ export default function PatientProfileEditPage({
                                         name="emergencyPhone"
                                         value={form.emergencyPhone}
                                         onChange={handleChange}
-                                        placeholder="Emergency phone number"
-                                    />
-
+                                        placeholder="Emergency phone number" />
                                 </Field>
-
                             </div>
-
                         </section>
-
                     )}
-
                 </main>
 
             </div>
-
-
-            {/* ================= SAVE BAR ================= */}
-
             <div className="ppep-savebar">
-
                 <div className="ppep-savebar__inner">
-
-                    {/* Status */}
-
                     <div className="ppep-savebar__status">
-
                         {message ? (
-
                             <span
                                 className={
                                     message.includes("successfully")
                                         ? "ppep-status ppep-status--success"
                                         : "ppep-status ppep-status--error"
-                                }
-                            >
+                                } >
 
                                 {message.includes("successfully") ? (
                                     <Check size={14} />
                                 ) : (
                                     <AlertTriangle size={14} />
                                 )}
-
                                 {message}
-
                             </span>
-
                         ) : isChanged ? (
-
                             <span className="ppep-status">
                                 You have unsaved changes
                             </span>
-
                         ) : (
-
                             <span className="ppep-status">
                                 No changes to save
                             </span>
-
                         )}
-
                     </div>
-
-
-                    {/* Buttons */}
-
                     <div className="ppep-savebar__actions">
-
                         <button
                             className="ppep-btn ppep-btn--ghost"
                             onClick={handleDiscard}
                             disabled={
                                 !isChanged || saving
-                            }
-                        >
+                            } >
                             Discard
                         </button>
-
-
                         <button
                             className="ppep-btn ppep-btn--primary"
                             onClick={handleSave}
@@ -779,34 +627,22 @@ export default function PatientProfileEditPage({
                                 !isChanged ||
                                 saving ||
                                 hasErrors
-                            }
-                        >
-
+                            } >
                             {saving ? (
-
                                 <>
                                     <Loader2
                                         size={14}
                                         className="ppep-spin"
                                     />
-
                                     Saving...
                                 </>
-
                             ) : (
-
                                 "Save changes"
-
                             )}
-
                         </button>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     );
 }
