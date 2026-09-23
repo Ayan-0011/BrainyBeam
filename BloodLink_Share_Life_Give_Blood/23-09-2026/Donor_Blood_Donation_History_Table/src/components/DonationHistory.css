@@ -1,0 +1,81 @@
+.donation-page {
+  min-height: 100vh;
+  padding: 30px 20px;
+  background: #f7f8fa;
+}
+
+
+.summary-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.summary-card p {
+  margin: 0 0 6px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.summary-card h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Table */
+
+.table {
+  font-size: 14px;
+  overflow-y: auto;
+}
+
+.table thead th {
+  background: #101317;
+  color: #bcc0c7;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 16px;
+  white-space: nowrap;
+}
+
+.table tbody td {
+  padding: 14px 16px;
+  color: #4b5563;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+.blood-badge {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 5px;
+  background: #fff1f1;
+  color: #d32f2f;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-completed {
+  background: #eaf7ef;
+  color: #218653;
+}
+
+.status-cancelled {
+  background: #f1f2f4;
+  color: #6b7280;
+}
