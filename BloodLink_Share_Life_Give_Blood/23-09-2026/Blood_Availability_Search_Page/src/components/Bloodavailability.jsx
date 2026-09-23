@@ -88,20 +88,19 @@ export default function BloodAvailability() {
         const filtered = MOCK_DATA.filter((item) => {
           return (
             (!bloodGroup || item.bloodGroup === bloodGroup) &&
-            (!location ||
-              item.location.toLowerCase().includes(location.toLowerCase())) &&
-            (!hospital ||
-              item.hospital.toLowerCase().includes(hospital.toLowerCase())) &&
+            (!location || item.location.toLowerCase().includes(location.toLowerCase())) &&
+            (!hospital || item.hospital.toLowerCase().includes(hospital.toLowerCase())) &&
             (!component || item.component === component)
           );
         });
+
         setResults(filtered);
         setLoading(false);
       } catch (err) {
         setError(true);
         setLoading(false);
       }
-    }, 600);
+    }, 500);
   }
 
   function handleClear() {
