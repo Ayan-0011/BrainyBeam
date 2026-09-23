@@ -4,7 +4,6 @@
   background: #f7f8fa;
 }
 
-
 .summary-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -25,11 +24,10 @@
   color: #1f2937;
 }
 
-/* Table */
 
 .table {
   font-size: 14px;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 .table thead th {
@@ -50,7 +48,6 @@
   border-bottom: none;
 }
 
-
 .blood-badge {
   display: inline-block;
   padding: 4px 9px;
@@ -60,7 +57,6 @@
   font-size: 13px;
   font-weight: 600;
 }
-
 
 .status-badge {
   display: inline-block;
