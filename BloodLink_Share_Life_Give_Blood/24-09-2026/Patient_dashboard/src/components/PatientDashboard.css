@@ -1,0 +1,523 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* ---- Color tokens (same system as Admin Dashboard) ---- */
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --border: #e7e8ec;
+
+  --text-primary: #1c1e21;
+  --text-secondary: #6b7280;
+  --text-muted: #9aa0a8;
+
+  --accent: #b3261e;
+  --accent-soft: #fbebea;
+  --accent-soft-text: #96201a;
+
+  --success: #1a7f37;
+  --success-soft: #e9f6ec;
+
+  --warning: #b45309;
+  --warning-soft: #fdf1e3;
+
+  /* ---- Layout tokens ---- */
+  --header-h: 60px;
+  --sidebar-w: 224px;
+  --radius: 10px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ================= HEADER ================= */
+
+.admin-header {
+  height: var(--header-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 20px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 1000;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-left h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.menu-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+}
+
+.menu-btn:hover {
+  background: var(--bg);
+}
+
+.admin-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-profile span {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.profile-circle {
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-soft-text);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+  width: var(--sidebar-w);
+  height: 100vh;
+
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+
+  position: fixed;
+  left: -100%;
+  top: 0;
+
+  padding: 16px 12px 16px;
+
+  z-index: 1100;
+
+  transition: left 0.25s ease;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-open {
+  left: 0;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  margin-bottom: 18px;
+}
+
+.sidebar-logo-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--accent);
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-logo h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sidebar-logo p {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 1px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-item {
+  width: 100%;
+
+  border: none;
+  border-left: 2px solid transparent;
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+
+  padding: 9px 10px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  color: var(--text-secondary);
+  font-size: 13.5px;
+
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-item svg {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.sidebar-item:hover {
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+.sidebar-item.active {
+  background: var(--accent-soft);
+  color: var(--accent-soft-text);
+  border-left: 2px solid var(--accent);
+  font-weight: 600;
+}
+
+.logout-btn {
+  margin-top: auto;
+
+  padding: 10px;
+
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: transparent;
+  color: var(--text-secondary);
+
+  cursor: pointer;
+  font-size: 13.5px;
+}
+
+.logout-btn:hover {
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+/* ================= OVERLAY ================= */
+
+.sidebar-overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: rgba(16, 18, 21, 0.35);
+
+  z-index: 1050;
+}
+
+/* ================= MAIN CONTENT ================= */
+
+.dashboard-content {
+  padding: calc(var(--header-h) + 24px) 16px 30px;
+  max-width: 1320px;
+  margin: auto;
+}
+
+.page-heading {
+  margin-bottom: 20px;
+}
+
+.page-heading h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.page-heading p {
+  color: var(--text-secondary);
+  font-size: 13.5px;
+}
+
+/* ================= STAT CARDS ================= */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: var(--surface);
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.stat-card p {
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  margin-bottom: 8px;
+}
+
+.stat-card h2 {
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ================= SECTION ================= */
+
+.dashboard-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+
+  padding: 18px;
+
+  border-radius: var(--radius);
+
+  margin-bottom: 20px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 16px;
+}
+
+.section-heading h2 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.section-heading button {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.section-heading button:hover {
+  color: var(--accent);
+}
+
+/* ================= BLOOD BANK / AVAILABILITY GRID ================= */
+
+.blood-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.blood-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.blood-card span {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+
+  border-radius: 8px;
+
+  background: var(--accent-soft);
+  color: var(--accent-soft-text);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+  font-size: 12.5px;
+}
+
+.blood-card div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.blood-card strong {
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.blood-card small {
+  color: var(--text-muted);
+  font-size: 11.5px;
+}
+
+/* ================= TABLE ================= */
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 11px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+}
+
+th {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 12px;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.blood-group {
+  color: var(--accent-soft-text);
+  font-weight: 600;
+  background: var(--accent-soft);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12.5px;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.approved {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.pending {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+
+/* ================= TABLET ================= */
+
+@media (min-width: 640px) {
+
+  .dashboard-content {
+    padding: calc(var(--header-h) + 28px) 24px 30px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .blood-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+/* ================= DESKTOP ================= */
+
+@media (min-width: 960px) {
+
+  .menu-btn {
+    display: none;
+  }
+
+  .admin-header {
+    padding-left: calc(var(--sidebar-w) + 20px);
+  }
+
+  .sidebar {
+    left: 0;
+  }
+
+  .sidebar-overlay {
+    display: none;
+  }
+
+  .dashboard-content {
+    margin-left: var(--sidebar-w);
+    padding: calc(var(--header-h) + 28px) 32px 36px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .blood-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+@media (min-width: 1200px) {
+  .dashboard-content {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
