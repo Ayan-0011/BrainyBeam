@@ -1,0 +1,17 @@
+.map-container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto;
+}
+
+.map-container h2 {
+  color: #b42332;
+  margin-bottom: 20px;
+}
+
+.google-map {
+  width: 100%;
+  height: 450px;
+  border-radius: 10px;
+  border: 1px solid #f1caca;
+}
