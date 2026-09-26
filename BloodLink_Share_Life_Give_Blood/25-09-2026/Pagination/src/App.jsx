@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Pagination from "./components/Pagination";
+import "./App.css";
 
 const bloodStock = [
   { id: 1, bloodGroup: "A+", units: 12, status: "Available" },
@@ -16,63 +17,74 @@ const bloodStock = [
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
-
   const itemsPerPage = 4;
 
-  const totalPages = Math.ceil(
-    bloodStock.length / itemsPerPage
-  );
-
+  const totalPages = Math.ceil(bloodStock.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentData = bloodStock.slice(startIndex, startIndex + itemsPerPage);
 
-  const currentData = bloodStock.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const rangeStart = bloodStock.length === 0 ? 0 : startIndex + 1;
+  const rangeEnd = Math.min(startIndex + itemsPerPage, bloodStock.length);
 
   return (
-    <div className="container">
-
-      <h2>Blood Stock List</h2>
-
-      <div className="blood-table">
-
-        <div className="table-header">
-          <span>Blood Group</span>
-          <span>Units</span>
-          <span>Status</span>
-        </div>
-
-        {currentData.map((item) => (
-          <div className="table-row" key={item.id}>
-            <span className="blood-group">
-              {item.bloodGroup}
-            </span>
-
-            <span>
-              {item.units} Units
-            </span>
-
-            <span
-              className={
-                item.status === "Available"
-                  ? "available"
-                  : "low"
-              }
-            >
-              {item.status}
-            </span>
+    <div className="page">
+      <div className="container">
+        <header className="page-header">
+          <div>
+            <h2>Blood Stock List</h2>
+            <p className="subtitle">Live inventory across all blood groups</p>
           </div>
-        ))}
+        </header>
 
+        <div className="table-card">
+          <table className="blood-table">
+            <thead>
+              <tr>
+                <th>Blood Group</th>
+                <th>Units</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {currentData.map((item) => (
+                <tr key={item.id}>
+                  <td>
+                    <span className="blood-badge">{item.bloodGroup}</span>
+                  </td>
+
+                  <td className="units-cell">{item.units} units</td>
+
+                  <td>
+                    <span
+                      className={
+                        item.status === "Available"
+                          ? "status-pill available"
+                          : "status-pill low"
+                      }
+                    >
+                      <span className="status-dot" />
+                      {item.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <div className="table-footer">
+            <span className="range-text">
+              Showing {rangeStart}–{rangeEnd} of {bloodStock.length}
+            </span>
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </div>
+        </div>
       </div>
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
-
     </div>
   );
 };

@@ -1,0 +1,149 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  background: #fdf3f2;
+  color: #2b2222;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 40px 16px;
+}
+
+.container {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.eyebrow-icon {
+  font-size: 28px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 3px rgba(180, 35, 50, 0.25));
+}
+
+h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #9c1f2e;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #a06a6a;
+}
+
+.table-card {
+  background: #ffffff;
+  border: 1px solid #f3d9d9;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(154, 30, 45, 0.05);
+}
+
+.blood-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.blood-table thead th {
+  text-align: left;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #b3495a;
+  background: #fbeaea;
+  padding: 13px 20px;
+  border-bottom: 1px solid #f3d9d9;
+}
+
+.blood-table tbody td {
+  padding: 14px 20px;
+  font-size: 14px;
+  border-bottom: 1px solid #f7e8e8;
+}
+
+.blood-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.blood-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.blood-table tbody tr:hover {
+  background: #fef7f7;
+}
+
+.blood-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #fde3e3;
+  color: #b3202f;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.units-cell {
+  color: #5a4747;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-pill.available {
+  background: #e6f7ee;
+  color: #17874a;
+}
+
+.status-pill.low {
+  background: #fef3e2;
+  color: #b4650a;
+}
+
+.table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  background: #fffbfb;
+  border-top: 1px solid #f3d9d9;
+  flex-wrap: wrap;
+}
+
+.range-text {
+  font-size: 12.5px;
+  color: #a06a6a;
+}
