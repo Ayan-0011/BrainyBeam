@@ -21,7 +21,7 @@
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
-  margin-bottom: 18px;
+  margin-bottom: 1px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -39,4 +39,12 @@
 
 .form-container .reset-btn {
   background: #666;
+}
+.error{
+    color: red;
+    margin: 5px;
+    font-size: 12px;
+}
+.sp{
+    margin-bottom: 18px;
 }
