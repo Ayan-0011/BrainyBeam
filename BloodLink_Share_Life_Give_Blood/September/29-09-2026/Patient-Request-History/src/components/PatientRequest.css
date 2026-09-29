@@ -32,6 +32,9 @@
     border: 1px solid #e5e5e5;
     border-radius: 10px;
     overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent;
+    scroll-behavior: smooth;
 }
 
 .custom-table {
@@ -66,7 +69,12 @@
     background-color: #fff7f7;
 }
 
-/* Status */
+.custom-table td.not-found {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+    font-size: 16px;
+}
 
 .status {
     display: inline-block;

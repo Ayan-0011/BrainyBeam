@@ -17,20 +17,26 @@ const Patient_request = ({ data }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((request) => (
-                        <tr key={request.id}>
-                            <td>{request.id}</td>
-                            <td>{request.bloodGroup}</td>
-                            <td>{request.units}</td>
-                            <td>{request.hospital}</td>
-                            <td>{request.date}</td>
-                            <td>
-                                <span className={`status ${request.status.toLowerCase()}`}>
-                                    {request.status}
-                                </span>
-                            </td>
-                        </tr>
-                    ))}
+                    {data.length === 0 ? (
+                        <td colSpan="6" className="not-found">
+                            Search item not found
+                        </td>
+                    ) : (
+                        data.map((request) => (
+                            <tr key={request.id}>
+                                <td>{request.id}</td>
+                                <td>{request.bloodGroup}</td>
+                                <td>{request.units}</td>
+                                <td>{request.hospital}</td>
+                                <td>{request.date}</td>
+                                <td>
+                                    <span className={`status ${request.status.toLowerCase()}`}>
+                                        {request.status}
+                                    </span>
+                                </td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </table>
         </div>
