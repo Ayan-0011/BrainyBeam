@@ -1,0 +1,148 @@
+.compare-wrapper {
+  width: 90%;
+  max-width: 800px;
+  margin: 40px auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.compare-wrapper h2 {
+  margin-bottom: 20px;
+}
+
+
+.compare-container {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #eee;
+}
+
+.compare-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+.webp-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.webp-image .compare-image {
+  width: 800px;
+  max-width: none;
+  height: 450px;
+  object-fit: cover;
+}
+
+
+.compare-line {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: rgb(86, 60, 60);
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.line-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: 2px solid #d32f3f;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d32f3f;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+.compare-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor:ew-resize;
+  z-index: 5;
+}
+
+
+.image-label {
+  position: absolute;
+  top: 15px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.65);
+  color: white;
+  border-radius: 5px;
+  font-size: 13px;
+  z-index: 4;
+}
+
+.image-label strong {
+  display: block;
+  margin-bottom: 3px;
+}
+
+.image-label span {
+  font-size: 12px;
+}
+
+.original-label {
+  left: 15px;
+}
+
+.webp-label {
+  right: 15px;
+}
+
+.instruction {
+  margin-top: 12px;
+  color: #666;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .compare-wrapper {
+    width: 95%;
+    margin: 25px auto;
+  }
+
+  .compare-container {
+    height: 300px;
+  }
+
+  .webp-image .compare-image {
+    width: 100%;
+    height: 300px;
+  }
+
+  .line-button {
+    width: 35px;
+    height: 35px;
+  }
+
+  .image-label {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+}
