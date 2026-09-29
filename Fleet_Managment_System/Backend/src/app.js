@@ -8,15 +8,12 @@ const cors = require('cors');
 const FuelRouter = require('./Routes/fuel.Routes');
 const MaintenanceRouter = require('./Routes/Maintenance.routes');
 
-
 const app = express();
 
 app.use(cors({ origin:true, credentials: true } ));
 
-
 app.use(express.json());
 app.use(cookieParser());
-
 
 app.use('/api/auth', routes);
 app.use('/api/vehicles', vehicleRoutes);
