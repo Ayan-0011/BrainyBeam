@@ -104,23 +104,20 @@
     color: #721c24;
 }
 
-.page-header input {
+/* Search */
+
+.serch-bar input {
     width: 300px;
     padding: 11px 14px;
-    margin-top: 18px;
+    margin-bottom: 18px;
     border: 1px solid #ddd;
     border-radius: 6px;
     outline: none;
     font-size: 14px;
     box-sizing: border-box;
-    transition: 0.2s ease;
 }
 
-.page-header input::placeholder {
-    color: #999;
-}
-
-.page-header input:focus {
+.serch-bar input:focus {
     border-color: #d32f3f;
     box-shadow: 0 0 0 3px rgba(211, 47, 63, 0.1);
 }
