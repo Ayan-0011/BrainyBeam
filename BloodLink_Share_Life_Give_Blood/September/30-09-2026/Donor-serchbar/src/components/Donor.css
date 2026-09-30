@@ -119,6 +119,9 @@
         margin: 25px auto;
     }
 
+    .serch-bar input{
+        width: 80vw;
+    }
     .page-header h1 {
         font-size: 22px;
     }
