@@ -1,6 +1,5 @@
 import React from 'react'
-import NotFound from './NotFound'
-
+import NotFound from './components/NotFound'
 const App = () => {
   return (
     <div>
