@@ -1,0 +1,117 @@
+.site-footer {
+  background: #fffafa;
+  border-top: 1px solid #eeeeee;
+  margin-top: 30px;
+}
+
+.footer-container {
+  max-width: 1150px;
+  margin: auto;
+  padding: 50px 25px;
+  display: grid;
+  grid-template-columns: 1.5fr 0.8fr 1fr;
+  gap: 60px;
+}
+
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #252525;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.footer-logo-icon {
+  width: 32px;
+  height: 32px;
+  background: #c62828;
+  color: white;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-about > p {
+  max-width: 330px;
+  color: #707070;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 15px;
+}
+
+
+.footer-links,
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-links h3,
+.footer-contact h3 {
+  margin: 0 0 17px;
+  font-size: 15px;
+}
+
+.footer-links a {
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 11px;
+}
+
+.footer-links a:hover {
+  color: #c62828;
+}
+
+
+.footer-contact p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+
+.footer-contact svg {
+  color: #c62828;
+}
+
+
+.footer-bottom {
+  max-width: 1150px;
+  margin: auto;
+  padding: 17px 25px;
+  border-top: 1px solid #eadede;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #888;
+  font-size: 12px;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+
+
+@media (max-width: 700px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 40px 18px;
+  }
+
+  .footer-bottom {
+    padding: 17px 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+  }
+}
