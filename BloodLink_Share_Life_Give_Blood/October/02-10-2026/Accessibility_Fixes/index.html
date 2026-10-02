@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Accessibility Example</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>Blood Donation Center</h1>
+        <p class="subtitle">
+            Find blood donors and manage your donation requests.
+        </p>
+
+        <!-- Search Section -->
+        <section class="card" aria-labelledby="search-title">
+            <h2 id="search-title">Search Blood Donor</h2>
+
+            <form>
+
+                <div class="form-group">
+                    <label for="blood-group">Blood Group</label>
+
+                    <select id="blood-group" name="blood-group">
+                        <option value="">Select blood group</option>
+                        <option value="a-positive">A+</option>
+                        <option value="a-negative">A-</option>
+                        <option value="b-positive">B+</option>
+                        <option value="b-negative">B-</option>
+                        <option value="o-positive">O+</option>
+                        <option value="o-negative">O-</option>
+                        <option value="ab-positive">AB+</option>
+                        <option value="ab-negative">AB-</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="Enter city">
+                </div>
+
+                <button type="submit">
+                    Search Donor
+                </button>
+            </form>
+        </section>
+
+
+        <section class="card" aria-labelledby="actions-title">
+            <h2 id="actions-title">Quick Actions</h2>
+            <div class="actions">
+
+                <button class="icon-button" aria-label="Add new donor" title="Add new donor">
+                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                </button>
+                <button class="icon-button" aria-label="Close notification" title="Close notification">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- Information -->
+        <section class="card" aria-labelledby="info-title">
+            <h2 id="info-title">Accessibility Information</h2>
+            <p>
+                Use the Tab key to move between interactive elements.
+                The focused element will have a visible outline.
+            </p>
+
+        </section>
+    </main>
+</body>
+
+</html>

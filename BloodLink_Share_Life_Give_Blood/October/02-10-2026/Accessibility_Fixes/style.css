@@ -1,0 +1,98 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 700px;
+  margin: 50px auto;
+}
+
+h1 {
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+button {
+  border: none;
+  background: #d62828;
+  color: white;
+  padding: 11px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+}
+
+.icon-button {
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  font-size: 24px;
+}
+
+
+/* Accessibility: visible keyboard focus */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #222;
+  outline-offset: 3px;
+}
+
+
+/* Mouse hover */
+button:hover {
+  opacity: 0.9;
+}
+
