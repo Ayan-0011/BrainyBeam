@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import { Truck, IndianRupee, Users, Wrench, BarChart3 } from "lucide-react";
 import "./AdminReport.css";
 import { getTrips } from "../../Service/TripService";
