@@ -1,13 +1,13 @@
-
 import React from "react";
 import "./RegistrationEmail.css";
+import { HeartPulse } from 'lucide-react'
 
 const RegistrationEmail = () => {
-  // Demo registration data
+
   const user = {
     name: "Ayan Ansari",
-    email: "ayan@example.com",
-    phone: "+91 98765 43210",
+    email: "ayan@email.com",
+    phone: "+91 9876543210",
     bloodGroup: "O+",
   };
 
@@ -17,8 +17,13 @@ const RegistrationEmail = () => {
 
         {/* Header */}
         <div className="email-header">
-          <h1>BloodLink</h1>
-          <p>Share Life • Give Blood</p>
+          <div className="icon">
+            <HeartPulse />
+          </div>
+          <div>
+            <h1>BloodLink</h1>
+            <p>Share Life • Give Blood</p>
+          </div>
         </div>
 
         {/* Content */}
@@ -71,8 +76,9 @@ const RegistrationEmail = () => {
 
         {/* Footer */}
         <div className="email-footer">
+          <HeartPulse size={18} />
           <p>Share Life • Give Blood </p>
-          <span>© 2026 BloodLink. All rights reserved.</span>
+          <span> 2026 BloodLink. All rights reserved. </span>
         </div>
 
       </div>
