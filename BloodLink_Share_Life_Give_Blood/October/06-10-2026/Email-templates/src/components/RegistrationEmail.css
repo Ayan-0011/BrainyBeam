@@ -1,0 +1,158 @@
+.email-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: Arial, sans-serif;
+}
+
+.email-card {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Header */
+
+.email-header {
+  background: #d32f2f;
+  color: #ffffff;
+  text-align: center;
+  padding: 28px 20px;
+}
+
+.email-header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.email-header p {
+  margin: 7px 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* Content */
+
+.email-content {
+  padding: 35px 30px;
+  color: #333333;
+  line-height: 1.6;
+}
+
+.email-content h2 {
+  margin: 0 0 18px;
+  color: #d32f2f;
+  font-size: 24px;
+}
+
+.email-content p {
+  margin: 14px 0;
+}
+
+/* Registration Details */
+
+.user-info {
+  margin: 25px 0;
+  padding: 20px;
+  background: #fff7f7;
+  border: 1px solid #f1d2d2;
+  border-radius: 8px;
+}
+
+.user-info h3 {
+  margin: 0 0 15px;
+  color: #d32f2f;
+  font-size: 17px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row span {
+  color: #777777;
+}
+
+.info-row strong {
+  color: #333333;
+  text-align: right;
+}
+
+/* Button */
+
+.email-button {
+  margin-top: 10px;
+  padding: 12px 24px;
+  background: #d32f2f;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.email-button:hover {
+  background: #b71c1c;
+}
+
+/* Footer */
+
+.email-footer {
+  padding: 20px;
+  background: #f8f8f8;
+  text-align: center;
+  color: #777777;
+  font-size: 13px;
+}
+
+.email-footer p {
+  margin: 0 0 5px;
+}
+
+.email-footer span {
+  font-size: 12px;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+  .email-page {
+    padding: 20px 12px;
+  }
+
+  .email-content {
+    padding: 25px 20px;
+  }
+
+  .email-header h1 {
+    font-size: 26px;
+  }
+
+  .email-content h2 {
+    font-size: 21px;
+  }
+
+  .info-row {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .info-row strong {
+    text-align: left;
+  }
+}
