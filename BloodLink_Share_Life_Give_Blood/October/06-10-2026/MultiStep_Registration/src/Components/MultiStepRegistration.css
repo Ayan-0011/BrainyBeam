@@ -285,6 +285,10 @@
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
 .btn-primary {
@@ -329,6 +333,7 @@
   margin-top: 4px;
   margin-left: 26px;
 }
+
 /* =========================
    Responsive
 ========================= */
@@ -391,6 +396,7 @@
   .btn {
     padding: 10px 15px;
     font-size: 13px;
+
   }
 
   .review-row {

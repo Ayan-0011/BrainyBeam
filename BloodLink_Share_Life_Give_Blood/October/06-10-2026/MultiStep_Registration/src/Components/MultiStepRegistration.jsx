@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./MultiStepRegistration.css";
-import { HeartPulse } from 'lucide-react'
+import { ArrowLeft, ArrowRight, HeartPulse } from 'lucide-react'
 
 const MultiStepRegistration = () => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -292,12 +292,9 @@ const MultiStepRegistration = () => {
                         <div className="form-grid">
                             <div className="form-group">
                                 <label>Blood Group</label>
-
-                                <select
-                                    name="bloodGroup"
+                                <select name="bloodGroup"
                                     value={formData.bloodGroup}
-                                    onChange={handleChange}
-                                >
+                                    onChange={handleChange} >
                                     <option value="">Select blood group</option>
                                     <option value="A+">A+</option>
                                     <option value="A-">A-</option>
@@ -317,11 +314,9 @@ const MultiStepRegistration = () => {
                             <div className="form-group">
                                 <label>Donor Type</label>
 
-                                <select
-                                    name="donorType"
+                                <select name="donorType"
                                     value={formData.donorType}
-                                    onChange={handleChange}
-                                >
+                                    onChange={handleChange} >
                                     <option value="">Select donor type</option>
                                     <option value="First Time Donor">
                                         First Time Donor
@@ -339,13 +334,10 @@ const MultiStepRegistration = () => {
                             <div className="form-group full-width">
                                 <label>Last Blood Donation</label>
 
-                                <input
-                                    type="date"
+                                <input type="date"
                                     name="lastDonation"
                                     value={formData.lastDonation}
-                                    onChange={handleChange}
-                                />
-
+                                    onChange={handleChange} />
                                 <small className="input-help">
                                     Leave blank if you have never donated blood.
                                 </small>
@@ -389,22 +381,18 @@ const MultiStepRegistration = () => {
 
                             <div className="review-group">
                                 <h3>Address</h3>
-
                                 <div className="review-row">
                                     <span>Address</span>
                                     <strong>{formData.address}</strong>
                                 </div>
-
                                 <div className="review-row">
                                     <span>City</span>
                                     <strong>{formData.city}</strong>
                                 </div>
-
                                 <div className="review-row">
                                     <span>State</span>
                                     <strong>{formData.state}</strong>
                                 </div>
-
                                 <div className="review-row">
                                     <span>Pincode</span>
                                     <strong>{formData.pincode}</strong>
@@ -413,7 +401,6 @@ const MultiStepRegistration = () => {
 
                             <div className="review-group">
                                 <h3>Blood Information</h3>
-
                                 <div className="review-row">
                                     <span>Blood Group</span>
                                     <strong className="blood-badge">
@@ -439,14 +426,11 @@ const MultiStepRegistration = () => {
                                         type="checkbox"
                                         name="confirmDetails"
                                         checked={formData.confirmDetails}
-                                        onChange={handleChange}
-                                    />
-
+                                        onChange={handleChange} />
                                     <span className="msg">
                                         I confirm that the information provided above is correct.
                                     </span>
                                 </label>
-
                                 {errors.confirmDetails && (
                                     <span className="error">{errors.confirmDetails}</span>
                                 )}
@@ -467,7 +451,6 @@ const MultiStepRegistration = () => {
                 {/* Header */}
                 <div className="registration-header">
                     <div className="blood-logo"> <HeartPulse /> </div>
-
                     <div>
                         <h1>Become a Blood Donor</h1>
                         <p>Register with BloodLink and help save lives.</p>
@@ -510,7 +493,7 @@ const MultiStepRegistration = () => {
                         {currentStep > 1 && (
                             <button type="button" className="btn btn-secondary"
                                 onClick={handlePrevious} >
-                                ← Back
+                                <ArrowLeft size={17}/> Back
                             </button>
                         )}
 
@@ -523,7 +506,7 @@ const MultiStepRegistration = () => {
                             ) : (
                                 <button type="button" className="btn btn-primary"
                                     onClick={handleNext} >
-                                    Continue →
+                                    Continue <ArrowRight size={17} />
                                 </button>
                             )}
                         </div>
