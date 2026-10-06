@@ -1,0 +1,420 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family:system-ui, sans-serif;
+}
+
+.registration-page {
+  min-height: 100vh;
+  background: #fff5f5;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registration-card {
+  width: 100%;
+  max-width: 850px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(190, 30, 45, 0.08);
+  overflow: hidden;
+}
+
+/* =========================
+   Header
+========================= */
+
+.registration-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 28px 35px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.blood-logo {
+  width: 48px;
+  height: 48px;
+  background: #d62839;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
+
+.registration-header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #222222;
+}
+
+.registration-header p {
+  margin: 5px 0 0;
+  color: #777777;
+  font-size: 14px;
+}
+
+/* =========================
+   Progress
+========================= */
+
+.progress-container {
+  padding: 30px 45px 20px;
+  position: relative;
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  color: #999999;
+  font-size: 13px;
+}
+
+.step-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #eeeeee;
+  color: #777777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.progress-step.active {
+  color: #d62839;
+}
+
+.progress-step.active .step-number {
+  background: #d62839;
+  color: white;
+}
+
+.progress-line {
+  position: absolute;
+  height: 3px;
+  background: #eeeeee;
+  left: 65px;
+  right: 65px;
+  top: 47px;
+  z-index: 1;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #d62839;
+  transition: width 0.3s ease;
+}
+
+/* =========================
+   Form
+========================= */
+
+.form-step {
+  padding: 30px 45px;
+  min-height: 360px;
+}
+
+.step-heading {
+  margin-bottom: 25px;
+}
+
+.step-heading h2 {
+  margin: 0 0 6px;
+  font-size: 21px;
+  color: #222222;
+}
+
+.step-heading p {
+  margin: 0;
+  color: #777777;
+  font-size: 14px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  margin-bottom: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-radius: 7px;
+  padding: 11px 13px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #333333;
+  outline: none;
+  background: white;
+  transition: border-color 0.2s ease;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #d62839;
+  box-shadow: 0 0 0 2px rgba(214, 40, 57, 0.08);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #aaaaaa;
+}
+
+.error {
+  color: #d62839;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.input-help {
+  margin-top: 6px;
+  color: #888888;
+  font-size: 12px;
+}
+
+/* =========================
+   Review
+========================= */
+
+.review-section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.review-group {
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.review-group h3 {
+  margin: 0;
+  padding: 12px 15px;
+  background: #fff5f5;
+  color: #d62839;
+  font-size: 15px;
+}
+
+.review-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px 15px;
+  border-top: 1px solid #eeeeee;
+  font-size: 13px;
+}
+
+.review-row span {
+  color: #777777;
+}
+
+.review-row strong {
+  color: #333333;
+  text-align: right;
+  max-width: 60%;
+  word-break: break-word;
+}
+
+.blood-badge {
+  color: #d62839 !important;
+  font-weight: 700;
+}
+
+/* =========================
+   Buttons
+========================= */
+
+.form-actions {
+  border-top: 1px solid #eeeeee;
+  padding: 20px 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-right {
+  margin-left: auto;
+}
+
+.btn {
+  border: none;
+  border-radius: 7px;
+  padding: 11px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-primary {
+  background: #d62839;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #b91f30;
+}
+
+.btn-secondary {
+  background: #f3f3f3;
+  color: #444444;
+}
+
+.btn-secondary:hover {
+  background: #e8e8e8;
+}
+.confirmation-box {
+}
+
+.confirmation-box label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.confirmation-box input[type="checkbox"] {
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.msg {
+  display: inline;
+  line-height: 1.5;
+}
+
+.confirmation-box .error {
+  display: block;
+  margin-top: 4px;
+  margin-left: 26px;
+}
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 650px) {
+  .registration-page {
+    padding: 15px;
+    align-items: flex-start;
+  }
+
+  .registration-card {
+    margin-top: 15px;
+  }
+
+  .registration-header {
+    padding: 22px 20px;
+  }
+
+  .registration-header h1 {
+    font-size: 20px;
+  }
+
+  .progress-container {
+    padding: 25px 20px 15px;
+  }
+
+  .progress-line {
+    left: 40px;
+    right: 40px;
+    top: 42px;
+  }
+
+  .step-number {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .progress-step {
+    font-size: 11px;
+  }
+
+  .form-step {
+    padding: 25px 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+
+  .form-actions {
+    padding: 18px 20px;
+  }
+
+  .btn {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+
+  .review-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .review-row strong {
+    max-width: 100%;
+    text-align: left;
+  }
+}
+
+@media (max-width: 400px) {
+  .progress-step span {
+    display: none;
+  }
+
+  .progress-line {
+    left: 36px;
+    right: 36px;
+  }
+
+  .registration-header {
+    align-items: flex-start;
+  }
+}
