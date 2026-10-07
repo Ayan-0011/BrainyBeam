@@ -1,0 +1,260 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.donor-section {
+  width: 100%;
+  padding: 40px 20px;
+  background: #f8f9fa;
+}
+
+.donor-header {
+  max-width: 1200px;
+  margin: 0 auto 25px;
+}
+
+.donor-header h2 {
+  margin: 0;
+  color: #222;
+  font-size: 28px;
+}
+
+.donor-header p {
+  margin: 6px 0 0;
+  color: #777;
+  font-size: 14px;
+}
+
+
+.donor-grid {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.donor-card {
+  background: #fff;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  padding: 25px 18px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  transition: 0.2s ease;
+  height: auto;
+}
+
+.donor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+
+.donor-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+
+
+.donor-profile {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+}
+
+
+
+.donor-avatar {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ffe8e8;
+  color: #d62828;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Name */
+
+.donor-name h3 {
+  margin: 2px 0 5px;
+  color: #222;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* Blood Group */
+
+.blood-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #d62828;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.blood-group svg {
+  fill: #d62828;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.donor-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+
+
+.donor-status.available {
+  background: #eaf8ef;
+  color: #218838;
+}
+
+.donor-status.available .status-dot {
+  background: #28a745;
+}
+
+
+
+.donor-status.unavailable {
+  background: #f1f1f1;
+  color: #777;
+}
+
+.donor-status.unavailable .status-dot {
+  background: #999;
+}
+
+
+
+.donor-details {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f1f1;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #777;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.detail-item svg {
+  color: #999;
+  flex-shrink: 0;
+}
+
+
+.contact-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 9px 14px;
+  border: 1px solid #d62828;
+  border-radius: 7px;
+  background: #d62828;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.contact-btn:hover:not(:disabled) {
+  background: #b91f1f;
+  border-color: #b91f1f;
+}
+
+.contact-btn:disabled {
+  background: #f2f2f2;
+  border-color: #e5e5e5;
+  color: #999;
+  cursor: not-allowed;
+}
+
+
+@media (max-width: 900px) {
+  .donor-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media (max-width: 600px) {
+  .donor-section {
+    padding: 30px 15px;
+  }
+
+  .donor-header h2 {
+    font-size: 24px;
+  }
+
+  .donor-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .donor-card {
+    padding: 16px;
+  }
+}
+
+
+
+@media (max-width: 400px) {
+  .donor-card-top {
+    gap: 7px;
+  }
+
+  .donor-profile {
+    gap: 9px;
+  }
+
+  .donor-avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  .donor-name h3 {
+    font-size: 16px;
+  }
+
+  .donor-status {
+    padding: 4px 7px;
+    font-size: 10px;
+  }
+}
