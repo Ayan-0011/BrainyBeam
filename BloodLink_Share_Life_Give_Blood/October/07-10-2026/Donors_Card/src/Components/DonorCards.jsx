@@ -35,6 +35,14 @@ const donors = [
     phone: "+91 98765 24680",
     available: true,
   },
+  {
+    id: 5,
+    name: "Jhon",
+    bloodGroup: "O+",
+    city: "Nadiad",
+    phone: "+91 98765 24680",
+    available: true,
+  },
 ];
 
 const DonorCards = () => {
