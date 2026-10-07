@@ -1,0 +1,167 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.blood-type-section {
+  width: 100%;
+  padding: 40px 20px;
+  background: #f8f9fa;
+}
+
+.blood-type-header {
+  max-width: 1200px;
+  margin: 0 auto 25px;
+}
+
+.blood-type-header h2 {
+  margin: 0;
+  color: #222;
+  font-size: 28px;
+}
+
+.blood-type-header p {
+  margin: 6px 0 0;
+  color: #777;
+  font-size: 14px;
+}
+
+
+.blood-type-grid {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+
+
+.blood-type-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.blood-type-card:hover {
+  transform: translateY(-4px);
+  border-color: #f0b5b5;
+  box-shadow: 0 8px 20px rgba(214, 40, 40, 0.10);
+}
+
+
+
+.blood-icon {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff0f0;
+  color: #d62828;
+}
+
+.blood-icon svg {
+  fill: #d62828;
+}
+
+
+
+.blood-info {
+  min-width: 0;
+}
+
+.blood-info h3 {
+  margin: 0 0 3px;
+  color: #222;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.blood-info p {
+  margin: 0;
+  color: #888;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+
+.view-btn {
+  margin-left: auto;
+  padding: 7px 11px;
+  border: 1px solid #d62828;
+  border-radius: 6px;
+  background: transparent;
+  color: #d62828;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-btn:hover {
+  background: #d62828;
+  color: #ffffff;
+}
+
+
+
+@media (max-width: 950px) {
+  .blood-type-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+
+@media (max-width: 600px) {
+  .blood-type-section {
+    padding: 30px 15px;
+  }
+
+  .blood-type-header h2 {
+    font-size: 24px;
+  }
+
+  .blood-type-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .blood-type-card {
+    padding: 14px;
+  }
+}
+
+
+
+@media (max-width: 380px) {
+  .blood-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .blood-info h3 {
+    font-size: 18px;
+  }
+
+  .blood-info p {
+    font-size: 11px;
+  }
+
+  .view-btn {
+    padding: 6px 9px;
+  }
+}
