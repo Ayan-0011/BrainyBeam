@@ -1,12 +1,6 @@
 
 import React from "react";
-import {
-  UserPlus,
-  Stethoscope,
-  Droplet,
-  Coffee,
-  Heart,
-} from "lucide-react";
+import { UserPlus, Stethoscope, Droplet, Coffee, Heart,} from "lucide-react";
 import "./DonationTimeline.css";
 
 const donationSteps = [
