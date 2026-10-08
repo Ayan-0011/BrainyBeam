@@ -1,4 +1,7 @@
 const express = require("express");
+const authRuter = require('./Router/auth.route');
+const cookieParse = require('cookie-parser');
+
 
 const app = express();
 
@@ -9,5 +12,8 @@ app.get("/", (req, res) => {
     message: "BloodLink API is running",
   });
 });
+
+
+app.use("/api/auth", authRuter)
 
 module.exports = app;
