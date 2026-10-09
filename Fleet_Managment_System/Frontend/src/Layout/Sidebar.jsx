@@ -140,13 +140,10 @@ export default function Sidebar({
         <div className={styles.overlay} onClick={onClose} />
       )}
 
-      <aside
-        className={`${styles.sidebar} ${isOpen ? styles.open : ""
-          }`} >
+      <aside className={`${styles.sidebar} ${isOpen ? styles.open : "" }`} >
 
         <div className={styles.brand}>
           <Logo />
-
 
           <button
             className={styles.closeBtn}

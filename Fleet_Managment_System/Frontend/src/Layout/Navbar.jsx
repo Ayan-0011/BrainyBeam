@@ -65,8 +65,7 @@ export default function Navbar({
       <button
         className={styles.menuBtn}
         onClick={onMenuClick}
-        aria-label="Toggle menu"
-      >
+        aria-label="Toggle menu" >
         <Menu size={22} />
       </button>
 
@@ -82,9 +81,7 @@ export default function Navbar({
 
       <div className={styles.spacer} />
 
-      <label
-        className={`${styles.search} ${searchOpen ? styles.searchOpen : ""}`}
-      >
+      <label className={`${styles.search} ${searchOpen ? styles.searchOpen : ""}`} >
         <Search size={16} aria-hidden="true" />
         <input
           type="search"
@@ -98,19 +95,16 @@ export default function Navbar({
         className={`${styles.iconBtn} ${styles.searchToggle}`}
         onClick={() => setSearchOpen((o) => !o)}
         aria-label={searchOpen ? "Close search" : "Open search"}
-        aria-expanded={searchOpen}
-      >
+        aria-expanded={searchOpen} >
         {searchOpen ? <X size={20} /> : <Search size={20} />}
       </button>
 
-      <button
-        className={styles.iconBtn}
+      <button className={styles.iconBtn}
         aria-label={
           notificationCount
             ? `${notificationCount} unread notifications`
             : "Notifications"
-        }
-      >
+        } >
         <Bell size={20} />
         {notificationCount > 0 && (
           <span className={styles.badge}>

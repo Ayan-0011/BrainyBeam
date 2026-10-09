@@ -17,22 +17,19 @@ export default function Layout() {
   return (
     <div className={styles.shell}>
       
-      <Sidebar
-        role={role}
-        isOpen={sidebarOpen}
+      <Sidebar role={role}  isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
-        onLogout={handleLogout}
-      />
+        onLogout={handleLogout} />
+
       <div className={styles.main}>
-        <Navbar
-          user={user}
-          role={role}
+        <Navbar user={user} role={role}
           onMenuClick={() => setSidebarOpen((o) => !o)}
-          onLogout={handleLogout}
-        />
+          onLogout={handleLogout} />
+
         <main className={styles.content}>
           <Outlet />
         </main>
+
       </div>
     </div>
   );
