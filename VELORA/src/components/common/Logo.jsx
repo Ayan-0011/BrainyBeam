@@ -56,7 +56,7 @@ export default function Logo({ variant = 'dark', iconOnly = false, className = '
           }`}>
             VELORA
           </span>
-          <span className={`text-[9px] uppercase tracking-[0.24em] font-semibold mt-0.5 ${
+          <span className={`text-[9px] uppercase tracking-[0.24em] font-semibold -mt ${
             isLight ? 'text-sand/70' : 'text-muted'
           }`}>
             Digital Studio
