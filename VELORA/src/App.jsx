@@ -8,6 +8,7 @@ import Footer from './components/layout/Footer';
 import ScrollToTop from './components/layout/ScrollToTop';
 import PageTransition from './components/layout/PageTransition';
 import LoadingScreen from './components/common/LoadingScreen';
+import ButtonToTop from './components/common/ButtonTotop';
 
 // Lazy-Loaded Route Pages for Optimized Performance & Code-Splitting
 const Home = lazy(() => import('./pages/Home'));
@@ -28,13 +29,9 @@ export default function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-cream text-nearblack selection:bg-orange selection:text-white">
-      {/* Scroll restoration */}
+      <ButtonToTop/>
       <ScrollToTop />
-
-      {/* Persistent Brand Header */}
       <Navbar />
-
-      {/* Main Content with Route Transitions & Suspense */}
       <div className="flex-grow">
         <Suspense fallback={<LoadingScreen />}>
           <AnimatePresence mode="wait">
