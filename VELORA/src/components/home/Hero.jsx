@@ -13,12 +13,11 @@ export default function Hero() {
   };
 
   return (
-<section className="relative min-h-screen flex flex-col justify-center items-center text-center px-4 pt-24 pb-28 sm:pt-28 sm:pb-24 overflow-hidden bg-cream">
+<section className="relative min-h-[85svh] flex flex-col items-center justify-center text-center px-4 pt-2 pb-20 overflow-hidden bg-cream">
   {/* Background 3D Composition */}
 
-
   {/* Ambient Gradient Highlights */}
-  <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+  
 
   {/* Main Content Area */}
   <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center">
@@ -82,7 +81,7 @@ export default function Hero() {
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ duration: 1, delay: 0.7 }}
-    className="absolute bottom-5 sm:bottom-7 left-0 z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted"
+    className="absolute bottom-5 left-0 z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted"
   >
     {/* Left Studio Detail */}
     <div className="hidden sm:flex items-center gap-2">
@@ -93,7 +92,7 @@ export default function Hero() {
     </div>
 
     {/* Right Capability Tags */}
-    <div className="hidden sm:flex items-center gap-4 text-[11px] font-medium text-muted">
+    <div className="hidden sm:flex gap-4 text-[11px] font-medium text-muted">
       <span className="flex items-center gap-1">
         <Zap className="w-3.5 h-3.5 text-orange" /> 60 FPS WebGL
       </span>

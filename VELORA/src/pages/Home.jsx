@@ -19,8 +19,8 @@ export default function Home() {
       <WhyVelora />
       <ProcessPreview />
       <TechAndEngineering />
-      <AboutPreview />
       <FinalCTA />
+      <AboutPreview />
     </div>
   );
 }

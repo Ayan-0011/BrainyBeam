@@ -10,7 +10,6 @@ export default function FinalCTA() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-widest text-orange mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-orange animate-ping" />
           <span>New Client Engagements Open</span>
         </div>
 
