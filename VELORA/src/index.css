@@ -1,0 +1,123 @@
+/* Cleared in favor of src/styles/global.css */
+@import './tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-body);
+    background-color: var(--color-cream);
+    color: var(--color-nearblack);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: #F7F0E4;
+    color: #171717;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.03em;
+    font-weight: 700;
+  }
+
+  ::selection {
+    background-color: #FF7417;
+    color: #FFFFFF;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F0E4;
+}
+::-webkit-scrollbar-thumb {
+  background: #E8D5BB;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF7417;
+}
+
+/* Fluid Hero Typography using clamp */
+.hero-headline {
+  font-size: clamp(2.5rem, 6.5vw + 1rem, 6.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.section-headline {
+  font-size: clamp(2rem, 3.8vw + 0.5rem, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.sub-headline {
+  font-size: clamp(1.25rem, 2vw + 0.2rem, 1.85rem);
+  line-height: 1.25;
+}
+
+/* Eyebrow Label */
+.eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  background-color: rgba(255, 116, 23, 0.1);
+  color: #171717;
+  border: 1px solid rgba(255, 116, 23, 0.25);
+}
+
+.eyebrow-dark {
+  background-color: rgba(255, 116, 23, 0.15);
+  color: #F7F0E4;
+  border: 1px solid rgba(255, 116, 23, 0.3);
+}
+
+/* Subtle dot grid pattern */
+.bg-grid-subtle {
+  background-size: 32px 32px;
+  background-image: 
+    radial-gradient(circle, rgba(23, 23, 23, 0.06) 1px, transparent 1px);
+}
+
+.bg-grid-dark {
+  background-size: 32px 32px;
+  background-image: 
+    radial-gradient(circle, rgba(247, 240, 228, 0.08) 1px, transparent 1px);
+}
+
+/* Orange Radial Glow */
+.orange-ambient-glow {
+  background: radial-gradient(circle at 50% 40%, rgba(255, 116, 23, 0.14) 0%, rgba(247, 240, 228, 0) 70%);
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
