@@ -21,8 +21,6 @@ export default function Contact() {
     email: '',
     company: '',
     service: 'Web Development',
-    budget: '$30k – $60k',
-    timeline: '1–3 Months',
     message: '',
     consent: false
   });
@@ -39,19 +37,7 @@ export default function Contact() {
     'Design Systems / Architecture'
   ];
 
-  const budgetTiers = [
-    '$15k – $30k',
-    '$30k – $60k',
-    '$60k – $100k',
-    '$100k+'
-  ];
-
-  const timelineOptions = [
-    'Immediate (Next 2 Weeks)',
-    '1–3 Months',
-    '3–6 Months',
-    'Flexible / Planning Phase'
-  ];
+ 
 
   const validate = () => {
     const errs = {};
@@ -135,8 +121,6 @@ export default function Contact() {
                         email: '',
                         company: '',
                         service: 'Web Development',
-                        budget: '$30k – $60k',
-                        timeline: '1–3 Months',
                         message: '',
                         consent: false
                       });
@@ -231,28 +215,7 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  {/* Estimated Budget Tiers */}
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-nearblack mb-2">
-                      Estimated Project Budget (USD)
-                    </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {budgetTiers.map((tier) => (
-                        <button
-                          key={tier}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, budget: tier })}
-                          className={`px-3 py-2 rounded-xl text-xs font-heading font-semibold transition-all text-center ${
-                            formData.budget === tier
-                              ? 'bg-orange text-white shadow-sm'
-                              : 'bg-sand/30 hover:bg-sand text-nearblack border border-sand-border'
-                          }`}
-                        >
-                          {tier}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+       
 
                   {/* Project Description */}
                   <div>
@@ -273,25 +236,7 @@ export default function Contact() {
                     )}
                   </div>
 
-                  {/* Consent Checkbox */}
-                  <div>
-                    <label className="flex items-start gap-3 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={formData.consent}
-                        onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-                        className="w-4 h-4 mt-0.5 rounded text-orange focus:ring-orange border-sand-border"
-                      />
-                      <span className="text-xs text-muted leading-relaxed">
-                        I acknowledge this is a functional demo form and understand that VELORA maintains strict confidentiality for client inquiries.
-                      </span>
-                    </label>
-                    {errors.consent && (
-                      <span className="text-[11px] text-red-600 font-medium block mt-1">
-                        {errors.consent}
-                      </span>
-                    )}
-                  </div>
+                 
 
                   {/* Submit Button */}
                   <div>
@@ -300,8 +245,7 @@ export default function Contact() {
                       variant="primary"
                       size="lg"
                       loading={isSubmitting}
-                      className="w-full justify-center"
-                    >
+                      className="w-full justify-center" >
                       Send Project Inquiry
                     </Button>
                   </div>
@@ -349,26 +293,7 @@ export default function Contact() {
               </div>
 
               {/* What Happens Next Card */}
-              <div className="rounded-3xl bg-cream border border-sand-border p-8 space-y-6 shadow-sm">
-                <h4 className="font-heading font-bold text-lg text-nearblack flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-orange" />
-                  What happens next?
-                </h4>
-                <div className="space-y-4 text-xs sm:text-sm text-muted">
-                  <div className="flex items-start gap-3">
-                    <span className="font-mono font-bold text-orange text-xs mt-0.5">01</span>
-                    <p><strong className="text-nearblack">Senior Review:</strong> Your inquiry is reviewed directly by our design and engineering leadership—not a sales rep.</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="font-mono font-bold text-orange text-xs mt-0.5">02</span>
-                    <p><strong className="text-nearblack">30-Min Discovery Call:</strong> If there is mutual alignment, we schedule a concise call to assess technical scope and feasibility.</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <span className="font-mono font-bold text-orange text-xs mt-0.5">03</span>
-                    <p><strong className="text-nearblack">Architectural Proposal:</strong> We deliver a clear sprint roadmap, timeline, team composition, and guaranteed budget.</p>
-                  </div>
-                </div>
-              </div>
+            
             </div>
           </div>
         </div>

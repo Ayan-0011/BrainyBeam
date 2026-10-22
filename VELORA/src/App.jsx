@@ -22,6 +22,7 @@ const Careers = lazy(() => import('./pages/Careers'));
 const Contact = lazy(() => import('./pages/Contact'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const Terms = lazy(() => import('./pages/Terms'));
+const Team = lazy(() => import('./pages/Team'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 export default function App() {
@@ -44,6 +45,7 @@ export default function App() {
               <Route path="/about" element={<PageTransition><About /></PageTransition>} />
               <Route path="/life-at-company" element={<PageTransition><LifeAtCompany /></PageTransition>} />
               <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
+              <Route path="/Team" element={<PageTransition><Team /></PageTransition>} />
               <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
               <Route path="/privacy-policy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
               <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />

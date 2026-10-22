@@ -20,7 +20,7 @@ export default function Home() {
       <ProcessPreview />
       <TechAndEngineering />
       <FinalCTA />
-      <AboutPreview />
+      {/* <AboutPreview /> */}
     </div>
   );
 }

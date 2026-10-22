@@ -28,6 +28,7 @@ export default function Navbar() {
     { name: 'Services', path: '/services' },
     { name: 'Work', path: '/work' },
     { name: 'About', path: '/about' },
+    { name: 'Team', path: '/Team' },
     { name: 'Careers', path: '/careers', badge: 'Hiring' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -39,8 +40,7 @@ export default function Navbar() {
           scrolled
             ? 'bg-cream/90 backdrop-blur-md border-b border-sand-border/60 py-3 shadow-sm'
             : 'bg-transparent py-5'
-        }`}
-      >
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -101,8 +101,7 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 rounded-full bg-sand/70 text-nearblack hover:bg-sand transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange"
                 aria-label="Toggle mobile menu"
-                aria-expanded={mobileMenuOpen}
-              >
+                aria-expanded={mobileMenuOpen} >
                 {mobileMenuOpen ? <X className="w-5 h-5 text-nearblack" /> : <Menu className="w-5 h-5 text-nearblack" />}
               </button>
             </div>
@@ -184,11 +183,7 @@ export default function Navbar() {
                 >
                   Start a project
                 </Button>
-                <div className="mt-4 text-center">
-                  <p className="text-xs text-muted">
-                    hello@velora-studio.demo (Fictional Demo)
-                  </p>
-                </div>
+                
               </div>
             </motion.div>
           </>
