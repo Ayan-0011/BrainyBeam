@@ -208,16 +208,6 @@ export default function Footer() {
           </div>
 
         </div>
-
-        {/* Small Brand Signature */}
-        <div className="pb-5 text-center">
-          <p className="inline-flex items-center justify-center gap-1.5 text-[10px] tracking-wide text-nearblack/40">
-            Crafted with
-            <Heart size={11} className="fill-orange text-orange" />
-            for the digital future
-          </p>
-        </div>
-
       </div>
     </footer>
   );
