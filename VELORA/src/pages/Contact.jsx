@@ -1,84 +1,152 @@
 import React, { useState } from 'react';
-import { 
-  Mail, 
-  MapPin, 
-  Phone, 
-  Send, 
-  CheckCircle2, 
-  ArrowUpRight, 
-  Sparkles, 
-  ShieldCheck, 
-  Clock, 
-  AlertCircle 
-} from 'lucide-react';
+import { Mail, MapPin, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import confetti from 'canvas-confetti';
-import SectionHeading from '../components/common/SectionHeading';
 import Button from '../components/common/Button';
 
-export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    service: 'Web Development',
-    message: '',
-    consent: false
-  });
+const projectTypes = [
+  'Web Development',
+  'Mobile App',
+  'Custom Software',
+  'AI & Automation',
+  'Other',
+];
 
+const budgetRanges = [
+  'Under ₹5 lakhs',
+  '₹5–15 lakhs',
+  '₹15–50 lakhs',
+  '₹50 lakhs+',
+  'Not sure yet',
+];
+
+const initialForm = {
+  name: '',
+  email: '',
+  company: '',
+  projectType: '',
+  budget: '',
+  message: '',
+};
+
+function validate(form) {
+  const errors = {};
+
+  if (!form.name.trim()) {
+    errors.name = 'Name is required';
+  }
+
+  if (!form.email.trim()) {
+    errors.email = 'Email is required';
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+    errors.email = 'Enter a valid email';
+  }
+
+  if (!form.projectType) {
+    errors.projectType = 'Select a project type';
+  }
+
+  if (!form.message.trim()) {
+    errors.message = 'Tell us about your project';
+  } else if (form.message.trim().length < 20) {
+    errors.message = 'Please add a bit more detail (20+ characters)';
+  }
+
+  return errors;
+}
+
+const labelClass = 'block text-xs font-bold uppercase tracking-wider text-nearblack mb-2';
+
+const inputClass = (hasError) =>
+  `w-full px-4 py-3 rounded-xl bg-cream border text-sm text-nearblack ${
+    hasError
+      ? 'border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-500'
+      : 'border-sand-border focus:border-orange focus:ring-1 focus:ring-orange'
+  }`;
+
+function FieldError({ message }) {
+  if (!message) return null;
+  return (
+    <span className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+      <AlertCircle className="w-3 h-3" />
+      {message}
+    </span>
+  );
+}
+
+export default function Contact() {
+  const [formData, setFormData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  const servicesList = [
-    'Web Development',
-    'Mobile Applications',
-    'Custom Software',
-    'AI & Automation',
-    'Design Systems / Architecture'
-  ];
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
- 
+    setFormData((current) => ({ ...current, [name]: value }));
 
-  const validate = () => {
-    const errs = {};
-    if (!formData.name.trim()) errs.name = 'Please enter your name.';
-    if (!formData.email.trim()) {
-      errs.email = 'Please enter your email.';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errs.email = 'Please provide a valid email address.';
+    if (errors[name]) {
+      setErrors((current) => ({ ...current, [name]: undefined }));
     }
-    if (!formData.message.trim() || formData.message.trim().length < 10) {
-      errs.message = 'Please provide at least 10 characters detailing your project idea.';
-    }
-    if (!formData.consent) {
-      errs.consent = 'Please confirm consent for inquiry processing.';
-    }
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
+    if (submitError) setSubmitError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
+
+    const validationErrors = validate(formData);
+    setErrors(validationErrors);
+    setSubmitError('');
+
+    if (Object.keys(validationErrors).length > 0) return;
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setSubmitError('Email service is not configured. Please try again later.');
+      return;
+    }
 
     setIsSubmitting(true);
-    // Simulate API transmission
-    setTimeout(() => {
-      setIsSubmitting(false);
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name.trim(),
+          from_email: formData.email.trim(),
+          reply_to: formData.email.trim(),
+          company: formData.company.trim() || 'Not provided',
+          project_type: formData.projectType,
+          budget: formData.budget || 'Not specified',
+          message: formData.message.trim(),
+        },
+        { publicKey }
+      );
+
       setSubmitted(true);
       confetti({
         particleCount: 100,
         spread: 70,
         origin: { y: 0.6 },
-        colors: ['#FF7417', '#EAE5DB', '#202124']
+        colors: ['#FF7417', '#EAE5DB', '#202124'],
       });
-    }, 1200);
+    } catch (error) {
+      console.error('EmailJS submission failed:', error);
+      setSubmitError('We could not send your message. Please try again or email us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="w-full">
       {/* 1. Contact Hero */}
-      <section className="py-16 sm:py-24 bg-cream relative">
+      <section className="py-16 sm:py-10 bg-cream relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl">
             <span className="eyebrow-pill mb-6">
@@ -88,9 +156,7 @@ export default function Contact() {
             <h1 className="hero-headline font-heading font-extrabold text-nearblack mb-6">
               Let's turn your bold idea into <span className="text-orange">reality.</span>
             </h1>
-            <p className="text-lg sm:text-2xl text-muted leading-relaxed font-normal max-w-3xl">
-              Tell us about your product vision, timeline, and architectural requirements. We respond with thoughtful feedback and scheduling options within 24 to 48 hours.
-            </p>
+            
           </div>
         </div>
       </section>
@@ -102,141 +168,154 @@ export default function Contact() {
             {/* Form Column */}
             <div className="lg:col-span-7 rounded-3xl bg-cream border border-sand-border p-8 sm:p-12 shadow-sm">
               {submitted ? (
-                <div className="text-center py-12">
+                <div role="status" aria-live="polite" className="text-center py-12">
                   <div className="w-16 h-16 rounded-full bg-orange/10 text-orange flex items-center justify-center mx-auto mb-6">
                     <CheckCircle2 className="w-10 h-10" />
                   </div>
                   <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-nearblack mb-3">
-                    Inquiry Simulation Received!
+                    Thank you. Your message is on its way.
                   </h3>
                   <p className="text-muted text-base leading-relaxed max-w-md mx-auto mb-8">
-                    Thank you, <strong>{formData.name}</strong>. In a live deployment, our engineering leadership would review your details and send our Discovery calendar invite.
+                    Thank you, <strong>{formData.name}</strong>. We've received your project details and will reply within one business day.
                   </p>
                   <Button
                     variant="outline"
                     onClick={() => {
                       setSubmitted(false);
-                      setFormData({
-                        name: '',
-                        email: '',
-                        company: '',
-                        service: 'Web Development',
-                        message: '',
-                        consent: false
-                      });
+                      setFormData(initialForm);
+                      setErrors({});
                     }}
                   >
                     Submit Another Inquiry
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  {/* Demo Notice Banner */}
-                  <div className="p-4 rounded-xl bg-orange/10 border border-orange/20 text-xs text-nearblack flex items-start gap-3">
-                    <AlertCircle className="w-4 h-4 text-orange flex-shrink-0 mt-0.5" />
-                    <div>
-                      <strong>Demo Notice:</strong> This website is an interactive concept showcase. This form simulates live front-end validation, controlled state handling, and submission feedback.
-                    </div>
-                  </div>
-
+                <form onSubmit={handleSubmit} noValidate className="space-y-8">
                   {/* Name & Email Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-nearblack mb-2">
+                      <label htmlFor="contact-name" className={labelClass}>
                         Your Full Name <span className="text-orange">*</span>
                       </label>
                       <input
+                        id="contact-name"
+                        name="name"
                         type="text"
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="e.g. Jordan Hayes"
-                        className="w-full px-4 py-3 rounded-xl bg-cream border border-sand-border focus:border-orange focus:ring-1 focus:ring-orange text-sm text-nearblack"
+                        onChange={handleChange}
+                        placeholder="Your name"
+                        autoComplete="name"
+                        className={inputClass(errors.name)}
                       />
-                      {errors.name && (
-                        <span className="text-[11px] text-red-600 font-medium block mt-1">
-                          {errors.name}
-                        </span>
-                      )}
+                      <FieldError message={errors.name} />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-nearblack mb-2">
+                      <label htmlFor="contact-email" className={labelClass}>
                         Work Email <span className="text-orange">*</span>
                       </label>
                       <input
+                        id="contact-email"
+                        name="email"
                         type="email"
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="jordan@company.com"
-                        className="w-full px-4 py-3 rounded-xl bg-cream border border-sand-border focus:border-orange focus:ring-1 focus:ring-orange text-sm text-nearblack"
+                        onChange={handleChange}
+                        placeholder="you@company.com"
+                        autoComplete="email"
+                        className={inputClass(errors.email)}
                       />
-                      {errors.email && (
-                        <span className="text-[11px] text-red-600 font-medium block mt-1">
-                          {errors.email}
-                        </span>
-                      )}
+                      <FieldError message={errors.email} />
                     </div>
                   </div>
 
                   {/* Company Name */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-nearblack mb-2">
+                    <label htmlFor="contact-company" className={labelClass}>
                       Company / Organization (Optional)
                     </label>
                     <input
+                      id="contact-company"
+                      name="company"
                       type="text"
                       value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      placeholder="e.g. HyperScale Tech"
-                      className="w-full px-4 py-3 rounded-xl bg-cream border border-sand-border focus:border-orange focus:ring-1 focus:ring-orange text-sm text-nearblack"
+                      onChange={handleChange}
+                      placeholder="Your company name"
+                      autoComplete="organization"
+                      className={inputClass(false)}
                     />
                   </div>
 
-                  {/* Service of Interest */}
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-nearblack mb-2">
-                      Primary Service / Discipline Needed
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                      {servicesList.map((srv) => (
-                        <button
-                          key={srv}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, service: srv })}
-                          className={`px-3.5 py-1.5 rounded-full text-xs font-heading font-semibold transition-all ${
-                            formData.service === srv
-                              ? 'bg-nearblack text-cream shadow-sm'
-                              : 'bg-sand/30 hover:bg-sand text-nearblack border border-sand-border'
-                          }`}
-                        >
-                          {srv}
-                        </button>
-                      ))}
+                  {/* Project Type & Budget Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="contact-type" className={labelClass}>
+                        Project Type <span className="text-orange">*</span>
+                      </label>
+                      <select
+                        id="contact-type"
+                        name="projectType"
+                        value={formData.projectType}
+                        onChange={handleChange}
+                        className={inputClass(errors.projectType)}
+                      >
+                        <option value="">Select a type</option>
+                        {projectTypes.map((type) => (
+                          <option key={type} value={type}>
+                            {type}
+                          </option>
+                        ))}
+                      </select>
+                      <FieldError message={errors.projectType} />
+                    </div>
+
+                    <div>
+                      <label htmlFor="contact-budget" className={labelClass}>
+                        Budget Range
+                      </label>
+                      <select
+                        id="contact-budget"
+                        name="budget"
+                        value={formData.budget}
+                        onChange={handleChange}
+                        className={inputClass(false)}
+                      >
+                        <option value="">Select a range</option>
+                        {budgetRanges.map((budget) => (
+                          <option key={budget} value={budget}>
+                            {budget}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
 
-       
-
                   {/* Project Description */}
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-nearblack mb-2">
+                    <label htmlFor="contact-message" className={labelClass}>
                       Project Details &amp; Objectives <span className="text-orange">*</span>
                     </label>
                     <textarea
+                      id="contact-message"
+                      name="message"
                       rows={5}
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Describe what you want to build, key challenges, target users, or architectural preferences..."
-                      className="w-full px-4 py-3 rounded-xl bg-cream border border-sand-border focus:border-orange focus:ring-1 focus:ring-orange text-sm text-nearblack resize-none"
+                      onChange={handleChange}
+                      placeholder="What are you building? What problem does it solve?"
+                      className={`${inputClass(errors.message)} resize-none`}
                     />
-                    {errors.message && (
-                      <span className="text-[11px] text-red-600 font-medium block mt-1">
-                        {errors.message}
-                      </span>
-                    )}
+                    <FieldError message={errors.message} />
                   </div>
 
-                 
+                  {/* Send error */}
+                  {submitError && (
+                    <div
+                      role="alert"
+                      className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700"
+                    >
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                      <p>{submitError}</p>
+                    </div>
+                  )}
 
                   {/* Submit Button */}
                   <div>
@@ -245,7 +324,8 @@ export default function Contact() {
                       variant="primary"
                       size="lg"
                       loading={isSubmitting}
-                      className="w-full justify-center" >
+                      className="w-full justify-center"
+                    >
                       Send Project Inquiry
                     </Button>
                   </div>
@@ -253,9 +333,8 @@ export default function Contact() {
               )}
             </div>
 
-            {/* Sidebar Column: Coordinates & What Happens Next */}
+            {/* Sidebar Column: Coordinates */}
             <div className="lg:col-span-5 space-y-8">
-              {/* Studio Coordinates Card */}
               <div className="rounded-3xl bg-nearblack text-cream p-8 border border-white/10 space-y-6">
                 <div>
                   <span className="text-xs font-mono font-bold text-orange uppercase tracking-wider block mb-2">
@@ -291,9 +370,6 @@ export default function Contact() {
                   </span>
                 </div>
               </div>
-
-              {/* What Happens Next Card */}
-            
             </div>
           </div>
         </div>
