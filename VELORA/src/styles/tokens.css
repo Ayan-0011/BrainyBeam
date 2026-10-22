@@ -1,28 +1,25 @@
 :root {
   /* VELORA Brand Color Tokens */
-:root {
-  /* VELORA Brand Color Tokens */
-  --color-cream: #EEF1F6;
-  --color-cream-light: #F8FAFD;
-  --color-orange: #2F5BFF;
-  --color-orange-hover: #1E45E0;
-  --color-orange-glow: rgba(47, 91, 255, 0.18);
-  --color-nearblack: #12141A;
-  --color-dark-surface: #171A22;
-  --color-dark-card: #1E222C;
-  --color-dark-border: #2B3040;
-  --color-sand: #D5DCE8;
-  --color-sand-light: #E6EBF3;
-  --color-sand-border: #C2CBDB;
-  --color-muted: #565D6D;
-  --color-muted-light: #8A91A2;
-
-  /* Typography, spacing aur transitions pehle jaise hi rahenge */
-}
+  --color-cream: #F7F5F0;
+  --color-cream-light: #FFFFFF;
+  --color-charcoal: #202124;
+  --color-nearblack: #202124;
+  --color-orange: #FF7417;
+  --color-orange-hover: #E8630A;
+  --color-orange-glow: rgba(255, 116, 23, 0.22);
+  --color-orange-subtle: rgba(255, 116, 23, 0.08);
+  --color-dark-surface: #282A2E;
+  --color-dark-card: #222326;
+  --color-dark-border: #323438;
+  --color-sand: #EAE5DB;
+  --color-sand-light: #F4EFE6;
+  --color-sand-border: #DED7C8;
+  --color-muted: #5F6368;
+  --color-muted-light: #80868B;
 
   /* Typography */
   --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Spacing & Layout */
   --container-max: 1320px;

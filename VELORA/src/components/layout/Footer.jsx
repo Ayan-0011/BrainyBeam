@@ -148,7 +148,7 @@ export default function Footer() {
                 <Mail size={17} />
               </span>
               <div>
-                <a href=""
+                <a href="mailto:velorastudio@gmail.com"
                   className="break-all text-sm font-medium text-nearblack hover:text-orange transition-colors" >
                 velorastudio@gmail.com
                 </a>
@@ -160,7 +160,7 @@ export default function Footer() {
                 <PhoneCall size={17} />
               </span>
               <div>
-                <a href=""
+                <a href="tel:+919876543210"
                   className="break-all text-sm font-medium text-nearblack hover:text-orange transition-colors" >
                 +91 98765 43210
                 </a>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Mail, Users, Sparkles,} from 'lucide-react';
-import { teamMembers } from '../data/teamData';
+import { teamMembers } from '../data/Teamdata';
 
 const filters = [
   'All',

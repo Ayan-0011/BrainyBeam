@@ -8,9 +8,29 @@ export default {
     extend: {
       colors: {
         cream: {
-          DEFAULT: '#F7F0E4',
-          light: '#FCF9F3',
-          dark: '#EFE5D5',
+          DEFAULT: '#F7F5F0',
+          light: '#FFFFFF',
+          dark: '#EAE5DB',
+        },
+        ivory: {
+          DEFAULT: '#F7F5F0',
+          50: '#FDFCFB',
+          100: '#F7F5F0',
+          200: '#EFEAE0',
+          300: '#E4DDCB',
+        },
+        charcoal: {
+          DEFAULT: '#202124',
+          light: '#2D2E32',
+          surface: '#282A2E',
+          card: '#242528',
+          border: '#37393E',
+        },
+        nearblack: {
+          DEFAULT: '#202124',
+          surface: '#282A2E',
+          card: '#222326',
+          border: '#323438',
         },
         orange: {
           DEFAULT: '#FF7417',
@@ -18,25 +38,19 @@ export default {
           glow: 'rgba(255, 116, 23, 0.22)',
           subtle: 'rgba(255, 116, 23, 0.08)',
         },
-        nearblack: {
-          DEFAULT: '#171717',
-          surface: '#1C1C1C',
-          card: '#222222',
-          border: '#2E2E2E',
-        },
         sand: {
-          DEFAULT: '#E8D5BB',
-          light: '#F4E9D8',
-          border: '#D8C4A9',
+          DEFAULT: '#EAE5DB',
+          light: '#F4EFE6',
+          border: '#DED7C8',
         },
         muted: {
-          DEFAULT: '#555149',
-          light: '#7F786E',
+          DEFAULT: '#5F6368',
+          light: '#80868B',
         }
       },
       fontFamily: {
         heading: ['"Space Grotesk"', 'sans-serif'],
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        sans: ['"Inter"', 'sans-serif'],
       },
       animation: {
         'float-slow': 'float 6s ease-in-out infinite',

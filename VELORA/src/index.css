@@ -1,5 +1,4 @@
-/* Cleared in favor of src/styles/global.css */
-@import './tokens.css';
+@import './styles/tokens.css';
 
 @tailwind base;
 @tailwind components;
@@ -21,8 +20,8 @@
 
   body {
     overflow-x: hidden;
-    background-color: #F7F0E4;
-    color: #171717;
+    background-color: #F7F5F0;
+    color: #202124;
     margin: 0;
     padding: 0;
   }
@@ -44,10 +43,10 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F7F0E4;
+  background: #F7F5F0;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E8D5BB;
+  background: #EAE5DB;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -56,8 +55,8 @@
 
 /* Fluid Hero Typography using clamp */
 .hero-headline {
-  font-size: clamp(2.5rem, 6.5vw + 1rem, 6.2rem);
-  line-height: 1.02;
+  font-size: clamp(2.4rem, 5.5vw + 1rem, 5.5rem);
+  line-height: 1.05;
   letter-spacing: -0.04em;
 }
 
@@ -84,13 +83,13 @@
   text-transform: uppercase;
   border-radius: 9999px;
   background-color: rgba(255, 116, 23, 0.1);
-  color: #171717;
+  color: #202124;
   border: 1px solid rgba(255, 116, 23, 0.25);
 }
 
 .eyebrow-dark {
   background-color: rgba(255, 116, 23, 0.15);
-  color: #F7F0E4;
+  color: #F7F5F0;
   border: 1px solid rgba(255, 116, 23, 0.3);
 }
 
@@ -98,18 +97,18 @@
 .bg-grid-subtle {
   background-size: 32px 32px;
   background-image: 
-    radial-gradient(circle, rgba(23, 23, 23, 0.06) 1px, transparent 1px);
+    radial-gradient(circle, rgba(32, 33, 36, 0.06) 1px, transparent 1px);
 }
 
 .bg-grid-dark {
   background-size: 32px 32px;
   background-image: 
-    radial-gradient(circle, rgba(247, 240, 228, 0.08) 1px, transparent 1px);
+    radial-gradient(circle, rgba(247, 245, 240, 0.08) 1px, transparent 1px);
 }
 
 /* Orange Radial Glow */
 .orange-ambient-glow {
-  background: radial-gradient(circle at 50% 40%, rgba(255, 116, 23, 0.14) 0%, rgba(247, 240, 228, 0) 70%);
+  background: radial-gradient(circle at 50% 40%, rgba(255, 116, 23, 0.14) 0%, rgba(247, 245, 240, 0) 70%);
 }
 
 /* Reduced Motion Override */

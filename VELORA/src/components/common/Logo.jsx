@@ -25,7 +25,7 @@ export default function Logo({ variant = 'dark', iconOnly = false, className = '
             width="44" 
             height="44" 
             rx="9" 
-            fill={isLight ? '#222222' : '#171717'} 
+            fill={isLight ? '#282A2E' : '#202124'} 
           />
           {/* Outer Vibrant Orange Angular V Wing */}
           <path 
@@ -35,7 +35,7 @@ export default function Logo({ variant = 'dark', iconOnly = false, className = '
           {/* Inner Geometric Prism Core */}
           <path 
             d="M22 36L18 27L22 24.5L26 27L22 36Z" 
-            fill={isLight ? '#F7F0E4' : '#E8D5BB'} 
+            fill={isLight ? '#F7F5F0' : '#EAE5DB'} 
           />
           {/* Radiant Amber Apex Indicator */}
           <circle 

@@ -81,7 +81,7 @@ export default function Careers() {
         particleCount: 80,
         spread: 60,
         origin: { y: 0.6 },
-        colors: ['#FF7417', '#E8D5BB', '#171717']
+        colors: ['#FF7417', '#EAE5DB', '#202124']
       });
     }, 1000);
   };
