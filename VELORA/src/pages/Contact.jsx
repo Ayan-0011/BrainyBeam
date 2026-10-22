@@ -146,7 +146,7 @@ export default function Contact() {
   return (
     <div className="w-full">
       {/* 1. Contact Hero */}
-      <section className="py-16 sm:py-10 bg-cream relative">
+      <section className="py-6 sm:py-10 bg-cream relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl">
             <span className="eyebrow-pill mb-6">

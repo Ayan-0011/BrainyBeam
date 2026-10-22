@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, matchRoutes } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 // Layout Components
@@ -25,37 +25,50 @@ const Terms = lazy(() => import('./pages/Terms'));
 const Team = lazy(() => import('./pages/Team'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
+// Single source of truth: used both to render the routes and to detect unknown URLs.
+const pages = [
+  { path: '/', Component: Home },
+  { path: '/services', Component: Services },
+  { path: '/work', Component: Work },
+  { path: '/work/:slug', Component: CaseStudy },
+  { path: '/process', Component: Process },
+  { path: '/about', Component: About },
+  { path: '/life-at-company', Component: LifeAtCompany },
+  { path: '/careers', Component: Careers },
+  { path: '/Team', Component: Team },
+  { path: '/contact', Component: Contact },
+  { path: '/privacy-policy', Component: PrivacyPolicy },
+  { path: '/terms', Component: Terms },
+];
+
 export default function App() {
   const location = useLocation();
 
+  // false on any URL that is not in `pages` -> the 404 page is shown on its own
+  const isKnownRoute = Boolean(matchRoutes(pages, location));
+
   return (
     <div className="flex flex-col min-h-screen bg-cream text-nearblack selection:bg-orange selection:text-white">
-      <ButtonToTop/>
       <ScrollToTop />
-      <Navbar />
+      {isKnownRoute && <ButtonToTop />}
+      {isKnownRoute && <Navbar />}
+
       <div className="flex-grow">
         <Suspense fallback={<LoadingScreen />}>
           <AnimatePresence mode="wait">
+            
             <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-              <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
-              <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
-              <Route path="/work/:slug" element={<PageTransition><CaseStudy /></PageTransition>} />
-              <Route path="/process" element={<PageTransition><Process /></PageTransition>} />
-              <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-              <Route path="/life-at-company" element={<PageTransition><LifeAtCompany /></PageTransition>} />
-              <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
-              <Route path="/Team" element={<PageTransition><Team /></PageTransition>} />
-              <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-              <Route path="/privacy-policy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
-              <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
-              <Route path="*" element={<PageTransition> <NotFound /> </PageTransition>} />
+              {pages.map(({ path, Component }) => (
+                <Route key={path} path={path} element={ <PageTransition> <Component /></PageTransition> }/>
+              ))}
+
+              <Route path="*" element={ <PageTransition> <NotFound /> </PageTransition> } />
             </Routes>
           </AnimatePresence>
         </Suspense>
       </div>
 
-      <Footer />
+      {isKnownRoute && <Footer />}
     </div>
   );
 }
