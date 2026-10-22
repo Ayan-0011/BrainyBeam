@@ -1,286 +1,150 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
-const checkWebGL = () => {
-  if (typeof window === 'undefined') return true;
-  try {
-    const testCanvas = document.createElement('canvas');
-    return Boolean(testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl'));
-  } catch {
-    return false;
-  }
-};
-
-export default function HeroScene() {
-  const containerRef = useRef(null);
-  const [webGLSupported] = useState(checkWebGL);
+/**
+ * Simple glossy torus-knot sculpture.
+ * - Plain three.js (no extra deps, no external HDR/model files)
+ * - Slow auto-rotate + soft float, drag to rotate with inertia
+ * - Pauses when off-screen, respects prefers-reduced-motion, cleans up on unmount
+ */
+export default function HeroScene({ color = '#ff6a1a' }) {
+  const mountRef = useRef(null);
 
   useEffect(() => {
-    if (!webGLSupported) return;
-    const container = containerRef.current;
-    if (!container) return;
+    const mount = mountRef.current;
+    if (!mount) return;
 
-    // Dimensions
-    let width = container.clientWidth || 480;
-    let height = container.clientHeight || 480;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Scene, Camera, Renderer
+    // Renderer (transparent so the card background shows through)
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+    renderer.domElement.style.touchAction = 'pan-y'; // vertical page scroll still works on mobile
+    renderer.domElement.style.cursor = 'grab';
+    renderer.domElement.style.display = 'block';
+    mount.appendChild(renderer.domElement);
+
+    // Scene + soft studio lighting (generated in code, no files to load)
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-    camera.position.set(0, 0, 7.2);
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const envTexture = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environment = envTexture;
 
-    let renderer;
-    try {
-      renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true,
-        powerPreference: 'high-performance',
-      });
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.2;
-      container.appendChild(renderer.domElement);
-    } catch {
-      setWebGLSupported(false);
-      return;
-    }
+    const key = new THREE.DirectionalLight(0xffffff, 1.4);
+    key.position.set(3, 4, 5);
+    scene.add(key);
 
-    // Lighting setup matching Warm Ivory #F7F5F0, Charcoal #202124 & Orange #FF7417
-    const ambientLight = new THREE.AmbientLight(0xfff5ea, 2.0);
-    scene.add(ambientLight);
+    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+    camera.position.set(0, 0, 6.4);
 
-    const keyLight = new THREE.DirectionalLight(0xff7417, 3.4);
-    keyLight.position.set(5, 5, 4);
-    scene.add(keyLight);
-
-    const rimLight = new THREE.DirectionalLight(0xff9e4f, 2.2);
-    rimLight.position.set(-5, -3, -3);
-    scene.add(rimLight);
-
-    const topSoftLight = new THREE.PointLight(0xffeedb, 2.5, 25);
-    topSoftLight.position.set(0, 6, 3);
-    scene.add(topSoftLight);
-
-    const charcoalFill = new THREE.DirectionalLight(0x202124, 1.2);
-    charcoalFill.position.set(0, -5, 2);
-    scene.add(charcoalFill);
-
-    // Group for entire sculpture
-    const sculptureGroup = new THREE.Group();
-    scene.add(sculptureGroup);
-
-    // 1. Primary Material: High-gloss liquid metallic Orange (#FF7417)
-    const orangeMetalMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xff7417,
-      emissive: 0x3d1700,
-      roughness: 0.18,
-      metalness: 0.78,
-      clearcoat: 0.9,
-      clearcoatRoughness: 0.12,
-      reflectivity: 0.95,
+    // The sculpture
+    const geometry = new THREE.TorusKnotGeometry(1.1, 0.38, 256, 48, 2, 3);
+    const material = new THREE.MeshPhysicalMaterial({
+      color,
+      roughness: 0.28,
+      metalness: 0.12,
+      clearcoat: 1,
+      clearcoatRoughness: 0.15,
     });
+    const mesh = new THREE.Mesh(geometry, material);
+    const group = new THREE.Group();
+    group.rotation.x = 0.25;
+    group.add(mesh);
+    scene.add(group);
 
-    // 2. Secondary Material: Warm Sand & Champagne Gold (#EAE5DB / #F7F5F0 accent)
-    const ivoryMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xeae5db,
-      roughness: 0.3,
-      metalness: 0.45,
-      clearcoat: 0.5,
+    // Sizing
+    const resize = () => {
+      const { clientWidth: w, clientHeight: h } = mount;
+      if (!w || !h) return;
+      renderer.setSize(w, h);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    };
+    const ro = new ResizeObserver(resize);
+    ro.observe(mount);
+    resize();
+
+    // Drag to rotate (with inertia)
+    let dragging = false;
+    let lastX = 0;
+    let lastY = 0;
+    let velY = 0;
+    const baseSpeed = reduceMotion ? 0 : 0.004;
+
+    const onDown = (e) => {
+      dragging = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      renderer.domElement.style.cursor = 'grabbing';
+      renderer.domElement.setPointerCapture?.(e.pointerId);
+    };
+    const onMove = (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      velY = dx * 0.01;
+      group.rotation.y += dx * 0.01;
+      group.rotation.x = THREE.MathUtils.clamp(group.rotation.x + dy * 0.01, -0.9, 0.9);
+    };
+    const onUp = () => {
+      dragging = false;
+      renderer.domElement.style.cursor = 'grab';
+    };
+    const el = renderer.domElement;
+    el.addEventListener('pointerdown', onDown);
+    el.addEventListener('pointermove', onMove);
+    el.addEventListener('pointerup', onUp);
+    el.addEventListener('pointercancel', onUp);
+    el.addEventListener('pointerleave', onUp);
+
+    // Only render while visible
+    let visible = true;
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
     });
+    io.observe(mount);
 
-    // 3. Accent Material: Sleek Obsidian Charcoal (#202124)
-    const charcoalMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x202124,
-      emissive: 0x111214,
-      roughness: 0.25,
-      metalness: 0.85,
-      clearcoat: 0.7,
-    });
-
-    // Outer Liquid Sculpture Torus (Signature Velora Loop)
-    const torusGeometry = new THREE.TorusGeometry(2.1, 0.48, 64, 128);
-    const mainTorus = new THREE.Mesh(torusGeometry, orangeMetalMaterial);
-    mainTorus.rotation.x = Math.PI * 0.35;
-    mainTorus.rotation.y = Math.PI * 0.15;
-    sculptureGroup.add(mainTorus);
-
-    // Core Architectural V & Monolith Group
-    const vGroup = new THREE.Group();
-    
-    // Left Wing of V (Orange)
-    const wingGeo = new THREE.BoxGeometry(0.3, 2.3, 0.3);
-    const leftWing = new THREE.Mesh(wingGeo, orangeMetalMaterial);
-    leftWing.position.set(-0.58, 0.15, 0.1);
-    leftWing.rotation.z = Math.PI * 0.16;
-    vGroup.add(leftWing);
-
-    // Right Wing of V (Orange)
-    const rightWing = new THREE.Mesh(wingGeo, orangeMetalMaterial);
-    rightWing.position.set(0.58, 0.15, 0.1);
-    rightWing.rotation.z = -Math.PI * 0.16;
-    vGroup.add(rightWing);
-
-    // Apex Core Jewel (Charcoal obsidian facet)
-    const apexGeo = new THREE.OctahedronGeometry(0.42, 0);
-    const apexJewel = new THREE.Mesh(apexGeo, charcoalMaterial);
-    apexJewel.position.set(0, -0.85, 0.2);
-    vGroup.add(apexJewel);
-
-    // Center Floating Sphere (Warm Ivory pearl)
-    const centerOrbGeo = new THREE.SphereGeometry(0.5, 48, 48);
-    const centerOrb = new THREE.Mesh(centerOrbGeo, ivoryMaterial);
-    centerOrb.position.set(0, 0.2, -0.1);
-    vGroup.add(centerOrb);
-
-    sculptureGroup.add(vGroup);
-
-    // Dynamic Orbiting Rings
-    const ringGeo1 = new THREE.TorusGeometry(3.0, 0.035, 24, 96);
-    const orbitRing1 = new THREE.Mesh(ringGeo1, ivoryMaterial);
-    orbitRing1.rotation.x = Math.PI * 0.6;
-    orbitRing1.rotation.z = Math.PI * 0.2;
-    sculptureGroup.add(orbitRing1);
-
-    const ringGeo2 = new THREE.TorusGeometry(2.6, 0.025, 24, 96);
-    const orbitRing2 = new THREE.Mesh(ringGeo2, charcoalMaterial);
-    orbitRing2.rotation.x = -Math.PI * 0.4;
-    orbitRing2.rotation.y = Math.PI * 0.3;
-    sculptureGroup.add(orbitRing2);
-
-    // Interactive Drag & Parallax Logic
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetX = 0;
-    let targetY = 0;
-    let isDragging = false;
-    let previousPointerPosition = { x: 0, y: 0 };
-    let dragDeltaX = 0;
-    let dragDeltaY = 0;
-
-    const onMouseMove = (event) => {
-      const rect = container.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      targetX = x * 0.7;
-      targetY = y * 0.5;
-    };
-
-    const onPointerDown = (e) => {
-      isDragging = true;
-      previousPointerPosition = { x: e.clientX, y: e.clientY };
-    };
-
-    const onPointerMove = (e) => {
-      if (!isDragging) return;
-      const deltaX = e.clientX - previousPointerPosition.x;
-      const deltaY = e.clientY - previousPointerPosition.y;
-      dragDeltaX += deltaX * 0.008;
-      dragDeltaY += deltaY * 0.008;
-      previousPointerPosition = { x: e.clientX, y: e.clientY };
-    };
-
-    const onPointerUp = () => {
-      isDragging = false;
-    };
-
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
-    container.addEventListener('pointerdown', onPointerDown);
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('pointerup', onPointerUp);
-
-    // Smooth resize observer for fluid responsive layouts
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const { width: newWidth, height: newHeight } = entry.contentRect;
-        if (newWidth > 0 && newHeight > 0) {
-          camera.aspect = newWidth / newHeight;
-          camera.updateProjectionMatrix();
-          renderer.setSize(newWidth, newHeight);
-        }
-      }
-    });
-
-    resizeObserver.observe(container);
-
-    // Animation Loop
-    let animationFrameId;
+    // Loop
+    let raf;
     const clock = new THREE.Clock();
+    const tick = () => {
+      raf = requestAnimationFrame(tick);
+      if (!visible) return;
+      const t = clock.getElapsedTime();
 
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-      const elapsedTime = clock.getElapsedTime();
-
-      // Smooth mouse lerp
-      mouseX += (targetX - mouseX) * 0.06;
-      mouseY += (targetY - mouseY) * 0.06;
-
-      // Decay drag delta over time
-      dragDeltaX *= 0.95;
-      dragDeltaY *= 0.95;
-
-      // Group rotation combining continuous flow + mouse parallax + drag interaction
-      sculptureGroup.rotation.y += 0.004 + dragDeltaX;
-      sculptureGroup.rotation.x += dragDeltaY;
-      
-      sculptureGroup.position.x = mouseX * 0.4;
-      sculptureGroup.position.y = Math.sin(elapsedTime * 0.8) * 0.12 - mouseY * 0.3;
-
-      // Counter rotations
-      mainTorus.rotation.z = elapsedTime * 0.12;
-      orbitRing1.rotation.z = -elapsedTime * 0.15;
-      orbitRing2.rotation.z = elapsedTime * 0.1;
-      vGroup.rotation.y = -elapsedTime * 0.08;
+      if (!dragging) {
+        velY = THREE.MathUtils.lerp(velY, baseSpeed, 0.04);
+        group.rotation.y += velY;
+        group.rotation.x = THREE.MathUtils.lerp(group.rotation.x, 0.25, 0.02);
+      }
+      if (!reduceMotion) mesh.position.y = Math.sin(t * 1.1) * 0.08;
 
       renderer.render(scene, camera);
     };
+    tick();
 
-    animate();
-
-    // Cleanup
     return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      container.removeEventListener('pointerdown', onPointerDown);
-      window.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerup', onPointerUp);
-      resizeObserver.disconnect();
-      cancelAnimationFrame(animationFrameId);
-
-      if (renderer && renderer.domElement && container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
-        renderer.dispose();
-      }
-
-      torusGeometry.dispose();
-      wingGeo.dispose();
-      apexGeo.dispose();
-      centerOrbGeo.dispose();
-      ringGeo1.dispose();
-      ringGeo2.dispose();
-      orangeMetalMaterial.dispose();
-      ivoryMaterial.dispose();
-      charcoalMaterial.dispose();
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      io.disconnect();
+      el.removeEventListener('pointerdown', onDown);
+      el.removeEventListener('pointermove', onMove);
+      el.removeEventListener('pointerup', onUp);
+      el.removeEventListener('pointercancel', onUp);
+      el.removeEventListener('pointerleave', onUp);
+      geometry.dispose();
+      material.dispose();
+      envTexture.dispose();
+      pmrem.dispose();
+      renderer.dispose();
+      if (el.parentNode === mount) mount.removeChild(el);
     };
-  }, []);
+  }, [color]);
 
-  return (
-    <div
-      ref={containerRef}
-      className="relative w-full h-full min-h-[360px] sm:min-h-[460px] lg:min-h-[540px] flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
-      aria-label="Interactive 3D Three.js Velora Sculpture"
-    >
-      {/* Fallback if WebGL isn't supported */}
-      {!webGLSupported && (
-        <div className="relative w-72 h-72 sm:w-88 sm:h-88 flex items-center justify-center animate-pulse-subtle">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange/30 via-orange/15 to-transparent blur-2xl" />
-          <svg viewBox="0 0 200 200" className="w-full h-full drop-shadow-xl animate-float-slow">
-            <circle cx="100" cy="100" r="75" fill="none" stroke="#FF7417" strokeWidth="18" strokeDasharray="360 40" opacity="0.9" />
-            <circle cx="100" cy="100" r="50" fill="none" stroke="#EAE5DB" strokeWidth="6" opacity="0.7" />
-            <path d="M70 75L100 135L130 75" fill="none" stroke="#FF7417" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round" />
-            <circle cx="100" cy="100" r="12" fill="#202124" />
-          </svg>
-        </div>
-      )}
-    </div>
-  );
+  return <div ref={mountRef} className="w-full h-full" aria-hidden="true" />;
 }

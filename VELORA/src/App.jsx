@@ -49,13 +49,12 @@ export default function App() {
               <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
               <Route path="/privacy-policy" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
               <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
-              <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+              <Route path="*" element={<PageTransition> <NotFound /> </PageTransition>} />
             </Routes>
           </AnimatePresence>
         </Suspense>
       </div>
 
-      {/* Persistent Studio Footer */}
       <Footer />
     </div>
   );
