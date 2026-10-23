@@ -9,6 +9,7 @@ import ScrollToTop from './components/layout/ScrollToTop';
 import PageTransition from './components/layout/PageTransition';
 import LoadingScreen from './components/common/LoadingScreen';
 import ButtonToTop from './components/common/ButtonTotop';
+import ServiceDetail from './pages/Servicedetail';
 
 // Lazy-Loaded Route Pages for Optimized Performance & Code-Splitting
 const Home = lazy(() => import('./pages/Home'));
@@ -29,6 +30,7 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const pages = [
   { path: '/', Component: Home },
   { path: '/services', Component: Services },
+  { path: '/services/:slug', Component: ServiceDetail },
   { path: '/work', Component: Work },
   { path: '/work/:slug', Component: CaseStudy },
   { path: '/process', Component: Process },

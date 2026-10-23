@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  Globe, 
-  Smartphone, 
-  Server, 
-  Sparkles, 
-  CheckCircle2, 
-  ArrowUpRight, 
-  ChevronDown, 
-  ChevronUp, 
-  Layers, 
-  ShieldCheck, 
-  Zap, 
-  Clock 
+import {
+  Globe,
+  Smartphone,
+  Server,
+  Sparkles,
+  CheckCircle2,
+  ChevronDown,
+  ChevronUp,
+  Layers,
+  ShieldCheck,
+  Zap,
 } from 'lucide-react';
 import { services, engagementModels, servicesFAQs } from '../data/services';
 import SectionHeading from '../components/common/SectionHeading';
 import Button from '../components/common/Button';
+import TechBadge from '../components/common/TechBadge';
 import FinalCTA from '../components/home/FinalCTA';
 
 export default function Services() {
@@ -150,9 +148,15 @@ export default function Services() {
                       </p>
                     </div>
 
-                    <Button to="/contact" variant="primary" icon="upRight">
-                      Discuss a {service.title} Project
-                    </Button>
+                    {/* Actions: discuss + explore the dedicated service page */}
+                    <div className="flex flex-wrap items-center gap-3">
+                      <Button to="/contact" variant="primary" icon="upRight">
+                        Discuss a {service.title} Project
+                      </Button>
+                      <Button to={`/services/${service.id}`} variant="secondary" icon="arrow">
+                        Explore service
+                      </Button>
+                    </div>
                   </div>
 
                   {/* Capabilities & Tech Breakdown */}
@@ -197,19 +201,14 @@ export default function Services() {
                         </ul>
                       </div>
 
-                      {/* Tech Stack */}
+                      {/* Tech Stack (with logos) */}
                       <div>
                         <h4 className="font-heading text-xs uppercase tracking-widest text-muted font-bold mb-3">
                           Technology Stack
                         </h4>
-                        <div className="flex flex-wrap gap-1.5">
-                          {service.techStack.map((tech, tIdx) => (
-                            <span
-                              key={tIdx}
-                              className="px-2 py-0.5 rounded text-xs bg-cream text-nearblack font-medium border border-sand-border"
-                            >
-                              {tech}
-                            </span>
+                        <div className="flex flex-wrap gap-2">
+                          {service.techStack.map((tech) => (
+                            <TechBadge key={tech} name={tech} />
                           ))}
                         </div>
                       </div>
