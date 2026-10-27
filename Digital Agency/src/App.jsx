@@ -13,12 +13,14 @@ import Contact from './pages/Contact.jsx';
 import Legal from './pages/Legal.jsx';
 import NotFound from './pages/NotFound.jsx';
 import './styles/global.css';
+import ScrollProgress from './components/layout/ScrollProgess.jsx';
 
 function AppRoutes() {
   useEffect(() => startSmoothScroll(), []);
 
   return <>
     <PageTransition />
+    <ScrollProgress/>
     <Navbar />
     <main>
       <Routes>

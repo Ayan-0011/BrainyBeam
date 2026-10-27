@@ -14,6 +14,15 @@ export default function Navbar() {
 
   useEffect(() => setOpen(false), [location.pathname]);
 
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const onScroll = () => headerRef.current?.classList.toggle('is-scrolled', window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   useEffect(() => {
     document.body.classList.toggle('menu-open', open);
     const panel = panelRef.current;
@@ -32,7 +41,7 @@ export default function Navbar() {
     return () => document.body.classList.remove('menu-open');
   }, [open]);
 
-  return <header className="site-nav">
+  return <header className="site-nav" ref={headerRef}>
     <Brand />
     <div className="nav-center"><span>INDEPENDENT DIGITAL STUDIO</span><span>{brand.location}</span></div>
     <div className="nav-actions">
