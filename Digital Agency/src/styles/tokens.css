@@ -1,0 +1,9 @@
+:root {
+	--paper: #f2f0e9;
+	--ink: #181a17;
+	--acid: #d7f45b;
+	--orange: #ff6748;
+	--line: rgba(24, 26, 23, 0.2);
+	--muted: #77796e;
+	--mono: 'DM Mono', monospace;
+}
