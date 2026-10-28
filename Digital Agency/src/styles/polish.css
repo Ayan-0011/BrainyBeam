@@ -1,0 +1,114 @@
+/* Polish layer: showcase section, heading masks, hover + focus states. Loaded last. */
+
+/* ---------- showcase (image section directly below the hero) ---------- */
+.showcase {
+  position: relative;
+  z-index: 2;
+  background: var(--paper);
+  padding: clamp(20px, 4vw, 56px) var(--hx-pad) clamp(40px, 6vw, 96px);
+}
+
+.showcase-frame {
+  position: relative;
+  height: clamp(380px, 82svh, 900px);
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 20px;
+  background: var(--ink);
+}
+
+.showcase-img {
+  position: absolute;
+  inset: -12% 0;
+  width: 100%;
+  height: 124%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.showcase-caption {
+  position: absolute;
+  inset: auto clamp(16px, 2.6vw, 36px) clamp(16px, 2.6vw, 36px);
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin: 0;
+  color: var(--paper);
+  font-size: clamp(18px, 2.4vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.showcase-caption span {
+  display: block;
+}
+
+@media (max-width: 720px) {
+  .showcase-frame {
+    height: clamp(340px, 70svh, 560px);
+    border-radius: 16px;
+  }
+
+  .showcase-caption {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+/* ---------- page heading line masks (PageIntro) ---------- */
+.page-intro h1 .pi-line {
+  display: block;
+  overflow: hidden;
+  padding: 0.18em 0 0.24em;
+  margin: -0.18em 0 -0.24em;
+}
+
+.page-intro h1 .pi-line > * {
+  display: inline-block;
+}
+
+/* ---------- hover + focus states (no layout changes) ---------- */
+.text-link,
+.footer-links a,
+.back-top {
+  transition: color 0.25s, opacity 0.25s;
+}
+
+.text-link:hover,
+.footer-links a:hover {
+  color: var(--orange);
+}
+
+.back-top:hover {
+  color: var(--acid);
+}
+
+.legal-layout aside a.is-active {
+  color: var(--orange);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.service-row > button:hover .service-title {
+  transform: translateX(8px);
+}
+
+.service-title {
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-row > button:hover .service-title {
+    transform: none;
+  }
+}
