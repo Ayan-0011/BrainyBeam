@@ -1,65 +1,96 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { ArrowUpRight, Menu, X, Asterisk } from 'lucide-react';
-import gsap from 'gsap';
+import { gsap } from '../../animations/gsapConfig.js';
 import { brand } from '../../config/brand.js';
-import Brand from '../ui/Brand.jsx';
 import { navigation } from '../../config/navigation.js';
+
+const links = [{ label: 'Home', href: '/' }, ...navigation];
+
+function useClock() {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  return now;
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const panelRef = useRef(null);
-  const itemsRef = useRef([]);
-  const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  const menuRef = useRef(null);
+  const tl = useRef(null);
+  const { pathname } = useLocation();
+  const now = useClock();
 
-  useEffect(() => setOpen(false), [location.pathname]);
+  const isHome = pathname === '/';
+  const time = now.toLocaleTimeString('en-GB', { hour12: false });
+  const tz = new Intl.DateTimeFormat('en', { timeZoneName: 'shortOffset' })
+    .formatToParts(now)
+    .find(part => part.type === 'timeZoneName')?.value;
 
-  const headerRef = useRef(null);
+  // close on route change
+  useEffect(() => setOpen(false), [pathname]);
 
+  // centre logo appears after the hero (always visible on inner pages)
   useEffect(() => {
-    const onScroll = () => headerRef.current?.classList.toggle('is-scrolled', window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.6);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // menu timeline (built once, played / reversed)
   useEffect(() => {
+    const ctx = gsap.context(() => {
+      tl.current = gsap
+        .timeline({ paused: true, defaults: { ease: 'power4.inOut' } })
+        .set(menuRef.current, { visibility: 'visible' }, 0)
+        .fromTo(menuRef.current, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.85 }, 0)
+        .fromTo('.nv-link-inner', { yPercent: 110 }, { yPercent: 0, duration: 0.8, stagger: 0.06, ease: 'power4.out' }, 0.35)
+        .fromTo('.nv-info > *', { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power3.out' }, 0.45);
+    }, menuRef);
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    if (!tl.current) return undefined;
+    if (open) tl.current.timeScale(1).play();
+    else tl.current.timeScale(1.3).reverse();
     document.body.classList.toggle('menu-open', open);
-    const panel = panelRef.current;
-    if (!panel) return undefined;
-
-    if (open) {
-      gsap.set(panel, { autoAlpha: 1, clipPath: 'inset(0% 0% 100% 0% round 18px)' });
-      gsap.timeline()
-        .to(panel, { clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 0.72, ease: 'power4.inOut' })
-        .fromTo(itemsRef.current.filter(Boolean), { y: 38, opacity: 0, rotate: 2 }, { y: 0, opacity: 1, rotate: 0, stagger: 0.075, duration: 0.55, ease: 'power3.out' }, '-=0.28')
-        .fromTo('.menu-meta', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2');
-    } else {
-      gsap.to(panel, { clipPath: 'inset(0% 0% 100% 0% round 18px)', duration: 0.48, ease: 'power3.inOut', onComplete: () => gsap.set(panel, { autoAlpha: 0 }) });
-    }
-
     return () => document.body.classList.remove('menu-open');
   }, [open]);
 
-  return <header className="site-nav" ref={headerRef}>
-    <Brand />
-    <div className="nav-center"><span>INDEPENDENT DIGITAL STUDIO</span><span>{brand.location}</span></div>
-    <div className="nav-actions">
-      <Link className="nav-brief" to="/contact">Start a project <ArrowUpRight size={14} /></Link>
-      <button className={`menu-button ${open ? 'menu-button-open' : ''}`} onClick={() => setOpen(value => !value)} aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open}>
-        <span>{open ? 'CLOSE' : 'MENU'}</span><i>{open ? <X size={17} /> : <Menu size={17} />}</i>
+  useEffect(() => {
+    const onKey = event => event.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  const showLogo = scrolled || !isHome || open;
+
+  return <>
+    <header className={`nv ${showLogo ? 'nv--logo' : ''} ${open ? 'nv--open' : ''}`}>
+      <Link to="/" className="nv-logo" aria-label={`${brand.name} home`}>{brand.heroWord}</Link>
+
+      <button className="nv-burger" onClick={() => setOpen(value => !value)} aria-expanded={open} aria-controls="site-menu" aria-label={open ? 'Close menu' : 'Open menu'}>
+        <span /><span />
       </button>
-    </div>
-    <div className="menu-panel" ref={panelRef} aria-hidden={!open}>
-      <div className="menu-panel-top"><span>{brand.name}® — NAVIGATION</span><span>GOOD IDEAS MOVE PEOPLE.</span><button onClick={() => setOpen(false)} aria-label="Close menu"><X size={19} /></button></div>
-      <div className="menu-panel-body">
-        <div className="menu-links">
-          {navigation.map(({ number, label, href }, index) => <NavLink key={href} to={href} onClick={() => setOpen(false)} ref={element => { itemsRef.current[index] = element; }}><span>{number}</span><b>{label}</b><ArrowUpRight /></NavLink>)}
-        </div>
-        <div className="menu-aside"><div className="menu-glyph"><div className="glyph-ring" /><div className="glyph-core">F<span>/</span>S</div><Asterisk className="glyph-star" /></div><div className="menu-meta"><span>INDEPENDENT THINKING.<br />DIGITAL THINGS WITH FEELING.</span><a href={`mailto:${brand.email}`}>{brand.email.toUpperCase()} <ArrowUpRight size={13} /></a><span className="menu-availability"><i /> AVAILABLE FOR SELECT PROJECTS</span></div></div>
+    </header>
+
+    <div id="site-menu" ref={menuRef} className={`nv-menu ${open ? 'nv-menu--open' : ''}`} aria-hidden={!open} data-lenis-prevent>
+      <div className="nv-info">
+        <p className="nv-about">We are based in <em>{brand.city}</em> and work remotely.</p>
+        <p className="nv-time">{time}</p>
+        <p className="nv-tz">Current time zone ({tz})</p>
       </div>
-      <div className="menu-panel-bottom"><span>© {brand.name} {brand.year}</span><span>SCROLL LESS. NOTICE MORE.</span><span>01 — 04</span></div>
+      <ul className="nv-list">
+        {links.map(({ label, href }) => <li className="nv-item" key={href}>
+          <NavLink to={href} end={href === '/'} className="nv-link" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
+            <span className="nv-link-inner">{label}</span>
+          </NavLink>
+        </li>)}
+      </ul>
     </div>
-    {open && <button className="menu-scrim" onClick={() => setOpen(false)} aria-label="Close navigation overlay" />}
-  </header>;
+  </>;
 }
