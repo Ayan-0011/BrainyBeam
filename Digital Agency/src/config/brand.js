@@ -1,6 +1,6 @@
 export const brand = {
-  name: 'FORM/SHIFT',
-  logoText: 'FORM/SHIFT',
+  name: 'AWESOME',
+  logoText: 'AWESOME',
   heroWord: 'AWESOME',
   email: 'hello@formshift.studio',
   city: 'Ahmedabad',

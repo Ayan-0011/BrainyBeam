@@ -23,39 +23,29 @@
 }
 
 .nv-logo {
-  /* the ONE brand name: Hero.jsx moves/scales it, BrandMark.jsx sets its size and docked position */
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 80; /* under the open menu while it is still travelling through the hero */
-  width: max-content;
+  position: absolute;
+  left: 50%;
+  top: clamp(16px, 2.2vw, 28px);
+  transform: translateX(-50%);
   white-space: nowrap;
-  color: var(--hx-accent);
+  font-size: clamp(18px, 1.8vw, 26px);
   font-weight: 800;
-  line-height: 0.8;
-  transform-origin: 50% 50%;
-}
-
-.nv-logo.is-docked {
-  z-index: 101; /* docked in the navbar: stays above the menu overlay */
-}
-
-.nv-logo:focus-visible {
-  outline: 2px solid var(--hx-accent);
-  outline-offset: 0.08em;
-}
-
-/* reduced motion: the big name stays in the hero, the navbar name appears after it */
-body.hx-reduced:not(.hx-passed) .nv-logo {
+  letter-spacing: -0.06em;
+  line-height: 1;
   opacity: 0;
-  pointer-events: none;
+  /* hero scroll animation reveals it (no fade: it takes over from the travelling name) */
+}
+
+.nv--logo .nv-logo,
+body.hx-docked .nv-logo {
+  opacity: 1;
 }
 
 .nv-burger {
-  margin: -10px -2px 0 auto; /* 48px touch target, lines stay aligned with the old 44x28 button */
+  margin-left: auto;
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 28px;
   padding: 0;
   border: 0;
   background: none;
@@ -64,28 +54,28 @@ body.hx-reduced:not(.hx-passed) .nv-logo {
 
 .nv-burger span {
   position: absolute;
-  left: 2px;
-  right: 2px;
+  left: 0;
+  right: 0;
   height: 2px;
   background: var(--hx-accent);
   transition: transform 0.5s var(--hx-ease), top 0.5s var(--hx-ease);
 }
 
 .nv-burger span:nth-child(1) {
-  top: 18px;
+  top: 8px;
 }
 
 .nv-burger span:nth-child(2) {
-  top: 28px;
+  top: 18px;
 }
 
 .nv--open .nv-burger span:nth-child(1) {
-  top: 23px;
+  top: 13px;
   transform: rotate(45deg);
 }
 
 .nv--open .nv-burger span:nth-child(2) {
-  top: 23px;
+  top: 13px;
   transform: rotate(-45deg);
 }
 
@@ -101,10 +91,7 @@ body.hx-reduced:not(.hx-passed) .nv-logo {
   z-index: 90;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr auto;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: clamp(88px, 11vw, 150px) var(--hx-pad) max(var(--hx-pad), env(safe-area-inset-bottom));
+  padding: clamp(88px, 11vw, 150px) var(--hx-pad) var(--hx-pad);
   background: rgba(3, 10, 12, 0.82);
   color: #fff;
   -webkit-backdrop-filter: blur(28px);
@@ -119,17 +106,7 @@ body.hx-reduced:not(.hx-passed) .nv-logo {
 }
 
 .nv-info {
-  grid-row: 1;
-  grid-column: 1;
   align-self: start;
-}
-
-/* the time sits at the bottom of the menu, level with the bottom of the links */
-.nv-clock {
-  grid-row: 2;
-  grid-column: 1;
-  align-self: end;
-  padding-top: 32px;
 }
 
 .nv-about {
@@ -147,7 +124,7 @@ body.hx-reduced:not(.hx-passed) .nv-logo {
 }
 
 .nv-time {
-  margin: 0;
+  margin: clamp(20px, 3vw, 44px) 0 0;
   font-size: clamp(28px, 3.4vw, 54px);
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -161,8 +138,6 @@ body.hx-reduced:not(.hx-passed) .nv-logo {
 }
 
 .nv-list {
-  grid-row: 1 / span 2;
-  grid-column: 2;
   align-self: end;
   justify-self: end;
   margin: 0;
@@ -177,7 +152,6 @@ body.hx-reduced:not(.hx-passed) .nv-logo {
 
 .nv-link {
   display: block;
-  min-height: 48px; /* comfortable touch target */
   font-size: clamp(40px, 5.8vw, 96px);
   font-weight: 500;
   letter-spacing: -0.045em;
@@ -208,13 +182,11 @@ body.has-hero main {
   isolation: isolate;
   background: #000;
   color: #fff;
-  /* rounded bottom edge: the paper-coloured showcase section takes over cleanly below it */
-  border-radius: 0 0 clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px);
 }
 
 .hx-bg {
   position: absolute;
-  inset: -18% 0 0; /* extra height above so the scroll parallax never exposes the black base */
+  inset: 0;
   z-index: -2;
   background:
     url('/images/hero.jpg') center / cover no-repeat,
@@ -288,11 +260,7 @@ body.has-hero main {
 }
 
 .hx-wordmark {
-  /* layout placeholder: the visible, clickable name is the navbar element (.nv-logo) */
-}
-
-.hx-ghost {
-  display: inline-block;
+  will-change: transform;
 }
 
 .hx-word {
@@ -359,45 +327,22 @@ body.has-hero main {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
   opacity: 0;
   pointer-events: none;
-  will-change: transform;
 }
 
-@media (hover: none), (pointer: coarse) {
+@media (hover: none) {
   .hx-cursor {
     display: none;
   }
 }
 
-/* hide the system cursor only while the orange cursor is running (fine pointers) */
-html.has-cursor,
-html.has-cursor * {
-  cursor: none !important;
-}
-
-html.has-cursor input:not([type='checkbox']):not([type='radio']):not([type='submit']),
-html.has-cursor textarea,
-html.has-cursor select {
-  cursor: text !important;
-}
-
 @media (max-width: 720px) {
   .nv-menu {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr;
   }
 
   .nv-list {
     grid-row: 1;
-    grid-column: 1;
-  }
-
-  .nv-info {
-    grid-row: 2;
-    padding-top: 28px;
-  }
-
-  .nv-clock {
-    grid-row: 3;
   }
 
   .hx-tagline {
