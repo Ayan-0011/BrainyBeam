@@ -71,6 +71,7 @@ export default function Navbar() {
 
   return <>
     <header className={`nv ${showLogo ? 'nv--logo' : ''} ${open ? 'nv--open' : ''}`}>
+     
       <Link to="/" className="nv-logo" aria-label={`${brand.name} home`}>{brand.heroWord}</Link>
 
       <button className="nv-burger" onClick={() => setOpen(value => !value)} aria-expanded={open} aria-controls="site-menu" aria-label={open ? 'Close menu' : 'Open menu'}>
