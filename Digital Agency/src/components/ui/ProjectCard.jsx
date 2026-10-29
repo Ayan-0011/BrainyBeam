@@ -4,10 +4,17 @@ import { ArrowUpRight } from 'lucide-react';
 export function ProjectArtwork({ project }) {
   return <div className={`project-art art-${project.style}`}>
     <div className="art-labels"><span>{project.category.toUpperCase()}</span><span>{project.no} / 03</span></div>
-    {project.style === 'north' && <><div className="north-disc" /><div className="north-block" /><div className="north-copy">LESS,<br />BUT<br /><i>BETTER.</i></div><span className="art-caption">N / OBJECTS</span></>}
-    {project.style === 'after' && <><div className="after-sphere" /><div className="after-orbit" /><div className="after-copy">AFTER<br /><i>HOURS</i></div><span className="art-caption">CITY / 0025</span></>}
-    {project.style === 'field' && <><div className="field-sun" /><div className="field-hill field-hill-a" /><div className="field-hill field-hill-b" /><div className="field-copy">GO<br />OUT<span>↗</span></div><span className="art-caption">F / WILD</span></>}
-    <span className="art-big-number">{project.no}</span>
+
+    {project.image && (
+      <img
+        className="project-background-image"
+        src={project.image}
+        alt={`${project.name} visual`}
+        loading="lazy"
+      />
+    )}
+
+   
   </div>;
 }
 

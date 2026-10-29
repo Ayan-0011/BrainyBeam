@@ -25,7 +25,7 @@ export default function ShowcaseSection() {
   return (
     <section className="showcase" ref={root} aria-label="Studio showcase">
       <div className="showcase-frame">
-        <img className="showcase-img" src="/images/showcase.jpg" alt="" width="2400" height="1500" loading="eager" decoding="async" />
+        <img className="showcase-img" src="/images/.jpg" alt="" width="2400" height="1500" loading="eager" decoding="async" />
         <p className="showcase-caption">
           <span>Independent thinking.</span>
           <span>Digital things with feeling.</span>

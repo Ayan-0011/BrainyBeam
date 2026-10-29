@@ -8,6 +8,7 @@ import Manifesto from '../components/sections/Manifesto.jsx';
 import ContactSection from '../components/sections/ContactSection.jsx';
 import WhatWeDo from '../components/sections/Whatwedo.jsx';
 import CtaSection from '../components/sections/Ctasection.jsx';
+import HorizontalScroll from '../components/sections/Horizontalscroll.jsx';
 
 export default function Home() {
   return <>
@@ -15,6 +16,7 @@ export default function Home() {
     <ShowcaseSection />
     <Marquee>INDEPENDENT BY DESIGN</Marquee>
     <WorkSection compact />
+    {/* <HorizontalScroll/> */}
     <WhatWeDo/>
     <StudioSection />
     {/* <ServicesSection /> */}
@@ -23,3 +25,5 @@ export default function Home() {
     {/* <ContactSection /> */}
   </>;
 }
+
+
