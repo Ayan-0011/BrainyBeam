@@ -2,7 +2,7 @@ export const brand = {
   name: 'AWESOME',
   logoText: 'AWESOME',
   heroWord: 'AWESOME',
-  email: 'hello@formshift.studio',
+  email: 'awesome@digital.com',
   city: 'Ahmedabad',
   location: 'AHMEDABAD · WORKING EVERYWHERE',
   year: 2026,

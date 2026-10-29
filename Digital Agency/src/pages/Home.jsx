@@ -6,6 +6,8 @@ import StudioSection from '../components/sections/StudioSection.jsx';
 import ServicesSection from '../components/sections/ServicesSection.jsx';
 import Manifesto from '../components/sections/Manifesto.jsx';
 import ContactSection from '../components/sections/ContactSection.jsx';
+import WhatWeDo from '../components/sections/Whatwedo.jsx';
+import CtaSection from '../components/sections/Ctasection.jsx';
 
 export default function Home() {
   return <>
@@ -13,9 +15,11 @@ export default function Home() {
     <ShowcaseSection />
     <Marquee>INDEPENDENT BY DESIGN</Marquee>
     <WorkSection compact />
+    <WhatWeDo/>
     <StudioSection />
-    <ServicesSection />
+    {/* <ServicesSection /> */}
     <Manifesto />
-    <ContactSection />
+    <CtaSection/>
+    {/* <ContactSection /> */}
   </>;
 }
