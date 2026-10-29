@@ -79,12 +79,11 @@ export function animatePageContent() {
     if (link) ScrollTrigger.create({ trigger: article, start: 'top 45%', end: 'bottom 45%', onToggle: self => link.classList.toggle('is-active', self.isActive) });
   });
 
-  // ---------- Contact form + footer ----------
+  // ---------- Contact form ----------
   if (document.querySelector('.contact-form')) {
     gsap.from('.contact-form > *', { y: 28, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: '.contact-form', start: 'top 85%' } });
   }
   if (document.querySelector('.contact-graphic-ring')) gsap.to('.contact-graphic-ring', { rotate: 90, ease: 'none', scrollTrigger: scrub('.contact-section') });
-  gsap.from('.footer-main > *', { y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: '.footer', start: 'top 92%' } });
 
   // ---------- big blocks: a calm scale-in (kept from the original) ----------
   gsap.utils.toArray('.case-art-wrap, .about-statement h2, .services-note').forEach(element => gsap.from(element, { scale: 0.96, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 82%' } }));

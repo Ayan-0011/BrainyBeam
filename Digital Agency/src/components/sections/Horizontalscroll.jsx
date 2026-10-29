@@ -1,14 +1,43 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from '../../animations/gsapConfig.js';
 
-// Edit the cards here
 const steps = [
-  { n: '01', title: 'Listen first.', text: 'We start with your problem, not our playbook.' },
-  { n: '02', title: 'Shape the idea.', text: 'Strategy and direction, in plain words.' },
-  { n: '03', title: 'Design with intent.', text: 'Brand and interface that say something.' },
-  { n: '04', title: 'Build it properly.', text: 'Fast, accessible and made to last.' },
-  { n: '05', title: 'Launch together.', text: 'We ship it with you, not at you.' },
-  { n: '06', title: 'Keep it growing.', text: 'Measure, improve, repeat.' },
+  {
+    n: '01',
+    title: 'Listen first.',
+    text: 'We start with your core problem and business reality, not an off-the-shelf playbook.',
+    tag: 'DISCOVERY',
+  },
+  {
+    n: '02',
+    title: 'Shape the idea.',
+    text: 'Strategy, positioning, and scope articulated in plain language with clear milestones.',
+    tag: 'STRATEGY',
+  },
+  {
+    n: '03',
+    title: 'Design with intent.',
+    text: 'Brand world and interface architecture that reflect your identity and feel distinctive.',
+    tag: 'DESIGN',
+  },
+  {
+    n: '04',
+    title: 'Build it properly.',
+    text: 'Engineered with clean code, modern web standards, and high-performance GSAP motion.',
+    tag: 'DEVELOPMENT',
+  },
+  {
+    n: '05',
+    title: 'Launch together.',
+    text: 'Rigorous cross-browser quality assurance, SEO checks, and smooth deployment.',
+    tag: 'DEPLOYMENT',
+  },
+  {
+    n: '06',
+    title: 'Keep it growing.',
+    text: 'Post-launch performance review, analytics tuning, and continuous enhancements.',
+    tag: 'EVOLUTION',
+  },
 ];
 
 export default function HorizontalScroll() {
@@ -19,12 +48,10 @@ export default function HorizontalScroll() {
   useLayoutEffect(() => {
     const mm = gsap.matchMedia();
 
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
+    mm.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
       const ctx = gsap.context(() => {
-        // how far the row has to travel to show the last card
-        const distance = () => Math.max(0, track.current.scrollWidth - window.innerWidth);
+        const distance = () => Math.max(0, track.current.scrollWidth - window.innerWidth + 120);
 
-        // vertical scroll -> horizontal movement (section is pinned)
         gsap.to(track.current, {
           x: () => -distance(),
           ease: 'none',
@@ -33,21 +60,22 @@ export default function HorizontalScroll() {
             start: 'top top',
             end: () => `+=${distance()}`,
             pin: true,
-            scrub: true,
+            scrub: 0.6,
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            onUpdate: self => { if (bar.current) bar.current.style.transform = `scaleX(${self.progress})`; },
+            onUpdate: self => {
+              if (bar.current) bar.current.style.transform = `scaleX(${self.progress})`;
+            },
           },
         });
 
-        // cards slide in when the section arrives
         gsap.from('.hs-card', {
-          x: 250,
+          y: 60,
           autoAlpha: 0,
-          duration: 0.9,
+          duration: 0.8,
           stagger: 0.08,
           ease: 'power3.out',
-          scrollTrigger: { trigger: root.current, start: 'top 75%', toggleActions: 'play none none reverse' },
+          scrollTrigger: { trigger: root.current, start: 'top 75%', once: true },
         });
       }, root);
       return () => ctx.revert();
@@ -57,10 +85,16 @@ export default function HorizontalScroll() {
   }, []);
 
   return (
-    <section className="hs" id="process" ref={root}>
+    <section className="hs" id="process" ref={root} aria-label="Our process and methodology">
       <div className="hs-head">
-        <span className="eyebrow">( How we work )</span>
+        <div className="hs-head-meta">
+          <span className="eyebrow">( How we work )</span>
+          <span className="eyebrow hs-counter">06 PHASES / SYSTEMATIC SPRINT</span>
+        </div>
         <h2 className="hs-title">Six steps.<br /><em>One direction.</em></h2>
+        <div className="hs-progress" aria-hidden="true">
+          <span ref={bar} />
+        </div>
       </div>
 
       <div className="hs-viewport">
@@ -68,9 +102,18 @@ export default function HorizontalScroll() {
           {steps.map(s => (
             <div className="hs-item" key={s.n}>
               <article className="hs-card">
-                <span className="hs-count">{s.n}</span>
-                <h3>{s.title}</h3>
-                <p>{s.text}</p>
+                <div className="hs-card-head">
+                  <span className="hs-count">{s.n}</span>
+                  <span className="hs-tag">{s.tag}</span>
+                </div>
+                <div className="hs-card-body">
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </div>
+                <div className="hs-card-foot">
+                  <span className="hs-dot" />
+                  <span>PHASE {s.n}</span>
+                </div>
               </article>
             </div>
           ))}

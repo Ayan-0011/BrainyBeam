@@ -30,56 +30,110 @@ export default function Footer() {
   }, []);
 
   useLayoutEffect(() => {
+    // Ensure all footer content is visible by default
+    const els = root.current?.querySelectorAll('.footer-col, .footer-brand, .back-top, .footer-bottom');
+    if (els) {
+      els.forEach(el => {
+        el.style.opacity = '1';
+        el.style.visibility = 'visible';
+      });
+    }
+
     const mm = gsap.matchMedia();
     mm.add('(prefers-reduced-motion: no-preference)', () => {
       const ctx = gsap.context(() => {
-        gsap.from('.footer-col, .footer-brand', { autoAlpha: 0, y: 28, duration: 0.8, stagger: 0.08, ease: 'power3.out', scrollTrigger: { trigger: root.current, start: 'top 92%', once: true } });
-        gsap.from('.fg-char > span', { yPercent: 115, duration: 1.1, stagger: 0.05, ease: 'power4.out', scrollTrigger: { trigger: '.footer-giant', start: 'top 98%', once: true } });
+        gsap.from('.footer-col, .footer-brand', {
+          y: 20,
+          opacity: 0.4,
+          duration: 0.7,
+          stagger: 0.06,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: root.current, start: 'top 95%', once: true },
+        });
+        gsap.from('.fg-char > span', {
+          yPercent: 115,
+          duration: 1.1,
+          stagger: 0.05,
+          ease: 'power4.out',
+          scrollTrigger: { trigger: '.footer-giant', start: 'top 98%', once: true },
+        });
       }, root);
       return () => ctx.revert();
     });
     return () => mm.revert();
   }, []);
 
-  return <footer className="footer" ref={root}>
-    <div className="footer-main">
-      <div className="footer-brand"><Brand light /><p>Independent thinking.<br />Digital things with feeling.</p></div>
-
-      <nav className="footer-col" aria-label="Footer">
-        <span className="footer-label">Navigate</span>
-        <div className="footer-links">
-          <Link to="/">Home <ArrowUpRight size={13} /></Link>
-          <Link to="/work">Work <ArrowUpRight size={13} /></Link>
-          <Link to="/about">Studio <ArrowUpRight size={13} /></Link>
-          <Link to="/services">Services <ArrowUpRight size={13} /></Link>
-          <Link to="/contact">Contact <ArrowUpRight size={13} /></Link>
+  return (
+    <footer className="footer" ref={root}>
+      <div className="footer-main">
+        <div className="footer-brand">
+          <Brand light />
+          <p>
+            Independent thinking.<br />
+            Digital things with feeling.
+          </p>
         </div>
-      </nav>
 
-      <div className="footer-col footer-contact">
-        <span className="footer-label">Say hello</span>
-        <div className="footer-links">
-          <a href={`mailto:${brand.email}`}>{brand.email} <ArrowUpRight size={13} /></a>
-          <span className="footer-plain">{brand.location}</span>
+        <nav className="footer-col" aria-label="Footer Navigation">
+          <span className="footer-label">Navigate</span>
+          <div className="footer-links">
+            <Link to="/">Home <ArrowUpRight size={13} /></Link>
+            <Link to="/work">Work <ArrowUpRight size={13} /></Link>
+            <Link to="/about">Studio <ArrowUpRight size={13} /></Link>
+            <Link to="/services">Services <ArrowUpRight size={13} /></Link>
+            <Link to="/contact">Contact <ArrowUpRight size={13} /></Link>
+          </div>
+        </nav>
+
+        <div className="footer-col footer-contact">
+          <span className="footer-label">Say hello</span>
+          <div className="footer-links">
+            <a href={`mailto:${brand.email}`}>{brand.email} <ArrowUpRight size={13} /></a>
+            <span className="footer-plain">{brand.location}</span>
+          </div>
+        </div>
+
+        <div className="footer-col footer-follow">
+          <span className="footer-label">Follow</span>
+          <div className="footer-links">
+            {socials.map(s => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">
+                {SOCIAL_NAMES[s.label] || s.label} <ArrowUpRight size={13} />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <a
+          href="#top"
+          className="back-top"
+          onClick={event => {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        >
+          BACK TO TOP ↑
+        </a>
+      </div>
+
+      <div className="footer-giant" aria-hidden="true">
+        <div className="footer-giant-word" ref={word}>
+          {WORD.map((char, i) => (
+            <span className={`fg-char ${char === '/' ? 'fg-slash' : ''}`} key={i}>
+              <span>{char}</span>
+            </span>
+          ))}
         </div>
       </div>
 
-      <div className="footer-col footer-follow">
-        <span className="footer-label">Follow</span>
-        <div className="footer-links">
-          {socials.map(s => <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">{SOCIAL_NAMES[s.label] || s.label} <ArrowUpRight size={13} /></a>)}
+      <div className="footer-bottom">
+        <span>© {brand.year} {brand.name} STUDIO — CONCEPT BRAND</span>
+        <span>BUILT TO BE DIFFERENT. MADE TO WORK.</span>
+        <div>
+          <Link to="/privacy-policy">PRIVACY</Link>
+          <Link to="/terms">TERMS</Link>
         </div>
       </div>
-
-      <a href="#top" className="back-top" onClick={event => { event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>BACK TO TOP ↑</a>
-    </div>
-
-    <div className="footer-giant" aria-hidden="true">
-      <div className="footer-giant-word" ref={word}>
-        {WORD.map((char, i) => <span className={`fg-char ${char === '/' ? 'fg-slash' : ''}`} key={i}><span>{char}</span></span>)}
-      </div>
-    </div>
-
-    <div className="footer-bottom"><span>© {brand.year} {brand.name} STUDIO — CONCEPT BRAND</span><span>BUILT TO BE DIFFERENT. MADE TO WORK.</span><div><Link to="/privacy-policy">PRIVACY</Link><Link to="/terms">TERMS</Link></div></div>
-  </footer>;
+    </footer>
+  );
 }
