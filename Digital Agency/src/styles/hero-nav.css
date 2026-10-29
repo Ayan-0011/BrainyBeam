@@ -217,7 +217,7 @@ body.has-hero main {
   inset: -18% 0 0; /* extra height above so the scroll parallax never exposes the black base */
   z-index: -2;
   background:
-    url('/images/hero.jpg') center / cover no-repeat,
+    url('/images/bg.avif') center / cover no-repeat,
     radial-gradient(55% 45% at 72% 28%, rgba(255, 255, 255, 0.55), transparent 62%),
     radial-gradient(50% 60% at 28% 62%, #66e6ee, transparent 70%),
     linear-gradient(135deg, #0b9db8, #15c3d6 45%, #0a5f93);
