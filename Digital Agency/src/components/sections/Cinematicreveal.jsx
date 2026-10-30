@@ -2,11 +2,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 import { gsap } from '../../animations/gsapConfig.js';
 import '../../styles/cinematic-reveal.css';
 
-// Layout lives in CSS custom properties so the same markup serves desktop, tablet and mobile.
-//   --l / --t / --w   : left %, top % (of the stage) and width (vw units) on tablet + desktop
-//   --ml / --mt / --mw: the same three values for phones (<= 720px)
-//   speed             : how far the card drifts over the whole scroll (fraction of the viewport height)
-// DOM order is also stacking order, so later cards overlap earlier ones.
+
 const CARDS = [
   { src: '/images/p1.avif', alt: 'Velocity Phantom concept car, seen from above', l: 5,  t: 12, w: 16,   ml: 4,  mt: 3,  mw: 30, speed: 0.1 },
   { src: '/images/p4.avif', alt: 'Design Matters poster with black brush strokes', l: 78, t: 9,  w: 15,   ml: 64, mt: 6,  mw: 30, speed: 0.16 },

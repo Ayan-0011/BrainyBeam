@@ -208,8 +208,6 @@ body.has-hero main {
   isolation: isolate;
   background: #000;
   color: #fff;
-  /* rounded bottom edge: the paper-coloured showcase section takes over cleanly below it */
-  border-radius: 0 0 clamp(20px, 3vw, 40px) clamp(20px, 3vw, 40px);
 }
 
 .hx-bg {

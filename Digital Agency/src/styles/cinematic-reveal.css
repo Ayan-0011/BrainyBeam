@@ -7,7 +7,7 @@
   z-index: 1;
   height: 460vh;
   height: 460svh;
-  background: var(--paper); /* the breathing space around the video, same paper tone as the rest of the page */
+  background: black;/* the breathing space around the video, same paper tone as the rest of the page */
   color: var(--paper);
 }
 

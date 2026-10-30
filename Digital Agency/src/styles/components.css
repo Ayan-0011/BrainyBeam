@@ -542,6 +542,7 @@
     border-bottom: 1px solid var(--ink);
     transform: rotate(-1.2deg) scale(1.02);
     position: relative;
+    top: -15px;
     z-index: 4
 }
 
