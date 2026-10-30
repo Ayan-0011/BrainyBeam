@@ -17,48 +17,27 @@ import CinematicReveal from '../components/sections/Cinematicreveal.jsx';
 export default function Home() {
   return (
     <>
-      {/* Section 1 — Hero */}
+
       <Hero />
-
       <CinematicReveal />
-      {/* Section 2 — Cinematic Media Reveal */}
-      {/* <ShowcaseSection /> */}
 
-      {/* Editorial Separator */}
       <Marquee>INDEPENDENT BY DESIGN</Marquee>
-
-      {/* Section 3 — Featured Work / Project Showcase */}
       <WorkSection compact />
 
-      {/* Section 4 — Achievements / Metrics */}
       <AchievementsSection />
-
-      {/* Section 5 — What We Do / Services */}
       <WhatWeDo />
 
-      {/* Section 6 — Why Choose Us / Benefits */}
-      {/* <BenefitsSection /> */}
-
-      {/* Section 7 — Process / How We Work */}
       <HorizontalScroll />
-
-      {/* Section 8 — Tools & Technology */}
       <ToolsSection />
 
-      {/* Section 9 — Pricing / Engagement Options */}
       <EngagementSection />
-
-      {/* Section 10 — FAQ */}
       <FaqSection />
 
-      {/* Section 11 — Client Stories / Case Highlights */}
       <ClientStoriesSection />
-
-      {/* Section 12 — Studio Perspectives & Insights */}
+      
       <Manifesto />
-
-      {/* Section 13 — Final CTA */}
       <CtaSection />
+
     </>
   );
 }
