@@ -2071,16 +2071,26 @@ main {
 /* ---------- 3. CTA ---------- */
 .cta {
   --cta-r: clamp(24px, 4vw, 56px);
+
   position: sticky;
   top: 0;
-  z-index: 2;
-  margin-bottom: calc(var(--cta-r) * -1);
-  padding: clamp(28px, 3vw, 40px) var(--hx-pad) calc(clamp(44px, 6vw, 90px) + var(--cta-r));
-  min-height: min(100svh, 920px);
+  z-index: 1;
+
+  margin-bottom: 0;
+
+  padding: clamp(28px, 3vw, 40px)
+    var(--hx-pad)
+    clamp(44px, 6vw, 90px);
+
+  min-height: 100svh;
+  box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
+
   background: var(--hx-accent);
   color: var(--ink);
+
   border-radius: 0 0 var(--cta-r) var(--cta-r);
   overflow: hidden;
 }
@@ -2209,8 +2219,9 @@ main:has(.cta) + .footer { padding-top: calc(var(--cta-r, clamp(24px, 4vw, 56px)
 
 .footer {
   position: relative;
-  z-index: 1;
-  overflow: hidden;
+  z-index: 2;
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .footer .footer-main {

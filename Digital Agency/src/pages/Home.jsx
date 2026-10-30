@@ -12,6 +12,7 @@ import FaqSection from '../components/sections/FaqSection.jsx';
 import ClientStoriesSection from '../components/sections/ClientStoriesSection.jsx';
 import Manifesto from '../components/sections/Manifesto.jsx';
 import CtaSection from '../components/sections/Ctasection.jsx';
+import CinematicReveal from '../components/sections/Cinematicreveal.jsx';
 
 export default function Home() {
   return (
@@ -19,8 +20,9 @@ export default function Home() {
       {/* Section 1 — Hero */}
       <Hero />
 
+<CinematicReveal/>
       {/* Section 2 — Cinematic Media Reveal */}
-      <ShowcaseSection />
+      {/* <ShowcaseSection /> */}
 
       {/* Editorial Separator */}
       <Marquee>INDEPENDENT BY DESIGN</Marquee>

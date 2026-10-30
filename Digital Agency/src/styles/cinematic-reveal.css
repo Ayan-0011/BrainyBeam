@@ -1,0 +1,110 @@
+/* Cinematic video + overlapping image reveal (sits between Hero and the marquee).
+   The section is tall; the stage inside it is sticky, so the video stays put while the scroll drives the cards.
+   No ScrollTrigger pin is used, so there is no pin-spacer to disturb the triggers further down the page. */
+
+.cine {
+  position: relative;
+  z-index: 1;
+  height: 460vh;
+  height: 460svh;
+  background: #0b0c0b; /* shows in the hero's rounded bottom corners, so the video appears to start right under it */
+  color: var(--paper);
+}
+
+.cine-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  min-height: 520px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cine-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #0b0c0b;
+  will-change: transform;
+  transform-origin: 50% 50%;
+}
+
+.cine-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 35%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+.cine-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* outer wrapper: position + scroll parallax (y) */
+.cine-card {
+  position: absolute;
+  left: var(--l);
+  top: var(--t);
+  width: min(calc(var(--w) * 1vw), calc(var(--w) * 1.7vh));
+  width: min(calc(var(--w) * 1vw), calc(var(--w) * 1.7svh));
+  aspect-ratio: 350 / 540;
+  margin: 0;
+  will-change: transform;
+}
+
+/* middle wrapper: clip-path reveal + entrance travel */
+.cine-clip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #151615;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.55);
+  will-change: clip-path, transform;
+}
+
+/* image: oversized so its own drift never exposes an edge */
+.cine-img {
+  position: absolute;
+  inset: -8% 0;
+  width: 100%;
+  height: 116%;
+  object-fit: cover;
+  user-select: none;
+  will-change: transform;
+}
+
+@media (max-width: 720px) {
+  .cine {
+    height: 400vh;
+    height: 400svh;
+  }
+
+  .cine-card {
+    left: var(--ml);
+    top: var(--mt);
+    width: calc(var(--mw) * 1vw);
+  }
+
+  .cine-clip {
+    border-radius: 10px;
+  }
+}
+
+/* reduced motion: no scroll-linked effects. One calm screen, video paused on its first frame, every image in place. */
+@media (prefers-reduced-motion: reduce) {
+  .cine {
+    height: auto;
+  }
+
+  .cine-stage {
+    position: relative;
+  }
+}
