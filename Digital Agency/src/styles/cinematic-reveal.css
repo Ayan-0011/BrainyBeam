@@ -7,7 +7,7 @@
   z-index: 1;
   height: 460vh;
   height: 460svh;
-  background: #0b0c0b; /* shows in the hero's rounded bottom corners, so the video appears to start right under it */
+  background: var(--paper); /* the breathing space around the video, same paper tone as the rest of the page */
   color: var(--paper);
 }
 
@@ -17,8 +17,21 @@
   height: 100vh;
   height: 100svh;
   min-height: 520px;
-  overflow: hidden;
+  padding: var(--cine-gap); /* space on all four sides of the video */
+}
+
+.cine {
+  --cine-gap: clamp(12px, 2.4vw, 34px);
+}
+
+.cine-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* also keeps the cards and parallax inside the frame, so no horizontal overflow */
   isolation: isolate;
+  border-radius: clamp(16px, 2.2vw, 30px);
+  background: #0b0c0b;
 }
 
 .cine-video {
@@ -37,13 +50,47 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: radial-gradient(120% 90% at 50% 40%, transparent 35%, rgba(0, 0, 0, 0.75) 100%);
+  background:
+    radial-gradient(120% 90% at 50% 45%, rgba(0, 0, 0, 0.18) 30%, rgba(0, 0, 0, 0.72) 100%),
+    rgba(0, 0, 0, 0.22); /* keeps the white headline readable over the bright face */
 }
 
 .cine-layer {
   position: absolute;
   inset: 0;
   z-index: 2;
+}
+
+/* headline: dead centre of the video, above the cards */
+.cine-title {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 4%;
+  text-align: center;
+  color: var(--paper);
+  font-size: clamp(28px, 4.3vw, 76px);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+.cine-line {
+  display: block;
+  overflow: hidden;
+  padding: 0.08em 0 0.14em;
+  margin: -0.08em 0 -0.14em; /* mask for the rise-in without changing the line spacing */
+}
+
+.cine-line > span {
+  display: block;
 }
 
 /* outer wrapper: position + scroll parallax (y) */
@@ -95,6 +142,10 @@
 
   .cine-clip {
     border-radius: 10px;
+  }
+
+  .cine-title {
+    font-size: clamp(28px, 9.4vw, 52px);
   }
 }
 

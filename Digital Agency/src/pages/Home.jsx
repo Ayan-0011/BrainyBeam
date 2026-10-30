@@ -20,7 +20,7 @@ export default function Home() {
       {/* Section 1 — Hero */}
       <Hero />
 
-<CinematicReveal/>
+      <CinematicReveal />
       {/* Section 2 — Cinematic Media Reveal */}
       {/* <ShowcaseSection /> */}
 
