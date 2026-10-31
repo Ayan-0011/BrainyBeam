@@ -578,7 +578,9 @@
 
 .work-section {
     padding: 12px 4.1vw 5px;
-    overflow: hidden
+    overflow: hidden;
+    background-color: #181a17;
+    color: var(--acid);
 }
 
 .work-compact {

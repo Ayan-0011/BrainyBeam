@@ -16,7 +16,7 @@ html {
 
 body {
     margin: 0;
-    background: var(--paper);
+    background: var(--ink);
     color: var(--ink);
     overflow-x: hidden
 }
