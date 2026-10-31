@@ -2,14 +2,16 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 import { gsap } from '../../animations/gsapConfig.js';
 import '../../styles/cinematic-reveal.css';
 
-
 const CARDS = [
-  { src: '/images/p1.avif', alt: 'Velocity Phantom concept car, seen from above', l: 5,  t: 12, w: 16,   ml: 4,  mt: 3,  mw: 30, speed: 0.1 },
-  { src: '/images/p4.avif', alt: 'Design Matters poster with black brush strokes', l: 78, t: 9,  w: 15,   ml: 64, mt: 6,  mw: 30, speed: 0.16 },
-  { src: '/images/p3.avif', alt: 'Boreal VR headset campaign portrait',            l: 17, t: 42, w: 13.5, ml: 34, mt: 14, mw: 28, speed: 0.22 },
-  { src: '/images/p6.avif', alt: 'Yellow phone interface on dark phone backs',     l: 84, t: 40, w: 11.5, ml: 66, mt: 66, mw: 28, speed: 0.08 },
-  { src: '/images/p2.avif', alt: 'Relaxo black product packaging on dark fabric',  l: 72, t: 56, w: 13,   ml: 3,  mt: 70, mw: 30, speed: 0.2 },
-  { src: '/images/p5.avif', alt: 'Black and red desk object on a white surface',   l: 25, t: 68, w: 10, ml: 35, mt: 76, mw: 27, speed: 0.12 },
+  // LEFT SIDE
+  { src: '/images/p1.avif', alt: 'Velocity Phantom concept car, seen from above', l: 5,  t: 10, w: 16, ml: 4,  mt: 8,  mw: 30, speed: 0.1 },
+  { src: '/images/p3.avif', alt: 'Boreal VR headset campaign portrait',           l: 20, t: 38, w: 13, ml: 17, mt: 42, mw: 28, speed: 0.22 },
+  { src: '/images/p5.avif', alt: 'Black and red desk object on a white surface',  l: 5,  t: 68, w: 14, ml: 4,  mt: 75, mw: 27, speed: 0.12 },
+
+  // RIGHT SIDE
+  { src: '/images/p4.avif', alt: 'Design Matters poster with black brush strokes', l: 79, t: 10, w: 15, ml: 66, mt: 8,  mw: 30, speed: 0.16 },
+  { src: '/images/p6.avif', alt: 'Yellow phone interface on dark phone backs',     l: 67, t: 38, w: 14, ml: 66, mt: 42, mw: 28, speed: 0.08 },
+  { src: '/images/p2.avif', alt: 'Relaxo black product packaging on dark fabric',  l: 80, t: 68, w: 14, ml: 66, mt: 75, mw: 30, speed: 0.2 },
 ];
 
 const HEADLINE = ['Design that', 'captivates today', '& inspires', 'tomorrow'];

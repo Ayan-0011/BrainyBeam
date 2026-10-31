@@ -104,27 +104,7 @@ export default function AchievementsSection() {
         ))}
       </div>
 
-      <div className="achieve-spotlight">
-        <div className="achieve-spotlight-left">
-          <span className="eyebrow achieve-spot-pill">STUDIO PRINCIPLE / 2026</span>
-          <h4 className="achieve-spot-title">Engineered for depth, designed for memory.</h4>
-          <p className="achieve-spot-copy">
-            We avoid throwaway trends and cookie-cutter frameworks. Every build is treated as a long-term investment in your brand’s reputation and commercial pipeline.
-          </p>
-        </div>
-        <div className="achieve-spotlight-right">
-          <div className="achieve-stat-badge">
-            <span className="achieve-stat-kicker">COLLABORATION</span>
-            <span className="achieve-stat-val">100%</span>
-            <span className="achieve-stat-sub">Direct Partner Access</span>
-          </div>
-          <div className="achieve-stat-badge">
-            <span className="achieve-stat-kicker">ORIGINALITY</span>
-            <span className="achieve-stat-val">00</span>
-            <span className="achieve-stat-sub">Pre-made Templates</span>
-          </div>
-        </div>
-      </div>
+    
     </section>
   );
 }
