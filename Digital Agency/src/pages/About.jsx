@@ -18,7 +18,7 @@ export default function About() {
       intro="A small, curious digital studio for people who want to make a difference, not just more noise. Strategy, design and technology in the same room."
     >
       <figure className="ab-figure">
-        <img src="/images/showcase.jpg" alt="" width="2400" height="1500" loading="eager" decoding="async" />
+        <img src="/images/img.jpg" alt="" width="2400" height="1500" loading="eager" decoding="async" style={{"objectFit":"cover"}}/>
         <svg className="ab-badge" viewBox="0 0 120 120" aria-hidden="true">
           <defs><path id="ab-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" /></defs>
           <text><textPath href="#ab-circle" textLength="284" lengthAdjust="spacing">INDEPENDENT BY DESIGN ✳ SMALL STUDIO ✳ BIG PICTURE ✳</textPath></text>
