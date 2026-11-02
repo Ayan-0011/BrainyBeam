@@ -585,6 +585,8 @@ main:has(> .pg-hero:first-child) { padding-top: 0; }
   transition: padding 0.35s var(--hx-ease), color 0.3s;
 }
 
+
+
 .sv-index a span { font: 11px var(--mono); color: var(--pg-muted); }
 .sv-index a b { font-size: clamp(20px, 2.2vw, 32px); font-weight: 600; letter-spacing: -0.04em; }
 .sv-index a i { font-style: normal; transition: transform 0.35s; }

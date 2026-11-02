@@ -7,7 +7,7 @@ import { services } from '../../data/services.js';
 import { serviceDetails } from '../../data/serviceDetails.js';
 
 // each service gets its own surface and its own visual so the page never repeats one card
-const LOOK = { '01': 'ink', '02': 'paper', '03': 'accent', '04': 'ink' };
+const LOOK = { '01': 'ink', '02': 'paper', '03': 'paper', '04': 'ink' };
 
 function Visual({ n, tools }) {
   if (n === '01') {
