@@ -105,7 +105,7 @@ main:has(> .pg-hero:first-child) { padding-top: 0; }
 
   position: relative;
   overflow: hidden;
-  padding: clamp(104px, 12vw, 170px) var(--hx-pad) clamp(70px, 8vw, 120px);
+  padding: clamp(104px, 10vw, 170px) var(--hx-pad) clamp(70px, 8vw, 120px);
   background: var(--paper);
   color: var(--ink);
 }

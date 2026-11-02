@@ -79,7 +79,7 @@ export default function Footer() {
           <div className="footer-links">
             <Link to="/">Home <ArrowUpRight size={13} /></Link>
             <Link to="/work">Work <ArrowUpRight size={13} /></Link>
-            <Link to="/about">Studio <ArrowUpRight size={13} /></Link>
+            <Link to="/about">About <ArrowUpRight size={13} /></Link>
             <Link to="/services">Services <ArrowUpRight size={13} /></Link>
             <Link to="/contact">Contact <ArrowUpRight size={13} /></Link>
           </div>
