@@ -2,13 +2,16 @@ import { Link, useParams } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { ProjectArtwork } from '../components/ui/ProjectCard.jsx';
 import ContactSection from '../components/sections/ContactSection.jsx';
+import CaseDetail from '../components/sections/CaseDetail.jsx';
 import NotFound from './NotFound.jsx';
 import { projects } from '../data/projects.js';
 
 export default function CaseStudy() {
   const { slug } = useParams();
-  const project = projects.find(p => p.slug === slug);
+  const index = projects.findIndex(p => p.slug === slug);
+  const project = projects[index];
   if (!project) return <NotFound />;
+  const next = projects[(index + 1) % projects.length];
 
   const [first, second] = project.name.split(' / ');
   const accent = second ?? (project.style === 'after' ? 'After dark' : 'Field notes');
@@ -21,6 +24,7 @@ export default function CaseStudy() {
       <div className="case-art-wrap"><ProjectArtwork project={project} /></div>
       <div className="case-bottom"><span>ART DIRECTION / DIGITAL / STRATEGY</span><span>SCROLL TO EXPLORE ↓</span></div>
     </section>
+    <div className="cs-surface">
     <section className="case-story">
       <div><span className="eyebrow">THE BRIEF</span><h2>Make it feel<br /><em>like nothing else.</em></h2></div>
       <div>
@@ -32,7 +36,9 @@ export default function CaseStudy() {
         </div>
       </div>
     </section>
+    </div>
+    <CaseDetail project={project} next={next} />
     <div className="case-next"><span className="eyebrow">MORE GOOD WORK</span><Link to="/work">BACK TO ALL PROJECTS <ArrowUpRight /></Link></div>
-    <ContactSection />
+    <div className="cs-surface"><ContactSection /></div>
   </>;
 }

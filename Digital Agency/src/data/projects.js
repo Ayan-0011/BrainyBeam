@@ -12,6 +12,10 @@ export const projects = [
     intro: 'A quieter kind of commerce for objects made to stay.',
     palette: 'Sage / Clay / Chalk',
     image: 'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1200&q=85',
+    tags: ['branding', 'web'],
+    services: ['Brand world', 'E-commerce design', 'Storefront build'],
+    challenge: "Make a store for slow, long-lasting objects feel calm in a market that shouts.",
+    approach: "A restrained sage-and-clay brand world, generous space for photography, and a storefront that lets each object take its time.",
   },
   {
     slug: 'afterhours',
@@ -25,6 +29,10 @@ export const projects = [
     intro: 'A new digital home for the people who come alive after hours.',
     palette: 'Vermilion / Ink / Apricot',
     image: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=85',
+    tags: ['experience', 'uiux'],
+    services: ['Digital experience', 'Art direction', 'Web build'],
+    challenge: "Give a city's nightlife community a digital home that feels as alive as the venues themselves.",
+    approach: "A high-contrast vermilion-and-ink identity with motion-led pages that carry the energy of the night onto the screen.",
   },
   {
     slug: 'fieldwork',
@@ -38,6 +46,10 @@ export const projects = [
     intro: 'Helping more people find their way back to the wild.',
     palette: 'Moss / Sun / Sky',
     image: 'https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=85',
+    tags: ['apps', 'web'],
+    services: ['Strategy', 'Platform design', 'Web build'],
+    challenge: "Help more people find their way back outdoors without overwhelming them with options.",
+    approach: "A clear, trail-first structure and warm moss-and-sun colour that feels like a good day outside.",
   },
   {
     slug: 'forma-studio',
@@ -51,6 +63,10 @@ export const projects = [
     intro: 'A refined digital presence for an architecture studio shaping spaces with purpose, material, and light.',
     palette: 'Terracotta / Sand / Charcoal',
     image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85',
+    tags: ['branding', 'uiux'],
+    services: ['Brand identity', 'UI/UX design', 'Website'],
+    challenge: "Translate an architecture studio's feel for material and light into a digital presence.",
+    approach: "A terracotta-and-sand system built on strong grids, quiet typography and full-bleed project imagery.",
   },
   {
     slug: 'mono-sound',
@@ -64,5 +80,19 @@ export const projects = [
     intro: 'An immersive digital experience for an independent sound label where experimental music meets visual culture.',
     palette: 'Electric Lime / Black / Silver',
     image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=85',
+    tags: ['experience', 'web'],
+    services: ['Digital experience', 'Motion design', 'Web build'],
+    challenge: "Make an independent sound label's experimental output something you can feel on screen.",
+    approach: "Electric lime against black, and a layout that treats every release like a gig poster.",
   },
+];
+
+// Filter categories for the Work page. A project belongs to a category when its `tags` include the id.
+// The tags are derived from each project's existing `type` / `category` — edit them freely.
+export const workCategories = [
+  { id: 'web', label: 'Web Development', blurb: 'Fast, bespoke websites and storefronts, engineered with modern, lightweight code.' },
+  { id: 'branding', label: 'Branding', blurb: 'Identities and brand worlds with a clear point of view.' },
+  { id: 'uiux', label: 'UI/UX Design', blurb: 'Interfaces designed and tested as live, interactive prototypes.' },
+  { id: 'experience', label: 'Digital Experiences', blurb: 'Immersive, motion-led experiences for culture and community.' },
+  { id: 'apps', label: 'Applications', blurb: 'Platforms and web apps that help people get things done.' },
 ];
