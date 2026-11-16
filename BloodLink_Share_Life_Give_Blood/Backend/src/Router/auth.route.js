@@ -14,7 +14,7 @@ Router.post('/register/donor', authcontroller.registerDonor);
 
 Router.post('/admin/login', authcontroller.adminLogin);
 
-Router.get('/admin', authorize("admin"), (req, res) => {
+Router.get('/admin',protect, authorize("admin"), (req, res) => {
     res.json({ message: "Welcome Admin" });
 });
 
