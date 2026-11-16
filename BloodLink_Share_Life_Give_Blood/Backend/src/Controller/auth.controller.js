@@ -172,4 +172,53 @@ const login = async (req, res) => {
 
 }
 
-module.exports = { registerUser, login, registerPatient, registerDonor };
+
+const adminLogin = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ message: "All fields required" });
+        }
+
+        const admin = await UserModel.findOne({ email });
+
+        if (!admin) {
+            return res.status(400).json({ message: "Invalid Credentials" });
+        }
+
+        if (admin.role !== "admin") {
+            return res.status(403).json({ message: "Access denied. Admin only" });
+        }
+
+        const match = await bcrypt.compare(password, admin.password);
+
+        if (!match) {
+            return res.status(400).json({ message: "Invalid Credentials" });
+        }
+
+        const token = jwt.sign(
+            { id: admin._id, email: admin.email, role: admin.role },
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" }
+        );
+
+        res.cookie("token", token, { httpOnly: true });
+
+        return res.status(200).json({
+            message: "Admin login successful",
+            admin: {
+                id: admin._id,
+                name: admin.name,
+                email: admin.email,
+                role: admin.role
+            },
+            token
+        });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+
+module.exports = { registerUser, login, registerPatient, registerDonor, adminLogin };
