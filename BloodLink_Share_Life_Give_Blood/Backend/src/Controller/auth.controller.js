@@ -39,6 +39,55 @@ const registerUser = async (req, res) => {
     }
 };
 
+const registerPatient = async (req, res) => {
+    try {
+
+        const { name, email, password } = req.body;
+
+        if (!name || !email || !password) {
+            res.status(400).json({
+                message: "All Filed required"
+            })
+        }
+
+        const exitingPatient = await UserModel.findOne({ email });
+
+        if (exitingPatient) {
+            res.status(400).json({
+                message: `Alreday ${name} Patient exists`
+            })
+        }
+
+        const hasedPass = await bcrypt.hash(password, 10);
+
+        const Patient = await UserModel.create({
+            name,
+            email,
+            password: hasedPass,
+            role: "patient"
+        })
+
+        return res.status(201).json({
+            message: "Patient registered successfully",
+            Patient: {
+                id: Patient._id,
+                name: Patient.name,
+                email: Patient.email,
+                role: Patient.role
+            }
+        });
+
+
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: "Server error"
+        });
+    }
+}
+
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -73,10 +122,10 @@ const login = async (req, res) => {
         })
     } catch (error) {
         res.status(500).json({
-            message:error.message
+            message: error.message
         })
     }
 
 }
 
-module.exports = { registerUser, login };
+module.exports = { registerUser, login, registerPatient };

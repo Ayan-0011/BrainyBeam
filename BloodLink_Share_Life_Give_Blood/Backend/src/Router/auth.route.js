@@ -8,6 +8,8 @@ const protect = require('../Middleware/auth.middleware')
 Router.post('/register', authcontroller.registerUser);
 Router.post('/login', authcontroller.login);
 
+Router.post('/register/patient', authcontroller.registerPatient);
+
 
 Router.get('/me', protect, (req, res)=>{
     res.status(200).json({
