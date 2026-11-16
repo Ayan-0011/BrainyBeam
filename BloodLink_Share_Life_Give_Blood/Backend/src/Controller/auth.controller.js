@@ -88,6 +88,50 @@ const registerPatient = async (req, res) => {
     }
 }
 
+const registerDonor = async (req, res) => {
+
+    try {
+        const { name, email, password } = req.body
+
+        if (!name || !email || !password) {
+            res.status(400).json({
+                message: "All Filed Required"
+            });
+        }
+
+        const exitingDonor = await UserModel.findOne({ email });
+
+        if (exitingDonor) {
+            res.status(400).json({
+                message: `Alredy ${name} Donor Exists`
+            })
+        }
+
+        const hasedPass = await bcrypt.hash(password, 10);
+
+        const Donor = await UserModel.create({
+            name,
+            email,
+            password: hasedPass,
+            role: "donor"
+        });
+
+        return res.status(200).json({
+            donor: {
+                id: Donor._id,
+                name: Donor.name,
+                email: Donor.email,
+                role: Donor.role
+            }
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -128,4 +172,4 @@ const login = async (req, res) => {
 
 }
 
-module.exports = { registerUser, login, registerPatient };
+module.exports = { registerUser, login, registerPatient, registerDonor };

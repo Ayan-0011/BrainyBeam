@@ -9,6 +9,7 @@ Router.post('/register', authcontroller.registerUser);
 Router.post('/login', authcontroller.login);
 
 Router.post('/register/patient', authcontroller.registerPatient);
+Router.post('/register/donor', authcontroller.registerDonor);
 
 
 Router.get('/me', protect, (req, res)=>{
