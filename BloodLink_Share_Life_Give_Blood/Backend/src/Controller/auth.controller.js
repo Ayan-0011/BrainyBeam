@@ -1,184 +1,101 @@
 const UserModel = require("../Model/User.model");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
-const registerUser = async (req, res) => {
+const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 24 * 60 * 60 * 1000 // 1 din
+    // 60 * 1000 // 1 min
+};
+
+const makeToken = (user) =>
+    jwt.sign(
+        { id: user._id, email: user.email, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+    );
+
+const publicUser = (user) => ({
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role
+});
+
+const registerWithRole = (role) => async (req, res) => {
     try {
         const { name, email, password } = req.body;
+
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "All fields required" });
+        }
+
         const existingUser = await UserModel.findOne({ email });
 
         if (existingUser) {
-            return res.status(400).json({
-                message: "User already exists"
-            });
+            return res.status(400).json({ message: "User already exists" });
         }
 
         const hashedPass = await bcrypt.hash(password, 10);
 
-        const user = await UserModel.create({
-            name,
-            email,
-            password: hashedPass
-        });
+        const user = await UserModel.create({ name, email, password: hashedPass, role });
 
-        res.status(201).json({
-            message: "User created successfully",
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email
-            }
+        return res.status(201).json({
+            message: "Registered successfully",
+            user: publicUser(user)
         });
-
     } catch (error) {
         console.error(error);
-
-        res.status(500).json({
-            message: "Server error"
-        });
+        return res.status(500).json({ message: "Server error" });
     }
 };
 
-const registerPatient = async (req, res) => {
-    try {
-
-        const { name, email, password } = req.body;
-
-        if (!name || !email || !password) {
-            res.status(400).json({
-                message: "All Filed required"
-            })
-        }
-
-        const exitingPatient = await UserModel.findOne({ email });
-
-        if (exitingPatient) {
-            res.status(400).json({
-                message: `Alreday ${name} Patient exists`
-            })
-        }
-
-        const hasedPass = await bcrypt.hash(password, 10);
-
-        const Patient = await UserModel.create({
-            name,
-            email,
-            password: hasedPass,
-            role: "patient"
-        })
-
-        return res.status(201).json({
-            message: "Patient registered successfully",
-            Patient: {
-                id: Patient._id,
-                name: Patient.name,
-                email: Patient.email,
-                role: Patient.role
-            }
-        });
-
-
-
-    } catch (error) {
-        console.error(error);
-
-        res.status(500).json({
-            message: "Server error"
-        });
-    }
-}
-
-const registerDonor = async (req, res) => {
-
-    try {
-        const { name, email, password } = req.body
-
-        if (!name || !email || !password) {
-            res.status(400).json({
-                message: "All Filed Required"
-            });
-        }
-
-        const exitingDonor = await UserModel.findOne({ email });
-
-        if (exitingDonor) {
-            res.status(400).json({
-                message: `Alredy ${name} Donor Exists`
-            })
-        }
-
-        const hasedPass = await bcrypt.hash(password, 10);
-
-        const Donor = await UserModel.create({
-            name,
-            email,
-            password: hasedPass,
-            role: "donor"
-        });
-
-        return res.status(200).json({
-            donor: {
-                id: Donor._id,
-                name: Donor.name,
-                email: Donor.email,
-                role: Donor.role
-            }
-        })
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            message: error.message
-        });
-    }
-}
+const registerUser = registerWithRole("patient");
+const registerPatient = registerWithRole("patient");
+const registerDonor = registerWithRole("donor");
 
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const userdata = await UserModel.findOne({ email });
-
-        if (!userdata) {
-            res.status(400).json({
-                message: "Invalid Credentials"
-            })
+        if (!email || !password) {
+            return res.status(400).json({ message: "Email and password required" });
         }
 
-        const match = await bcrypt.compare(password, userdata.password);
+        const user = await UserModel.findOne({ email });
+
+        if (!user) {
+            return res.status(400).json({ message: "Invalid Credentials" });
+        }
+
+        const match = await bcrypt.compare(password, user.password);
 
         if (!match) {
-            res.status(400).json({
-                message: "Invalid Credentials"
-            })
+            return res.status(400).json({ message: "Invalid Credentials" });
         }
 
-        const token = jwt.sign({
-            id: userdata._id,
-            email: userdata.email
-        }, process.env.JWT_SECRET)
+        const token = makeToken(user);
+        res.cookie("token", token, cookieOptions);
 
-        res.cookie("token", token);
-
-        res.status(200).json({
-            message: "Login successfull",
-            userdata,
+        return res.status(200).json({
+            message: "Login successful",
+            user: publicUser(user),
             token
-        })
+        });
     } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
+        console.error(error);
+        return res.status(500).json({ message: "Server error" });
     }
-
-}
-
+};
 
 const adminLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(400).json({ message: "All fields required" });
+            return res.status(400).json({ message: "Email and password required" });
         }
 
         const admin = await UserModel.findOne({ email });
@@ -187,38 +104,33 @@ const adminLogin = async (req, res) => {
             return res.status(400).json({ message: "Invalid Credentials" });
         }
 
-        if (admin.role !== "admin") {
-            return res.status(403).json({ message: "Access denied. Admin only" });
-        }
-
         const match = await bcrypt.compare(password, admin.password);
 
         if (!match) {
             return res.status(400).json({ message: "Invalid Credentials" });
         }
 
-        const token = jwt.sign(
-            { id: admin._id, email: admin.email, role: admin.role },
-            process.env.JWT_SECRET,
-            { expiresIn: "1d" }
-        );
+        if (admin.role !== "admin") {
+            return res.status(403).json({ message: "Access denied. Admin only" });
+        }
 
-        res.cookie("token", token, { httpOnly: true });
+        const token = makeToken(admin);
+        res.cookie("token", token, cookieOptions);
 
         return res.status(200).json({
             message: "Admin login successful",
-            admin: {
-                id: admin._id,
-                name: admin.name,
-                email: admin.email,
-                role: admin.role
-            },
+            admin: publicUser(admin),
             token
         });
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        console.error(error);
+        return res.status(500).json({ message: "Server error" });
     }
 };
 
+const logout = (req, res) => {
+    res.clearCookie("token", { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production" });
+    return res.status(200).json({ message: "Logged out successfully" });
+};
 
-module.exports = { registerUser, login, registerPatient, registerDonor, adminLogin };
+module.exports = { registerUser, registerPatient, registerDonor, login, adminLogin, logout };
