@@ -2,6 +2,7 @@ const BloodRequestModel = require("../Model/BloodRequest.model");
 
 const createBloodRequest = async (req, res) => {
     try {
+        
         const { patientName, bloodGroup, units, urgency, hospital, contact } = req.body;
         const normalizedPatientName = typeof patientName === "string" ? patientName.trim() : "";
         const normalizedHospital = typeof hospital === "string" ? hospital.trim() : "";
@@ -44,9 +45,12 @@ const createBloodRequest = async (req, res) => {
             message: "Blood request submitted successfully",
             request: bloodRequest
         });
+
     } catch (error) {
         console.error("Failed to create blood request:", error);
-        return res.status(500).json({ message: "Unable to submit blood request" });
+        return res.status(500).json({
+            message: "Unable to submit blood request"
+        });
     }
 };
 
