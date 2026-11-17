@@ -23,15 +23,26 @@ const createStock = async (req, res) => {
             return res.status(400).json({ message: `${bloodGroup} stock already exists. Use update instead` });
         }
 
-        const stock = await BloodStockModel.create({ bloodGroup, units, updatedBy: req.user._id });
+        const stock = await BloodStockModel.create({
+            bloodGroup,
+            units,
+            updatedBy: req.user._id
+        });
 
-        return res.status(201).json({ message: "Blood stock added", stock });
+        return res.status(201).json({
+            message: "Blood stock added",
+            stock
+        });
     } catch (error) {
         if (error.code === 11000) {
-            return res.status(400).json({ message: "This blood group stock already exists" });
+            return res.status(400).json({
+                message: "This blood group stock already exists"
+            });
         }
         console.error(error);
-        return res.status(500).json({ message: "Server error" });
+        return res.status(500).json({
+            message: "Server error"
+        });
     }
 };
 
@@ -39,10 +50,14 @@ const createStock = async (req, res) => {
 const getAllStock = async (req, res) => {
     try {
         const stock = await BloodStockModel.find().sort({ bloodGroup: 1 });
-        return res.status(200).json({ count: stock.length, stock });
+        return res.status(200).json({
+            count: stock.length, stock
+        });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Server error" });
+        return res.status(500).json({
+            message: "Server error"
+        });
     }
 };
 

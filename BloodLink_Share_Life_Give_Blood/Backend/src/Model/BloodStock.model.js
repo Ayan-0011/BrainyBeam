@@ -6,7 +6,7 @@ const BloodStockSchema = new mongoose.Schema(
             type: String,
             enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
             required: true,
-            unique: true // ek blood group ka ek hi record
+            unique: true 
         },
         units: {
             type: Number,
