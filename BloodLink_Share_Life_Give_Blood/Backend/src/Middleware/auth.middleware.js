@@ -8,7 +8,7 @@ const protect = async (req, res, next) => {
         const token = req.cookies.token;
 
         if (!token) {
-            res.status(401).json({
+            return res.status(401).json({
                 message: "Please Login First"
             })
         }
@@ -18,7 +18,7 @@ const protect = async (req, res, next) => {
         const user = await UserModel.findById(decode.id).select("-password");
 
         if (!user) {
-            res.status(400).json({
+            return res.status(401).json({
                 message: "User not found"
             })
         }
@@ -28,8 +28,8 @@ const protect = async (req, res, next) => {
         next();
 
     } catch (error) {
-        res.status(500).json({
-            message: error.message
+        return res.status(401).json({
+            message: "Invalid or expired token"
         })
     }
 }

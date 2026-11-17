@@ -1,5 +1,6 @@
 const express = require("express");
 const authRuter = require('./Router/auth.route');
+const patientRequestRouter = require('./Router/patientRequest.route');
 const cookieParse = require('cookie-parser');
 
 
@@ -16,5 +17,6 @@ app.get("/", (req, res) => {
 
 
 app.use("/api/auth", authRuter)
+app.use("/api/patient/requests", patientRequestRouter);
 
 module.exports = app;
