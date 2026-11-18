@@ -1,7 +1,8 @@
 const express = require("express");
 const authRuter = require('./Router/auth.route');
 const patientRequestRouter = require('./Router/patientRequest.route');
-const bloodStockRouter = require('./Router/bloodStock.route');   // upar baaki require ke saath
+const bloodStockRouter = require('./Router/bloodStock.route'); 
+const donationschedule = require('./Router/DonationSchedule.route');
 const cookieParse = require('cookie-parser');
 
 
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRuter)
 app.use("/api/patient/requests", patientRequestRouter);
-app.use("/api/admin/blood-stock", bloodStockRouter);            
+app.use("/api/admin/blood-stock", bloodStockRouter); 
+app.use('/api/donor/schedules', donationschedule );           
 
 module.exports = app;
