@@ -1,0 +1,4 @@
+black - #121521
+gray - #38476b
+maroon - #b6192e
+peach - #ffc1ac
